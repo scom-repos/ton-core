@@ -9,7 +9,7 @@
         "node": ">=18.0.0"
     },
     "scripts": {
-        "cp:lib": "mkdir -p dist && cp lib/tonCore.js dist/index.js",
+        "cp:lib": "mkdir -p dist && cp lib/index.js dist/index.js",
         "build": "rm -rf dist && npm run cp:lib",
         "test": "cd test && npm run build && npm run serve"
     },
