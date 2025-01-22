@@ -9,14 +9,11 @@
         "node": ">=18.0.0"
     },
     "scripts": {
-        "cp:lib": "mkdir -p dist && cp lib/index.js dist/index.js",
+        "cp:lib": "mkdir -p dist && cp lib/bundle.js dist/index.js",
         "build": "rm -rf dist && npm run cp:lib",
         "test": "cd test && npm run build && npm run serve"
     },
     "keywords": [],
-    "dependencies": {
-        "@ijstech/components": "^0.1.115"
-    },
     "devDependencies": {
         "@ijstech/compiler": "^0.1.18"
     }
