@@ -1,5 +1,5 @@
 import { Module, customModule, Container } from '@ijstech/components';
-import { Address, toNano } from '@scom/ton-core';
+import { TonClient, Address } from '@scom/ton-core';
 
 @customModule
 export default class Module1 extends Module {
@@ -10,6 +10,7 @@ export default class Module1 extends Module {
 
     async init() {
         super.init();
+        console.log('Address', TonClient)
         console.log('Address', Address)
     }
 
