@@ -9,7 +9,7 @@
         "node": ">=18.0.0"
     },
     "scripts": {
-        "cp:lib": "mkdir -p dist && cp lib/bundle.js dist/index.js",
+        "cp:lib": "mkdir -p dist && cp lib/bundle.js dist/index.js && cp scconfig.json dist/scconfig.json",
         "cp:types": "rm -rf libs && mkdir -p libs/@ijstech && mkdir -p libs/axios && cp -r node_modules/@ijstech/ton-core/types libs/@ijstech/ton-core && cp -f node_modules/axios/index.d.ts libs/axios/index.d.ts",
         "build": "rm -rf dist && npm run cp:lib",
         "test": "cd test && npm run build && npm run serve"
