@@ -1,0 +1,6 @@
+{
+  "name": "@scom/ton-core",
+  "type": "widget",
+  "dependencies": [
+  ]
+}
