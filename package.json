@@ -1,10 +1,10 @@
 {
     "name": "@scom/ton-core",
     "version": "0.1.1",
-    "main": "dist/index.js",
-    "plugin": "dist",
-    "types": "types/index.d.ts",
+    "main": "lib/index.js",
+    "plugin": "dist/index.js",
     "pluginTypes": "types/index.d.ts",
+    "types": "types/index.d.ts",
     "engines": {
         "node": ">=18.0.0"
     },
@@ -15,6 +15,9 @@
         "test": "cd test && npm run build && npm run serve"
     },
     "keywords": [],
+    "dependencies": {
+        "@ijstech/ton-core": "https://github.com/ijstech/ton-core.git"
+    },
     "devDependencies": {
         "@ijstech/compiler": "^0.1.18"
     }
