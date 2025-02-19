@@ -3,7 +3,7 @@
     "version": "0.1.1",
     "main": "lib/index.js",
     "plugin": "dist/index.js",
-    "pluginTypes": "types/index.d.ts",
+    "pluginTypes": "pluginTypes/index.d.ts",
     "types": "types/index.d.ts",
     "engines": {
         "node": ">=18.0.0"
