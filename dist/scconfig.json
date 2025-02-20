@@ -1,5 +1,6 @@
 {
   "name": "@scom/ton-core",
+  "version": "0.1.2",
   "type": "widget",
   "dependencies": [
     "@ijstech/ton-core"
