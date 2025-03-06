@@ -1,3 +1,4 @@
+declare module "symbol.inspect"{}
 declare module "utils/crc16" {
     /**
      * Copyright (c) Whales Corp.
