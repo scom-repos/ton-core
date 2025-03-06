@@ -1,7 +1,9 @@
 {
-  "name": "@scom/ton-core",
-  "version": "0.1.3",
-  "type": "widget",
-  "dependencies": [
-  ]
+    "name": "@scom/ton-core",
+    "version": "0.1.4",
+    "type": "widget",
+    "dependencies": [
+        "@scom/scom-buffer",
+        "@scom/ton-crypto"
+    ]
 }

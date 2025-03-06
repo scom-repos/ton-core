@@ -1,44 +1,7591 @@
 
 define("@scom/ton-core", ["require", "exports"], function (require, exports) {
   Object.defineProperty(exports, "__esModule", { value: true }); 
-  var Vd=Object.create;var wa=Object.defineProperty;var Kd=Object.getOwnPropertyDescriptor;var Hd=Object.getOwnPropertyNames;var Zd=Object.getPrototypeOf,$d=Object.prototype.hasOwnProperty;var bl=r=>wa(r,"__esModule",{value:!0});var Gd=(r,e)=>()=>(r&&(e=r(r=0)),e);var $e=(r,e)=>()=>(e||r((e={exports:{}}).exports,e),e.exports),Is=(r,e)=>{bl(r);for(var t in e)wa(r,t,{get:e[t],enumerable:!0})},Yd=(r,e,t)=>{if(e&&typeof e=="object"||typeof e=="function")for(let n of Hd(e))!$d.call(r,n)&&n!=="default"&&wa(r,n,{get:()=>e[n],enumerable:!(t=Kd(e,n))||t.enumerable});return r},De=r=>Yd(bl(wa(r!=null?Vd(Zd(r)):{},"default",r&&r.__esModule&&"default"in r?{get:()=>r.default,enumerable:!0}:{value:r,enumerable:!0})),r);var xl=$e(va=>{v();"use strict";va.byteLength=Qd;va.toByteArray=ef;va.fromByteArray=nf;var tr=[],Dt=[],Jd=typeof Uint8Array!="undefined"?Uint8Array:Array,Ps="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";for(Jr=0,wl=Ps.length;Jr<wl;++Jr)tr[Jr]=Ps[Jr],Dt[Ps.charCodeAt(Jr)]=Jr;var Jr,wl;Dt["-".charCodeAt(0)]=62;Dt["_".charCodeAt(0)]=63;function vl(r){var e=r.length;if(e%4>0)throw new Error("Invalid string. Length must be a multiple of 4");var t=r.indexOf("=");t===-1&&(t=e);var n=t===e?0:4-t%4;return[t,n]}function Qd(r){var e=vl(r),t=e[0],n=e[1];return(t+n)*3/4-n}function Xd(r,e,t){return(e+t)*3/4-t}function ef(r){var e,t=vl(r),n=t[0],i=t[1],a=new Jd(Xd(r,n,i)),s=0,l=i>0?n-4:n,y;for(y=0;y<l;y+=4)e=Dt[r.charCodeAt(y)]<<18|Dt[r.charCodeAt(y+1)]<<12|Dt[r.charCodeAt(y+2)]<<6|Dt[r.charCodeAt(y+3)],a[s++]=e>>16&255,a[s++]=e>>8&255,a[s++]=e&255;return i===2&&(e=Dt[r.charCodeAt(y)]<<2|Dt[r.charCodeAt(y+1)]>>4,a[s++]=e&255),i===1&&(e=Dt[r.charCodeAt(y)]<<10|Dt[r.charCodeAt(y+1)]<<4|Dt[r.charCodeAt(y+2)]>>2,a[s++]=e>>8&255,a[s++]=e&255),a}function tf(r){return tr[r>>18&63]+tr[r>>12&63]+tr[r>>6&63]+tr[r&63]}function rf(r,e,t){for(var n,i=[],a=e;a<t;a+=3)n=(r[a]<<16&16711680)+(r[a+1]<<8&65280)+(r[a+2]&255),i.push(tf(n));return i.join("")}function nf(r){for(var e,t=r.length,n=t%3,i=[],a=16383,s=0,l=t-n;s<l;s+=a)i.push(rf(r,s,s+a>l?l:s+a));return n===1?(e=r[t-1],i.push(tr[e>>2]+tr[e<<4&63]+"==")):n===2&&(e=(r[t-2]<<8)+r[t-1],i.push(tr[e>>10]+tr[e>>4&63]+tr[e<<2&63]+"=")),i.join("")}});var kl=$e(Ms=>{v();Ms.read=function(r,e,t,n,i){var a,s,l=i*8-n-1,y=(1<<l)-1,m=y>>1,b=-7,_=t?i-1:0,G=t?-1:1,ae=r[e+_];for(_+=G,a=ae&(1<<-b)-1,ae>>=-b,b+=l;b>0;a=a*256+r[e+_],_+=G,b-=8);for(s=a&(1<<-b)-1,a>>=-b,b+=n;b>0;s=s*256+r[e+_],_+=G,b-=8);if(a===0)a=1-m;else{if(a===y)return s?NaN:(ae?-1:1)*(1/0);s=s+Math.pow(2,n),a=a-m}return(ae?-1:1)*s*Math.pow(2,a-n)};Ms.write=function(r,e,t,n,i,a){var s,l,y,m=a*8-i-1,b=(1<<m)-1,_=b>>1,G=i===23?Math.pow(2,-24)-Math.pow(2,-77):0,ae=n?0:a-1,Z=n?1:-1,ne=e<0||e===0&&1/e<0?1:0;for(e=Math.abs(e),isNaN(e)||e===1/0?(l=isNaN(e)?1:0,s=b):(s=Math.floor(Math.log(e)/Math.LN2),e*(y=Math.pow(2,-s))<1&&(s--,y*=2),s+_>=1?e+=G/y:e+=G*Math.pow(2,1-_),e*y>=2&&(s++,y/=2),s+_>=b?(l=0,s=b):s+_>=1?(l=(e*y-1)*Math.pow(2,i),s=s+_):(l=e*Math.pow(2,_-1)*Math.pow(2,i),s=0));i>=8;r[t+ae]=l&255,ae+=Z,l/=256,i-=8);for(s=s<<i|l,m+=i;m>0;r[t+ae]=s&255,ae+=Z,s/=256,m-=8);r[t+ae-Z]|=ne*128}});var Fl=$e(xn=>{v();"use strict";var js=xl(),bn=kl(),Al=typeof Symbol=="function"&&typeof Symbol.for=="function"?Symbol.for("nodejs.util.inspect.custom"):null;xn.Buffer=M;xn.SlowBuffer=uf;xn.INSPECT_MAX_BYTES=50;var xa=2147483647;xn.kMaxLength=xa;M.TYPED_ARRAY_SUPPORT=af();!M.TYPED_ARRAY_SUPPORT&&typeof console!="undefined"&&typeof console.error=="function"&&console.error("This browser lacks typed array (Uint8Array) support which is required by `buffer` v5.x. Use `buffer` v4.x if you require old browser support.");function af(){try{let r=new Uint8Array(1),e={foo:function(){return 42}};return Object.setPrototypeOf(e,Uint8Array.prototype),Object.setPrototypeOf(r,e),r.foo()===42}catch{return!1}}Object.defineProperty(M.prototype,"parent",{enumerable:!0,get:function(){if(!!M.isBuffer(this))return this.buffer}});Object.defineProperty(M.prototype,"offset",{enumerable:!0,get:function(){if(!!M.isBuffer(this))return this.byteOffset}});function wr(r){if(r>xa)throw new RangeError('The value "'+r+'" is invalid for option "size"');let e=new Uint8Array(r);return Object.setPrototypeOf(e,M.prototype),e}function M(r,e,t){if(typeof r=="number"){if(typeof e=="string")throw new TypeError('The "string" argument must be of type string. Received type number');return Us(r)}return Sl(r,e,t)}M.poolSize=8192;function Sl(r,e,t){if(typeof r=="string")return of(r,e);if(ArrayBuffer.isView(r))return lf(r);if(r==null)throw new TypeError("The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type "+typeof r);if(rr(r,ArrayBuffer)||r&&rr(r.buffer,ArrayBuffer)||typeof SharedArrayBuffer!="undefined"&&(rr(r,SharedArrayBuffer)||r&&rr(r.buffer,SharedArrayBuffer)))return Ns(r,e,t);if(typeof r=="number")throw new TypeError('The "value" argument must not be of type number. Received type number');let n=r.valueOf&&r.valueOf();if(n!=null&&n!==r)return M.from(n,e,t);let i=cf(r);if(i)return i;if(typeof Symbol!="undefined"&&Symbol.toPrimitive!=null&&typeof r[Symbol.toPrimitive]=="function")return M.from(r[Symbol.toPrimitive]("string"),e,t);throw new TypeError("The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type "+typeof r)}M.from=function(r,e,t){return Sl(r,e,t)};Object.setPrototypeOf(M.prototype,Uint8Array.prototype);Object.setPrototypeOf(M,Uint8Array);function _l(r){if(typeof r!="number")throw new TypeError('"size" argument must be of type number');if(r<0)throw new RangeError('The value "'+r+'" is invalid for option "size"')}function sf(r,e,t){return _l(r),r<=0?wr(r):e!==void 0?typeof t=="string"?wr(r).fill(e,t):wr(r).fill(e):wr(r)}M.alloc=function(r,e,t){return sf(r,e,t)};function Us(r){return _l(r),wr(r<0?0:Ls(r)|0)}M.allocUnsafe=function(r){return Us(r)};M.allocUnsafeSlow=function(r){return Us(r)};function of(r,e){if((typeof e!="string"||e==="")&&(e="utf8"),!M.isEncoding(e))throw new TypeError("Unknown encoding: "+e);let t=Cl(r,e)|0,n=wr(t),i=n.write(r,e);return i!==t&&(n=n.slice(0,i)),n}function Os(r){let e=r.length<0?0:Ls(r.length)|0,t=wr(e);for(let n=0;n<e;n+=1)t[n]=r[n]&255;return t}function lf(r){if(rr(r,Uint8Array)){let e=new Uint8Array(r);return Ns(e.buffer,e.byteOffset,e.byteLength)}return Os(r)}function Ns(r,e,t){if(e<0||r.byteLength<e)throw new RangeError('"offset" is outside of buffer bounds');if(r.byteLength<e+(t||0))throw new RangeError('"length" is outside of buffer bounds');let n;return e===void 0&&t===void 0?n=new Uint8Array(r):t===void 0?n=new Uint8Array(r,e):n=new Uint8Array(r,e,t),Object.setPrototypeOf(n,M.prototype),n}function cf(r){if(M.isBuffer(r)){let e=Ls(r.length)|0,t=wr(e);return t.length===0||r.copy(t,0,0,e),t}if(r.length!==void 0)return typeof r.length!="number"||Ds(r.length)?wr(0):Os(r);if(r.type==="Buffer"&&Array.isArray(r.data))return Os(r.data)}function Ls(r){if(r>=xa)throw new RangeError("Attempt to allocate Buffer larger than maximum size: 0x"+xa.toString(16)+" bytes");return r|0}function uf(r){return+r!=r&&(r=0),M.alloc(+r)}M.isBuffer=function(e){return e!=null&&e._isBuffer===!0&&e!==M.prototype};M.compare=function(e,t){if(rr(e,Uint8Array)&&(e=M.from(e,e.offset,e.byteLength)),rr(t,Uint8Array)&&(t=M.from(t,t.offset,t.byteLength)),!M.isBuffer(e)||!M.isBuffer(t))throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');if(e===t)return 0;let n=e.length,i=t.length;for(let a=0,s=Math.min(n,i);a<s;++a)if(e[a]!==t[a]){n=e[a],i=t[a];break}return n<i?-1:i<n?1:0};M.isEncoding=function(e){switch(String(e).toLowerCase()){case"hex":case"utf8":case"utf-8":case"ascii":case"latin1":case"binary":case"base64":case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":return!0;default:return!1}};M.concat=function(e,t){if(!Array.isArray(e))throw new TypeError('"list" argument must be an Array of Buffers');if(e.length===0)return M.alloc(0);let n;if(t===void 0)for(t=0,n=0;n<e.length;++n)t+=e[n].length;let i=M.allocUnsafe(t),a=0;for(n=0;n<e.length;++n){let s=e[n];if(rr(s,Uint8Array))a+s.length>i.length?(M.isBuffer(s)||(s=M.from(s)),s.copy(i,a)):Uint8Array.prototype.set.call(i,s,a);else if(M.isBuffer(s))s.copy(i,a);else throw new TypeError('"list" argument must be an Array of Buffers');a+=s.length}return i};function Cl(r,e){if(M.isBuffer(r))return r.length;if(ArrayBuffer.isView(r)||rr(r,ArrayBuffer))return r.byteLength;if(typeof r!="string")throw new TypeError('The "string" argument must be one of type string, Buffer, or ArrayBuffer. Received type '+typeof r);let t=r.length,n=arguments.length>2&&arguments[2]===!0;if(!n&&t===0)return 0;let i=!1;for(;;)switch(e){case"ascii":case"latin1":case"binary":return t;case"utf8":case"utf-8":return Ws(r).length;case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":return t*2;case"hex":return t>>>1;case"base64":return Ll(r).length;default:if(i)return n?-1:Ws(r).length;e=(""+e).toLowerCase(),i=!0}}M.byteLength=Cl;function df(r,e,t){let n=!1;if((e===void 0||e<0)&&(e=0),e>this.length||((t===void 0||t>this.length)&&(t=this.length),t<=0)||(t>>>=0,e>>>=0,t<=e))return"";for(r||(r="utf8");;)switch(r){case"hex":return xf(this,e,t);case"utf8":case"utf-8":return Tl(this,e,t);case"ascii":return wf(this,e,t);case"latin1":case"binary":return vf(this,e,t);case"base64":return yf(this,e,t);case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":return kf(this,e,t);default:if(n)throw new TypeError("Unknown encoding: "+r);r=(r+"").toLowerCase(),n=!0}}M.prototype._isBuffer=!0;function Qr(r,e,t){let n=r[e];r[e]=r[t],r[t]=n}M.prototype.swap16=function(){let e=this.length;if(e%2!=0)throw new RangeError("Buffer size must be a multiple of 16-bits");for(let t=0;t<e;t+=2)Qr(this,t,t+1);return this};M.prototype.swap32=function(){let e=this.length;if(e%4!=0)throw new RangeError("Buffer size must be a multiple of 32-bits");for(let t=0;t<e;t+=4)Qr(this,t,t+3),Qr(this,t+1,t+2);return this};M.prototype.swap64=function(){let e=this.length;if(e%8!=0)throw new RangeError("Buffer size must be a multiple of 64-bits");for(let t=0;t<e;t+=8)Qr(this,t,t+7),Qr(this,t+1,t+6),Qr(this,t+2,t+5),Qr(this,t+3,t+4);return this};M.prototype.toString=function(){let e=this.length;return e===0?"":arguments.length===0?Tl(this,0,e):df.apply(this,arguments)};M.prototype.toLocaleString=M.prototype.toString;M.prototype.equals=function(e){if(!M.isBuffer(e))throw new TypeError("Argument must be a Buffer");return this===e?!0:M.compare(this,e)===0};M.prototype.inspect=function(){let e="",t=xn.INSPECT_MAX_BYTES;return e=this.toString("hex",0,t).replace(/(.{2})/g,"$1 ").trim(),this.length>t&&(e+=" ... "),"<Buffer "+e+">"};Al&&(M.prototype[Al]=M.prototype.inspect);M.prototype.compare=function(e,t,n,i,a){if(rr(e,Uint8Array)&&(e=M.from(e,e.offset,e.byteLength)),!M.isBuffer(e))throw new TypeError('The "target" argument must be one of type Buffer or Uint8Array. Received type '+typeof e);if(t===void 0&&(t=0),n===void 0&&(n=e?e.length:0),i===void 0&&(i=0),a===void 0&&(a=this.length),t<0||n>e.length||i<0||a>this.length)throw new RangeError("out of range index");if(i>=a&&t>=n)return 0;if(i>=a)return-1;if(t>=n)return 1;if(t>>>=0,n>>>=0,i>>>=0,a>>>=0,this===e)return 0;let s=a-i,l=n-t,y=Math.min(s,l),m=this.slice(i,a),b=e.slice(t,n);for(let _=0;_<y;++_)if(m[_]!==b[_]){s=m[_],l=b[_];break}return s<l?-1:l<s?1:0};function El(r,e,t,n,i){if(r.length===0)return-1;if(typeof t=="string"?(n=t,t=0):t>2147483647?t=2147483647:t<-2147483648&&(t=-2147483648),t=+t,Ds(t)&&(t=i?0:r.length-1),t<0&&(t=r.length+t),t>=r.length){if(i)return-1;t=r.length-1}else if(t<0)if(i)t=0;else return-1;if(typeof e=="string"&&(e=M.from(e,n)),M.isBuffer(e))return e.length===0?-1:Bl(r,e,t,n,i);if(typeof e=="number")return e=e&255,typeof Uint8Array.prototype.indexOf=="function"?i?Uint8Array.prototype.indexOf.call(r,e,t):Uint8Array.prototype.lastIndexOf.call(r,e,t):Bl(r,[e],t,n,i);throw new TypeError("val must be string, number or Buffer")}function Bl(r,e,t,n,i){let a=1,s=r.length,l=e.length;if(n!==void 0&&(n=String(n).toLowerCase(),n==="ucs2"||n==="ucs-2"||n==="utf16le"||n==="utf-16le")){if(r.length<2||e.length<2)return-1;a=2,s/=2,l/=2,t/=2}function y(b,_){return a===1?b[_]:b.readUInt16BE(_*a)}let m;if(i){let b=-1;for(m=t;m<s;m++)if(y(r,m)===y(e,b===-1?0:m-b)){if(b===-1&&(b=m),m-b+1===l)return b*a}else b!==-1&&(m-=m-b),b=-1}else for(t+l>s&&(t=s-l),m=t;m>=0;m--){let b=!0;for(let _=0;_<l;_++)if(y(r,m+_)!==y(e,_)){b=!1;break}if(b)return m}return-1}M.prototype.includes=function(e,t,n){return this.indexOf(e,t,n)!==-1};M.prototype.indexOf=function(e,t,n){return El(this,e,t,n,!0)};M.prototype.lastIndexOf=function(e,t,n){return El(this,e,t,n,!1)};function ff(r,e,t,n){t=Number(t)||0;let i=r.length-t;n?(n=Number(n),n>i&&(n=i)):n=i;let a=e.length;n>a/2&&(n=a/2);let s;for(s=0;s<n;++s){let l=parseInt(e.substr(s*2,2),16);if(Ds(l))return s;r[t+s]=l}return s}function hf(r,e,t,n){return ka(Ws(e,r.length-t),r,t,n)}function pf(r,e,t,n){return ka(Cf(e),r,t,n)}function mf(r,e,t,n){return ka(Ll(e),r,t,n)}function gf(r,e,t,n){return ka(Ef(e,r.length-t),r,t,n)}M.prototype.write=function(e,t,n,i){if(t===void 0)i="utf8",n=this.length,t=0;else if(n===void 0&&typeof t=="string")i=t,n=this.length,t=0;else if(isFinite(t))t=t>>>0,isFinite(n)?(n=n>>>0,i===void 0&&(i="utf8")):(i=n,n=void 0);else throw new Error("Buffer.write(string, encoding, offset[, length]) is no longer supported");let a=this.length-t;if((n===void 0||n>a)&&(n=a),e.length>0&&(n<0||t<0)||t>this.length)throw new RangeError("Attempt to write outside buffer bounds");i||(i="utf8");let s=!1;for(;;)switch(i){case"hex":return ff(this,e,t,n);case"utf8":case"utf-8":return hf(this,e,t,n);case"ascii":case"latin1":case"binary":return pf(this,e,t,n);case"base64":return mf(this,e,t,n);case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":return gf(this,e,t,n);default:if(s)throw new TypeError("Unknown encoding: "+i);i=(""+i).toLowerCase(),s=!0}};M.prototype.toJSON=function(){return{type:"Buffer",data:Array.prototype.slice.call(this._arr||this,0)}};function yf(r,e,t){return e===0&&t===r.length?js.fromByteArray(r):js.fromByteArray(r.slice(e,t))}function Tl(r,e,t){t=Math.min(r.length,t);let n=[],i=e;for(;i<t;){let a=r[i],s=null,l=a>239?4:a>223?3:a>191?2:1;if(i+l<=t){let y,m,b,_;switch(l){case 1:a<128&&(s=a);break;case 2:y=r[i+1],(y&192)==128&&(_=(a&31)<<6|y&63,_>127&&(s=_));break;case 3:y=r[i+1],m=r[i+2],(y&192)==128&&(m&192)==128&&(_=(a&15)<<12|(y&63)<<6|m&63,_>2047&&(_<55296||_>57343)&&(s=_));break;case 4:y=r[i+1],m=r[i+2],b=r[i+3],(y&192)==128&&(m&192)==128&&(b&192)==128&&(_=(a&15)<<18|(y&63)<<12|(m&63)<<6|b&63,_>65535&&_<1114112&&(s=_))}}s===null?(s=65533,l=1):s>65535&&(s-=65536,n.push(s>>>10&1023|55296),s=56320|s&1023),n.push(s),i+=l}return bf(n)}var Rl=4096;function bf(r){let e=r.length;if(e<=Rl)return String.fromCharCode.apply(String,r);let t="",n=0;for(;n<e;)t+=String.fromCharCode.apply(String,r.slice(n,n+=Rl));return t}function wf(r,e,t){let n="";t=Math.min(r.length,t);for(let i=e;i<t;++i)n+=String.fromCharCode(r[i]&127);return n}function vf(r,e,t){let n="";t=Math.min(r.length,t);for(let i=e;i<t;++i)n+=String.fromCharCode(r[i]);return n}function xf(r,e,t){let n=r.length;(!e||e<0)&&(e=0),(!t||t<0||t>n)&&(t=n);let i="";for(let a=e;a<t;++a)i+=Bf[r[a]];return i}function kf(r,e,t){let n=r.slice(e,t),i="";for(let a=0;a<n.length-1;a+=2)i+=String.fromCharCode(n[a]+n[a+1]*256);return i}M.prototype.slice=function(e,t){let n=this.length;e=~~e,t=t===void 0?n:~~t,e<0?(e+=n,e<0&&(e=0)):e>n&&(e=n),t<0?(t+=n,t<0&&(t=0)):t>n&&(t=n),t<e&&(t=e);let i=this.subarray(e,t);return Object.setPrototypeOf(i,M.prototype),i};function gt(r,e,t){if(r%1!=0||r<0)throw new RangeError("offset is not uint");if(r+e>t)throw new RangeError("Trying to access beyond buffer length")}M.prototype.readUintLE=M.prototype.readUIntLE=function(e,t,n){e=e>>>0,t=t>>>0,n||gt(e,t,this.length);let i=this[e],a=1,s=0;for(;++s<t&&(a*=256);)i+=this[e+s]*a;return i};M.prototype.readUintBE=M.prototype.readUIntBE=function(e,t,n){e=e>>>0,t=t>>>0,n||gt(e,t,this.length);let i=this[e+--t],a=1;for(;t>0&&(a*=256);)i+=this[e+--t]*a;return i};M.prototype.readUint8=M.prototype.readUInt8=function(e,t){return e=e>>>0,t||gt(e,1,this.length),this[e]};M.prototype.readUint16LE=M.prototype.readUInt16LE=function(e,t){return e=e>>>0,t||gt(e,2,this.length),this[e]|this[e+1]<<8};M.prototype.readUint16BE=M.prototype.readUInt16BE=function(e,t){return e=e>>>0,t||gt(e,2,this.length),this[e]<<8|this[e+1]};M.prototype.readUint32LE=M.prototype.readUInt32LE=function(e,t){return e=e>>>0,t||gt(e,4,this.length),(this[e]|this[e+1]<<8|this[e+2]<<16)+this[e+3]*16777216};M.prototype.readUint32BE=M.prototype.readUInt32BE=function(e,t){return e=e>>>0,t||gt(e,4,this.length),this[e]*16777216+(this[e+1]<<16|this[e+2]<<8|this[e+3])};M.prototype.readBigUInt64LE=Ir(function(e){e=e>>>0,vn(e,"offset");let t=this[e],n=this[e+7];(t===void 0||n===void 0)&&mi(e,this.length-8);let i=t+this[++e]*2**8+this[++e]*2**16+this[++e]*2**24,a=this[++e]+this[++e]*2**8+this[++e]*2**16+n*2**24;return BigInt(i)+(BigInt(a)<<BigInt(32))});M.prototype.readBigUInt64BE=Ir(function(e){e=e>>>0,vn(e,"offset");let t=this[e],n=this[e+7];(t===void 0||n===void 0)&&mi(e,this.length-8);let i=t*2**24+this[++e]*2**16+this[++e]*2**8+this[++e],a=this[++e]*2**24+this[++e]*2**16+this[++e]*2**8+n;return(BigInt(i)<<BigInt(32))+BigInt(a)});M.prototype.readIntLE=function(e,t,n){e=e>>>0,t=t>>>0,n||gt(e,t,this.length);let i=this[e],a=1,s=0;for(;++s<t&&(a*=256);)i+=this[e+s]*a;return a*=128,i>=a&&(i-=Math.pow(2,8*t)),i};M.prototype.readIntBE=function(e,t,n){e=e>>>0,t=t>>>0,n||gt(e,t,this.length);let i=t,a=1,s=this[e+--i];for(;i>0&&(a*=256);)s+=this[e+--i]*a;return a*=128,s>=a&&(s-=Math.pow(2,8*t)),s};M.prototype.readInt8=function(e,t){return e=e>>>0,t||gt(e,1,this.length),this[e]&128?(255-this[e]+1)*-1:this[e]};M.prototype.readInt16LE=function(e,t){e=e>>>0,t||gt(e,2,this.length);let n=this[e]|this[e+1]<<8;return n&32768?n|4294901760:n};M.prototype.readInt16BE=function(e,t){e=e>>>0,t||gt(e,2,this.length);let n=this[e+1]|this[e]<<8;return n&32768?n|4294901760:n};M.prototype.readInt32LE=function(e,t){return e=e>>>0,t||gt(e,4,this.length),this[e]|this[e+1]<<8|this[e+2]<<16|this[e+3]<<24};M.prototype.readInt32BE=function(e,t){return e=e>>>0,t||gt(e,4,this.length),this[e]<<24|this[e+1]<<16|this[e+2]<<8|this[e+3]};M.prototype.readBigInt64LE=Ir(function(e){e=e>>>0,vn(e,"offset");let t=this[e],n=this[e+7];(t===void 0||n===void 0)&&mi(e,this.length-8);let i=this[e+4]+this[e+5]*2**8+this[e+6]*2**16+(n<<24);return(BigInt(i)<<BigInt(32))+BigInt(t+this[++e]*2**8+this[++e]*2**16+this[++e]*2**24)});M.prototype.readBigInt64BE=Ir(function(e){e=e>>>0,vn(e,"offset");let t=this[e],n=this[e+7];(t===void 0||n===void 0)&&mi(e,this.length-8);let i=(t<<24)+this[++e]*2**16+this[++e]*2**8+this[++e];return(BigInt(i)<<BigInt(32))+BigInt(this[++e]*2**24+this[++e]*2**16+this[++e]*2**8+n)});M.prototype.readFloatLE=function(e,t){return e=e>>>0,t||gt(e,4,this.length),bn.read(this,e,!0,23,4)};M.prototype.readFloatBE=function(e,t){return e=e>>>0,t||gt(e,4,this.length),bn.read(this,e,!1,23,4)};M.prototype.readDoubleLE=function(e,t){return e=e>>>0,t||gt(e,8,this.length),bn.read(this,e,!0,52,8)};M.prototype.readDoubleBE=function(e,t){return e=e>>>0,t||gt(e,8,this.length),bn.read(this,e,!1,52,8)};function It(r,e,t,n,i,a){if(!M.isBuffer(r))throw new TypeError('"buffer" argument must be a Buffer instance');if(e>i||e<a)throw new RangeError('"value" argument is out of bounds');if(t+n>r.length)throw new RangeError("Index out of range")}M.prototype.writeUintLE=M.prototype.writeUIntLE=function(e,t,n,i){if(e=+e,t=t>>>0,n=n>>>0,!i){let l=Math.pow(2,8*n)-1;It(this,e,t,n,l,0)}let a=1,s=0;for(this[t]=e&255;++s<n&&(a*=256);)this[t+s]=e/a&255;return t+n};M.prototype.writeUintBE=M.prototype.writeUIntBE=function(e,t,n,i){if(e=+e,t=t>>>0,n=n>>>0,!i){let l=Math.pow(2,8*n)-1;It(this,e,t,n,l,0)}let a=n-1,s=1;for(this[t+a]=e&255;--a>=0&&(s*=256);)this[t+a]=e/s&255;return t+n};M.prototype.writeUint8=M.prototype.writeUInt8=function(e,t,n){return e=+e,t=t>>>0,n||It(this,e,t,1,255,0),this[t]=e&255,t+1};M.prototype.writeUint16LE=M.prototype.writeUInt16LE=function(e,t,n){return e=+e,t=t>>>0,n||It(this,e,t,2,65535,0),this[t]=e&255,this[t+1]=e>>>8,t+2};M.prototype.writeUint16BE=M.prototype.writeUInt16BE=function(e,t,n){return e=+e,t=t>>>0,n||It(this,e,t,2,65535,0),this[t]=e>>>8,this[t+1]=e&255,t+2};M.prototype.writeUint32LE=M.prototype.writeUInt32LE=function(e,t,n){return e=+e,t=t>>>0,n||It(this,e,t,4,4294967295,0),this[t+3]=e>>>24,this[t+2]=e>>>16,this[t+1]=e>>>8,this[t]=e&255,t+4};M.prototype.writeUint32BE=M.prototype.writeUInt32BE=function(e,t,n){return e=+e,t=t>>>0,n||It(this,e,t,4,4294967295,0),this[t]=e>>>24,this[t+1]=e>>>16,this[t+2]=e>>>8,this[t+3]=e&255,t+4};function Il(r,e,t,n,i){Nl(e,n,i,r,t,7);let a=Number(e&BigInt(4294967295));r[t++]=a,a=a>>8,r[t++]=a,a=a>>8,r[t++]=a,a=a>>8,r[t++]=a;let s=Number(e>>BigInt(32)&BigInt(4294967295));return r[t++]=s,s=s>>8,r[t++]=s,s=s>>8,r[t++]=s,s=s>>8,r[t++]=s,t}function Pl(r,e,t,n,i){Nl(e,n,i,r,t,7);let a=Number(e&BigInt(4294967295));r[t+7]=a,a=a>>8,r[t+6]=a,a=a>>8,r[t+5]=a,a=a>>8,r[t+4]=a;let s=Number(e>>BigInt(32)&BigInt(4294967295));return r[t+3]=s,s=s>>8,r[t+2]=s,s=s>>8,r[t+1]=s,s=s>>8,r[t]=s,t+8}M.prototype.writeBigUInt64LE=Ir(function(e,t=0){return Il(this,e,t,BigInt(0),BigInt("0xffffffffffffffff"))});M.prototype.writeBigUInt64BE=Ir(function(e,t=0){return Pl(this,e,t,BigInt(0),BigInt("0xffffffffffffffff"))});M.prototype.writeIntLE=function(e,t,n,i){if(e=+e,t=t>>>0,!i){let y=Math.pow(2,8*n-1);It(this,e,t,n,y-1,-y)}let a=0,s=1,l=0;for(this[t]=e&255;++a<n&&(s*=256);)e<0&&l===0&&this[t+a-1]!==0&&(l=1),this[t+a]=(e/s>>0)-l&255;return t+n};M.prototype.writeIntBE=function(e,t,n,i){if(e=+e,t=t>>>0,!i){let y=Math.pow(2,8*n-1);It(this,e,t,n,y-1,-y)}let a=n-1,s=1,l=0;for(this[t+a]=e&255;--a>=0&&(s*=256);)e<0&&l===0&&this[t+a+1]!==0&&(l=1),this[t+a]=(e/s>>0)-l&255;return t+n};M.prototype.writeInt8=function(e,t,n){return e=+e,t=t>>>0,n||It(this,e,t,1,127,-128),e<0&&(e=255+e+1),this[t]=e&255,t+1};M.prototype.writeInt16LE=function(e,t,n){return e=+e,t=t>>>0,n||It(this,e,t,2,32767,-32768),this[t]=e&255,this[t+1]=e>>>8,t+2};M.prototype.writeInt16BE=function(e,t,n){return e=+e,t=t>>>0,n||It(this,e,t,2,32767,-32768),this[t]=e>>>8,this[t+1]=e&255,t+2};M.prototype.writeInt32LE=function(e,t,n){return e=+e,t=t>>>0,n||It(this,e,t,4,2147483647,-2147483648),this[t]=e&255,this[t+1]=e>>>8,this[t+2]=e>>>16,this[t+3]=e>>>24,t+4};M.prototype.writeInt32BE=function(e,t,n){return e=+e,t=t>>>0,n||It(this,e,t,4,2147483647,-2147483648),e<0&&(e=4294967295+e+1),this[t]=e>>>24,this[t+1]=e>>>16,this[t+2]=e>>>8,this[t+3]=e&255,t+4};M.prototype.writeBigInt64LE=Ir(function(e,t=0){return Il(this,e,t,-BigInt("0x8000000000000000"),BigInt("0x7fffffffffffffff"))});M.prototype.writeBigInt64BE=Ir(function(e,t=0){return Pl(this,e,t,-BigInt("0x8000000000000000"),BigInt("0x7fffffffffffffff"))});function Ml(r,e,t,n,i,a){if(t+n>r.length)throw new RangeError("Index out of range");if(t<0)throw new RangeError("Index out of range")}function jl(r,e,t,n,i){return e=+e,t=t>>>0,i||Ml(r,e,t,4,34028234663852886e22,-34028234663852886e22),bn.write(r,e,t,n,23,4),t+4}M.prototype.writeFloatLE=function(e,t,n){return jl(this,e,t,!0,n)};M.prototype.writeFloatBE=function(e,t,n){return jl(this,e,t,!1,n)};function Ul(r,e,t,n,i){return e=+e,t=t>>>0,i||Ml(r,e,t,8,17976931348623157e292,-17976931348623157e292),bn.write(r,e,t,n,52,8),t+8}M.prototype.writeDoubleLE=function(e,t,n){return Ul(this,e,t,!0,n)};M.prototype.writeDoubleBE=function(e,t,n){return Ul(this,e,t,!1,n)};M.prototype.copy=function(e,t,n,i){if(!M.isBuffer(e))throw new TypeError("argument should be a Buffer");if(n||(n=0),!i&&i!==0&&(i=this.length),t>=e.length&&(t=e.length),t||(t=0),i>0&&i<n&&(i=n),i===n||e.length===0||this.length===0)return 0;if(t<0)throw new RangeError("targetStart out of bounds");if(n<0||n>=this.length)throw new RangeError("Index out of range");if(i<0)throw new RangeError("sourceEnd out of bounds");i>this.length&&(i=this.length),e.length-t<i-n&&(i=e.length-t+n);let a=i-n;return this===e&&typeof Uint8Array.prototype.copyWithin=="function"?this.copyWithin(t,n,i):Uint8Array.prototype.set.call(e,this.subarray(n,i),t),a};M.prototype.fill=function(e,t,n,i){if(typeof e=="string"){if(typeof t=="string"?(i=t,t=0,n=this.length):typeof n=="string"&&(i=n,n=this.length),i!==void 0&&typeof i!="string")throw new TypeError("encoding must be a string");if(typeof i=="string"&&!M.isEncoding(i))throw new TypeError("Unknown encoding: "+i);if(e.length===1){let s=e.charCodeAt(0);(i==="utf8"&&s<128||i==="latin1")&&(e=s)}}else typeof e=="number"?e=e&255:typeof e=="boolean"&&(e=Number(e));if(t<0||this.length<t||this.length<n)throw new RangeError("Out of range index");if(n<=t)return this;t=t>>>0,n=n===void 0?this.length:n>>>0,e||(e=0);let a;if(typeof e=="number")for(a=t;a<n;++a)this[a]=e;else{let s=M.isBuffer(e)?e:M.from(e,i),l=s.length;if(l===0)throw new TypeError('The value "'+e+'" is invalid for argument "value"');for(a=0;a<n-t;++a)this[a+t]=s[a%l]}return this};var wn={};function Fs(r,e,t){wn[r]=class extends t{constructor(){super();Object.defineProperty(this,"message",{value:e.apply(this,arguments),writable:!0,configurable:!0}),this.name=`${this.name} [${r}]`,this.stack,delete this.name}get code(){return r}set code(i){Object.defineProperty(this,"code",{configurable:!0,enumerable:!0,value:i,writable:!0})}toString(){return`${this.name} [${r}]: ${this.message}`}}}Fs("ERR_BUFFER_OUT_OF_BOUNDS",function(r){return r?`${r} is outside of buffer bounds`:"Attempt to access memory outside buffer bounds"},RangeError);Fs("ERR_INVALID_ARG_TYPE",function(r,e){return`The "${r}" argument must be of type number. Received type ${typeof e}`},TypeError);Fs("ERR_OUT_OF_RANGE",function(r,e,t){let n=`The value of "${r}" is out of range.`,i=t;return Number.isInteger(t)&&Math.abs(t)>2**32?i=Ol(String(t)):typeof t=="bigint"&&(i=String(t),(t>BigInt(2)**BigInt(32)||t<-(BigInt(2)**BigInt(32)))&&(i=Ol(i)),i+="n"),n+=` It must be ${e}. Received ${i}`,n},RangeError);function Ol(r){let e="",t=r.length,n=r[0]==="-"?1:0;for(;t>=n+4;t-=3)e=`_${r.slice(t-3,t)}${e}`;return`${r.slice(0,t)}${e}`}function Af(r,e,t){vn(e,"offset"),(r[e]===void 0||r[e+t]===void 0)&&mi(e,r.length-(t+1))}function Nl(r,e,t,n,i,a){if(r>t||r<e){let s=typeof e=="bigint"?"n":"",l;throw a>3?e===0||e===BigInt(0)?l=`>= 0${s} and < 2${s} ** ${(a+1)*8}${s}`:l=`>= -(2${s} ** ${(a+1)*8-1}${s}) and < 2 ** ${(a+1)*8-1}${s}`:l=`>= ${e}${s} and <= ${t}${s}`,new wn.ERR_OUT_OF_RANGE("value",l,r)}Af(n,i,a)}function vn(r,e){if(typeof r!="number")throw new wn.ERR_INVALID_ARG_TYPE(e,"number",r)}function mi(r,e,t){throw Math.floor(r)!==r?(vn(r,t),new wn.ERR_OUT_OF_RANGE(t||"offset","an integer",r)):e<0?new wn.ERR_BUFFER_OUT_OF_BOUNDS:new wn.ERR_OUT_OF_RANGE(t||"offset",`>= ${t?1:0} and <= ${e}`,r)}var Sf=/[^+/0-9A-Za-z-_]/g;function _f(r){if(r=r.split("=")[0],r=r.trim().replace(Sf,""),r.length<2)return"";for(;r.length%4!=0;)r=r+"=";return r}function Ws(r,e){e=e||1/0;let t,n=r.length,i=null,a=[];for(let s=0;s<n;++s){if(t=r.charCodeAt(s),t>55295&&t<57344){if(!i){if(t>56319){(e-=3)>-1&&a.push(239,191,189);continue}else if(s+1===n){(e-=3)>-1&&a.push(239,191,189);continue}i=t;continue}if(t<56320){(e-=3)>-1&&a.push(239,191,189),i=t;continue}t=(i-55296<<10|t-56320)+65536}else i&&(e-=3)>-1&&a.push(239,191,189);if(i=null,t<128){if((e-=1)<0)break;a.push(t)}else if(t<2048){if((e-=2)<0)break;a.push(t>>6|192,t&63|128)}else if(t<65536){if((e-=3)<0)break;a.push(t>>12|224,t>>6&63|128,t&63|128)}else if(t<1114112){if((e-=4)<0)break;a.push(t>>18|240,t>>12&63|128,t>>6&63|128,t&63|128)}else throw new Error("Invalid code point")}return a}function Cf(r){let e=[];for(let t=0;t<r.length;++t)e.push(r.charCodeAt(t)&255);return e}function Ef(r,e){let t,n,i,a=[];for(let s=0;s<r.length&&!((e-=2)<0);++s)t=r.charCodeAt(s),n=t>>8,i=t%256,a.push(i),a.push(n);return a}function Ll(r){return js.toByteArray(_f(r))}function ka(r,e,t,n){let i;for(i=0;i<n&&!(i+t>=e.length||i>=r.length);++i)e[i+t]=r[i];return i}function rr(r,e){return r instanceof e||r!=null&&r.constructor!=null&&r.constructor.name!=null&&r.constructor.name===e.name}function Ds(r){return r!==r}var Bf=function(){let r="0123456789abcdef",e=new Array(256);for(let t=0;t<16;++t){let n=t*16;for(let i=0;i<16;++i)e[n+i]=r[t]+r[i]}return e}();function Ir(r){return typeof BigInt=="undefined"?Tf:r}function Tf(){throw new Error("BigInt not supported")}});var Wl,v=Gd(()=>{Wl=De(Fl());globalThis.Buffer=Wl.Buffer});var Aa=$e((zs,qs)=>{v();(function(r,e){typeof zs=="object"&&typeof qs!="undefined"?qs.exports=e():typeof define=="function"&&define.amd?define(e):(r=typeof globalThis!="undefined"?globalThis:r||self).jsSHA=e()})(zs,function(){"use strict";var r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";function e(S,g,k,A){var E,w,U,L=g||[0],W=(k=k||0)>>>3,H=A===-1?3:0;for(E=0;E<S.length;E+=1)w=(U=E+W)>>>2,L.length<=w&&L.push(0),L[w]|=S[E]<<8*(H+A*(U%4));return{value:L,binLen:8*S.length+k}}function t(S,g,k){switch(g){case"UTF8":case"UTF16BE":case"UTF16LE":break;default:throw new Error("encoding must be UTF8, UTF16BE, or UTF16LE")}switch(S){case"HEX":return function(A,E,w){return function(U,L,W,H){var ce,K,$,Se;if(U.length%2!=0)throw new Error("String of HEX type must be in byte increments");var q=L||[0],Oe=(W=W||0)>>>3,Ne=H===-1?3:0;for(ce=0;ce<U.length;ce+=2){if(K=parseInt(U.substr(ce,2),16),isNaN(K))throw new Error("String of HEX type contains invalid characters");for($=(Se=(ce>>>1)+Oe)>>>2;q.length<=$;)q.push(0);q[$]|=K<<8*(Ne+H*(Se%4))}return{value:q,binLen:4*U.length+W}}(A,E,w,k)};case"TEXT":return function(A,E,w){return function(U,L,W,H,ce){var K,$,Se,q,Oe,Ne,He,Qe,Kt=0,rt=W||[0],ft=(H=H||0)>>>3;if(L==="UTF8")for(He=ce===-1?3:0,Se=0;Se<U.length;Se+=1)for($=[],128>(K=U.charCodeAt(Se))?$.push(K):2048>K?($.push(192|K>>>6),$.push(128|63&K)):55296>K||57344<=K?$.push(224|K>>>12,128|K>>>6&63,128|63&K):(Se+=1,K=65536+((1023&K)<<10|1023&U.charCodeAt(Se)),$.push(240|K>>>18,128|K>>>12&63,128|K>>>6&63,128|63&K)),q=0;q<$.length;q+=1){for(Oe=(Ne=Kt+ft)>>>2;rt.length<=Oe;)rt.push(0);rt[Oe]|=$[q]<<8*(He+ce*(Ne%4)),Kt+=1}else for(He=ce===-1?2:0,Qe=L==="UTF16LE"&&ce!==1||L!=="UTF16LE"&&ce===1,Se=0;Se<U.length;Se+=1){for(K=U.charCodeAt(Se),Qe===!0&&(K=(q=255&K)<<8|K>>>8),Oe=(Ne=Kt+ft)>>>2;rt.length<=Oe;)rt.push(0);rt[Oe]|=K<<8*(He+ce*(Ne%4)),Kt+=2}return{value:rt,binLen:8*Kt+H}}(A,g,E,w,k)};case"B64":return function(A,E,w){return function(U,L,W,H){var ce,K,$,Se,q,Oe,Ne=0,He=L||[0],Qe=(W=W||0)>>>3,Kt=H===-1?3:0,rt=U.indexOf("=");if(U.search(/^[a-zA-Z0-9=+/]+$/)===-1)throw new Error("Invalid character in base-64 string");if(U=U.replace(/=/g,""),rt!==-1&&rt<U.length)throw new Error("Invalid '=' found in base-64 string");for(ce=0;ce<U.length;ce+=4){for(Se=U.substr(ce,4),$=0,K=0;K<Se.length;K+=1)$|=r.indexOf(Se.charAt(K))<<18-6*K;for(K=0;K<Se.length-1;K+=1){for(q=(Oe=Ne+Qe)>>>2;He.length<=q;)He.push(0);He[q]|=($>>>16-8*K&255)<<8*(Kt+H*(Oe%4)),Ne+=1}}return{value:He,binLen:8*Ne+W}}(A,E,w,k)};case"BYTES":return function(A,E,w){return function(U,L,W,H){var ce,K,$,Se,q=L||[0],Oe=(W=W||0)>>>3,Ne=H===-1?3:0;for(K=0;K<U.length;K+=1)ce=U.charCodeAt(K),$=(Se=K+Oe)>>>2,q.length<=$&&q.push(0),q[$]|=ce<<8*(Ne+H*(Se%4));return{value:q,binLen:8*U.length+W}}(A,E,w,k)};case"ARRAYBUFFER":try{new ArrayBuffer(0)}catch{throw new Error("ARRAYBUFFER not supported by this environment")}return function(A,E,w){return function(U,L,W,H){return e(new Uint8Array(U),L,W,H)}(A,E,w,k)};case"UINT8ARRAY":try{new Uint8Array(0)}catch{throw new Error("UINT8ARRAY not supported by this environment")}return function(A,E,w){return e(A,E,w,k)};default:throw new Error("format must be HEX, TEXT, B64, BYTES, ARRAYBUFFER, or UINT8ARRAY")}}function n(S,g,k,A){switch(S){case"HEX":return function(E){return function(w,U,L,W){var H,ce,K="",$=U/8,Se=L===-1?3:0;for(H=0;H<$;H+=1)ce=w[H>>>2]>>>8*(Se+L*(H%4)),K+="0123456789abcdef".charAt(ce>>>4&15)+"0123456789abcdef".charAt(15&ce);return W.outputUpper?K.toUpperCase():K}(E,g,k,A)};case"B64":return function(E){return function(w,U,L,W){var H,ce,K,$,Se,q="",Oe=U/8,Ne=L===-1?3:0;for(H=0;H<Oe;H+=3)for($=H+1<Oe?w[H+1>>>2]:0,Se=H+2<Oe?w[H+2>>>2]:0,K=(w[H>>>2]>>>8*(Ne+L*(H%4))&255)<<16|($>>>8*(Ne+L*((H+1)%4))&255)<<8|Se>>>8*(Ne+L*((H+2)%4))&255,ce=0;ce<4;ce+=1)q+=8*H+6*ce<=U?r.charAt(K>>>6*(3-ce)&63):W.b64Pad;return q}(E,g,k,A)};case"BYTES":return function(E){return function(w,U,L){var W,H,ce="",K=U/8,$=L===-1?3:0;for(W=0;W<K;W+=1)H=w[W>>>2]>>>8*($+L*(W%4))&255,ce+=String.fromCharCode(H);return ce}(E,g,k)};case"ARRAYBUFFER":try{new ArrayBuffer(0)}catch{throw new Error("ARRAYBUFFER not supported by this environment")}return function(E){return function(w,U,L){var W,H=U/8,ce=new ArrayBuffer(H),K=new Uint8Array(ce),$=L===-1?3:0;for(W=0;W<H;W+=1)K[W]=w[W>>>2]>>>8*($+L*(W%4))&255;return ce}(E,g,k)};case"UINT8ARRAY":try{new Uint8Array(0)}catch{throw new Error("UINT8ARRAY not supported by this environment")}return function(E){return function(w,U,L){var W,H=U/8,ce=L===-1?3:0,K=new Uint8Array(H);for(W=0;W<H;W+=1)K[W]=w[W>>>2]>>>8*(ce+L*(W%4))&255;return K}(E,g,k)};default:throw new Error("format must be HEX, B64, BYTES, ARRAYBUFFER, or UINT8ARRAY")}}var i=[1116352408,1899447441,3049323471,3921009573,961987163,1508970993,2453635748,2870763221,3624381080,310598401,607225278,1426881987,1925078388,2162078206,2614888103,3248222580,3835390401,4022224774,264347078,604807628,770255983,1249150122,1555081692,1996064986,2554220882,2821834349,2952996808,3210313671,3336571891,3584528711,113926993,338241895,666307205,773529912,1294757372,1396182291,1695183700,1986661051,2177026350,2456956037,2730485921,2820302411,3259730800,3345764771,3516065817,3600352804,4094571909,275423344,430227734,506948616,659060556,883997877,958139571,1322822218,1537002063,1747873779,1955562222,2024104815,2227730452,2361852424,2428436474,2756734187,3204031479,3329325298],a=[3238371032,914150663,812702999,4144912697,4290775857,1750603025,1694076839,3204075428],s=[1779033703,3144134277,1013904242,2773480762,1359893119,2600822924,528734635,1541459225],l="Chosen SHA variant is not supported";function y(S,g){var k,A,E=S.binLen>>>3,w=g.binLen>>>3,U=E<<3,L=4-E<<3;if(E%4!=0){for(k=0;k<w;k+=4)A=E+k>>>2,S.value[A]|=g.value[k>>>2]<<U,S.value.push(0),S.value[A+1]|=g.value[k>>>2]>>>L;return(S.value.length<<2)-4>=w+E&&S.value.pop(),{value:S.value,binLen:S.binLen+g.binLen}}return{value:S.value.concat(g.value),binLen:S.binLen+g.binLen}}function m(S){var g={outputUpper:!1,b64Pad:"=",outputLen:-1},k=S||{},A="Output length must be a multiple of 8";if(g.outputUpper=k.outputUpper||!1,k.b64Pad&&(g.b64Pad=k.b64Pad),k.outputLen){if(k.outputLen%8!=0)throw new Error(A);g.outputLen=k.outputLen}else if(k.shakeLen){if(k.shakeLen%8!=0)throw new Error(A);g.outputLen=k.shakeLen}if(typeof g.outputUpper!="boolean")throw new Error("Invalid outputUpper formatting option");if(typeof g.b64Pad!="string")throw new Error("Invalid b64Pad formatting option");return g}function b(S,g,k,A){var E=S+" must include a value and format";if(!g){if(!A)throw new Error(E);return A}if(g.value===void 0||!g.format)throw new Error(E);return t(g.format,g.encoding||"UTF8",k)(g.value)}var _=function(){function S(g,k,A){var E=A||{};if(this.t=k,this.i=E.encoding||"UTF8",this.numRounds=E.numRounds||1,isNaN(this.numRounds)||this.numRounds!==parseInt(this.numRounds,10)||1>this.numRounds)throw new Error("numRounds must a integer >= 1");this.o=g,this.u=[],this.s=0,this.h=!1,this.v=0,this.A=!1,this.l=[],this.H=[]}return S.prototype.update=function(g){var k,A=0,E=this.S>>>5,w=this.p(g,this.u,this.s),U=w.binLen,L=w.value,W=U>>>5;for(k=0;k<W;k+=E)A+this.S<=U&&(this.m=this.R(L.slice(k,k+E),this.m),A+=this.S);this.v+=A,this.u=L.slice(A>>>5),this.s=U%this.S,this.h=!0},S.prototype.getHash=function(g,k){var A,E,w=this.U,U=m(k);if(this.T){if(U.outputLen===-1)throw new Error("Output length must be specified in options");w=U.outputLen}var L=n(g,w,this.C,U);if(this.A&&this.F)return L(this.F(U));for(E=this.K(this.u.slice(),this.s,this.v,this.B(this.m),w),A=1;A<this.numRounds;A+=1)this.T&&w%32!=0&&(E[E.length-1]&=16777215>>>24-w%32),E=this.K(E,w,0,this.L(this.o),w);return L(E)},S.prototype.setHMACKey=function(g,k,A){if(!this.g)throw new Error("Variant does not support HMAC");if(this.h)throw new Error("Cannot set MAC key after calling update");var E=t(k,(A||{}).encoding||"UTF8",this.C);this.k(E(g))},S.prototype.k=function(g){var k,A=this.S>>>3,E=A/4-1;if(this.numRounds!==1)throw new Error("Cannot set numRounds with MAC");if(this.A)throw new Error("MAC key already set");for(A<g.binLen/8&&(g.value=this.K(g.value,g.binLen,0,this.L(this.o),this.U));g.value.length<=E;)g.value.push(0);for(k=0;k<=E;k+=1)this.l[k]=909522486^g.value[k],this.H[k]=1549556828^g.value[k];this.m=this.R(this.l,this.m),this.v=this.S,this.A=!0},S.prototype.getHMAC=function(g,k){var A=m(k);return n(g,this.U,this.C,A)(this.Y())},S.prototype.Y=function(){var g;if(!this.A)throw new Error("Cannot call getHMAC without first setting MAC key");var k=this.K(this.u.slice(),this.s,this.v,this.B(this.m),this.U);return g=this.R(this.H,this.L(this.o)),g=this.K(k,this.U,this.S,g,this.U)},S}(),G=function(S,g){return(G=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(k,A){k.__proto__=A}||function(k,A){for(var E in A)Object.prototype.hasOwnProperty.call(A,E)&&(k[E]=A[E])})(S,g)};function ae(S,g){function k(){this.constructor=S}G(S,g),S.prototype=g===null?Object.create(g):(k.prototype=g.prototype,new k)}function Z(S,g){return S<<g|S>>>32-g}function ne(S,g){return S>>>g|S<<32-g}function se(S,g){return S>>>g}function Ze(S,g,k){return S^g^k}function Je(S,g,k){return S&g^~S&k}function Ge(S,g,k){return S&g^S&k^g&k}function dt(S){return ne(S,2)^ne(S,13)^ne(S,22)}function Ie(S,g){var k=(65535&S)+(65535&g);return(65535&(S>>>16)+(g>>>16)+(k>>>16))<<16|65535&k}function Et(S,g,k,A){var E=(65535&S)+(65535&g)+(65535&k)+(65535&A);return(65535&(S>>>16)+(g>>>16)+(k>>>16)+(A>>>16)+(E>>>16))<<16|65535&E}function kt(S,g,k,A,E){var w=(65535&S)+(65535&g)+(65535&k)+(65535&A)+(65535&E);return(65535&(S>>>16)+(g>>>16)+(k>>>16)+(A>>>16)+(E>>>16)+(w>>>16))<<16|65535&w}function gr(S){return ne(S,7)^ne(S,18)^se(S,3)}function Br(S){return ne(S,6)^ne(S,11)^ne(S,25)}function un(S){return[1732584193,4023233417,2562383102,271733878,3285377520]}function dn(S,g){var k,A,E,w,U,L,W,H=[];for(k=g[0],A=g[1],E=g[2],w=g[3],U=g[4],W=0;W<80;W+=1)H[W]=W<16?S[W]:Z(H[W-3]^H[W-8]^H[W-14]^H[W-16],1),L=W<20?kt(Z(k,5),Je(A,E,w),U,1518500249,H[W]):W<40?kt(Z(k,5),Ze(A,E,w),U,1859775393,H[W]):W<60?kt(Z(k,5),Ge(A,E,w),U,2400959708,H[W]):kt(Z(k,5),Ze(A,E,w),U,3395469782,H[W]),U=w,w=E,E=Z(A,30),A=k,k=L;return g[0]=Ie(k,g[0]),g[1]=Ie(A,g[1]),g[2]=Ie(E,g[2]),g[3]=Ie(w,g[3]),g[4]=Ie(U,g[4]),g}function ma(S,g,k,A){for(var E,w=15+(g+65>>>9<<4),U=g+k;S.length<=w;)S.push(0);for(S[g>>>5]|=128<<24-g%32,S[w]=4294967295&U,S[w-1]=U/4294967296|0,E=0;E<S.length;E+=16)A=dn(S.slice(E,E+16),A);return A}var ci=function(S){function g(k,A,E){var w=this;if(k!=="SHA-1")throw new Error(l);var U=E||{};return(w=S.call(this,k,A,E)||this).g=!0,w.F=w.Y,w.C=-1,w.p=t(w.t,w.i,w.C),w.R=dn,w.B=function(L){return L.slice()},w.L=un,w.K=ma,w.m=[1732584193,4023233417,2562383102,271733878,3285377520],w.S=512,w.U=160,w.T=!1,U.hmacKey&&w.k(b("hmacKey",U.hmacKey,w.C)),w}return ae(g,S),g}(_);function fn(S){return S=="SHA-224"?a.slice():s.slice()}function Ft(S,g){var k,A,E,w,U,L,W,H,ce,K,$,Se,q=[];for(k=g[0],A=g[1],E=g[2],w=g[3],U=g[4],L=g[5],W=g[6],H=g[7],$=0;$<64;$+=1)q[$]=$<16?S[$]:Et(ne(Se=q[$-2],17)^ne(Se,19)^se(Se,10),q[$-7],gr(q[$-15]),q[$-16]),ce=kt(H,Br(U),Je(U,L,W),i[$],q[$]),K=Ie(dt(k),Ge(k,A,E)),H=W,W=L,L=U,U=Ie(w,ce),w=E,E=A,A=k,k=Ie(ce,K);return g[0]=Ie(k,g[0]),g[1]=Ie(A,g[1]),g[2]=Ie(E,g[2]),g[3]=Ie(w,g[3]),g[4]=Ie(U,g[4]),g[5]=Ie(L,g[5]),g[6]=Ie(W,g[6]),g[7]=Ie(H,g[7]),g}var ui=function(S){function g(k,A,E){var w=this;if(k!=="SHA-224"&&k!=="SHA-256")throw new Error(l);var U=E||{};return(w=S.call(this,k,A,E)||this).F=w.Y,w.g=!0,w.C=-1,w.p=t(w.t,w.i,w.C),w.R=Ft,w.B=function(L){return L.slice()},w.L=fn,w.K=function(L,W,H,ce){return function(K,$,Se,q,Oe){for(var Ne,He=15+($+65>>>9<<4),Qe=$+Se;K.length<=He;)K.push(0);for(K[$>>>5]|=128<<24-$%32,K[He]=4294967295&Qe,K[He-1]=Qe/4294967296|0,Ne=0;Ne<K.length;Ne+=16)q=Ft(K.slice(Ne,Ne+16),q);return Oe==="SHA-224"?[q[0],q[1],q[2],q[3],q[4],q[5],q[6]]:q}(L,W,H,ce,k)},w.m=fn(k),w.S=512,w.U=k==="SHA-224"?224:256,w.T=!1,U.hmacKey&&w.k(b("hmacKey",U.hmacKey,w.C)),w}return ae(g,S),g}(_),R=function(S,g){this.N=S,this.I=g};function yr(S,g){var k;return g>32?(k=64-g,new R(S.I<<g|S.N>>>k,S.N<<g|S.I>>>k)):g!==0?(k=32-g,new R(S.N<<g|S.I>>>k,S.I<<g|S.N>>>k)):S}function jt(S,g){var k;return g<32?(k=32-g,new R(S.N>>>g|S.I<<k,S.I>>>g|S.N<<k)):(k=64-g,new R(S.I>>>g|S.N<<k,S.N>>>g|S.I<<k))}function di(S,g){return new R(S.N>>>g,S.I>>>g|S.N<<32-g)}function fi(S,g,k){return new R(S.N&g.N^~S.N&k.N,S.I&g.I^~S.I&k.I)}function Ut(S,g,k){return new R(S.N&g.N^S.N&k.N^g.N&k.N,S.I&g.I^S.I&k.I^g.I&k.I)}function Ot(S){var g=jt(S,28),k=jt(S,34),A=jt(S,39);return new R(g.N^k.N^A.N,g.I^k.I^A.I)}function be(S,g){var k,A;k=(65535&S.I)+(65535&g.I);var E=(65535&(A=(S.I>>>16)+(g.I>>>16)+(k>>>16)))<<16|65535&k;return k=(65535&S.N)+(65535&g.N)+(A>>>16),A=(S.N>>>16)+(g.N>>>16)+(k>>>16),new R((65535&A)<<16|65535&k,E)}function Rt(S,g,k,A){var E,w;E=(65535&S.I)+(65535&g.I)+(65535&k.I)+(65535&A.I);var U=(65535&(w=(S.I>>>16)+(g.I>>>16)+(k.I>>>16)+(A.I>>>16)+(E>>>16)))<<16|65535&E;return E=(65535&S.N)+(65535&g.N)+(65535&k.N)+(65535&A.N)+(w>>>16),w=(S.N>>>16)+(g.N>>>16)+(k.N>>>16)+(A.N>>>16)+(E>>>16),new R((65535&w)<<16|65535&E,U)}function ga(S,g,k,A,E){var w,U;w=(65535&S.I)+(65535&g.I)+(65535&k.I)+(65535&A.I)+(65535&E.I);var L=(65535&(U=(S.I>>>16)+(g.I>>>16)+(k.I>>>16)+(A.I>>>16)+(E.I>>>16)+(w>>>16)))<<16|65535&w;return w=(65535&S.N)+(65535&g.N)+(65535&k.N)+(65535&A.N)+(65535&E.N)+(U>>>16),U=(S.N>>>16)+(g.N>>>16)+(k.N>>>16)+(A.N>>>16)+(E.N>>>16)+(w>>>16),new R((65535&U)<<16|65535&w,L)}function Tr(S,g){return new R(S.N^g.N,S.I^g.I)}function hn(S){var g=jt(S,1),k=jt(S,8),A=di(S,7);return new R(g.N^k.N^A.N,g.I^k.I^A.I)}function pn(S){var g=jt(S,14),k=jt(S,18),A=jt(S,41);return new R(g.N^k.N^A.N,g.I^k.I^A.I)}var ya=[new R(i[0],3609767458),new R(i[1],602891725),new R(i[2],3964484399),new R(i[3],2173295548),new R(i[4],4081628472),new R(i[5],3053834265),new R(i[6],2937671579),new R(i[7],3664609560),new R(i[8],2734883394),new R(i[9],1164996542),new R(i[10],1323610764),new R(i[11],3590304994),new R(i[12],4068182383),new R(i[13],991336113),new R(i[14],633803317),new R(i[15],3479774868),new R(i[16],2666613458),new R(i[17],944711139),new R(i[18],2341262773),new R(i[19],2007800933),new R(i[20],1495990901),new R(i[21],1856431235),new R(i[22],3175218132),new R(i[23],2198950837),new R(i[24],3999719339),new R(i[25],766784016),new R(i[26],2566594879),new R(i[27],3203337956),new R(i[28],1034457026),new R(i[29],2466948901),new R(i[30],3758326383),new R(i[31],168717936),new R(i[32],1188179964),new R(i[33],1546045734),new R(i[34],1522805485),new R(i[35],2643833823),new R(i[36],2343527390),new R(i[37],1014477480),new R(i[38],1206759142),new R(i[39],344077627),new R(i[40],1290863460),new R(i[41],3158454273),new R(i[42],3505952657),new R(i[43],106217008),new R(i[44],3606008344),new R(i[45],1432725776),new R(i[46],1467031594),new R(i[47],851169720),new R(i[48],3100823752),new R(i[49],1363258195),new R(i[50],3750685593),new R(i[51],3785050280),new R(i[52],3318307427),new R(i[53],3812723403),new R(i[54],2003034995),new R(i[55],3602036899),new R(i[56],1575990012),new R(i[57],1125592928),new R(i[58],2716904306),new R(i[59],442776044),new R(i[60],593698344),new R(i[61],3733110249),new R(i[62],2999351573),new R(i[63],3815920427),new R(3391569614,3928383900),new R(3515267271,566280711),new R(3940187606,3454069534),new R(4118630271,4000239992),new R(116418474,1914138554),new R(174292421,2731055270),new R(289380356,3203993006),new R(460393269,320620315),new R(685471733,587496836),new R(852142971,1086792851),new R(1017036298,365543100),new R(1126000580,2618297676),new R(1288033470,3409855158),new R(1501505948,4234509866),new R(1607167915,987167468),new R(1816402316,1246189591)];function $r(S){return S==="SHA-384"?[new R(3418070365,a[0]),new R(1654270250,a[1]),new R(2438529370,a[2]),new R(355462360,a[3]),new R(1731405415,a[4]),new R(41048885895,a[5]),new R(3675008525,a[6]),new R(1203062813,a[7])]:[new R(s[0],4089235720),new R(s[1],2227873595),new R(s[2],4271175723),new R(s[3],1595750129),new R(s[4],2917565137),new R(s[5],725511199),new R(s[6],4215389547),new R(s[7],327033209)]}function hi(S,g){var k,A,E,w,U,L,W,H,ce,K,$,Se,q,Oe,Ne,He,Qe=[];for(k=g[0],A=g[1],E=g[2],w=g[3],U=g[4],L=g[5],W=g[6],H=g[7],$=0;$<80;$+=1)$<16?(Se=2*$,Qe[$]=new R(S[Se],S[Se+1])):Qe[$]=Rt((q=Qe[$-2],Oe=void 0,Ne=void 0,He=void 0,Oe=jt(q,19),Ne=jt(q,61),He=di(q,6),new R(Oe.N^Ne.N^He.N,Oe.I^Ne.I^He.I)),Qe[$-7],hn(Qe[$-15]),Qe[$-16]),ce=ga(H,pn(U),fi(U,L,W),ya[$],Qe[$]),K=be(Ot(k),Ut(k,A,E)),H=W,W=L,L=U,U=be(w,ce),w=E,E=A,A=k,k=be(ce,K);return g[0]=be(k,g[0]),g[1]=be(A,g[1]),g[2]=be(E,g[2]),g[3]=be(w,g[3]),g[4]=be(U,g[4]),g[5]=be(L,g[5]),g[6]=be(W,g[6]),g[7]=be(H,g[7]),g}var Es=function(S){function g(k,A,E){var w=this;if(k!=="SHA-384"&&k!=="SHA-512")throw new Error(l);var U=E||{};return(w=S.call(this,k,A,E)||this).F=w.Y,w.g=!0,w.C=-1,w.p=t(w.t,w.i,w.C),w.R=hi,w.B=function(L){return L.slice()},w.L=$r,w.K=function(L,W,H,ce){return function(K,$,Se,q,Oe){for(var Ne,He=31+($+129>>>10<<5),Qe=$+Se;K.length<=He;)K.push(0);for(K[$>>>5]|=128<<24-$%32,K[He]=4294967295&Qe,K[He-1]=Qe/4294967296|0,Ne=0;Ne<K.length;Ne+=32)q=hi(K.slice(Ne,Ne+32),q);return Oe==="SHA-384"?[(q=q)[0].N,q[0].I,q[1].N,q[1].I,q[2].N,q[2].I,q[3].N,q[3].I,q[4].N,q[4].I,q[5].N,q[5].I]:[q[0].N,q[0].I,q[1].N,q[1].I,q[2].N,q[2].I,q[3].N,q[3].I,q[4].N,q[4].I,q[5].N,q[5].I,q[6].N,q[6].I,q[7].N,q[7].I]}(L,W,H,ce,k)},w.m=$r(k),w.S=1024,w.U=k==="SHA-384"?384:512,w.T=!1,U.hmacKey&&w.k(b("hmacKey",U.hmacKey,w.C)),w}return ae(g,S),g}(_),Bs=[new R(0,1),new R(0,32898),new R(2147483648,32906),new R(2147483648,2147516416),new R(0,32907),new R(0,2147483649),new R(2147483648,2147516545),new R(2147483648,32777),new R(0,138),new R(0,136),new R(0,2147516425),new R(0,2147483658),new R(0,2147516555),new R(2147483648,139),new R(2147483648,32905),new R(2147483648,32771),new R(2147483648,32770),new R(2147483648,128),new R(0,32778),new R(2147483648,2147483658),new R(2147483648,2147516545),new R(2147483648,32896),new R(0,2147483649),new R(2147483648,2147516424)],Ts=[[0,36,3,41,18],[1,44,10,45,2],[62,6,43,15,61],[28,55,25,21,56],[27,20,39,8,14]];function mn(S){var g,k=[];for(g=0;g<5;g+=1)k[g]=[new R(0,0),new R(0,0),new R(0,0),new R(0,0),new R(0,0)];return k}function ba(S){var g,k=[];for(g=0;g<5;g+=1)k[g]=S[g].slice();return k}function Wt(S,g){var k,A,E,w,U,L,W,H,ce,K=[],$=[];if(S!==null)for(A=0;A<S.length;A+=2)g[(A>>>1)%5][(A>>>1)/5|0]=Tr(g[(A>>>1)%5][(A>>>1)/5|0],new R(S[A+1],S[A]));for(k=0;k<24;k+=1){for(w=mn(),A=0;A<5;A+=1)K[A]=(U=g[A][0],L=g[A][1],W=g[A][2],H=g[A][3],ce=g[A][4],new R(U.N^L.N^W.N^H.N^ce.N,U.I^L.I^W.I^H.I^ce.I));for(A=0;A<5;A+=1)$[A]=Tr(K[(A+4)%5],yr(K[(A+1)%5],1));for(A=0;A<5;A+=1)for(E=0;E<5;E+=1)g[A][E]=Tr(g[A][E],$[A]);for(A=0;A<5;A+=1)for(E=0;E<5;E+=1)w[E][(2*A+3*E)%5]=yr(g[A][E],Ts[A][E]);for(A=0;A<5;A+=1)for(E=0;E<5;E+=1)g[A][E]=Tr(w[A][E],new R(~w[(A+1)%5][E].N&w[(A+2)%5][E].N,~w[(A+1)%5][E].I&w[(A+2)%5][E].I));g[0][0]=Tr(g[0][0],Bs[k])}return g}function Gr(S){var g,k,A=0,E=[0,0],w=[4294967295&S,S/4294967296&2097151];for(g=6;g>=0;g--)(k=w[g>>2]>>>8*g&255)==0&&A===0||(E[A+1>>2]|=k<<8*(A+1),A+=1);return A=A!==0?A:1,E[0]|=A,{value:A+1>4?E:[E[0]],binLen:8+8*A}}function gn(S){return y(Gr(S.binLen),S)}function yn(S,g){var k,A=Gr(g),E=g>>>2,w=(E-(A=y(A,S)).value.length%E)%E;for(k=0;k<w;k++)A.value.push(0);return A.value}var pi=function(S){function g(k,A,E){var w=this,U=6,L=0,W=E||{};if((w=S.call(this,k,A,E)||this).numRounds!==1){if(W.kmacKey||W.hmacKey)throw new Error("Cannot set numRounds with MAC");if(w.o==="CSHAKE128"||w.o==="CSHAKE256")throw new Error("Cannot set numRounds for CSHAKE variants")}switch(w.C=1,w.p=t(w.t,w.i,w.C),w.R=Wt,w.B=ba,w.L=mn,w.m=mn(),w.T=!1,k){case"SHA3-224":w.S=L=1152,w.U=224,w.g=!0,w.F=w.Y;break;case"SHA3-256":w.S=L=1088,w.U=256,w.g=!0,w.F=w.Y;break;case"SHA3-384":w.S=L=832,w.U=384,w.g=!0,w.F=w.Y;break;case"SHA3-512":w.S=L=576,w.U=512,w.g=!0,w.F=w.Y;break;case"SHAKE128":U=31,w.S=L=1344,w.U=-1,w.T=!0,w.g=!1,w.F=null;break;case"SHAKE256":U=31,w.S=L=1088,w.U=-1,w.T=!0,w.g=!1,w.F=null;break;case"KMAC128":U=4,w.S=L=1344,w.M(E),w.U=-1,w.T=!0,w.g=!1,w.F=w.X;break;case"KMAC256":U=4,w.S=L=1088,w.M(E),w.U=-1,w.T=!0,w.g=!1,w.F=w.X;break;case"CSHAKE128":w.S=L=1344,U=w.O(E),w.U=-1,w.T=!0,w.g=!1,w.F=null;break;case"CSHAKE256":w.S=L=1088,U=w.O(E),w.U=-1,w.T=!0,w.g=!1,w.F=null;break;default:throw new Error(l)}return w.K=function(H,ce,K,$,Se){return function(q,Oe,Ne,He,Qe,Kt,rt){var ft,er,Rr=0,br=[],Yr=Qe>>>5,Rs=Oe>>>5;for(ft=0;ft<Rs&&Oe>=Qe;ft+=Yr)He=Wt(q.slice(ft,ft+Yr),He),Oe-=Qe;for(q=q.slice(ft),Oe%=Qe;q.length<Yr;)q.push(0);for(q[(ft=Oe>>>3)>>2]^=Kt<<ft%4*8,q[Yr-1]^=2147483648,He=Wt(q,He);32*br.length<rt&&(er=He[Rr%5][Rr/5|0],br.push(er.I),!(32*br.length>=rt));)br.push(er.N),64*(Rr+=1)%Qe==0&&(Wt(null,He),Rr=0);return br}(H,ce,0,$,L,U,Se)},W.hmacKey&&w.k(b("hmacKey",W.hmacKey,w.C)),w}return ae(g,S),g.prototype.O=function(k,A){var E=function(W){var H=W||{};return{funcName:b("funcName",H.funcName,1,{value:[],binLen:0}),customization:b("Customization",H.customization,1,{value:[],binLen:0})}}(k||{});A&&(E.funcName=A);var w=y(gn(E.funcName),gn(E.customization));if(E.customization.binLen!==0||E.funcName.binLen!==0){for(var U=yn(w,this.S>>>3),L=0;L<U.length;L+=this.S>>>5)this.m=this.R(U.slice(L,L+(this.S>>>5)),this.m),this.v+=this.S;return 4}return 31},g.prototype.M=function(k){var A=function(U){var L=U||{};return{kmacKey:b("kmacKey",L.kmacKey,1),funcName:{value:[1128353099],binLen:32},customization:b("Customization",L.customization,1,{value:[],binLen:0})}}(k||{});this.O(k,A.funcName);for(var E=yn(gn(A.kmacKey),this.S>>>3),w=0;w<E.length;w+=this.S>>>5)this.m=this.R(E.slice(w,w+(this.S>>>5)),this.m),this.v+=this.S;this.A=!0},g.prototype.X=function(k){var A=y({value:this.u.slice(),binLen:this.s},function(E){var w,U,L=0,W=[0,0],H=[4294967295&E,E/4294967296&2097151];for(w=6;w>=0;w--)(U=H[w>>2]>>>8*w&255)==0&&L===0||(W[L>>2]|=U<<8*L,L+=1);return W[(L=L!==0?L:1)>>2]|=L<<8*L,{value:L+1>4?W:[W[0]],binLen:8+8*L}}(k.outputLen));return this.K(A.value,A.binLen,this.v,this.B(this.m),k.outputLen)},g}(_);return function(){function S(g,k,A){if(g=="SHA-1")this.j=new ci(g,k,A);else if(g=="SHA-224"||g=="SHA-256")this.j=new ui(g,k,A);else if(g=="SHA-384"||g=="SHA-512")this.j=new Es(g,k,A);else{if(g!="SHA3-224"&&g!="SHA3-256"&&g!="SHA3-384"&&g!="SHA3-512"&&g!="SHAKE128"&&g!="SHAKE256"&&g!="CSHAKE128"&&g!="CSHAKE256"&&g!="KMAC128"&&g!="KMAC256")throw new Error(l);this.j=new pi(g,k,A)}}return S.prototype.update=function(g){this.j.update(g)},S.prototype.getHash=function(g,k){return this.j.getHash(g,k)},S.prototype.setHMACKey=function(g,k,A){this.j.setHMACKey(g,k,A)},S.prototype.getHMAC=function(g,k){return this.j.getHMAC(g,k)},S}()})});var Dl=$e(kn=>{v();"use strict";Object.defineProperty(kn,"__esModule",{value:!0});kn.getSecureRandomWords=kn.getSecureRandomBytes=void 0;function Rf(r){return Buffer.from(window.crypto.getRandomValues(new Uint8Array(r)))}kn.getSecureRandomBytes=Rf;function If(r){return window.crypto.getRandomValues(new Uint16Array(r))}kn.getSecureRandomWords=If});var zl=$e(Sa=>{v();"use strict";Object.defineProperty(Sa,"__esModule",{value:!0});Sa.hmac_sha512=void 0;async function Pf(r,e){let t=typeof r=="string"?Buffer.from(r,"utf-8"):r,n=typeof e=="string"?Buffer.from(e,"utf-8"):e,i={name:"HMAC",hash:"SHA-512"},a=await window.crypto.subtle.importKey("raw",t,i,!1,["sign"]);return Buffer.from(await crypto.subtle.sign(i,a,n))}Sa.hmac_sha512=Pf});var ql=$e(_a=>{v();"use strict";Object.defineProperty(_a,"__esModule",{value:!0});_a.pbkdf2_sha512=void 0;async function Mf(r,e,t,n){let i=typeof r=="string"?Buffer.from(r,"utf-8"):r,a=typeof e=="string"?Buffer.from(e,"utf-8"):e,s=await window.crypto.subtle.importKey("raw",i,{name:"PBKDF2"},!1,["deriveBits"]),l=await window.crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-512",salt:a,iterations:t},s,n*8);return Buffer.from(l)}_a.pbkdf2_sha512=Mf});var Vl=$e(Ca=>{v();"use strict";Object.defineProperty(Ca,"__esModule",{value:!0});Ca.sha256=void 0;async function jf(r){return typeof r=="string"?Buffer.from(await crypto.subtle.digest("SHA-256",Buffer.from(r,"utf-8"))):Buffer.from(await crypto.subtle.digest("SHA-256",r))}Ca.sha256=jf});var Kl=$e(Ea=>{v();"use strict";Object.defineProperty(Ea,"__esModule",{value:!0});Ea.sha512=void 0;async function Uf(r){return typeof r=="string"?Buffer.from(await crypto.subtle.digest("SHA-512",Buffer.from(r,"utf-8"))):Buffer.from(await crypto.subtle.digest("SHA-512",r))}Ea.sha512=Uf});var An=$e(Pt=>{v();"use strict";Object.defineProperty(Pt,"__esModule",{value:!0});Pt.sha512=Pt.sha256=Pt.pbkdf2_sha512=Pt.hmac_sha512=Pt.getSecureRandomWords=Pt.getSecureRandomBytes=void 0;var Hl=Dl();Object.defineProperty(Pt,"getSecureRandomBytes",{enumerable:!0,get:function(){return Hl.getSecureRandomBytes}});Object.defineProperty(Pt,"getSecureRandomWords",{enumerable:!0,get:function(){return Hl.getSecureRandomWords}});var Of=zl();Object.defineProperty(Pt,"hmac_sha512",{enumerable:!0,get:function(){return Of.hmac_sha512}});var Nf=ql();Object.defineProperty(Pt,"pbkdf2_sha512",{enumerable:!0,get:function(){return Nf.pbkdf2_sha512}});var Lf=Vl();Object.defineProperty(Pt,"sha256",{enumerable:!0,get:function(){return Lf.sha256}});var Ff=Kl();Object.defineProperty(Pt,"sha512",{enumerable:!0,get:function(){return Ff.sha512}})});var $l=$e(nr=>{v();"use strict";var Wf=nr&&nr.__importDefault||function(r){return r&&r.__esModule?r:{default:r}};Object.defineProperty(nr,"__esModule",{value:!0});nr.sha256=nr.sha256_fallback=nr.sha256_sync=void 0;var Df=Wf(Aa()),zf=An();function Zl(r){let e;typeof r=="string"?e=Buffer.from(r,"utf-8").toString("hex"):e=r.toString("hex");let t=new Df.default("SHA-256","HEX");t.update(e);let n=t.getHash("HEX");return Buffer.from(n,"hex")}nr.sha256_sync=Zl;async function qf(r){return Zl(r)}nr.sha256_fallback=qf;function Vf(r){return(0,zf.sha256)(r)}nr.sha256=Vf});var Yl=$e(ir=>{v();"use strict";var Kf=ir&&ir.__importDefault||function(r){return r&&r.__esModule?r:{default:r}};Object.defineProperty(ir,"__esModule",{value:!0});ir.sha512=ir.sha512_fallback=ir.sha512_sync=void 0;var Hf=Kf(Aa()),Zf=An();function Gl(r){let e;typeof r=="string"?e=Buffer.from(r,"utf-8").toString("hex"):e=r.toString("hex");let t=new Hf.default("SHA-512","HEX");t.update(e);let n=t.getHash("HEX");return Buffer.from(n,"hex")}ir.sha512_sync=Gl;async function $f(r){return Gl(r)}ir.sha512_fallback=$f;async function Gf(r){return(0,Zf.sha512)(r)}ir.sha512=Gf});var Vs=$e(Ba=>{v();"use strict";Object.defineProperty(Ba,"__esModule",{value:!0});Ba.pbkdf2_sha512=void 0;var Yf=An();function Jf(r,e,t,n){return(0,Yf.pbkdf2_sha512)(r,e,t,n)}Ba.pbkdf2_sha512=Jf});var Sn=$e(Pr=>{v();"use strict";var Qf=Pr&&Pr.__importDefault||function(r){return r&&r.__esModule?r:{default:r}};Object.defineProperty(Pr,"__esModule",{value:!0});Pr.hmac_sha512=Pr.hmac_sha512_fallback=void 0;var Xf=Qf(Aa()),eh=An();async function th(r,e){let t=typeof r=="string"?Buffer.from(r,"utf-8"):r,n=typeof e=="string"?Buffer.from(e,"utf-8"):e,i=new Xf.default("SHA-512","HEX",{hmacKey:{value:t.toString("hex"),format:"HEX"}});i.update(n.toString("hex"));let a=i.getHash("HEX");return Buffer.from(a,"hex")}Pr.hmac_sha512_fallback=th;function rh(r,e){return(0,eh.hmac_sha512)(r,e)}Pr.hmac_sha512=rh});var Ta=$e(Mr=>{v();"use strict";Object.defineProperty(Mr,"__esModule",{value:!0});Mr.getSecureRandomNumber=Mr.getSecureRandomWords=Mr.getSecureRandomBytes=void 0;var nh=An();async function Jl(r){return(0,nh.getSecureRandomBytes)(r)}Mr.getSecureRandomBytes=Jl;async function Ql(r){return Ql(r)}Mr.getSecureRandomWords=Ql;async function ih(r,e){let t=e-r;var n=Math.ceil(Math.log2(t));if(n>53)throw new Error("Range is too large");for(var i=Math.ceil(n/8),a=Math.pow(2,n)-1;;){let l=await Jl(n),y=(i-1)*8,m=0;for(var s=0;s<i;s++)m+=l[s]*Math.pow(2,y),y-=8;if(m=m&a,!(m>=t))return r+m}}Mr.getSecureRandomNumber=ih});var Xl=$e(Ra=>{v();"use strict";Object.defineProperty(Ra,"__esModule",{value:!0});Ra.wordlist=void 0;Ra.wordlist=["abacus","abdomen","abdominal","abide","abiding","ability","ablaze","able","abnormal","abrasion","abrasive","abreast","abridge","abroad","abruptly","absence","absentee","absently","absinthe","absolute","absolve","abstain","abstract","absurd","accent","acclaim","acclimate","accompany","account","accuracy","accurate","accustom","acetone","achiness","aching","acid","acorn","acquaint","acquire","acre","acrobat","acronym","acting","action","activate","activator","active","activism","activist","activity","actress","acts","acutely","acuteness","aeration","aerobics","aerosol","aerospace","afar","affair","affected","affecting","affection","affidavit","affiliate","affirm","affix","afflicted","affluent","afford","affront","aflame","afloat","aflutter","afoot","afraid","afterglow","afterlife","aftermath","aftermost","afternoon","aged","ageless","agency","agenda","agent","aggregate","aghast","agile","agility","aging","agnostic","agonize","agonizing","agony","agreeable","agreeably","agreed","agreeing","agreement","aground","ahead","ahoy","aide","aids","aim","ajar","alabaster","alarm","albatross","album","alfalfa","algebra","algorithm","alias","alibi","alienable","alienate","aliens","alike","alive","alkaline","alkalize","almanac","almighty","almost","aloe","aloft","aloha","alone","alongside","aloof","alphabet","alright","although","altitude","alto","aluminum","alumni","always","amaretto","amaze","amazingly","amber","ambiance","ambiguity","ambiguous","ambition","ambitious","ambulance","ambush","amendable","amendment","amends","amenity","amiable","amicably","amid","amigo","amino","amiss","ammonia","ammonium","amnesty","amniotic","among","amount","amperage","ample","amplifier","amplify","amply","amuck","amulet","amusable","amused","amusement","amuser","amusing","anaconda","anaerobic","anagram","anatomist","anatomy","anchor","anchovy","ancient","android","anemia","anemic","aneurism","anew","angelfish","angelic","anger","angled","angler","angles","angling","angrily","angriness","anguished","angular","animal","animate","animating","animation","animator","anime","animosity","ankle","annex","annotate","announcer","annoying","annually","annuity","anointer","another","answering","antacid","antarctic","anteater","antelope","antennae","anthem","anthill","anthology","antibody","antics","antidote","antihero","antiquely","antiques","antiquity","antirust","antitoxic","antitrust","antiviral","antivirus","antler","antonym","antsy","anvil","anybody","anyhow","anymore","anyone","anyplace","anything","anytime","anyway","anywhere","aorta","apache","apostle","appealing","appear","appease","appeasing","appendage","appendix","appetite","appetizer","applaud","applause","apple","appliance","applicant","applied","apply","appointee","appraisal","appraiser","apprehend","approach","approval","approve","apricot","april","apron","aptitude","aptly","aqua","aqueduct","arbitrary","arbitrate","ardently","area","arena","arguable","arguably","argue","arise","armadillo","armband","armchair","armed","armful","armhole","arming","armless","armoire","armored","armory","armrest","army","aroma","arose","around","arousal","arrange","array","arrest","arrival","arrive","arrogance","arrogant","arson","art","ascend","ascension","ascent","ascertain","ashamed","ashen","ashes","ashy","aside","askew","asleep","asparagus","aspect","aspirate","aspire","aspirin","astonish","astound","astride","astrology","astronaut","astronomy","astute","atlantic","atlas","atom","atonable","atop","atrium","atrocious","atrophy","attach","attain","attempt","attendant","attendee","attention","attentive","attest","attic","attire","attitude","attractor","attribute","atypical","auction","audacious","audacity","audible","audibly","audience","audio","audition","augmented","august","authentic","author","autism","autistic","autograph","automaker","automated","automatic","autopilot","available","avalanche","avatar","avenge","avenging","avenue","average","aversion","avert","aviation","aviator","avid","avoid","await","awaken","award","aware","awhile","awkward","awning","awoke","awry","axis","babble","babbling","babied","baboon","backache","backboard","backboned","backdrop","backed","backer","backfield","backfire","backhand","backing","backlands","backlash","backless","backlight","backlit","backlog","backpack","backpedal","backrest","backroom","backshift","backside","backslid","backspace","backspin","backstab","backstage","backtalk","backtrack","backup","backward","backwash","backwater","backyard","bacon","bacteria","bacterium","badass","badge","badland","badly","badness","baffle","baffling","bagel","bagful","baggage","bagged","baggie","bagginess","bagging","baggy","bagpipe","baguette","baked","bakery","bakeshop","baking","balance","balancing","balcony","balmy","balsamic","bamboo","banana","banish","banister","banjo","bankable","bankbook","banked","banker","banking","banknote","bankroll","banner","bannister","banshee","banter","barbecue","barbed","barbell","barber","barcode","barge","bargraph","barista","baritone","barley","barmaid","barman","barn","barometer","barrack","barracuda","barrel","barrette","barricade","barrier","barstool","bartender","barterer","bash","basically","basics","basil","basin","basis","basket","batboy","batch","bath","baton","bats","battalion","battered","battering","battery","batting","battle","bauble","bazooka","blabber","bladder","blade","blah","blame","blaming","blanching","blandness","blank","blaspheme","blasphemy","blast","blatancy","blatantly","blazer","blazing","bleach","bleak","bleep","blemish","blend","bless","blighted","blimp","bling","blinked","blinker","blinking","blinks","blip","blissful","blitz","blizzard","bloated","bloating","blob","blog","bloomers","blooming","blooper","blot","blouse","blubber","bluff","bluish","blunderer","blunt","blurb","blurred","blurry","blurt","blush","blustery","boaster","boastful","boasting","boat","bobbed","bobbing","bobble","bobcat","bobsled","bobtail","bodacious","body","bogged","boggle","bogus","boil","bok","bolster","bolt","bonanza","bonded","bonding","bondless","boned","bonehead","boneless","bonelike","boney","bonfire","bonnet","bonsai","bonus","bony","boogeyman","boogieman","book","boondocks","booted","booth","bootie","booting","bootlace","bootleg","boots","boozy","borax","boring","borough","borrower","borrowing","boss","botanical","botanist","botany","botch","both","bottle","bottling","bottom","bounce","bouncing","bouncy","bounding","boundless","bountiful","bovine","boxcar","boxer","boxing","boxlike","boxy","breach","breath","breeches","breeching","breeder","breeding","breeze","breezy","brethren","brewery","brewing","briar","bribe","brick","bride","bridged","brigade","bright","brilliant","brim","bring","brink","brisket","briskly","briskness","bristle","brittle","broadband","broadcast","broaden","broadly","broadness","broadside","broadways","broiler","broiling","broken","broker","bronchial","bronco","bronze","bronzing","brook","broom","brought","browbeat","brownnose","browse","browsing","bruising","brunch","brunette","brunt","brush","brussels","brute","brutishly","bubble","bubbling","bubbly","buccaneer","bucked","bucket","buckle","buckshot","buckskin","bucktooth","buckwheat","buddhism","buddhist","budding","buddy","budget","buffalo","buffed","buffer","buffing","buffoon","buggy","bulb","bulge","bulginess","bulgur","bulk","bulldog","bulldozer","bullfight","bullfrog","bullhorn","bullion","bullish","bullpen","bullring","bullseye","bullwhip","bully","bunch","bundle","bungee","bunion","bunkbed","bunkhouse","bunkmate","bunny","bunt","busboy","bush","busily","busload","bust","busybody","buzz","cabana","cabbage","cabbie","cabdriver","cable","caboose","cache","cackle","cacti","cactus","caddie","caddy","cadet","cadillac","cadmium","cage","cahoots","cake","calamari","calamity","calcium","calculate","calculus","caliber","calibrate","calm","caloric","calorie","calzone","camcorder","cameo","camera","camisole","camper","campfire","camping","campsite","campus","canal","canary","cancel","candied","candle","candy","cane","canine","canister","cannabis","canned","canning","cannon","cannot","canola","canon","canopener","canopy","canteen","canyon","capable","capably","capacity","cape","capillary","capital","capitol","capped","capricorn","capsize","capsule","caption","captivate","captive","captivity","capture","caramel","carat","caravan","carbon","cardboard","carded","cardiac","cardigan","cardinal","cardstock","carefully","caregiver","careless","caress","caretaker","cargo","caring","carless","carload","carmaker","carnage","carnation","carnival","carnivore","carol","carpenter","carpentry","carpool","carport","carried","carrot","carrousel","carry","cartel","cartload","carton","cartoon","cartridge","cartwheel","carve","carving","carwash","cascade","case","cash","casing","casino","casket","cassette","casually","casualty","catacomb","catalog","catalyst","catalyze","catapult","cataract","catatonic","catcall","catchable","catcher","catching","catchy","caterer","catering","catfight","catfish","cathedral","cathouse","catlike","catnap","catnip","catsup","cattail","cattishly","cattle","catty","catwalk","caucasian","caucus","causal","causation","cause","causing","cauterize","caution","cautious","cavalier","cavalry","caviar","cavity","cedar","celery","celestial","celibacy","celibate","celtic","cement","census","ceramics","ceremony","certainly","certainty","certified","certify","cesarean","cesspool","chafe","chaffing","chain","chair","chalice","challenge","chamber","chamomile","champion","chance","change","channel","chant","chaos","chaperone","chaplain","chapped","chaps","chapter","character","charbroil","charcoal","charger","charging","chariot","charity","charm","charred","charter","charting","chase","chasing","chaste","chastise","chastity","chatroom","chatter","chatting","chatty","cheating","cheddar","cheek","cheer","cheese","cheesy","chef","chemicals","chemist","chemo","cherisher","cherub","chess","chest","chevron","chevy","chewable","chewer","chewing","chewy","chief","chihuahua","childcare","childhood","childish","childless","childlike","chili","chill","chimp","chip","chirping","chirpy","chitchat","chivalry","chive","chloride","chlorine","choice","chokehold","choking","chomp","chooser","choosing","choosy","chop","chosen","chowder","chowtime","chrome","chubby","chuck","chug","chummy","chump","chunk","churn","chute","cider","cilantro","cinch","cinema","cinnamon","circle","circling","circular","circulate","circus","citable","citadel","citation","citizen","citric","citrus","city","civic","civil","clad","claim","clambake","clammy","clamor","clamp","clamshell","clang","clanking","clapped","clapper","clapping","clarify","clarinet","clarity","clash","clasp","class","clatter","clause","clavicle","claw","clay","clean","clear","cleat","cleaver","cleft","clench","clergyman","clerical","clerk","clever","clicker","client","climate","climatic","cling","clinic","clinking","clip","clique","cloak","clobber","clock","clone","cloning","closable","closure","clothes","clothing","cloud","clover","clubbed","clubbing","clubhouse","clump","clumsily","clumsy","clunky","clustered","clutch","clutter","coach","coagulant","coastal","coaster","coasting","coastland","coastline","coat","coauthor","cobalt","cobbler","cobweb","cocoa","coconut","cod","coeditor","coerce","coexist","coffee","cofounder","cognition","cognitive","cogwheel","coherence","coherent","cohesive","coil","coke","cola","cold","coleslaw","coliseum","collage","collapse","collar","collected","collector","collide","collie","collision","colonial","colonist","colonize","colony","colossal","colt","coma","come","comfort","comfy","comic","coming","comma","commence","commend","comment","commerce","commode","commodity","commodore","common","commotion","commute","commuting","compacted","compacter","compactly","compactor","companion","company","compare","compel","compile","comply","component","composed","composer","composite","compost","composure","compound","compress","comprised","computer","computing","comrade","concave","conceal","conceded","concept","concerned","concert","conch","concierge","concise","conclude","concrete","concur","condense","condiment","condition","condone","conducive","conductor","conduit","cone","confess","confetti","confidant","confident","confider","confiding","configure","confined","confining","confirm","conflict","conform","confound","confront","confused","confusing","confusion","congenial","congested","congrats","congress","conical","conjoined","conjure","conjuror","connected","connector","consensus","consent","console","consoling","consonant","constable","constant","constrain","constrict","construct","consult","consumer","consuming","contact","container","contempt","contend","contented","contently","contents","contest","context","contort","contour","contrite","control","contusion","convene","convent","copartner","cope","copied","copier","copilot","coping","copious","copper","copy","coral","cork","cornball","cornbread","corncob","cornea","corned","corner","cornfield","cornflake","cornhusk","cornmeal","cornstalk","corny","coronary","coroner","corporal","corporate","corral","correct","corridor","corrode","corroding","corrosive","corsage","corset","cortex","cosigner","cosmetics","cosmic","cosmos","cosponsor","cost","cottage","cotton","couch","cough","could","countable","countdown","counting","countless","country","county","courier","covenant","cover","coveted","coveting","coyness","cozily","coziness","cozy","crabbing","crabgrass","crablike","crabmeat","cradle","cradling","crafter","craftily","craftsman","craftwork","crafty","cramp","cranberry","crane","cranial","cranium","crank","crate","crave","craving","crawfish","crawlers","crawling","crayfish","crayon","crazed","crazily","craziness","crazy","creamed","creamer","creamlike","crease","creasing","creatable","create","creation","creative","creature","credible","credibly","credit","creed","creme","creole","crepe","crept","crescent","crested","cresting","crestless","crevice","crewless","crewman","crewmate","crib","cricket","cried","crier","crimp","crimson","cringe","cringing","crinkle","crinkly","crisped","crisping","crisply","crispness","crispy","criteria","critter","croak","crock","crook","croon","crop","cross","crouch","crouton","crowbar","crowd","crown","crucial","crudely","crudeness","cruelly","cruelness","cruelty","crumb","crummiest","crummy","crumpet","crumpled","cruncher","crunching","crunchy","crusader","crushable","crushed","crusher","crushing","crust","crux","crying","cryptic","crystal","cubbyhole","cube","cubical","cubicle","cucumber","cuddle","cuddly","cufflink","culinary","culminate","culpable","culprit","cultivate","cultural","culture","cupbearer","cupcake","cupid","cupped","cupping","curable","curator","curdle","cure","curfew","curing","curled","curler","curliness","curling","curly","curry","curse","cursive","cursor","curtain","curtly","curtsy","curvature","curve","curvy","cushy","cusp","cussed","custard","custodian","custody","customary","customer","customize","customs","cut","cycle","cyclic","cycling","cyclist","cylinder","cymbal","cytoplasm","cytoplast","dab","dad","daffodil","dagger","daily","daintily","dainty","dairy","daisy","dallying","dance","dancing","dandelion","dander","dandruff","dandy","danger","dangle","dangling","daredevil","dares","daringly","darkened","darkening","darkish","darkness","darkroom","darling","darn","dart","darwinism","dash","dastardly","data","datebook","dating","daughter","daunting","dawdler","dawn","daybed","daybreak","daycare","daydream","daylight","daylong","dayroom","daytime","dazzler","dazzling","deacon","deafening","deafness","dealer","dealing","dealmaker","dealt","dean","debatable","debate","debating","debit","debrief","debtless","debtor","debug","debunk","decade","decaf","decal","decathlon","decay","deceased","deceit","deceiver","deceiving","december","decency","decent","deception","deceptive","decibel","decidable","decimal","decimeter","decipher","deck","declared","decline","decode","decompose","decorated","decorator","decoy","decrease","decree","dedicate","dedicator","deduce","deduct","deed","deem","deepen","deeply","deepness","deface","defacing","defame","default","defeat","defection","defective","defendant","defender","defense","defensive","deferral","deferred","defiance","defiant","defile","defiling","define","definite","deflate","deflation","deflator","deflected","deflector","defog","deforest","defraud","defrost","deftly","defuse","defy","degraded","degrading","degrease","degree","dehydrate","deity","dejected","delay","delegate","delegator","delete","deletion","delicacy","delicate","delicious","delighted","delirious","delirium","deliverer","delivery","delouse","delta","deluge","delusion","deluxe","demanding","demeaning","demeanor","demise","democracy","democrat","demote","demotion","demystify","denatured","deniable","denial","denim","denote","dense","density","dental","dentist","denture","deny","deodorant","deodorize","departed","departure","depict","deplete","depletion","deplored","deploy","deport","depose","depraved","depravity","deprecate","depress","deprive","depth","deputize","deputy","derail","deranged","derby","derived","desecrate","deserve","deserving","designate","designed","designer","designing","deskbound","desktop","deskwork","desolate","despair","despise","despite","destiny","destitute","destruct","detached","detail","detection","detective","detector","detention","detergent","detest","detonate","detonator","detoxify","detract","deuce","devalue","deviancy","deviant","deviate","deviation","deviator","device","devious","devotedly","devotee","devotion","devourer","devouring","devoutly","dexterity","dexterous","diabetes","diabetic","diabolic","diagnoses","diagnosis","diagram","dial","diameter","diaper","diaphragm","diary","dice","dicing","dictate","dictation","dictator","difficult","diffused","diffuser","diffusion","diffusive","dig","dilation","diligence","diligent","dill","dilute","dime","diminish","dimly","dimmed","dimmer","dimness","dimple","diner","dingbat","dinghy","dinginess","dingo","dingy","dining","dinner","diocese","dioxide","diploma","dipped","dipper","dipping","directed","direction","directive","directly","directory","direness","dirtiness","disabled","disagree","disallow","disarm","disarray","disaster","disband","disbelief","disburse","discard","discern","discharge","disclose","discolor","discount","discourse","discover","discuss","disdain","disengage","disfigure","disgrace","dish","disinfect","disjoin","disk","dislike","disliking","dislocate","dislodge","disloyal","dismantle","dismay","dismiss","dismount","disobey","disorder","disown","disparate","disparity","dispatch","dispense","dispersal","dispersed","disperser","displace","display","displease","disposal","dispose","disprove","dispute","disregard","disrupt","dissuade","distance","distant","distaste","distill","distinct","distort","distract","distress","district","distrust","ditch","ditto","ditzy","dividable","divided","dividend","dividers","dividing","divinely","diving","divinity","divisible","divisibly","division","divisive","divorcee","dizziness","dizzy","doable","docile","dock","doctrine","document","dodge","dodgy","doily","doing","dole","dollar","dollhouse","dollop","dolly","dolphin","domain","domelike","domestic","dominion","dominoes","donated","donation","donator","donor","donut","doodle","doorbell","doorframe","doorknob","doorman","doormat","doornail","doorpost","doorstep","doorstop","doorway","doozy","dork","dormitory","dorsal","dosage","dose","dotted","doubling","douche","dove","down","dowry","doze","drab","dragging","dragonfly","dragonish","dragster","drainable","drainage","drained","drainer","drainpipe","dramatic","dramatize","drank","drapery","drastic","draw","dreaded","dreadful","dreadlock","dreamboat","dreamily","dreamland","dreamless","dreamlike","dreamt","dreamy","drearily","dreary","drench","dress","drew","dribble","dried","drier","drift","driller","drilling","drinkable","drinking","dripping","drippy","drivable","driven","driver","driveway","driving","drizzle","drizzly","drone","drool","droop","drop-down","dropbox","dropkick","droplet","dropout","dropper","drove","drown","drowsily","drudge","drum","dry","dubbed","dubiously","duchess","duckbill","ducking","duckling","ducktail","ducky","duct","dude","duffel","dugout","duh","duke","duller","dullness","duly","dumping","dumpling","dumpster","duo","dupe","duplex","duplicate","duplicity","durable","durably","duration","duress","during","dusk","dust","dutiful","duty","duvet","dwarf","dweeb","dwelled","dweller","dwelling","dwindle","dwindling","dynamic","dynamite","dynasty","dyslexia","dyslexic","each","eagle","earache","eardrum","earflap","earful","earlobe","early","earmark","earmuff","earphone","earpiece","earplugs","earring","earshot","earthen","earthlike","earthling","earthly","earthworm","earthy","earwig","easeful","easel","easiest","easily","easiness","easing","eastbound","eastcoast","easter","eastward","eatable","eaten","eatery","eating","eats","ebay","ebony","ebook","ecard","eccentric","echo","eclair","eclipse","ecologist","ecology","economic","economist","economy","ecosphere","ecosystem","edge","edginess","edging","edgy","edition","editor","educated","education","educator","eel","effective","effects","efficient","effort","eggbeater","egging","eggnog","eggplant","eggshell","egomaniac","egotism","egotistic","either","eject","elaborate","elastic","elated","elbow","eldercare","elderly","eldest","electable","election","elective","elephant","elevate","elevating","elevation","elevator","eleven","elf","eligible","eligibly","eliminate","elite","elitism","elixir","elk","ellipse","elliptic","elm","elongated","elope","eloquence","eloquent","elsewhere","elude","elusive","elves","email","embargo","embark","embassy","embattled","embellish","ember","embezzle","emblaze","emblem","embody","embolism","emboss","embroider","emcee","emerald","emergency","emission","emit","emote","emoticon","emotion","empathic","empathy","emperor","emphases","emphasis","emphasize","emphatic","empirical","employed","employee","employer","emporium","empower","emptier","emptiness","empty","emu","enable","enactment","enamel","enchanted","enchilada","encircle","enclose","enclosure","encode","encore","encounter","encourage","encroach","encrust","encrypt","endanger","endeared","endearing","ended","ending","endless","endnote","endocrine","endorphin","endorse","endowment","endpoint","endurable","endurance","enduring","energetic","energize","energy","enforced","enforcer","engaged","engaging","engine","engorge","engraved","engraver","engraving","engross","engulf","enhance","enigmatic","enjoyable","enjoyably","enjoyer","enjoying","enjoyment","enlarged","enlarging","enlighten","enlisted","enquirer","enrage","enrich","enroll","enslave","ensnare","ensure","entail","entangled","entering","entertain","enticing","entire","entitle","entity","entomb","entourage","entrap","entree","entrench","entrust","entryway","entwine","enunciate","envelope","enviable","enviably","envious","envision","envoy","envy","enzyme","epic","epidemic","epidermal","epidermis","epidural","epilepsy","epileptic","epilogue","epiphany","episode","equal","equate","equation","equator","equinox","equipment","equity","equivocal","eradicate","erasable","erased","eraser","erasure","ergonomic","errand","errant","erratic","error","erupt","escalate","escalator","escapable","escapade","escapist","escargot","eskimo","esophagus","espionage","espresso","esquire","essay","essence","essential","establish","estate","esteemed","estimate","estimator","estranged","estrogen","etching","eternal","eternity","ethanol","ether","ethically","ethics","euphemism","evacuate","evacuee","evade","evaluate","evaluator","evaporate","evasion","evasive","even","everglade","evergreen","everybody","everyday","everyone","evict","evidence","evident","evil","evoke","evolution","evolve","exact","exalted","example","excavate","excavator","exceeding","exception","excess","exchange","excitable","exciting","exclaim","exclude","excluding","exclusion","exclusive","excretion","excretory","excursion","excusable","excusably","excuse","exemplary","exemplify","exemption","exerciser","exert","exes","exfoliate","exhale","exhaust","exhume","exile","existing","exit","exodus","exonerate","exorcism","exorcist","expand","expanse","expansion","expansive","expectant","expedited","expediter","expel","expend","expenses","expensive","expert","expire","expiring","explain","expletive","explicit","explode","exploit","explore","exploring","exponent","exporter","exposable","expose","exposure","express","expulsion","exquisite","extended","extending","extent","extenuate","exterior","external","extinct","extortion","extradite","extras","extrovert","extrude","extruding","exuberant","fable","fabric","fabulous","facebook","facecloth","facedown","faceless","facelift","faceplate","faceted","facial","facility","facing","facsimile","faction","factoid","factor","factsheet","factual","faculty","fade","fading","failing","falcon","fall","false","falsify","fame","familiar","family","famine","famished","fanatic","fancied","fanciness","fancy","fanfare","fang","fanning","fantasize","fantastic","fantasy","fascism","fastball","faster","fasting","fastness","faucet","favorable","favorably","favored","favoring","favorite","fax","feast","federal","fedora","feeble","feed","feel","feisty","feline","felt-tip","feminine","feminism","feminist","feminize","femur","fence","fencing","fender","ferment","fernlike","ferocious","ferocity","ferret","ferris","ferry","fervor","fester","festival","festive","festivity","fetal","fetch","fever","fiber","fiction","fiddle","fiddling","fidelity","fidgeting","fidgety","fifteen","fifth","fiftieth","fifty","figment","figure","figurine","filing","filled","filler","filling","film","filter","filth","filtrate","finale","finalist","finalize","finally","finance","financial","finch","fineness","finer","finicky","finished","finisher","finishing","finite","finless","finlike","fiscally","fit","five","flaccid","flagman","flagpole","flagship","flagstick","flagstone","flail","flakily","flaky","flame","flammable","flanked","flanking","flannels","flap","flaring","flashback","flashbulb","flashcard","flashily","flashing","flashy","flask","flatbed","flatfoot","flatly","flatness","flatten","flattered","flatterer","flattery","flattop","flatware","flatworm","flavored","flavorful","flavoring","flaxseed","fled","fleshed","fleshy","flick","flier","flight","flinch","fling","flint","flip","flirt","float","flock","flogging","flop","floral","florist","floss","flounder","flyable","flyaway","flyer","flying","flyover","flypaper","foam","foe","fog","foil","folic","folk","follicle","follow","fondling","fondly","fondness","fondue","font","food","fool","footage","football","footbath","footboard","footer","footgear","foothill","foothold","footing","footless","footman","footnote","footpad","footpath","footprint","footrest","footsie","footsore","footwear","footwork","fossil","foster","founder","founding","fountain","fox","foyer","fraction","fracture","fragile","fragility","fragment","fragrance","fragrant","frail","frame","framing","frantic","fraternal","frayed","fraying","frays","freckled","freckles","freebase","freebee","freebie","freedom","freefall","freehand","freeing","freeload","freely","freemason","freeness","freestyle","freeware","freeway","freewill","freezable","freezing","freight","french","frenzied","frenzy","frequency","frequent","fresh","fretful","fretted","friction","friday","fridge","fried","friend","frighten","frightful","frigidity","frigidly","frill","fringe","frisbee","frisk","fritter","frivolous","frolic","from","front","frostbite","frosted","frostily","frosting","frostlike","frosty","froth","frown","frozen","fructose","frugality","frugally","fruit","frustrate","frying","gab","gaffe","gag","gainfully","gaining","gains","gala","gallantly","galleria","gallery","galley","gallon","gallows","gallstone","galore","galvanize","gambling","game","gaming","gamma","gander","gangly","gangrene","gangway","gap","garage","garbage","garden","gargle","garland","garlic","garment","garnet","garnish","garter","gas","gatherer","gathering","gating","gauging","gauntlet","gauze","gave","gawk","gazing","gear","gecko","geek","geiger","gem","gender","generic","generous","genetics","genre","gentile","gentleman","gently","gents","geography","geologic","geologist","geology","geometric","geometry","geranium","gerbil","geriatric","germicide","germinate","germless","germproof","gestate","gestation","gesture","getaway","getting","getup","giant","gibberish","giblet","giddily","giddiness","giddy","gift","gigabyte","gigahertz","gigantic","giggle","giggling","giggly","gigolo","gilled","gills","gimmick","girdle","giveaway","given","giver","giving","gizmo","gizzard","glacial","glacier","glade","gladiator","gladly","glamorous","glamour","glance","glancing","glandular","glare","glaring","glass","glaucoma","glazing","gleaming","gleeful","glider","gliding","glimmer","glimpse","glisten","glitch","glitter","glitzy","gloater","gloating","gloomily","gloomy","glorified","glorifier","glorify","glorious","glory","gloss","glove","glowing","glowworm","glucose","glue","gluten","glutinous","glutton","gnarly","gnat","goal","goatskin","goes","goggles","going","goldfish","goldmine","goldsmith","golf","goliath","gonad","gondola","gone","gong","good","gooey","goofball","goofiness","goofy","google","goon","gopher","gore","gorged","gorgeous","gory","gosling","gossip","gothic","gotten","gout","gown","grab","graceful","graceless","gracious","gradation","graded","grader","gradient","grading","gradually","graduate","graffiti","grafted","grafting","grain","granddad","grandkid","grandly","grandma","grandpa","grandson","granite","granny","granola","grant","granular","grape","graph","grapple","grappling","grasp","grass","gratified","gratify","grating","gratitude","gratuity","gravel","graveness","graves","graveyard","gravitate","gravity","gravy","gray","grazing","greasily","greedily","greedless","greedy","green","greeter","greeting","grew","greyhound","grid","grief","grievance","grieving","grievous","grill","grimace","grimacing","grime","griminess","grimy","grinch","grinning","grip","gristle","grit","groggily","groggy","groin","groom","groove","grooving","groovy","grope","ground","grouped","grout","grove","grower","growing","growl","grub","grudge","grudging","grueling","gruffly","grumble","grumbling","grumbly","grumpily","grunge","grunt","guacamole","guidable","guidance","guide","guiding","guileless","guise","gulf","gullible","gully","gulp","gumball","gumdrop","gumminess","gumming","gummy","gurgle","gurgling","guru","gush","gusto","gusty","gutless","guts","gutter","guy","guzzler","gyration","habitable","habitant","habitat","habitual","hacked","hacker","hacking","hacksaw","had","haggler","haiku","half","halogen","halt","halved","halves","hamburger","hamlet","hammock","hamper","hamster","hamstring","handbag","handball","handbook","handbrake","handcart","handclap","handclasp","handcraft","handcuff","handed","handful","handgrip","handgun","handheld","handiness","handiwork","handlebar","handled","handler","handling","handmade","handoff","handpick","handprint","handrail","handsaw","handset","handsfree","handshake","handstand","handwash","handwork","handwoven","handwrite","handyman","hangnail","hangout","hangover","hangup","hankering","hankie","hanky","haphazard","happening","happier","happiest","happily","happiness","happy","harbor","hardcopy","hardcore","hardcover","harddisk","hardened","hardener","hardening","hardhat","hardhead","hardiness","hardly","hardness","hardship","hardware","hardwired","hardwood","hardy","harmful","harmless","harmonica","harmonics","harmonize","harmony","harness","harpist","harsh","harvest","hash","hassle","haste","hastily","hastiness","hasty","hatbox","hatchback","hatchery","hatchet","hatching","hatchling","hate","hatless","hatred","haunt","haven","hazard","hazelnut","hazily","haziness","hazing","hazy","headache","headband","headboard","headcount","headdress","headed","header","headfirst","headgear","heading","headlamp","headless","headlock","headphone","headpiece","headrest","headroom","headscarf","headset","headsman","headstand","headstone","headway","headwear","heap","heat","heave","heavily","heaviness","heaving","hedge","hedging","heftiness","hefty","helium","helmet","helper","helpful","helping","helpless","helpline","hemlock","hemstitch","hence","henchman","henna","herald","herbal","herbicide","herbs","heritage","hermit","heroics","heroism","herring","herself","hertz","hesitancy","hesitant","hesitate","hexagon","hexagram","hubcap","huddle","huddling","huff","hug","hula","hulk","hull","human","humble","humbling","humbly","humid","humiliate","humility","humming","hummus","humongous","humorist","humorless","humorous","humpback","humped","humvee","hunchback","hundredth","hunger","hungrily","hungry","hunk","hunter","hunting","huntress","huntsman","hurdle","hurled","hurler","hurling","hurray","hurricane","hurried","hurry","hurt","husband","hush","husked","huskiness","hut","hybrid","hydrant","hydrated","hydration","hydrogen","hydroxide","hyperlink","hypertext","hyphen","hypnoses","hypnosis","hypnotic","hypnotism","hypnotist","hypnotize","hypocrisy","hypocrite","ibuprofen","ice","iciness","icing","icky","icon","icy","idealism","idealist","idealize","ideally","idealness","identical","identify","identity","ideology","idiocy","idiom","idly","igloo","ignition","ignore","iguana","illicitly","illusion","illusive","image","imaginary","imagines","imaging","imbecile","imitate","imitation","immature","immerse","immersion","imminent","immobile","immodest","immorally","immortal","immovable","immovably","immunity","immunize","impaired","impale","impart","impatient","impeach","impeding","impending","imperfect","imperial","impish","implant","implement","implicate","implicit","implode","implosion","implosive","imply","impolite","important","importer","impose","imposing","impotence","impotency","impotent","impound","imprecise","imprint","imprison","impromptu","improper","improve","improving","improvise","imprudent","impulse","impulsive","impure","impurity","iodine","iodize","ion","ipad","iphone","ipod","irate","irk","iron","irregular","irrigate","irritable","irritably","irritant","irritate","islamic","islamist","isolated","isolating","isolation","isotope","issue","issuing","italicize","italics","item","itinerary","itunes","ivory","ivy","jab","jackal","jacket","jackknife","jackpot","jailbird","jailbreak","jailer","jailhouse","jalapeno","jam","janitor","january","jargon","jarring","jasmine","jaundice","jaunt","java","jawed","jawless","jawline","jaws","jaybird","jaywalker","jazz","jeep","jeeringly","jellied","jelly","jersey","jester","jet","jiffy","jigsaw","jimmy","jingle","jingling","jinx","jitters","jittery","job","jockey","jockstrap","jogger","jogging","john","joining","jokester","jokingly","jolliness","jolly","jolt","jot","jovial","joyfully","joylessly","joyous","joyride","joystick","jubilance","jubilant","judge","judgingly","judicial","judiciary","judo","juggle","juggling","jugular","juice","juiciness","juicy","jujitsu","jukebox","july","jumble","jumbo","jump","junction","juncture","june","junior","juniper","junkie","junkman","junkyard","jurist","juror","jury","justice","justifier","justify","justly","justness","juvenile","kabob","kangaroo","karaoke","karate","karma","kebab","keenly","keenness","keep","keg","kelp","kennel","kept","kerchief","kerosene","kettle","kick","kiln","kilobyte","kilogram","kilometer","kilowatt","kilt","kimono","kindle","kindling","kindly","kindness","kindred","kinetic","kinfolk","king","kinship","kinsman","kinswoman","kissable","kisser","kissing","kitchen","kite","kitten","kitty","kiwi","kleenex","knapsack","knee","knelt","knickers","knoll","koala","kooky","kosher","krypton","kudos","kung","labored","laborer","laboring","laborious","labrador","ladder","ladies","ladle","ladybug","ladylike","lagged","lagging","lagoon","lair","lake","lance","landed","landfall","landfill","landing","landlady","landless","landline","landlord","landmark","landmass","landmine","landowner","landscape","landside","landslide","language","lankiness","lanky","lantern","lapdog","lapel","lapped","lapping","laptop","lard","large","lark","lash","lasso","last","latch","late","lather","latitude","latrine","latter","latticed","launch","launder","laundry","laurel","lavender","lavish","laxative","lazily","laziness","lazy","lecturer","left","legacy","legal","legend","legged","leggings","legible","legibly","legislate","lego","legroom","legume","legwarmer","legwork","lemon","lend","length","lens","lent","leotard","lesser","letdown","lethargic","lethargy","letter","lettuce","level","leverage","levers","levitate","levitator","liability","liable","liberty","librarian","library","licking","licorice","lid","life","lifter","lifting","liftoff","ligament","likely","likeness","likewise","liking","lilac","lilly","lily","limb","limeade","limelight","limes","limit","limping","limpness","line","lingo","linguini","linguist","lining","linked","linoleum","linseed","lint","lion","lip","liquefy","liqueur","liquid","lisp","list","litigate","litigator","litmus","litter","little","livable","lived","lively","liver","livestock","lividly","living","lizard","lubricant","lubricate","lucid","luckily","luckiness","luckless","lucrative","ludicrous","lugged","lukewarm","lullaby","lumber","luminance","luminous","lumpiness","lumping","lumpish","lunacy","lunar","lunchbox","luncheon","lunchroom","lunchtime","lung","lurch","lure","luridness","lurk","lushly","lushness","luster","lustfully","lustily","lustiness","lustrous","lusty","luxurious","luxury","lying","lyrically","lyricism","lyricist","lyrics","macarena","macaroni","macaw","mace","machine","machinist","magazine","magenta","maggot","magical","magician","magma","magnesium","magnetic","magnetism","magnetize","magnifier","magnify","magnitude","magnolia","mahogany","maimed","majestic","majesty","majorette","majority","makeover","maker","makeshift","making","malformed","malt","mama","mammal","mammary","mammogram","manager","managing","manatee","mandarin","mandate","mandatory","mandolin","manger","mangle","mango","mangy","manhandle","manhole","manhood","manhunt","manicotti","manicure","manifesto","manila","mankind","manlike","manliness","manly","manmade","manned","mannish","manor","manpower","mantis","mantra","manual","many","map","marathon","marauding","marbled","marbles","marbling","march","mardi","margarine","margarita","margin","marigold","marina","marine","marital","maritime","marlin","marmalade","maroon","married","marrow","marry","marshland","marshy","marsupial","marvelous","marxism","mascot","masculine","mashed","mashing","massager","masses","massive","mastiff","matador","matchbook","matchbox","matcher","matching","matchless","material","maternal","maternity","math","mating","matriarch","matrimony","matrix","matron","matted","matter","maturely","maturing","maturity","mauve","maverick","maximize","maximum","maybe","mayday","mayflower","moaner","moaning","mobile","mobility","mobilize","mobster","mocha","mocker","mockup","modified","modify","modular","modulator","module","moisten","moistness","moisture","molar","molasses","mold","molecular","molecule","molehill","mollusk","mom","monastery","monday","monetary","monetize","moneybags","moneyless","moneywise","mongoose","mongrel","monitor","monkhood","monogamy","monogram","monologue","monopoly","monorail","monotone","monotype","monoxide","monsieur","monsoon","monstrous","monthly","monument","moocher","moodiness","moody","mooing","moonbeam","mooned","moonlight","moonlike","moonlit","moonrise","moonscape","moonshine","moonstone","moonwalk","mop","morale","morality","morally","morbidity","morbidly","morphine","morphing","morse","mortality","mortally","mortician","mortified","mortify","mortuary","mosaic","mossy","most","mothball","mothproof","motion","motivate","motivator","motive","motocross","motor","motto","mountable","mountain","mounted","mounting","mourner","mournful","mouse","mousiness","moustache","mousy","mouth","movable","move","movie","moving","mower","mowing","much","muck","mud","mug","mulberry","mulch","mule","mulled","mullets","multiple","multiply","multitask","multitude","mumble","mumbling","mumbo","mummified","mummify","mummy","mumps","munchkin","mundane","municipal","muppet","mural","murkiness","murky","murmuring","muscular","museum","mushily","mushiness","mushroom","mushy","music","musket","muskiness","musky","mustang","mustard","muster","mustiness","musty","mutable","mutate","mutation","mute","mutilated","mutilator","mutiny","mutt","mutual","muzzle","myself","myspace","mystified","mystify","myth","nacho","nag","nail","name","naming","nanny","nanometer","nape","napkin","napped","napping","nappy","narrow","nastily","nastiness","national","native","nativity","natural","nature","naturist","nautical","navigate","navigator","navy","nearby","nearest","nearly","nearness","neatly","neatness","nebula","nebulizer","nectar","negate","negation","negative","neglector","negligee","negligent","negotiate","nemeses","nemesis","neon","nephew","nerd","nervous","nervy","nest","net","neurology","neuron","neurosis","neurotic","neuter","neutron","never","next","nibble","nickname","nicotine","niece","nifty","nimble","nimbly","nineteen","ninetieth","ninja","nintendo","ninth","nuclear","nuclei","nucleus","nugget","nullify","number","numbing","numbly","numbness","numeral","numerate","numerator","numeric","numerous","nuptials","nursery","nursing","nurture","nutcase","nutlike","nutmeg","nutrient","nutshell","nuttiness","nutty","nuzzle","nylon","oaf","oak","oasis","oat","obedience","obedient","obituary","object","obligate","obliged","oblivion","oblivious","oblong","obnoxious","oboe","obscure","obscurity","observant","observer","observing","obsessed","obsession","obsessive","obsolete","obstacle","obstinate","obstruct","obtain","obtrusive","obtuse","obvious","occultist","occupancy","occupant","occupier","occupy","ocean","ocelot","octagon","octane","october","octopus","ogle","oil","oink","ointment","okay","old","olive","olympics","omega","omen","ominous","omission","omit","omnivore","onboard","oncoming","ongoing","onion","online","onlooker","only","onscreen","onset","onshore","onslaught","onstage","onto","onward","onyx","oops","ooze","oozy","opacity","opal","open","operable","operate","operating","operation","operative","operator","opium","opossum","opponent","oppose","opposing","opposite","oppressed","oppressor","opt","opulently","osmosis","other","otter","ouch","ought","ounce","outage","outback","outbid","outboard","outbound","outbreak","outburst","outcast","outclass","outcome","outdated","outdoors","outer","outfield","outfit","outflank","outgoing","outgrow","outhouse","outing","outlast","outlet","outline","outlook","outlying","outmatch","outmost","outnumber","outplayed","outpost","outpour","output","outrage","outrank","outreach","outright","outscore","outsell","outshine","outshoot","outsider","outskirts","outsmart","outsource","outspoken","outtakes","outthink","outward","outweigh","outwit","oval","ovary","oven","overact","overall","overarch","overbid","overbill","overbite","overblown","overboard","overbook","overbuilt","overcast","overcoat","overcome","overcook","overcrowd","overdraft","overdrawn","overdress","overdrive","overdue","overeager","overeater","overexert","overfed","overfeed","overfill","overflow","overfull","overgrown","overhand","overhang","overhaul","overhead","overhear","overheat","overhung","overjoyed","overkill","overlabor","overlaid","overlap","overlay","overload","overlook","overlord","overlying","overnight","overpass","overpay","overplant","overplay","overpower","overprice","overrate","overreach","overreact","override","overripe","overrule","overrun","overshoot","overshot","oversight","oversized","oversleep","oversold","overspend","overstate","overstay","overstep","overstock","overstuff","oversweet","overtake","overthrow","overtime","overtly","overtone","overture","overturn","overuse","overvalue","overview","overwrite","owl","oxford","oxidant","oxidation","oxidize","oxidizing","oxygen","oxymoron","oyster","ozone","paced","pacemaker","pacific","pacifier","pacifism","pacifist","pacify","padded","padding","paddle","paddling","padlock","pagan","pager","paging","pajamas","palace","palatable","palm","palpable","palpitate","paltry","pampered","pamperer","pampers","pamphlet","panama","pancake","pancreas","panda","pandemic","pang","panhandle","panic","panning","panorama","panoramic","panther","pantomime","pantry","pants","pantyhose","paparazzi","papaya","paper","paprika","papyrus","parabola","parachute","parade","paradox","paragraph","parakeet","paralegal","paralyses","paralysis","paralyze","paramedic","parameter","paramount","parasail","parasite","parasitic","parcel","parched","parchment","pardon","parish","parka","parking","parkway","parlor","parmesan","parole","parrot","parsley","parsnip","partake","parted","parting","partition","partly","partner","partridge","party","passable","passably","passage","passcode","passenger","passerby","passing","passion","passive","passivism","passover","passport","password","pasta","pasted","pastel","pastime","pastor","pastrami","pasture","pasty","patchwork","patchy","paternal","paternity","path","patience","patient","patio","patriarch","patriot","patrol","patronage","patronize","pauper","pavement","paver","pavestone","pavilion","paving","pawing","payable","payback","paycheck","payday","payee","payer","paying","payment","payphone","payroll","pebble","pebbly","pecan","pectin","peculiar","peddling","pediatric","pedicure","pedigree","pedometer","pegboard","pelican","pellet","pelt","pelvis","penalize","penalty","pencil","pendant","pending","penholder","penknife","pennant","penniless","penny","penpal","pension","pentagon","pentagram","pep","perceive","percent","perch","percolate","perennial","perfected","perfectly","perfume","periscope","perish","perjurer","perjury","perkiness","perky","perm","peroxide","perpetual","perplexed","persecute","persevere","persuaded","persuader","pesky","peso","pessimism","pessimist","pester","pesticide","petal","petite","petition","petri","petroleum","petted","petticoat","pettiness","petty","petunia","phantom","phobia","phoenix","phonebook","phoney","phonics","phoniness","phony","phosphate","photo","phrase","phrasing","placard","placate","placidly","plank","planner","plant","plasma","plaster","plastic","plated","platform","plating","platinum","platonic","platter","platypus","plausible","plausibly","playable","playback","player","playful","playgroup","playhouse","playing","playlist","playmaker","playmate","playoff","playpen","playroom","playset","plaything","playtime","plaza","pleading","pleat","pledge","plentiful","plenty","plethora","plexiglas","pliable","plod","plop","plot","plow","ploy","pluck","plug","plunder","plunging","plural","plus","plutonium","plywood","poach","pod","poem","poet","pogo","pointed","pointer","pointing","pointless","pointy","poise","poison","poker","poking","polar","police","policy","polio","polish","politely","polka","polo","polyester","polygon","polygraph","polymer","poncho","pond","pony","popcorn","pope","poplar","popper","poppy","popsicle","populace","popular","populate","porcupine","pork","porous","porridge","portable","portal","portfolio","porthole","portion","portly","portside","poser","posh","posing","possible","possibly","possum","postage","postal","postbox","postcard","posted","poster","posting","postnasal","posture","postwar","pouch","pounce","pouncing","pound","pouring","pout","powdered","powdering","powdery","power","powwow","pox","praising","prance","prancing","pranker","prankish","prankster","prayer","praying","preacher","preaching","preachy","preamble","precinct","precise","precision","precook","precut","predator","predefine","predict","preface","prefix","preflight","preformed","pregame","pregnancy","pregnant","preheated","prelaunch","prelaw","prelude","premiere","premises","premium","prenatal","preoccupy","preorder","prepaid","prepay","preplan","preppy","preschool","prescribe","preseason","preset","preshow","president","presoak","press","presume","presuming","preteen","pretended","pretender","pretense","pretext","pretty","pretzel","prevail","prevalent","prevent","preview","previous","prewar","prewashed","prideful","pried","primal","primarily","primary","primate","primer","primp","princess","print","prior","prism","prison","prissy","pristine","privacy","private","privatize","prize","proactive","probable","probably","probation","probe","probing","probiotic","problem","procedure","process","proclaim","procreate","procurer","prodigal","prodigy","produce","product","profane","profanity","professed","professor","profile","profound","profusely","progeny","prognosis","program","progress","projector","prologue","prolonged","promenade","prominent","promoter","promotion","prompter","promptly","prone","prong","pronounce","pronto","proofing","proofread","proofs","propeller","properly","property","proponent","proposal","propose","props","prorate","protector","protegee","proton","prototype","protozoan","protract","protrude","proud","provable","proved","proven","provided","provider","providing","province","proving","provoke","provoking","provolone","prowess","prowler","prowling","proximity","proxy","prozac","prude","prudishly","prune","pruning","pry","psychic","public","publisher","pucker","pueblo","pug","pull","pulmonary","pulp","pulsate","pulse","pulverize","puma","pumice","pummel","punch","punctual","punctuate","punctured","pungent","punisher","punk","pupil","puppet","puppy","purchase","pureblood","purebred","purely","pureness","purgatory","purge","purging","purifier","purify","purist","puritan","purity","purple","purplish","purposely","purr","purse","pursuable","pursuant","pursuit","purveyor","pushcart","pushchair","pusher","pushiness","pushing","pushover","pushpin","pushup","pushy","putdown","putt","puzzle","puzzling","pyramid","pyromania","python","quack","quadrant","quail","quaintly","quake","quaking","qualified","qualifier","qualify","quality","qualm","quantum","quarrel","quarry","quartered","quarterly","quarters","quartet","quench","query","quicken","quickly","quickness","quicksand","quickstep","quiet","quill","quilt","quintet","quintuple","quirk","quit","quiver","quizzical","quotable","quotation","quote","rabid","race","racing","racism","rack","racoon","radar","radial","radiance","radiantly","radiated","radiation","radiator","radio","radish","raffle","raft","rage","ragged","raging","ragweed","raider","railcar","railing","railroad","railway","raisin","rake","raking","rally","ramble","rambling","ramp","ramrod","ranch","rancidity","random","ranged","ranger","ranging","ranked","ranking","ransack","ranting","rants","rare","rarity","rascal","rash","rasping","ravage","raven","ravine","raving","ravioli","ravishing","reabsorb","reach","reacquire","reaction","reactive","reactor","reaffirm","ream","reanalyze","reappear","reapply","reappoint","reapprove","rearrange","rearview","reason","reassign","reassure","reattach","reawake","rebalance","rebate","rebel","rebirth","reboot","reborn","rebound","rebuff","rebuild","rebuilt","reburial","rebuttal","recall","recant","recapture","recast","recede","recent","recess","recharger","recipient","recital","recite","reckless","reclaim","recliner","reclining","recluse","reclusive","recognize","recoil","recollect","recolor","reconcile","reconfirm","reconvene","recopy","record","recount","recoup","recovery","recreate","rectal","rectangle","rectified","rectify","recycled","recycler","recycling","reemerge","reenact","reenter","reentry","reexamine","referable","referee","reference","refill","refinance","refined","refinery","refining","refinish","reflected","reflector","reflex","reflux","refocus","refold","reforest","reformat","reformed","reformer","reformist","refract","refrain","refreeze","refresh","refried","refueling","refund","refurbish","refurnish","refusal","refuse","refusing","refutable","refute","regain","regalia","regally","reggae","regime","region","register","registrar","registry","regress","regretful","regroup","regular","regulate","regulator","rehab","reheat","rehire","rehydrate","reimburse","reissue","reiterate","rejoice","rejoicing","rejoin","rekindle","relapse","relapsing","relatable","related","relation","relative","relax","relay","relearn","release","relenting","reliable","reliably","reliance","reliant","relic","relieve","relieving","relight","relish","relive","reload","relocate","relock","reluctant","rely","remake","remark","remarry","rematch","remedial","remedy","remember","reminder","remindful","remission","remix","remnant","remodeler","remold","remorse","remote","removable","removal","removed","remover","removing","rename","renderer","rendering","rendition","renegade","renewable","renewably","renewal","renewed","renounce","renovate","renovator","rentable","rental","rented","renter","reoccupy","reoccur","reopen","reorder","repackage","repacking","repaint","repair","repave","repaying","repayment","repeal","repeated","repeater","repent","rephrase","replace","replay","replica","reply","reporter","repose","repossess","repost","repressed","reprimand","reprint","reprise","reproach","reprocess","reproduce","reprogram","reps","reptile","reptilian","repugnant","repulsion","repulsive","repurpose","reputable","reputably","request","require","requisite","reroute","rerun","resale","resample","rescuer","reseal","research","reselect","reseller","resemble","resend","resent","reset","reshape","reshoot","reshuffle","residence","residency","resident","residual","residue","resigned","resilient","resistant","resisting","resize","resolute","resolved","resonant","resonate","resort","resource","respect","resubmit","result","resume","resupply","resurface","resurrect","retail","retainer","retaining","retake","retaliate","retention","rethink","retinal","retired","retiree","retiring","retold","retool","retorted","retouch","retrace","retract","retrain","retread","retreat","retrial","retrieval","retriever","retry","return","retying","retype","reunion","reunite","reusable","reuse","reveal","reveler","revenge","revenue","reverb","revered","reverence","reverend","reversal","reverse","reversing","reversion","revert","revisable","revise","revision","revisit","revivable","revival","reviver","reviving","revocable","revoke","revolt","revolver","revolving","reward","rewash","rewind","rewire","reword","rework","rewrap","rewrite","rhyme","ribbon","ribcage","rice","riches","richly","richness","rickety","ricotta","riddance","ridden","ride","riding","rifling","rift","rigging","rigid","rigor","rimless","rimmed","rind","rink","rinse","rinsing","riot","ripcord","ripeness","ripening","ripping","ripple","rippling","riptide","rise","rising","risk","risotto","ritalin","ritzy","rival","riverbank","riverbed","riverboat","riverside","riveter","riveting","roamer","roaming","roast","robbing","robe","robin","robotics","robust","rockband","rocker","rocket","rockfish","rockiness","rocking","rocklike","rockslide","rockstar","rocky","rogue","roman","romp","rope","roping","roster","rosy","rotten","rotting","rotunda","roulette","rounding","roundish","roundness","roundup","roundworm","routine","routing","rover","roving","royal","rubbed","rubber","rubbing","rubble","rubdown","ruby","ruckus","rudder","rug","ruined","rule","rumble","rumbling","rummage","rumor","runaround","rundown","runner","running","runny","runt","runway","rupture","rural","ruse","rush","rust","rut","sabbath","sabotage","sacrament","sacred","sacrifice","sadden","saddlebag","saddled","saddling","sadly","sadness","safari","safeguard","safehouse","safely","safeness","saffron","saga","sage","sagging","saggy","said","saint","sake","salad","salami","salaried","salary","saline","salon","saloon","salsa","salt","salutary","salute","salvage","salvaging","salvation","same","sample","sampling","sanction","sanctity","sanctuary","sandal","sandbag","sandbank","sandbar","sandblast","sandbox","sanded","sandfish","sanding","sandlot","sandpaper","sandpit","sandstone","sandstorm","sandworm","sandy","sanitary","sanitizer","sank","santa","sapling","sappiness","sappy","sarcasm","sarcastic","sardine","sash","sasquatch","sassy","satchel","satiable","satin","satirical","satisfied","satisfy","saturate","saturday","sauciness","saucy","sauna","savage","savanna","saved","savings","savior","savor","saxophone","say","scabbed","scabby","scalded","scalding","scale","scaling","scallion","scallop","scalping","scam","scandal","scanner","scanning","scant","scapegoat","scarce","scarcity","scarecrow","scared","scarf","scarily","scariness","scarring","scary","scavenger","scenic","schedule","schematic","scheme","scheming","schilling","schnapps","scholar","science","scientist","scion","scoff","scolding","scone","scoop","scooter","scope","scorch","scorebook","scorecard","scored","scoreless","scorer","scoring","scorn","scorpion","scotch","scoundrel","scoured","scouring","scouting","scouts","scowling","scrabble","scraggly","scrambled","scrambler","scrap","scratch","scrawny","screen","scribble","scribe","scribing","scrimmage","script","scroll","scrooge","scrounger","scrubbed","scrubber","scruffy","scrunch","scrutiny","scuba","scuff","sculptor","sculpture","scurvy","scuttle","secluded","secluding","seclusion","second","secrecy","secret","sectional","sector","secular","securely","security","sedan","sedate","sedation","sedative","sediment","seduce","seducing","segment","seismic","seizing","seldom","selected","selection","selective","selector","self","seltzer","semantic","semester","semicolon","semifinal","seminar","semisoft","semisweet","senate","senator","send","senior","senorita","sensation","sensitive","sensitize","sensually","sensuous","sepia","september","septic","septum","sequel","sequence","sequester","series","sermon","serotonin","serpent","serrated","serve","service","serving","sesame","sessions","setback","setting","settle","settling","setup","sevenfold","seventeen","seventh","seventy","severity","shabby","shack","shaded","shadily","shadiness","shading","shadow","shady","shaft","shakable","shakily","shakiness","shaking","shaky","shale","shallot","shallow","shame","shampoo","shamrock","shank","shanty","shape","shaping","share","sharpener","sharper","sharpie","sharply","sharpness","shawl","sheath","shed","sheep","sheet","shelf","shell","shelter","shelve","shelving","sherry","shield","shifter","shifting","shiftless","shifty","shimmer","shimmy","shindig","shine","shingle","shininess","shining","shiny","ship","shirt","shivering","shock","shone","shoplift","shopper","shopping","shoptalk","shore","shortage","shortcake","shortcut","shorten","shorter","shorthand","shortlist","shortly","shortness","shorts","shortwave","shorty","shout","shove","showbiz","showcase","showdown","shower","showgirl","showing","showman","shown","showoff","showpiece","showplace","showroom","showy","shrank","shrapnel","shredder","shredding","shrewdly","shriek","shrill","shrimp","shrine","shrink","shrivel","shrouded","shrubbery","shrubs","shrug","shrunk","shucking","shudder","shuffle","shuffling","shun","shush","shut","shy","siamese","siberian","sibling","siding","sierra","siesta","sift","sighing","silenced","silencer","silent","silica","silicon","silk","silliness","silly","silo","silt","silver","similarly","simile","simmering","simple","simplify","simply","sincere","sincerity","singer","singing","single","singular","sinister","sinless","sinner","sinuous","sip","siren","sister","sitcom","sitter","sitting","situated","situation","sixfold","sixteen","sixth","sixties","sixtieth","sixtyfold","sizable","sizably","size","sizing","sizzle","sizzling","skater","skating","skedaddle","skeletal","skeleton","skeptic","sketch","skewed","skewer","skid","skied","skier","skies","skiing","skilled","skillet","skillful","skimmed","skimmer","skimming","skimpily","skincare","skinhead","skinless","skinning","skinny","skintight","skipper","skipping","skirmish","skirt","skittle","skydiver","skylight","skyline","skype","skyrocket","skyward","slab","slacked","slacker","slacking","slackness","slacks","slain","slam","slander","slang","slapping","slapstick","slashed","slashing","slate","slather","slaw","sled","sleek","sleep","sleet","sleeve","slept","sliceable","sliced","slicer","slicing","slick","slider","slideshow","sliding","slighted","slighting","slightly","slimness","slimy","slinging","slingshot","slinky","slip","slit","sliver","slobbery","slogan","sloped","sloping","sloppily","sloppy","slot","slouching","slouchy","sludge","slug","slum","slurp","slush","sly","small","smartly","smartness","smasher","smashing","smashup","smell","smelting","smile","smilingly","smirk","smite","smith","smitten","smock","smog","smoked","smokeless","smokiness","smoking","smoky","smolder","smooth","smother","smudge","smudgy","smuggler","smuggling","smugly","smugness","snack","snagged","snaking","snap","snare","snarl","snazzy","sneak","sneer","sneeze","sneezing","snide","sniff","snippet","snipping","snitch","snooper","snooze","snore","snoring","snorkel","snort","snout","snowbird","snowboard","snowbound","snowcap","snowdrift","snowdrop","snowfall","snowfield","snowflake","snowiness","snowless","snowman","snowplow","snowshoe","snowstorm","snowsuit","snowy","snub","snuff","snuggle","snugly","snugness","speak","spearfish","spearhead","spearman","spearmint","species","specimen","specked","speckled","specks","spectacle","spectator","spectrum","speculate","speech","speed","spellbind","speller","spelling","spendable","spender","spending","spent","spew","sphere","spherical","sphinx","spider","spied","spiffy","spill","spilt","spinach","spinal","spindle","spinner","spinning","spinout","spinster","spiny","spiral","spirited","spiritism","spirits","spiritual","splashed","splashing","splashy","splatter","spleen","splendid","splendor","splice","splicing","splinter","splotchy","splurge","spoilage","spoiled","spoiler","spoiling","spoils","spoken","spokesman","sponge","spongy","sponsor","spoof","spookily","spooky","spool","spoon","spore","sporting","sports","sporty","spotless","spotlight","spotted","spotter","spotting","spotty","spousal","spouse","spout","sprain","sprang","sprawl","spray","spree","sprig","spring","sprinkled","sprinkler","sprint","sprite","sprout","spruce","sprung","spry","spud","spur","sputter","spyglass","squabble","squad","squall","squander","squash","squatted","squatter","squatting","squeak","squealer","squealing","squeamish","squeegee","squeeze","squeezing","squid","squiggle","squiggly","squint","squire","squirt","squishier","squishy","stability","stabilize","stable","stack","stadium","staff","stage","staging","stagnant","stagnate","stainable","stained","staining","stainless","stalemate","staleness","stalling","stallion","stamina","stammer","stamp","stand","stank","staple","stapling","starboard","starch","stardom","stardust","starfish","stargazer","staring","stark","starless","starlet","starlight","starlit","starring","starry","starship","starter","starting","startle","startling","startup","starved","starving","stash","state","static","statistic","statue","stature","status","statute","statutory","staunch","stays","steadfast","steadier","steadily","steadying","steam","steed","steep","steerable","steering","steersman","stegosaur","stellar","stem","stench","stencil","step","stereo","sterile","sterility","sterilize","sterling","sternness","sternum","stew","stick","stiffen","stiffly","stiffness","stifle","stifling","stillness","stilt","stimulant","stimulate","stimuli","stimulus","stinger","stingily","stinging","stingray","stingy","stinking","stinky","stipend","stipulate","stir","stitch","stock","stoic","stoke","stole","stomp","stonewall","stoneware","stonework","stoning","stony","stood","stooge","stool","stoop","stoplight","stoppable","stoppage","stopped","stopper","stopping","stopwatch","storable","storage","storeroom","storewide","storm","stout","stove","stowaway","stowing","straddle","straggler","strained","strainer","straining","strangely","stranger","strangle","strategic","strategy","stratus","straw","stray","streak","stream","street","strength","strenuous","strep","stress","stretch","strewn","stricken","strict","stride","strife","strike","striking","strive","striving","strobe","strode","stroller","strongbox","strongly","strongman","struck","structure","strudel","struggle","strum","strung","strut","stubbed","stubble","stubbly","stubborn","stucco","stuck","student","studied","studio","study","stuffed","stuffing","stuffy","stumble","stumbling","stump","stung","stunned","stunner","stunning","stunt","stupor","sturdily","sturdy","styling","stylishly","stylist","stylized","stylus","suave","subarctic","subatomic","subdivide","subdued","subduing","subfloor","subgroup","subheader","subject","sublease","sublet","sublevel","sublime","submarine","submerge","submersed","submitter","subpanel","subpar","subplot","subprime","subscribe","subscript","subsector","subside","subsiding","subsidize","subsidy","subsoil","subsonic","substance","subsystem","subtext","subtitle","subtly","subtotal","subtract","subtype","suburb","subway","subwoofer","subzero","succulent","such","suction","sudden","sudoku","suds","sufferer","suffering","suffice","suffix","suffocate","suffrage","sugar","suggest","suing","suitable","suitably","suitcase","suitor","sulfate","sulfide","sulfite","sulfur","sulk","sullen","sulphate","sulphuric","sultry","superbowl","superglue","superhero","superior","superjet","superman","supermom","supernova","supervise","supper","supplier","supply","support","supremacy","supreme","surcharge","surely","sureness","surface","surfacing","surfboard","surfer","surgery","surgical","surging","surname","surpass","surplus","surprise","surreal","surrender","surrogate","surround","survey","survival","survive","surviving","survivor","sushi","suspect","suspend","suspense","sustained","sustainer","swab","swaddling","swagger","swampland","swan","swapping","swarm","sway","swear","sweat","sweep","swell","swept","swerve","swifter","swiftly","swiftness","swimmable","swimmer","swimming","swimsuit","swimwear","swinger","swinging","swipe","swirl","switch","swivel","swizzle","swooned","swoop","swoosh","swore","sworn","swung","sycamore","sympathy","symphonic","symphony","symptom","synapse","syndrome","synergy","synopses","synopsis","synthesis","synthetic","syrup","system","t-shirt","tabasco","tabby","tableful","tables","tablet","tableware","tabloid","tackiness","tacking","tackle","tackling","tacky","taco","tactful","tactical","tactics","tactile","tactless","tadpole","taekwondo","tag","tainted","take","taking","talcum","talisman","tall","talon","tamale","tameness","tamer","tamper","tank","tanned","tannery","tanning","tantrum","tapeless","tapered","tapering","tapestry","tapioca","tapping","taps","tarantula","target","tarmac","tarnish","tarot","tartar","tartly","tartness","task","tassel","taste","tastiness","tasting","tasty","tattered","tattle","tattling","tattoo","taunt","tavern","thank","that","thaw","theater","theatrics","thee","theft","theme","theology","theorize","thermal","thermos","thesaurus","these","thesis","thespian","thicken","thicket","thickness","thieving","thievish","thigh","thimble","thing","think","thinly","thinner","thinness","thinning","thirstily","thirsting","thirsty","thirteen","thirty","thong","thorn","those","thousand","thrash","thread","threaten","threefold","thrift","thrill","thrive","thriving","throat","throbbing","throng","throttle","throwaway","throwback","thrower","throwing","thud","thumb","thumping","thursday","thus","thwarting","thyself","tiara","tibia","tidal","tidbit","tidiness","tidings","tidy","tiger","tighten","tightly","tightness","tightrope","tightwad","tigress","tile","tiling","till","tilt","timid","timing","timothy","tinderbox","tinfoil","tingle","tingling","tingly","tinker","tinkling","tinsel","tinsmith","tint","tinwork","tiny","tipoff","tipped","tipper","tipping","tiptoeing","tiptop","tiring","tissue","trace","tracing","track","traction","tractor","trade","trading","tradition","traffic","tragedy","trailing","trailside","train","traitor","trance","tranquil","transfer","transform","translate","transpire","transport","transpose","trapdoor","trapeze","trapezoid","trapped","trapper","trapping","traps","trash","travel","traverse","travesty","tray","treachery","treading","treadmill","treason","treat","treble","tree","trekker","tremble","trembling","tremor","trench","trend","trespass","triage","trial","triangle","tribesman","tribunal","tribune","tributary","tribute","triceps","trickery","trickily","tricking","trickle","trickster","tricky","tricolor","tricycle","trident","tried","trifle","trifocals","trillion","trilogy","trimester","trimmer","trimming","trimness","trinity","trio","tripod","tripping","triumph","trivial","trodden","trolling","trombone","trophy","tropical","tropics","trouble","troubling","trough","trousers","trout","trowel","truce","truck","truffle","trump","trunks","trustable","trustee","trustful","trusting","trustless","truth","try","tubby","tubeless","tubular","tucking","tuesday","tug","tuition","tulip","tumble","tumbling","tummy","turban","turbine","turbofan","turbojet","turbulent","turf","turkey","turmoil","turret","turtle","tusk","tutor","tutu","tux","tweak","tweed","tweet","tweezers","twelve","twentieth","twenty","twerp","twice","twiddle","twiddling","twig","twilight","twine","twins","twirl","twistable","twisted","twister","twisting","twisty","twitch","twitter","tycoon","tying","tyke","udder","ultimate","ultimatum","ultra","umbilical","umbrella","umpire","unabashed","unable","unadorned","unadvised","unafraid","unaired","unaligned","unaltered","unarmored","unashamed","unaudited","unawake","unaware","unbaked","unbalance","unbeaten","unbend","unbent","unbiased","unbitten","unblended","unblessed","unblock","unbolted","unbounded","unboxed","unbraided","unbridle","unbroken","unbuckled","unbundle","unburned","unbutton","uncanny","uncapped","uncaring","uncertain","unchain","unchanged","uncharted","uncheck","uncivil","unclad","unclaimed","unclamped","unclasp","uncle","unclip","uncloak","unclog","unclothed","uncoated","uncoiled","uncolored","uncombed","uncommon","uncooked","uncork","uncorrupt","uncounted","uncouple","uncouth","uncover","uncross","uncrown","uncrushed","uncured","uncurious","uncurled","uncut","undamaged","undated","undaunted","undead","undecided","undefined","underage","underarm","undercoat","undercook","undercut","underdog","underdone","underfed","underfeed","underfoot","undergo","undergrad","underhand","underline","underling","undermine","undermost","underpaid","underpass","underpay","underrate","undertake","undertone","undertook","undertow","underuse","underwear","underwent","underwire","undesired","undiluted","undivided","undocked","undoing","undone","undrafted","undress","undrilled","undusted","undying","unearned","unearth","unease","uneasily","uneasy","uneatable","uneaten","unedited","unelected","unending","unengaged","unenvied","unequal","unethical","uneven","unexpired","unexposed","unfailing","unfair","unfasten","unfazed","unfeeling","unfiled","unfilled","unfitted","unfitting","unfixable","unfixed","unflawed","unfocused","unfold","unfounded","unframed","unfreeze","unfrosted","unfrozen","unfunded","unglazed","ungloved","unglue","ungodly","ungraded","ungreased","unguarded","unguided","unhappily","unhappy","unharmed","unhealthy","unheard","unhearing","unheated","unhelpful","unhidden","unhinge","unhitched","unholy","unhook","unicorn","unicycle","unified","unifier","uniformed","uniformly","unify","unimpeded","uninjured","uninstall","uninsured","uninvited","union","uniquely","unisexual","unison","unissued","unit","universal","universe","unjustly","unkempt","unkind","unknotted","unknowing","unknown","unlaced","unlatch","unlawful","unleaded","unlearned","unleash","unless","unleveled","unlighted","unlikable","unlimited","unlined","unlinked","unlisted","unlit","unlivable","unloaded","unloader","unlocked","unlocking","unlovable","unloved","unlovely","unloving","unluckily","unlucky","unmade","unmanaged","unmanned","unmapped","unmarked","unmasked","unmasking","unmatched","unmindful","unmixable","unmixed","unmolded","unmoral","unmovable","unmoved","unmoving","unnamable","unnamed","unnatural","unneeded","unnerve","unnerving","unnoticed","unopened","unopposed","unpack","unpadded","unpaid","unpainted","unpaired","unpaved","unpeeled","unpicked","unpiloted","unpinned","unplanned","unplanted","unpleased","unpledged","unplowed","unplug","unpopular","unproven","unquote","unranked","unrated","unraveled","unreached","unread","unreal","unreeling","unrefined","unrelated","unrented","unrest","unretired","unrevised","unrigged","unripe","unrivaled","unroasted","unrobed","unroll","unruffled","unruly","unrushed","unsaddle","unsafe","unsaid","unsalted","unsaved","unsavory","unscathed","unscented","unscrew","unsealed","unseated","unsecured","unseeing","unseemly","unseen","unselect","unselfish","unsent","unsettled","unshackle","unshaken","unshaved","unshaven","unsheathe","unshipped","unsightly","unsigned","unskilled","unsliced","unsmooth","unsnap","unsocial","unsoiled","unsold","unsolved","unsorted","unspoiled","unspoken","unstable","unstaffed","unstamped","unsteady","unsterile","unstirred","unstitch","unstopped","unstuck","unstuffed","unstylish","unsubtle","unsubtly","unsuited","unsure","unsworn","untagged","untainted","untaken","untamed","untangled","untapped","untaxed","unthawed","unthread","untidy","untie","until","untimed","untimely","untitled","untoasted","untold","untouched","untracked","untrained","untreated","untried","untrimmed","untrue","untruth","unturned","untwist","untying","unusable","unused","unusual","unvalued","unvaried","unvarying","unveiled","unveiling","unvented","unviable","unvisited","unvocal","unwanted","unwarlike","unwary","unwashed","unwatched","unweave","unwed","unwelcome","unwell","unwieldy","unwilling","unwind","unwired","unwitting","unwomanly","unworldly","unworn","unworried","unworthy","unwound","unwoven","unwrapped","unwritten","unzip","upbeat","upchuck","upcoming","upcountry","update","upfront","upgrade","upheaval","upheld","uphill","uphold","uplifted","uplifting","upload","upon","upper","upright","uprising","upriver","uproar","uproot","upscale","upside","upstage","upstairs","upstart","upstate","upstream","upstroke","upswing","uptake","uptight","uptown","upturned","upward","upwind","uranium","urban","urchin","urethane","urgency","urgent","urging","urologist","urology","usable","usage","useable","used","uselessly","user","usher","usual","utensil","utility","utilize","utmost","utopia","utter","vacancy","vacant","vacate","vacation","vagabond","vagrancy","vagrantly","vaguely","vagueness","valiant","valid","valium","valley","valuables","value","vanilla","vanish","vanity","vanquish","vantage","vaporizer","variable","variably","varied","variety","various","varmint","varnish","varsity","varying","vascular","vaseline","vastly","vastness","veal","vegan","veggie","vehicular","velcro","velocity","velvet","vendetta","vending","vendor","veneering","vengeful","venomous","ventricle","venture","venue","venus","verbalize","verbally","verbose","verdict","verify","verse","version","versus","vertebrae","vertical","vertigo","very","vessel","vest","veteran","veto","vexingly","viability","viable","vibes","vice","vicinity","victory","video","viewable","viewer","viewing","viewless","viewpoint","vigorous","village","villain","vindicate","vineyard","vintage","violate","violation","violator","violet","violin","viper","viral","virtual","virtuous","virus","visa","viscosity","viscous","viselike","visible","visibly","vision","visiting","visitor","visor","vista","vitality","vitalize","vitally","vitamins","vivacious","vividly","vividness","vixen","vocalist","vocalize","vocally","vocation","voice","voicing","void","volatile","volley","voltage","volumes","voter","voting","voucher","vowed","vowel","voyage","wackiness","wad","wafer","waffle","waged","wager","wages","waggle","wagon","wake","waking","walk","walmart","walnut","walrus","waltz","wand","wannabe","wanted","wanting","wasabi","washable","washbasin","washboard","washbowl","washcloth","washday","washed","washer","washhouse","washing","washout","washroom","washstand","washtub","wasp","wasting","watch","water","waviness","waving","wavy","whacking","whacky","wham","wharf","wheat","whenever","whiff","whimsical","whinny","whiny","whisking","whoever","whole","whomever","whoopee","whooping","whoops","why","wick","widely","widen","widget","widow","width","wieldable","wielder","wife","wifi","wikipedia","wildcard","wildcat","wilder","wildfire","wildfowl","wildland","wildlife","wildly","wildness","willed","willfully","willing","willow","willpower","wilt","wimp","wince","wincing","wind","wing","winking","winner","winnings","winter","wipe","wired","wireless","wiring","wiry","wisdom","wise","wish","wisplike","wispy","wistful","wizard","wobble","wobbling","wobbly","wok","wolf","wolverine","womanhood","womankind","womanless","womanlike","womanly","womb","woof","wooing","wool","woozy","word","work","worried","worrier","worrisome","worry","worsening","worshiper","worst","wound","woven","wow","wrangle","wrath","wreath","wreckage","wrecker","wrecking","wrench","wriggle","wriggly","wrinkle","wrinkly","wrist","writing","written","wrongdoer","wronged","wrongful","wrongly","wrongness","wrought","xbox","xerox","yahoo","yam","yanking","yapping","yard","yarn","yeah","yearbook","yearling","yearly","yearning","yeast","yelling","yelp","yen","yesterday","yiddish","yield","yin","yippee","yo-yo","yodel","yoga","yogurt","yonder","yoyo","yummy","zap","zealous","zebra","zen","zeppelin","zero","zestfully","zesty","zigzagged","zipfile","zipping","zippy","zips","zit","zodiac","zombie","zone","zoning","zookeeper","zoologist","zoology","zoom"]});var tc=$e(Ia=>{v();"use strict";Object.defineProperty(Ia,"__esModule",{value:!0});Ia.newSecureWords=void 0;var ah=Ta(),ec=Xl();async function sh(r=6){let e=[];for(let t=0;t<r;t++)e.push(ec.wordlist[await(0,ah.getSecureRandomNumber)(0,ec.wordlist.length)]);return e}Ia.newSecureWords=sh});var rc=$e(Pa=>{v();"use strict";Object.defineProperty(Pa,"__esModule",{value:!0});Pa.newSecurePassphrase=void 0;var oh=Xr();async function lh(r=6){return(await(0,oh.newSecureWords)(r)).join("-")}Pa.newSecurePassphrase=lh});var nc=$e(()=>{v()});var ja=$e((mb,Ma)=>{v();(function(r){"use strict";var e=function(c){var h,f=new Float64Array(16);if(c)for(h=0;h<c.length;h++)f[h]=c[h];return f},t=function(){throw new Error("no PRNG")},n=new Uint8Array(16),i=new Uint8Array(32);i[0]=9;var a=e(),s=e([1]),l=e([56129,1]),y=e([30883,4953,19914,30187,55467,16705,2637,112,59544,30585,16505,36039,65139,11119,27886,20995]),m=e([61785,9906,39828,60374,45398,33411,5274,224,53552,61171,33010,6542,64743,22239,55772,9222]),b=e([54554,36645,11616,51542,42930,38181,51040,26924,56412,64982,57905,49316,21502,52590,14035,8553]),_=e([26200,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214]),G=e([41136,18958,6951,50414,58488,44335,6150,12099,55207,15867,153,11085,57099,20417,9344,11139]);function ae(c,h,f,o){c[h]=f>>24&255,c[h+1]=f>>16&255,c[h+2]=f>>8&255,c[h+3]=f&255,c[h+4]=o>>24&255,c[h+5]=o>>16&255,c[h+6]=o>>8&255,c[h+7]=o&255}function Z(c,h,f,o,p){var C,B=0;for(C=0;C<p;C++)B|=c[h+C]^f[o+C];return(1&B-1>>>8)-1}function ne(c,h,f,o){return Z(c,h,f,o,16)}function se(c,h,f,o){return Z(c,h,f,o,32)}function Ze(c,h,f,o){for(var p=o[0]&255|(o[1]&255)<<8|(o[2]&255)<<16|(o[3]&255)<<24,C=f[0]&255|(f[1]&255)<<8|(f[2]&255)<<16|(f[3]&255)<<24,B=f[4]&255|(f[5]&255)<<8|(f[6]&255)<<16|(f[7]&255)<<24,O=f[8]&255|(f[9]&255)<<8|(f[10]&255)<<16|(f[11]&255)<<24,V=f[12]&255|(f[13]&255)<<8|(f[14]&255)<<16|(f[15]&255)<<24,de=o[4]&255|(o[5]&255)<<8|(o[6]&255)<<16|(o[7]&255)<<24,Q=h[0]&255|(h[1]&255)<<8|(h[2]&255)<<16|(h[3]&255)<<24,qe=h[4]&255|(h[5]&255)<<8|(h[6]&255)<<16|(h[7]&255)<<24,ie=h[8]&255|(h[9]&255)<<8|(h[10]&255)<<16|(h[11]&255)<<24,we=h[12]&255|(h[13]&255)<<8|(h[14]&255)<<16|(h[15]&255)<<24,xe=o[8]&255|(o[9]&255)<<8|(o[10]&255)<<16|(o[11]&255)<<24,Ee=f[16]&255|(f[17]&255)<<8|(f[18]&255)<<16|(f[19]&255)<<24,Ce=f[20]&255|(f[21]&255)<<8|(f[22]&255)<<16|(f[23]&255)<<24,ke=f[24]&255|(f[25]&255)<<8|(f[26]&255)<<16|(f[27]&255)<<24,_e=f[28]&255|(f[29]&255)<<8|(f[30]&255)<<16|(f[31]&255)<<24,Ae=o[12]&255|(o[13]&255)<<8|(o[14]&255)<<16|(o[15]&255)<<24,oe=p,he=C,X=B,le=O,ue=V,J=de,I=Q,P=qe,F=ie,j=we,N=xe,D=Ee,me=Ce,Be=ke,Pe=_e,Te=Ae,x,Ue=0;Ue<20;Ue+=2)x=oe+me|0,ue^=x<<7|x>>>32-7,x=ue+oe|0,F^=x<<9|x>>>32-9,x=F+ue|0,me^=x<<13|x>>>32-13,x=me+F|0,oe^=x<<18|x>>>32-18,x=J+he|0,j^=x<<7|x>>>32-7,x=j+J|0,Be^=x<<9|x>>>32-9,x=Be+j|0,he^=x<<13|x>>>32-13,x=he+Be|0,J^=x<<18|x>>>32-18,x=N+I|0,Pe^=x<<7|x>>>32-7,x=Pe+N|0,X^=x<<9|x>>>32-9,x=X+Pe|0,I^=x<<13|x>>>32-13,x=I+X|0,N^=x<<18|x>>>32-18,x=Te+D|0,le^=x<<7|x>>>32-7,x=le+Te|0,P^=x<<9|x>>>32-9,x=P+le|0,D^=x<<13|x>>>32-13,x=D+P|0,Te^=x<<18|x>>>32-18,x=oe+le|0,he^=x<<7|x>>>32-7,x=he+oe|0,X^=x<<9|x>>>32-9,x=X+he|0,le^=x<<13|x>>>32-13,x=le+X|0,oe^=x<<18|x>>>32-18,x=J+ue|0,I^=x<<7|x>>>32-7,x=I+J|0,P^=x<<9|x>>>32-9,x=P+I|0,ue^=x<<13|x>>>32-13,x=ue+P|0,J^=x<<18|x>>>32-18,x=N+j|0,D^=x<<7|x>>>32-7,x=D+N|0,F^=x<<9|x>>>32-9,x=F+D|0,j^=x<<13|x>>>32-13,x=j+F|0,N^=x<<18|x>>>32-18,x=Te+Pe|0,me^=x<<7|x>>>32-7,x=me+Te|0,Be^=x<<9|x>>>32-9,x=Be+me|0,Pe^=x<<13|x>>>32-13,x=Pe+Be|0,Te^=x<<18|x>>>32-18;oe=oe+p|0,he=he+C|0,X=X+B|0,le=le+O|0,ue=ue+V|0,J=J+de|0,I=I+Q|0,P=P+qe|0,F=F+ie|0,j=j+we|0,N=N+xe|0,D=D+Ee|0,me=me+Ce|0,Be=Be+ke|0,Pe=Pe+_e|0,Te=Te+Ae|0,c[0]=oe>>>0&255,c[1]=oe>>>8&255,c[2]=oe>>>16&255,c[3]=oe>>>24&255,c[4]=he>>>0&255,c[5]=he>>>8&255,c[6]=he>>>16&255,c[7]=he>>>24&255,c[8]=X>>>0&255,c[9]=X>>>8&255,c[10]=X>>>16&255,c[11]=X>>>24&255,c[12]=le>>>0&255,c[13]=le>>>8&255,c[14]=le>>>16&255,c[15]=le>>>24&255,c[16]=ue>>>0&255,c[17]=ue>>>8&255,c[18]=ue>>>16&255,c[19]=ue>>>24&255,c[20]=J>>>0&255,c[21]=J>>>8&255,c[22]=J>>>16&255,c[23]=J>>>24&255,c[24]=I>>>0&255,c[25]=I>>>8&255,c[26]=I>>>16&255,c[27]=I>>>24&255,c[28]=P>>>0&255,c[29]=P>>>8&255,c[30]=P>>>16&255,c[31]=P>>>24&255,c[32]=F>>>0&255,c[33]=F>>>8&255,c[34]=F>>>16&255,c[35]=F>>>24&255,c[36]=j>>>0&255,c[37]=j>>>8&255,c[38]=j>>>16&255,c[39]=j>>>24&255,c[40]=N>>>0&255,c[41]=N>>>8&255,c[42]=N>>>16&255,c[43]=N>>>24&255,c[44]=D>>>0&255,c[45]=D>>>8&255,c[46]=D>>>16&255,c[47]=D>>>24&255,c[48]=me>>>0&255,c[49]=me>>>8&255,c[50]=me>>>16&255,c[51]=me>>>24&255,c[52]=Be>>>0&255,c[53]=Be>>>8&255,c[54]=Be>>>16&255,c[55]=Be>>>24&255,c[56]=Pe>>>0&255,c[57]=Pe>>>8&255,c[58]=Pe>>>16&255,c[59]=Pe>>>24&255,c[60]=Te>>>0&255,c[61]=Te>>>8&255,c[62]=Te>>>16&255,c[63]=Te>>>24&255}function Je(c,h,f,o){for(var p=o[0]&255|(o[1]&255)<<8|(o[2]&255)<<16|(o[3]&255)<<24,C=f[0]&255|(f[1]&255)<<8|(f[2]&255)<<16|(f[3]&255)<<24,B=f[4]&255|(f[5]&255)<<8|(f[6]&255)<<16|(f[7]&255)<<24,O=f[8]&255|(f[9]&255)<<8|(f[10]&255)<<16|(f[11]&255)<<24,V=f[12]&255|(f[13]&255)<<8|(f[14]&255)<<16|(f[15]&255)<<24,de=o[4]&255|(o[5]&255)<<8|(o[6]&255)<<16|(o[7]&255)<<24,Q=h[0]&255|(h[1]&255)<<8|(h[2]&255)<<16|(h[3]&255)<<24,qe=h[4]&255|(h[5]&255)<<8|(h[6]&255)<<16|(h[7]&255)<<24,ie=h[8]&255|(h[9]&255)<<8|(h[10]&255)<<16|(h[11]&255)<<24,we=h[12]&255|(h[13]&255)<<8|(h[14]&255)<<16|(h[15]&255)<<24,xe=o[8]&255|(o[9]&255)<<8|(o[10]&255)<<16|(o[11]&255)<<24,Ee=f[16]&255|(f[17]&255)<<8|(f[18]&255)<<16|(f[19]&255)<<24,Ce=f[20]&255|(f[21]&255)<<8|(f[22]&255)<<16|(f[23]&255)<<24,ke=f[24]&255|(f[25]&255)<<8|(f[26]&255)<<16|(f[27]&255)<<24,_e=f[28]&255|(f[29]&255)<<8|(f[30]&255)<<16|(f[31]&255)<<24,Ae=o[12]&255|(o[13]&255)<<8|(o[14]&255)<<16|(o[15]&255)<<24,oe=p,he=C,X=B,le=O,ue=V,J=de,I=Q,P=qe,F=ie,j=we,N=xe,D=Ee,me=Ce,Be=ke,Pe=_e,Te=Ae,x,Ue=0;Ue<20;Ue+=2)x=oe+me|0,ue^=x<<7|x>>>32-7,x=ue+oe|0,F^=x<<9|x>>>32-9,x=F+ue|0,me^=x<<13|x>>>32-13,x=me+F|0,oe^=x<<18|x>>>32-18,x=J+he|0,j^=x<<7|x>>>32-7,x=j+J|0,Be^=x<<9|x>>>32-9,x=Be+j|0,he^=x<<13|x>>>32-13,x=he+Be|0,J^=x<<18|x>>>32-18,x=N+I|0,Pe^=x<<7|x>>>32-7,x=Pe+N|0,X^=x<<9|x>>>32-9,x=X+Pe|0,I^=x<<13|x>>>32-13,x=I+X|0,N^=x<<18|x>>>32-18,x=Te+D|0,le^=x<<7|x>>>32-7,x=le+Te|0,P^=x<<9|x>>>32-9,x=P+le|0,D^=x<<13|x>>>32-13,x=D+P|0,Te^=x<<18|x>>>32-18,x=oe+le|0,he^=x<<7|x>>>32-7,x=he+oe|0,X^=x<<9|x>>>32-9,x=X+he|0,le^=x<<13|x>>>32-13,x=le+X|0,oe^=x<<18|x>>>32-18,x=J+ue|0,I^=x<<7|x>>>32-7,x=I+J|0,P^=x<<9|x>>>32-9,x=P+I|0,ue^=x<<13|x>>>32-13,x=ue+P|0,J^=x<<18|x>>>32-18,x=N+j|0,D^=x<<7|x>>>32-7,x=D+N|0,F^=x<<9|x>>>32-9,x=F+D|0,j^=x<<13|x>>>32-13,x=j+F|0,N^=x<<18|x>>>32-18,x=Te+Pe|0,me^=x<<7|x>>>32-7,x=me+Te|0,Be^=x<<9|x>>>32-9,x=Be+me|0,Pe^=x<<13|x>>>32-13,x=Pe+Be|0,Te^=x<<18|x>>>32-18;c[0]=oe>>>0&255,c[1]=oe>>>8&255,c[2]=oe>>>16&255,c[3]=oe>>>24&255,c[4]=J>>>0&255,c[5]=J>>>8&255,c[6]=J>>>16&255,c[7]=J>>>24&255,c[8]=N>>>0&255,c[9]=N>>>8&255,c[10]=N>>>16&255,c[11]=N>>>24&255,c[12]=Te>>>0&255,c[13]=Te>>>8&255,c[14]=Te>>>16&255,c[15]=Te>>>24&255,c[16]=I>>>0&255,c[17]=I>>>8&255,c[18]=I>>>16&255,c[19]=I>>>24&255,c[20]=P>>>0&255,c[21]=P>>>8&255,c[22]=P>>>16&255,c[23]=P>>>24&255,c[24]=F>>>0&255,c[25]=F>>>8&255,c[26]=F>>>16&255,c[27]=F>>>24&255,c[28]=j>>>0&255,c[29]=j>>>8&255,c[30]=j>>>16&255,c[31]=j>>>24&255}function Ge(c,h,f,o){Ze(c,h,f,o)}function dt(c,h,f,o){Je(c,h,f,o)}var Ie=new Uint8Array([101,120,112,97,110,100,32,51,50,45,98,121,116,101,32,107]);function Et(c,h,f,o,p,C,B){var O=new Uint8Array(16),V=new Uint8Array(64),de,Q;for(Q=0;Q<16;Q++)O[Q]=0;for(Q=0;Q<8;Q++)O[Q]=C[Q];for(;p>=64;){for(Ge(V,O,B,Ie),Q=0;Q<64;Q++)c[h+Q]=f[o+Q]^V[Q];for(de=1,Q=8;Q<16;Q++)de=de+(O[Q]&255)|0,O[Q]=de&255,de>>>=8;p-=64,h+=64,o+=64}if(p>0)for(Ge(V,O,B,Ie),Q=0;Q<p;Q++)c[h+Q]=f[o+Q]^V[Q];return 0}function kt(c,h,f,o,p){var C=new Uint8Array(16),B=new Uint8Array(64),O,V;for(V=0;V<16;V++)C[V]=0;for(V=0;V<8;V++)C[V]=o[V];for(;f>=64;){for(Ge(B,C,p,Ie),V=0;V<64;V++)c[h+V]=B[V];for(O=1,V=8;V<16;V++)O=O+(C[V]&255)|0,C[V]=O&255,O>>>=8;f-=64,h+=64}if(f>0)for(Ge(B,C,p,Ie),V=0;V<f;V++)c[h+V]=B[V];return 0}function gr(c,h,f,o,p){var C=new Uint8Array(32);dt(C,o,p,Ie);for(var B=new Uint8Array(8),O=0;O<8;O++)B[O]=o[O+16];return kt(c,h,f,B,C)}function Br(c,h,f,o,p,C,B){var O=new Uint8Array(32);dt(O,C,B,Ie);for(var V=new Uint8Array(8),de=0;de<8;de++)V[de]=C[de+16];return Et(c,h,f,o,p,V,O)}var un=function(c){this.buffer=new Uint8Array(16),this.r=new Uint16Array(10),this.h=new Uint16Array(10),this.pad=new Uint16Array(8),this.leftover=0,this.fin=0;var h,f,o,p,C,B,O,V;h=c[0]&255|(c[1]&255)<<8,this.r[0]=h&8191,f=c[2]&255|(c[3]&255)<<8,this.r[1]=(h>>>13|f<<3)&8191,o=c[4]&255|(c[5]&255)<<8,this.r[2]=(f>>>10|o<<6)&7939,p=c[6]&255|(c[7]&255)<<8,this.r[3]=(o>>>7|p<<9)&8191,C=c[8]&255|(c[9]&255)<<8,this.r[4]=(p>>>4|C<<12)&255,this.r[5]=C>>>1&8190,B=c[10]&255|(c[11]&255)<<8,this.r[6]=(C>>>14|B<<2)&8191,O=c[12]&255|(c[13]&255)<<8,this.r[7]=(B>>>11|O<<5)&8065,V=c[14]&255|(c[15]&255)<<8,this.r[8]=(O>>>8|V<<8)&8191,this.r[9]=V>>>5&127,this.pad[0]=c[16]&255|(c[17]&255)<<8,this.pad[1]=c[18]&255|(c[19]&255)<<8,this.pad[2]=c[20]&255|(c[21]&255)<<8,this.pad[3]=c[22]&255|(c[23]&255)<<8,this.pad[4]=c[24]&255|(c[25]&255)<<8,this.pad[5]=c[26]&255|(c[27]&255)<<8,this.pad[6]=c[28]&255|(c[29]&255)<<8,this.pad[7]=c[30]&255|(c[31]&255)<<8};un.prototype.blocks=function(c,h,f){for(var o=this.fin?0:1<<11,p,C,B,O,V,de,Q,qe,ie,we,xe,Ee,Ce,ke,_e,Ae,oe,he,X,le=this.h[0],ue=this.h[1],J=this.h[2],I=this.h[3],P=this.h[4],F=this.h[5],j=this.h[6],N=this.h[7],D=this.h[8],me=this.h[9],Be=this.r[0],Pe=this.r[1],Te=this.r[2],x=this.r[3],Ue=this.r[4],Ve=this.r[5],Ke=this.r[6],je=this.r[7],Fe=this.r[8],We=this.r[9];f>=16;)p=c[h+0]&255|(c[h+1]&255)<<8,le+=p&8191,C=c[h+2]&255|(c[h+3]&255)<<8,ue+=(p>>>13|C<<3)&8191,B=c[h+4]&255|(c[h+5]&255)<<8,J+=(C>>>10|B<<6)&8191,O=c[h+6]&255|(c[h+7]&255)<<8,I+=(B>>>7|O<<9)&8191,V=c[h+8]&255|(c[h+9]&255)<<8,P+=(O>>>4|V<<12)&8191,F+=V>>>1&8191,de=c[h+10]&255|(c[h+11]&255)<<8,j+=(V>>>14|de<<2)&8191,Q=c[h+12]&255|(c[h+13]&255)<<8,N+=(de>>>11|Q<<5)&8191,qe=c[h+14]&255|(c[h+15]&255)<<8,D+=(Q>>>8|qe<<8)&8191,me+=qe>>>5|o,ie=0,we=ie,we+=le*Be,we+=ue*(5*We),we+=J*(5*Fe),we+=I*(5*je),we+=P*(5*Ke),ie=we>>>13,we&=8191,we+=F*(5*Ve),we+=j*(5*Ue),we+=N*(5*x),we+=D*(5*Te),we+=me*(5*Pe),ie+=we>>>13,we&=8191,xe=ie,xe+=le*Pe,xe+=ue*Be,xe+=J*(5*We),xe+=I*(5*Fe),xe+=P*(5*je),ie=xe>>>13,xe&=8191,xe+=F*(5*Ke),xe+=j*(5*Ve),xe+=N*(5*Ue),xe+=D*(5*x),xe+=me*(5*Te),ie+=xe>>>13,xe&=8191,Ee=ie,Ee+=le*Te,Ee+=ue*Pe,Ee+=J*Be,Ee+=I*(5*We),Ee+=P*(5*Fe),ie=Ee>>>13,Ee&=8191,Ee+=F*(5*je),Ee+=j*(5*Ke),Ee+=N*(5*Ve),Ee+=D*(5*Ue),Ee+=me*(5*x),ie+=Ee>>>13,Ee&=8191,Ce=ie,Ce+=le*x,Ce+=ue*Te,Ce+=J*Pe,Ce+=I*Be,Ce+=P*(5*We),ie=Ce>>>13,Ce&=8191,Ce+=F*(5*Fe),Ce+=j*(5*je),Ce+=N*(5*Ke),Ce+=D*(5*Ve),Ce+=me*(5*Ue),ie+=Ce>>>13,Ce&=8191,ke=ie,ke+=le*Ue,ke+=ue*x,ke+=J*Te,ke+=I*Pe,ke+=P*Be,ie=ke>>>13,ke&=8191,ke+=F*(5*We),ke+=j*(5*Fe),ke+=N*(5*je),ke+=D*(5*Ke),ke+=me*(5*Ve),ie+=ke>>>13,ke&=8191,_e=ie,_e+=le*Ve,_e+=ue*Ue,_e+=J*x,_e+=I*Te,_e+=P*Pe,ie=_e>>>13,_e&=8191,_e+=F*Be,_e+=j*(5*We),_e+=N*(5*Fe),_e+=D*(5*je),_e+=me*(5*Ke),ie+=_e>>>13,_e&=8191,Ae=ie,Ae+=le*Ke,Ae+=ue*Ve,Ae+=J*Ue,Ae+=I*x,Ae+=P*Te,ie=Ae>>>13,Ae&=8191,Ae+=F*Pe,Ae+=j*Be,Ae+=N*(5*We),Ae+=D*(5*Fe),Ae+=me*(5*je),ie+=Ae>>>13,Ae&=8191,oe=ie,oe+=le*je,oe+=ue*Ke,oe+=J*Ve,oe+=I*Ue,oe+=P*x,ie=oe>>>13,oe&=8191,oe+=F*Te,oe+=j*Pe,oe+=N*Be,oe+=D*(5*We),oe+=me*(5*Fe),ie+=oe>>>13,oe&=8191,he=ie,he+=le*Fe,he+=ue*je,he+=J*Ke,he+=I*Ve,he+=P*Ue,ie=he>>>13,he&=8191,he+=F*x,he+=j*Te,he+=N*Pe,he+=D*Be,he+=me*(5*We),ie+=he>>>13,he&=8191,X=ie,X+=le*We,X+=ue*Fe,X+=J*je,X+=I*Ke,X+=P*Ve,ie=X>>>13,X&=8191,X+=F*Ue,X+=j*x,X+=N*Te,X+=D*Pe,X+=me*Be,ie+=X>>>13,X&=8191,ie=(ie<<2)+ie|0,ie=ie+we|0,we=ie&8191,ie=ie>>>13,xe+=ie,le=we,ue=xe,J=Ee,I=Ce,P=ke,F=_e,j=Ae,N=oe,D=he,me=X,h+=16,f-=16;this.h[0]=le,this.h[1]=ue,this.h[2]=J,this.h[3]=I,this.h[4]=P,this.h[5]=F,this.h[6]=j,this.h[7]=N,this.h[8]=D,this.h[9]=me},un.prototype.finish=function(c,h){var f=new Uint16Array(10),o,p,C,B;if(this.leftover){for(B=this.leftover,this.buffer[B++]=1;B<16;B++)this.buffer[B]=0;this.fin=1,this.blocks(this.buffer,0,16)}for(o=this.h[1]>>>13,this.h[1]&=8191,B=2;B<10;B++)this.h[B]+=o,o=this.h[B]>>>13,this.h[B]&=8191;for(this.h[0]+=o*5,o=this.h[0]>>>13,this.h[0]&=8191,this.h[1]+=o,o=this.h[1]>>>13,this.h[1]&=8191,this.h[2]+=o,f[0]=this.h[0]+5,o=f[0]>>>13,f[0]&=8191,B=1;B<10;B++)f[B]=this.h[B]+o,o=f[B]>>>13,f[B]&=8191;for(f[9]-=1<<13,p=(o^1)-1,B=0;B<10;B++)f[B]&=p;for(p=~p,B=0;B<10;B++)this.h[B]=this.h[B]&p|f[B];for(this.h[0]=(this.h[0]|this.h[1]<<13)&65535,this.h[1]=(this.h[1]>>>3|this.h[2]<<10)&65535,this.h[2]=(this.h[2]>>>6|this.h[3]<<7)&65535,this.h[3]=(this.h[3]>>>9|this.h[4]<<4)&65535,this.h[4]=(this.h[4]>>>12|this.h[5]<<1|this.h[6]<<14)&65535,this.h[5]=(this.h[6]>>>2|this.h[7]<<11)&65535,this.h[6]=(this.h[7]>>>5|this.h[8]<<8)&65535,this.h[7]=(this.h[8]>>>8|this.h[9]<<5)&65535,C=this.h[0]+this.pad[0],this.h[0]=C&65535,B=1;B<8;B++)C=(this.h[B]+this.pad[B]|0)+(C>>>16)|0,this.h[B]=C&65535;c[h+0]=this.h[0]>>>0&255,c[h+1]=this.h[0]>>>8&255,c[h+2]=this.h[1]>>>0&255,c[h+3]=this.h[1]>>>8&255,c[h+4]=this.h[2]>>>0&255,c[h+5]=this.h[2]>>>8&255,c[h+6]=this.h[3]>>>0&255,c[h+7]=this.h[3]>>>8&255,c[h+8]=this.h[4]>>>0&255,c[h+9]=this.h[4]>>>8&255,c[h+10]=this.h[5]>>>0&255,c[h+11]=this.h[5]>>>8&255,c[h+12]=this.h[6]>>>0&255,c[h+13]=this.h[6]>>>8&255,c[h+14]=this.h[7]>>>0&255,c[h+15]=this.h[7]>>>8&255},un.prototype.update=function(c,h,f){var o,p;if(this.leftover){for(p=16-this.leftover,p>f&&(p=f),o=0;o<p;o++)this.buffer[this.leftover+o]=c[h+o];if(f-=p,h+=p,this.leftover+=p,this.leftover<16)return;this.blocks(this.buffer,0,16),this.leftover=0}if(f>=16&&(p=f-f%16,this.blocks(c,h,p),h+=p,f-=p),f){for(o=0;o<f;o++)this.buffer[this.leftover+o]=c[h+o];this.leftover+=f}};function dn(c,h,f,o,p,C){var B=new un(C);return B.update(f,o,p),B.finish(c,h),0}function ma(c,h,f,o,p,C){var B=new Uint8Array(16);return dn(B,0,f,o,p,C),ne(c,h,B,0)}function ci(c,h,f,o,p){var C;if(f<32)return-1;for(Br(c,0,h,0,f,o,p),dn(c,16,c,32,f-32,c),C=0;C<16;C++)c[C]=0;return 0}function fn(c,h,f,o,p){var C,B=new Uint8Array(32);if(f<32||(gr(B,0,32,o,p),ma(h,16,h,32,f-32,B)!==0))return-1;for(Br(c,0,h,0,f,o,p),C=0;C<32;C++)c[C]=0;return 0}function Ft(c,h){var f;for(f=0;f<16;f++)c[f]=h[f]|0}function ui(c){var h,f,o=1;for(h=0;h<16;h++)f=c[h]+o+65535,o=Math.floor(f/65536),c[h]=f-o*65536;c[0]+=o-1+37*(o-1)}function R(c,h,f){for(var o,p=~(f-1),C=0;C<16;C++)o=p&(c[C]^h[C]),c[C]^=o,h[C]^=o}function yr(c,h){var f,o,p,C=e(),B=e();for(f=0;f<16;f++)B[f]=h[f];for(ui(B),ui(B),ui(B),o=0;o<2;o++){for(C[0]=B[0]-65517,f=1;f<15;f++)C[f]=B[f]-65535-(C[f-1]>>16&1),C[f-1]&=65535;C[15]=B[15]-32767-(C[14]>>16&1),p=C[15]>>16&1,C[14]&=65535,R(B,C,1-p)}for(f=0;f<16;f++)c[2*f]=B[f]&255,c[2*f+1]=B[f]>>8}function jt(c,h){var f=new Uint8Array(32),o=new Uint8Array(32);return yr(f,c),yr(o,h),se(f,0,o,0)}function di(c){var h=new Uint8Array(32);return yr(h,c),h[0]&1}function fi(c,h){var f;for(f=0;f<16;f++)c[f]=h[2*f]+(h[2*f+1]<<8);c[15]&=32767}function Ut(c,h,f){for(var o=0;o<16;o++)c[o]=h[o]+f[o]}function Ot(c,h,f){for(var o=0;o<16;o++)c[o]=h[o]-f[o]}function be(c,h,f){var o,p,C=0,B=0,O=0,V=0,de=0,Q=0,qe=0,ie=0,we=0,xe=0,Ee=0,Ce=0,ke=0,_e=0,Ae=0,oe=0,he=0,X=0,le=0,ue=0,J=0,I=0,P=0,F=0,j=0,N=0,D=0,me=0,Be=0,Pe=0,Te=0,x=f[0],Ue=f[1],Ve=f[2],Ke=f[3],je=f[4],Fe=f[5],We=f[6],lt=f[7],Ye=f[8],it=f[9],at=f[10],st=f[11],ht=f[12],At=f[13],St=f[14],_t=f[15];o=h[0],C+=o*x,B+=o*Ue,O+=o*Ve,V+=o*Ke,de+=o*je,Q+=o*Fe,qe+=o*We,ie+=o*lt,we+=o*Ye,xe+=o*it,Ee+=o*at,Ce+=o*st,ke+=o*ht,_e+=o*At,Ae+=o*St,oe+=o*_t,o=h[1],B+=o*x,O+=o*Ue,V+=o*Ve,de+=o*Ke,Q+=o*je,qe+=o*Fe,ie+=o*We,we+=o*lt,xe+=o*Ye,Ee+=o*it,Ce+=o*at,ke+=o*st,_e+=o*ht,Ae+=o*At,oe+=o*St,he+=o*_t,o=h[2],O+=o*x,V+=o*Ue,de+=o*Ve,Q+=o*Ke,qe+=o*je,ie+=o*Fe,we+=o*We,xe+=o*lt,Ee+=o*Ye,Ce+=o*it,ke+=o*at,_e+=o*st,Ae+=o*ht,oe+=o*At,he+=o*St,X+=o*_t,o=h[3],V+=o*x,de+=o*Ue,Q+=o*Ve,qe+=o*Ke,ie+=o*je,we+=o*Fe,xe+=o*We,Ee+=o*lt,Ce+=o*Ye,ke+=o*it,_e+=o*at,Ae+=o*st,oe+=o*ht,he+=o*At,X+=o*St,le+=o*_t,o=h[4],de+=o*x,Q+=o*Ue,qe+=o*Ve,ie+=o*Ke,we+=o*je,xe+=o*Fe,Ee+=o*We,Ce+=o*lt,ke+=o*Ye,_e+=o*it,Ae+=o*at,oe+=o*st,he+=o*ht,X+=o*At,le+=o*St,ue+=o*_t,o=h[5],Q+=o*x,qe+=o*Ue,ie+=o*Ve,we+=o*Ke,xe+=o*je,Ee+=o*Fe,Ce+=o*We,ke+=o*lt,_e+=o*Ye,Ae+=o*it,oe+=o*at,he+=o*st,X+=o*ht,le+=o*At,ue+=o*St,J+=o*_t,o=h[6],qe+=o*x,ie+=o*Ue,we+=o*Ve,xe+=o*Ke,Ee+=o*je,Ce+=o*Fe,ke+=o*We,_e+=o*lt,Ae+=o*Ye,oe+=o*it,he+=o*at,X+=o*st,le+=o*ht,ue+=o*At,J+=o*St,I+=o*_t,o=h[7],ie+=o*x,we+=o*Ue,xe+=o*Ve,Ee+=o*Ke,Ce+=o*je,ke+=o*Fe,_e+=o*We,Ae+=o*lt,oe+=o*Ye,he+=o*it,X+=o*at,le+=o*st,ue+=o*ht,J+=o*At,I+=o*St,P+=o*_t,o=h[8],we+=o*x,xe+=o*Ue,Ee+=o*Ve,Ce+=o*Ke,ke+=o*je,_e+=o*Fe,Ae+=o*We,oe+=o*lt,he+=o*Ye,X+=o*it,le+=o*at,ue+=o*st,J+=o*ht,I+=o*At,P+=o*St,F+=o*_t,o=h[9],xe+=o*x,Ee+=o*Ue,Ce+=o*Ve,ke+=o*Ke,_e+=o*je,Ae+=o*Fe,oe+=o*We,he+=o*lt,X+=o*Ye,le+=o*it,ue+=o*at,J+=o*st,I+=o*ht,P+=o*At,F+=o*St,j+=o*_t,o=h[10],Ee+=o*x,Ce+=o*Ue,ke+=o*Ve,_e+=o*Ke,Ae+=o*je,oe+=o*Fe,he+=o*We,X+=o*lt,le+=o*Ye,ue+=o*it,J+=o*at,I+=o*st,P+=o*ht,F+=o*At,j+=o*St,N+=o*_t,o=h[11],Ce+=o*x,ke+=o*Ue,_e+=o*Ve,Ae+=o*Ke,oe+=o*je,he+=o*Fe,X+=o*We,le+=o*lt,ue+=o*Ye,J+=o*it,I+=o*at,P+=o*st,F+=o*ht,j+=o*At,N+=o*St,D+=o*_t,o=h[12],ke+=o*x,_e+=o*Ue,Ae+=o*Ve,oe+=o*Ke,he+=o*je,X+=o*Fe,le+=o*We,ue+=o*lt,J+=o*Ye,I+=o*it,P+=o*at,F+=o*st,j+=o*ht,N+=o*At,D+=o*St,me+=o*_t,o=h[13],_e+=o*x,Ae+=o*Ue,oe+=o*Ve,he+=o*Ke,X+=o*je,le+=o*Fe,ue+=o*We,J+=o*lt,I+=o*Ye,P+=o*it,F+=o*at,j+=o*st,N+=o*ht,D+=o*At,me+=o*St,Be+=o*_t,o=h[14],Ae+=o*x,oe+=o*Ue,he+=o*Ve,X+=o*Ke,le+=o*je,ue+=o*Fe,J+=o*We,I+=o*lt,P+=o*Ye,F+=o*it,j+=o*at,N+=o*st,D+=o*ht,me+=o*At,Be+=o*St,Pe+=o*_t,o=h[15],oe+=o*x,he+=o*Ue,X+=o*Ve,le+=o*Ke,ue+=o*je,J+=o*Fe,I+=o*We,P+=o*lt,F+=o*Ye,j+=o*it,N+=o*at,D+=o*st,me+=o*ht,Be+=o*At,Pe+=o*St,Te+=o*_t,C+=38*he,B+=38*X,O+=38*le,V+=38*ue,de+=38*J,Q+=38*I,qe+=38*P,ie+=38*F,we+=38*j,xe+=38*N,Ee+=38*D,Ce+=38*me,ke+=38*Be,_e+=38*Pe,Ae+=38*Te,p=1,o=C+p+65535,p=Math.floor(o/65536),C=o-p*65536,o=B+p+65535,p=Math.floor(o/65536),B=o-p*65536,o=O+p+65535,p=Math.floor(o/65536),O=o-p*65536,o=V+p+65535,p=Math.floor(o/65536),V=o-p*65536,o=de+p+65535,p=Math.floor(o/65536),de=o-p*65536,o=Q+p+65535,p=Math.floor(o/65536),Q=o-p*65536,o=qe+p+65535,p=Math.floor(o/65536),qe=o-p*65536,o=ie+p+65535,p=Math.floor(o/65536),ie=o-p*65536,o=we+p+65535,p=Math.floor(o/65536),we=o-p*65536,o=xe+p+65535,p=Math.floor(o/65536),xe=o-p*65536,o=Ee+p+65535,p=Math.floor(o/65536),Ee=o-p*65536,o=Ce+p+65535,p=Math.floor(o/65536),Ce=o-p*65536,o=ke+p+65535,p=Math.floor(o/65536),ke=o-p*65536,o=_e+p+65535,p=Math.floor(o/65536),_e=o-p*65536,o=Ae+p+65535,p=Math.floor(o/65536),Ae=o-p*65536,o=oe+p+65535,p=Math.floor(o/65536),oe=o-p*65536,C+=p-1+37*(p-1),p=1,o=C+p+65535,p=Math.floor(o/65536),C=o-p*65536,o=B+p+65535,p=Math.floor(o/65536),B=o-p*65536,o=O+p+65535,p=Math.floor(o/65536),O=o-p*65536,o=V+p+65535,p=Math.floor(o/65536),V=o-p*65536,o=de+p+65535,p=Math.floor(o/65536),de=o-p*65536,o=Q+p+65535,p=Math.floor(o/65536),Q=o-p*65536,o=qe+p+65535,p=Math.floor(o/65536),qe=o-p*65536,o=ie+p+65535,p=Math.floor(o/65536),ie=o-p*65536,o=we+p+65535,p=Math.floor(o/65536),we=o-p*65536,o=xe+p+65535,p=Math.floor(o/65536),xe=o-p*65536,o=Ee+p+65535,p=Math.floor(o/65536),Ee=o-p*65536,o=Ce+p+65535,p=Math.floor(o/65536),Ce=o-p*65536,o=ke+p+65535,p=Math.floor(o/65536),ke=o-p*65536,o=_e+p+65535,p=Math.floor(o/65536),_e=o-p*65536,o=Ae+p+65535,p=Math.floor(o/65536),Ae=o-p*65536,o=oe+p+65535,p=Math.floor(o/65536),oe=o-p*65536,C+=p-1+37*(p-1),c[0]=C,c[1]=B,c[2]=O,c[3]=V,c[4]=de,c[5]=Q,c[6]=qe,c[7]=ie,c[8]=we,c[9]=xe,c[10]=Ee,c[11]=Ce,c[12]=ke,c[13]=_e,c[14]=Ae,c[15]=oe}function Rt(c,h){be(c,h,h)}function ga(c,h){var f=e(),o;for(o=0;o<16;o++)f[o]=h[o];for(o=253;o>=0;o--)Rt(f,f),o!==2&&o!==4&&be(f,f,h);for(o=0;o<16;o++)c[o]=f[o]}function Tr(c,h){var f=e(),o;for(o=0;o<16;o++)f[o]=h[o];for(o=250;o>=0;o--)Rt(f,f),o!==1&&be(f,f,h);for(o=0;o<16;o++)c[o]=f[o]}function hn(c,h,f){var o=new Uint8Array(32),p=new Float64Array(80),C,B,O=e(),V=e(),de=e(),Q=e(),qe=e(),ie=e();for(B=0;B<31;B++)o[B]=h[B];for(o[31]=h[31]&127|64,o[0]&=248,fi(p,f),B=0;B<16;B++)V[B]=p[B],Q[B]=O[B]=de[B]=0;for(O[0]=Q[0]=1,B=254;B>=0;--B)C=o[B>>>3]>>>(B&7)&1,R(O,V,C),R(de,Q,C),Ut(qe,O,de),Ot(O,O,de),Ut(de,V,Q),Ot(V,V,Q),Rt(Q,qe),Rt(ie,O),be(O,de,O),be(de,V,qe),Ut(qe,O,de),Ot(O,O,de),Rt(V,O),Ot(de,Q,ie),be(O,de,l),Ut(O,O,Q),be(de,de,O),be(O,Q,ie),be(Q,V,p),Rt(V,qe),R(O,V,C),R(de,Q,C);for(B=0;B<16;B++)p[B+16]=O[B],p[B+32]=de[B],p[B+48]=V[B],p[B+64]=Q[B];var we=p.subarray(32),xe=p.subarray(16);return ga(we,we),be(xe,xe,we),yr(c,xe),0}function pn(c,h){return hn(c,h,i)}function ya(c,h){return t(h,32),pn(c,h)}function $r(c,h,f){var o=new Uint8Array(32);return hn(o,f,h),dt(c,n,o,Ie)}var hi=ci,Es=fn;function Bs(c,h,f,o,p,C){var B=new Uint8Array(32);return $r(B,p,C),hi(c,h,f,o,B)}function Ts(c,h,f,o,p,C){var B=new Uint8Array(32);return $r(B,p,C),Es(c,h,f,o,B)}var mn=[1116352408,3609767458,1899447441,602891725,3049323471,3964484399,3921009573,2173295548,961987163,4081628472,1508970993,3053834265,2453635748,2937671579,2870763221,3664609560,3624381080,2734883394,310598401,1164996542,607225278,1323610764,1426881987,3590304994,1925078388,4068182383,2162078206,991336113,2614888103,633803317,3248222580,3479774868,3835390401,2666613458,4022224774,944711139,264347078,2341262773,604807628,2007800933,770255983,1495990901,1249150122,1856431235,1555081692,3175218132,1996064986,2198950837,2554220882,3999719339,2821834349,766784016,2952996808,2566594879,3210313671,3203337956,3336571891,1034457026,3584528711,2466948901,113926993,3758326383,338241895,168717936,666307205,1188179964,773529912,1546045734,1294757372,1522805485,1396182291,2643833823,1695183700,2343527390,1986661051,1014477480,2177026350,1206759142,2456956037,344077627,2730485921,1290863460,2820302411,3158454273,3259730800,3505952657,3345764771,106217008,3516065817,3606008344,3600352804,1432725776,4094571909,1467031594,275423344,851169720,430227734,3100823752,506948616,1363258195,659060556,3750685593,883997877,3785050280,958139571,3318307427,1322822218,3812723403,1537002063,2003034995,1747873779,3602036899,1955562222,1575990012,2024104815,1125592928,2227730452,2716904306,2361852424,442776044,2428436474,593698344,2756734187,3733110249,3204031479,2999351573,3329325298,3815920427,3391569614,3928383900,3515267271,566280711,3940187606,3454069534,4118630271,4000239992,116418474,1914138554,174292421,2731055270,289380356,3203993006,460393269,320620315,685471733,587496836,852142971,1086792851,1017036298,365543100,1126000580,2618297676,1288033470,3409855158,1501505948,4234509866,1607167915,987167468,1816402316,1246189591];function ba(c,h,f,o){for(var p=new Int32Array(16),C=new Int32Array(16),B,O,V,de,Q,qe,ie,we,xe,Ee,Ce,ke,_e,Ae,oe,he,X,le,ue,J,I,P,F,j,N,D,me=c[0],Be=c[1],Pe=c[2],Te=c[3],x=c[4],Ue=c[5],Ve=c[6],Ke=c[7],je=h[0],Fe=h[1],We=h[2],lt=h[3],Ye=h[4],it=h[5],at=h[6],st=h[7],ht=0;o>=128;){for(ue=0;ue<16;ue++)J=8*ue+ht,p[ue]=f[J+0]<<24|f[J+1]<<16|f[J+2]<<8|f[J+3],C[ue]=f[J+4]<<24|f[J+5]<<16|f[J+6]<<8|f[J+7];for(ue=0;ue<80;ue++)if(B=me,O=Be,V=Pe,de=Te,Q=x,qe=Ue,ie=Ve,we=Ke,xe=je,Ee=Fe,Ce=We,ke=lt,_e=Ye,Ae=it,oe=at,he=st,I=Ke,P=st,F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=(x>>>14|Ye<<32-14)^(x>>>18|Ye<<32-18)^(Ye>>>41-32|x<<32-(41-32)),P=(Ye>>>14|x<<32-14)^(Ye>>>18|x<<32-18)^(x>>>41-32|Ye<<32-(41-32)),F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,I=x&Ue^~x&Ve,P=Ye&it^~Ye&at,F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,I=mn[ue*2],P=mn[ue*2+1],F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,I=p[ue%16],P=C[ue%16],F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,X=N&65535|D<<16,le=F&65535|j<<16,I=X,P=le,F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=(me>>>28|je<<32-28)^(je>>>34-32|me<<32-(34-32))^(je>>>39-32|me<<32-(39-32)),P=(je>>>28|me<<32-28)^(me>>>34-32|je<<32-(34-32))^(me>>>39-32|je<<32-(39-32)),F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,I=me&Be^me&Pe^Be&Pe,P=je&Fe^je&We^Fe&We,F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,we=N&65535|D<<16,he=F&65535|j<<16,I=de,P=ke,F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=X,P=le,F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,de=N&65535|D<<16,ke=F&65535|j<<16,Be=B,Pe=O,Te=V,x=de,Ue=Q,Ve=qe,Ke=ie,me=we,Fe=xe,We=Ee,lt=Ce,Ye=ke,it=_e,at=Ae,st=oe,je=he,ue%16==15)for(J=0;J<16;J++)I=p[J],P=C[J],F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=p[(J+9)%16],P=C[(J+9)%16],F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,X=p[(J+1)%16],le=C[(J+1)%16],I=(X>>>1|le<<32-1)^(X>>>8|le<<32-8)^X>>>7,P=(le>>>1|X<<32-1)^(le>>>8|X<<32-8)^(le>>>7|X<<32-7),F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,X=p[(J+14)%16],le=C[(J+14)%16],I=(X>>>19|le<<32-19)^(le>>>61-32|X<<32-(61-32))^X>>>6,P=(le>>>19|X<<32-19)^(X>>>61-32|le<<32-(61-32))^(le>>>6|X<<32-6),F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,p[J]=N&65535|D<<16,C[J]=F&65535|j<<16;I=me,P=je,F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=c[0],P=h[0],F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,c[0]=me=N&65535|D<<16,h[0]=je=F&65535|j<<16,I=Be,P=Fe,F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=c[1],P=h[1],F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,c[1]=Be=N&65535|D<<16,h[1]=Fe=F&65535|j<<16,I=Pe,P=We,F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=c[2],P=h[2],F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,c[2]=Pe=N&65535|D<<16,h[2]=We=F&65535|j<<16,I=Te,P=lt,F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=c[3],P=h[3],F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,c[3]=Te=N&65535|D<<16,h[3]=lt=F&65535|j<<16,I=x,P=Ye,F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=c[4],P=h[4],F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,c[4]=x=N&65535|D<<16,h[4]=Ye=F&65535|j<<16,I=Ue,P=it,F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=c[5],P=h[5],F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,c[5]=Ue=N&65535|D<<16,h[5]=it=F&65535|j<<16,I=Ve,P=at,F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=c[6],P=h[6],F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,c[6]=Ve=N&65535|D<<16,h[6]=at=F&65535|j<<16,I=Ke,P=st,F=P&65535,j=P>>>16,N=I&65535,D=I>>>16,I=c[7],P=h[7],F+=P&65535,j+=P>>>16,N+=I&65535,D+=I>>>16,j+=F>>>16,N+=j>>>16,D+=N>>>16,c[7]=Ke=N&65535|D<<16,h[7]=st=F&65535|j<<16,ht+=128,o-=128}return o}function Wt(c,h,f){var o=new Int32Array(8),p=new Int32Array(8),C=new Uint8Array(256),B,O=f;for(o[0]=1779033703,o[1]=3144134277,o[2]=1013904242,o[3]=2773480762,o[4]=1359893119,o[5]=2600822924,o[6]=528734635,o[7]=1541459225,p[0]=4089235720,p[1]=2227873595,p[2]=4271175723,p[3]=1595750129,p[4]=2917565137,p[5]=725511199,p[6]=4215389547,p[7]=327033209,ba(o,p,h,f),f%=128,B=0;B<f;B++)C[B]=h[O-f+B];for(C[f]=128,f=256-128*(f<112?1:0),C[f-9]=0,ae(C,f-8,O/536870912|0,O<<3),ba(o,p,C,f),B=0;B<8;B++)ae(c,8*B,o[B],p[B]);return 0}function Gr(c,h){var f=e(),o=e(),p=e(),C=e(),B=e(),O=e(),V=e(),de=e(),Q=e();Ot(f,c[1],c[0]),Ot(Q,h[1],h[0]),be(f,f,Q),Ut(o,c[0],c[1]),Ut(Q,h[0],h[1]),be(o,o,Q),be(p,c[3],h[3]),be(p,p,m),be(C,c[2],h[2]),Ut(C,C,C),Ot(B,o,f),Ot(O,C,p),Ut(V,C,p),Ut(de,o,f),be(c[0],B,O),be(c[1],de,V),be(c[2],V,O),be(c[3],B,de)}function gn(c,h,f){var o;for(o=0;o<4;o++)R(c[o],h[o],f)}function yn(c,h){var f=e(),o=e(),p=e();ga(p,h[2]),be(f,h[0],p),be(o,h[1],p),yr(c,o),c[31]^=di(f)<<7}function pi(c,h,f){var o,p;for(Ft(c[0],a),Ft(c[1],s),Ft(c[2],s),Ft(c[3],a),p=255;p>=0;--p)o=f[p/8|0]>>(p&7)&1,gn(c,h,o),Gr(h,c),Gr(c,c),gn(c,h,o)}function S(c,h){var f=[e(),e(),e(),e()];Ft(f[0],b),Ft(f[1],_),Ft(f[2],s),be(f[3],b,_),pi(c,f,h)}function g(c,h,f){var o=new Uint8Array(64),p=[e(),e(),e(),e()],C;for(f||t(h,32),Wt(o,h,32),o[0]&=248,o[31]&=127,o[31]|=64,S(p,o),yn(c,p),C=0;C<32;C++)h[C+32]=c[C];return 0}var k=new Float64Array([237,211,245,92,26,99,18,88,214,156,247,162,222,249,222,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16]);function A(c,h){var f,o,p,C;for(o=63;o>=32;--o){for(f=0,p=o-32,C=o-12;p<C;++p)h[p]+=f-16*h[o]*k[p-(o-32)],f=Math.floor((h[p]+128)/256),h[p]-=f*256;h[p]+=f,h[o]=0}for(f=0,p=0;p<32;p++)h[p]+=f-(h[31]>>4)*k[p],f=h[p]>>8,h[p]&=255;for(p=0;p<32;p++)h[p]-=f*k[p];for(o=0;o<32;o++)h[o+1]+=h[o]>>8,c[o]=h[o]&255}function E(c){var h=new Float64Array(64),f;for(f=0;f<64;f++)h[f]=c[f];for(f=0;f<64;f++)c[f]=0;A(c,h)}function w(c,h,f,o){var p=new Uint8Array(64),C=new Uint8Array(64),B=new Uint8Array(64),O,V,de=new Float64Array(64),Q=[e(),e(),e(),e()];Wt(p,o,32),p[0]&=248,p[31]&=127,p[31]|=64;var qe=f+64;for(O=0;O<f;O++)c[64+O]=h[O];for(O=0;O<32;O++)c[32+O]=p[32+O];for(Wt(B,c.subarray(32),f+32),E(B),S(Q,B),yn(c,Q),O=32;O<64;O++)c[O]=o[O];for(Wt(C,c,f+64),E(C),O=0;O<64;O++)de[O]=0;for(O=0;O<32;O++)de[O]=B[O];for(O=0;O<32;O++)for(V=0;V<32;V++)de[O+V]+=C[O]*p[V];return A(c.subarray(32),de),qe}function U(c,h){var f=e(),o=e(),p=e(),C=e(),B=e(),O=e(),V=e();return Ft(c[2],s),fi(c[1],h),Rt(p,c[1]),be(C,p,y),Ot(p,p,c[2]),Ut(C,c[2],C),Rt(B,C),Rt(O,B),be(V,O,B),be(f,V,p),be(f,f,C),Tr(f,f),be(f,f,p),be(f,f,C),be(f,f,C),be(c[0],f,C),Rt(o,c[0]),be(o,o,C),jt(o,p)&&be(c[0],c[0],G),Rt(o,c[0]),be(o,o,C),jt(o,p)?-1:(di(c[0])===h[31]>>7&&Ot(c[0],a,c[0]),be(c[3],c[0],c[1]),0)}function L(c,h,f,o){var p,C=new Uint8Array(32),B=new Uint8Array(64),O=[e(),e(),e(),e()],V=[e(),e(),e(),e()];if(f<64||U(V,o))return-1;for(p=0;p<f;p++)c[p]=h[p];for(p=0;p<32;p++)c[p+32]=o[p];if(Wt(B,c,f),E(B),pi(O,V,B),S(V,h.subarray(32)),Gr(O,V),yn(C,O),f-=64,se(h,0,C,0)){for(p=0;p<f;p++)c[p]=0;return-1}for(p=0;p<f;p++)c[p]=h[p+64];return f}var W=32,H=24,ce=32,K=16,$=32,Se=32,q=32,Oe=32,Ne=32,He=H,Qe=ce,Kt=K,rt=64,ft=32,er=64,Rr=32,br=64;r.lowlevel={crypto_core_hsalsa20:dt,crypto_stream_xor:Br,crypto_stream:gr,crypto_stream_salsa20_xor:Et,crypto_stream_salsa20:kt,crypto_onetimeauth:dn,crypto_onetimeauth_verify:ma,crypto_verify_16:ne,crypto_verify_32:se,crypto_secretbox:ci,crypto_secretbox_open:fn,crypto_scalarmult:hn,crypto_scalarmult_base:pn,crypto_box_beforenm:$r,crypto_box_afternm:hi,crypto_box:Bs,crypto_box_open:Ts,crypto_box_keypair:ya,crypto_hash:Wt,crypto_sign:w,crypto_sign_keypair:g,crypto_sign_open:L,crypto_secretbox_KEYBYTES:W,crypto_secretbox_NONCEBYTES:H,crypto_secretbox_ZEROBYTES:ce,crypto_secretbox_BOXZEROBYTES:K,crypto_scalarmult_BYTES:$,crypto_scalarmult_SCALARBYTES:Se,crypto_box_PUBLICKEYBYTES:q,crypto_box_SECRETKEYBYTES:Oe,crypto_box_BEFORENMBYTES:Ne,crypto_box_NONCEBYTES:He,crypto_box_ZEROBYTES:Qe,crypto_box_BOXZEROBYTES:Kt,crypto_sign_BYTES:rt,crypto_sign_PUBLICKEYBYTES:ft,crypto_sign_SECRETKEYBYTES:er,crypto_sign_SEEDBYTES:Rr,crypto_hash_BYTES:br,gf:e,D:y,L:k,pack25519:yr,unpack25519:fi,M:be,A:Ut,S:Rt,Z:Ot,pow2523:Tr,add:Gr,set25519:Ft,modL:A,scalarmult:pi,scalarbase:S};function Yr(c,h){if(c.length!==W)throw new Error("bad key size");if(h.length!==H)throw new Error("bad nonce size")}function Rs(c,h){if(c.length!==q)throw new Error("bad public key size");if(h.length!==Oe)throw new Error("bad secret key size")}function Nt(){for(var c=0;c<arguments.length;c++)if(!(arguments[c]instanceof Uint8Array))throw new TypeError("unexpected type, use Uint8Array")}function yl(c){for(var h=0;h<c.length;h++)c[h]=0}r.randomBytes=function(c){var h=new Uint8Array(c);return t(h,c),h},r.secretbox=function(c,h,f){Nt(c,h,f),Yr(f,h);for(var o=new Uint8Array(ce+c.length),p=new Uint8Array(o.length),C=0;C<c.length;C++)o[C+ce]=c[C];return ci(p,o,o.length,h,f),p.subarray(K)},r.secretbox.open=function(c,h,f){Nt(c,h,f),Yr(f,h);for(var o=new Uint8Array(K+c.length),p=new Uint8Array(o.length),C=0;C<c.length;C++)o[C+K]=c[C];return o.length<32||fn(p,o,o.length,h,f)!==0?null:p.subarray(ce)},r.secretbox.keyLength=W,r.secretbox.nonceLength=H,r.secretbox.overheadLength=K,r.scalarMult=function(c,h){if(Nt(c,h),c.length!==Se)throw new Error("bad n size");if(h.length!==$)throw new Error("bad p size");var f=new Uint8Array($);return hn(f,c,h),f},r.scalarMult.base=function(c){if(Nt(c),c.length!==Se)throw new Error("bad n size");var h=new Uint8Array($);return pn(h,c),h},r.scalarMult.scalarLength=Se,r.scalarMult.groupElementLength=$,r.box=function(c,h,f,o){var p=r.box.before(f,o);return r.secretbox(c,h,p)},r.box.before=function(c,h){Nt(c,h),Rs(c,h);var f=new Uint8Array(Ne);return $r(f,c,h),f},r.box.after=r.secretbox,r.box.open=function(c,h,f,o){var p=r.box.before(f,o);return r.secretbox.open(c,h,p)},r.box.open.after=r.secretbox.open,r.box.keyPair=function(){var c=new Uint8Array(q),h=new Uint8Array(Oe);return ya(c,h),{publicKey:c,secretKey:h}},r.box.keyPair.fromSecretKey=function(c){if(Nt(c),c.length!==Oe)throw new Error("bad secret key size");var h=new Uint8Array(q);return pn(h,c),{publicKey:h,secretKey:new Uint8Array(c)}},r.box.publicKeyLength=q,r.box.secretKeyLength=Oe,r.box.sharedKeyLength=Ne,r.box.nonceLength=He,r.box.overheadLength=r.secretbox.overheadLength,r.sign=function(c,h){if(Nt(c,h),h.length!==er)throw new Error("bad secret key size");var f=new Uint8Array(rt+c.length);return w(f,c,c.length,h),f},r.sign.open=function(c,h){if(Nt(c,h),h.length!==ft)throw new Error("bad public key size");var f=new Uint8Array(c.length),o=L(f,c,c.length,h);if(o<0)return null;for(var p=new Uint8Array(o),C=0;C<p.length;C++)p[C]=f[C];return p},r.sign.detached=function(c,h){for(var f=r.sign(c,h),o=new Uint8Array(rt),p=0;p<o.length;p++)o[p]=f[p];return o},r.sign.detached.verify=function(c,h,f){if(Nt(c,h,f),h.length!==rt)throw new Error("bad signature size");if(f.length!==ft)throw new Error("bad public key size");var o=new Uint8Array(rt+c.length),p=new Uint8Array(rt+c.length),C;for(C=0;C<rt;C++)o[C]=h[C];for(C=0;C<c.length;C++)o[C+rt]=c[C];return L(p,o,o.length,f)>=0},r.sign.keyPair=function(){var c=new Uint8Array(ft),h=new Uint8Array(er);return g(c,h),{publicKey:c,secretKey:h}},r.sign.keyPair.fromSecretKey=function(c){if(Nt(c),c.length!==er)throw new Error("bad secret key size");for(var h=new Uint8Array(ft),f=0;f<h.length;f++)h[f]=c[32+f];return{publicKey:h,secretKey:new Uint8Array(c)}},r.sign.keyPair.fromSeed=function(c){if(Nt(c),c.length!==Rr)throw new Error("bad seed size");for(var h=new Uint8Array(ft),f=new Uint8Array(er),o=0;o<32;o++)f[o]=c[o];return g(h,f,!0),{publicKey:h,secretKey:f}},r.sign.publicKeyLength=ft,r.sign.secretKeyLength=er,r.sign.seedLength=Rr,r.sign.signatureLength=rt,r.hash=function(c){Nt(c);var h=new Uint8Array(br);return Wt(h,c,c.length),h},r.hash.hashLength=br,r.verify=function(c,h){return Nt(c,h),c.length===0||h.length===0||c.length!==h.length?!1:Z(c,0,h,0,c.length)===0},r.setPRNG=function(c){t=c},function(){var c=typeof self!="undefined"?self.crypto||self.msCrypto:null;if(c&&c.getRandomValues){var h=65536;r.setPRNG(function(f,o){var p,C=new Uint8Array(o);for(p=0;p<o;p+=h)c.getRandomValues(C.subarray(p,p+Math.min(o-p,h)));for(p=0;p<o;p++)f[p]=C[p];yl(C)})}else typeof require!="undefined"&&(c=nc(),c&&c.randomBytes&&r.setPRNG(function(f,o){var p,C=c.randomBytes(o);for(p=0;p<o;p++)f[p]=C[p];yl(C)}))}()})(typeof Ma!="undefined"&&Ma.exports?Ma.exports:self.nacl=self.nacl||{})});var ac=$e(jr=>{v();"use strict";Object.defineProperty(jr,"__esModule",{value:!0});jr.bitsToBytes=jr.bytesToBits=jr.lpad=void 0;function ic(r,e,t){for(;r.length<t;)r=e+r;return r}jr.lpad=ic;function ch(r){let e="";for(let t=0;t<r.length;t++){let n=r.at(t);e+=ic(n.toString(2),"0",8)}return e}jr.bytesToBits=ch;function uh(r){if(r.length%8!=0)throw Error("Uneven bits");let e=[];for(;r.length>0;)e.push(parseInt(r.slice(0,8),2)),r=r.slice(8);return Buffer.from(e)}jr.bitsToBytes=uh});var Ks=$e(Ua=>{v();"use strict";Object.defineProperty(Ua,"__esModule",{value:!0});Ua.wordlist=void 0;var dh=["abandon","ability","able","about","above","absent","absorb","abstract","absurd","abuse","access","accident","account","accuse","achieve","acid","acoustic","acquire","across","act","action","actor","actress","actual","adapt","add","addict","address","adjust","admit","adult","advance","advice","aerobic","affair","afford","afraid","again","age","agent","agree","ahead","aim","air","airport","aisle","alarm","album","alcohol","alert","alien","all","alley","allow","almost","alone","alpha","already","also","alter","always","amateur","amazing","among","amount","amused","analyst","anchor","ancient","anger","angle","angry","animal","ankle","announce","annual","another","answer","antenna","antique","anxiety","any","apart","apology","appear","apple","approve","april","arch","arctic","area","arena","argue","arm","armed","armor","army","around","arrange","arrest","arrive","arrow","art","artefact","artist","artwork","ask","aspect","assault","asset","assist","assume","asthma","athlete","atom","attack","attend","attitude","attract","auction","audit","august","aunt","author","auto","autumn","average","avocado","avoid","awake","aware","away","awesome","awful","awkward","axis","baby","bachelor","bacon","badge","bag","balance","balcony","ball","bamboo","banana","banner","bar","barely","bargain","barrel","base","basic","basket","battle","beach","bean","beauty","because","become","beef","before","begin","behave","behind","believe","below","belt","bench","benefit","best","betray","better","between","beyond","bicycle","bid","bike","bind","biology","bird","birth","bitter","black","blade","blame","blanket","blast","bleak","bless","blind","blood","blossom","blouse","blue","blur","blush","board","boat","body","boil","bomb","bone","bonus","book","boost","border","boring","borrow","boss","bottom","bounce","box","boy","bracket","brain","brand","brass","brave","bread","breeze","brick","bridge","brief","bright","bring","brisk","broccoli","broken","bronze","broom","brother","brown","brush","bubble","buddy","budget","buffalo","build","bulb","bulk","bullet","bundle","bunker","burden","burger","burst","bus","business","busy","butter","buyer","buzz","cabbage","cabin","cable","cactus","cage","cake","call","calm","camera","camp","can","canal","cancel","candy","cannon","canoe","canvas","canyon","capable","capital","captain","car","carbon","card","cargo","carpet","carry","cart","case","cash","casino","castle","casual","cat","catalog","catch","category","cattle","caught","cause","caution","cave","ceiling","celery","cement","census","century","cereal","certain","chair","chalk","champion","change","chaos","chapter","charge","chase","chat","cheap","check","cheese","chef","cherry","chest","chicken","chief","child","chimney","choice","choose","chronic","chuckle","chunk","churn","cigar","cinnamon","circle","citizen","city","civil","claim","clap","clarify","claw","clay","clean","clerk","clever","click","client","cliff","climb","clinic","clip","clock","clog","close","cloth","cloud","clown","club","clump","cluster","clutch","coach","coast","coconut","code","coffee","coil","coin","collect","color","column","combine","come","comfort","comic","common","company","concert","conduct","confirm","congress","connect","consider","control","convince","cook","cool","copper","copy","coral","core","corn","correct","cost","cotton","couch","country","couple","course","cousin","cover","coyote","crack","cradle","craft","cram","crane","crash","crater","crawl","crazy","cream","credit","creek","crew","cricket","crime","crisp","critic","crop","cross","crouch","crowd","crucial","cruel","cruise","crumble","crunch","crush","cry","crystal","cube","culture","cup","cupboard","curious","current","curtain","curve","cushion","custom","cute","cycle","dad","damage","damp","dance","danger","daring","dash","daughter","dawn","day","deal","debate","debris","decade","december","decide","decline","decorate","decrease","deer","defense","define","defy","degree","delay","deliver","demand","demise","denial","dentist","deny","depart","depend","deposit","depth","deputy","derive","describe","desert","design","desk","despair","destroy","detail","detect","develop","device","devote","diagram","dial","diamond","diary","dice","diesel","diet","differ","digital","dignity","dilemma","dinner","dinosaur","direct","dirt","disagree","discover","disease","dish","dismiss","disorder","display","distance","divert","divide","divorce","dizzy","doctor","document","dog","doll","dolphin","domain","donate","donkey","donor","door","dose","double","dove","draft","dragon","drama","drastic","draw","dream","dress","drift","drill","drink","drip","drive","drop","drum","dry","duck","dumb","dune","during","dust","dutch","duty","dwarf","dynamic","eager","eagle","early","earn","earth","easily","east","easy","echo","ecology","economy","edge","edit","educate","effort","egg","eight","either","elbow","elder","electric","elegant","element","elephant","elevator","elite","else","embark","embody","embrace","emerge","emotion","employ","empower","empty","enable","enact","end","endless","endorse","enemy","energy","enforce","engage","engine","enhance","enjoy","enlist","enough","enrich","enroll","ensure","enter","entire","entry","envelope","episode","equal","equip","era","erase","erode","erosion","error","erupt","escape","essay","essence","estate","eternal","ethics","evidence","evil","evoke","evolve","exact","example","excess","exchange","excite","exclude","excuse","execute","exercise","exhaust","exhibit","exile","exist","exit","exotic","expand","expect","expire","explain","expose","express","extend","extra","eye","eyebrow","fabric","face","faculty","fade","faint","faith","fall","false","fame","family","famous","fan","fancy","fantasy","farm","fashion","fat","fatal","father","fatigue","fault","favorite","feature","february","federal","fee","feed","feel","female","fence","festival","fetch","fever","few","fiber","fiction","field","figure","file","film","filter","final","find","fine","finger","finish","fire","firm","first","fiscal","fish","fit","fitness","fix","flag","flame","flash","flat","flavor","flee","flight","flip","float","flock","floor","flower","fluid","flush","fly","foam","focus","fog","foil","fold","follow","food","foot","force","forest","forget","fork","fortune","forum","forward","fossil","foster","found","fox","fragile","frame","frequent","fresh","friend","fringe","frog","front","frost","frown","frozen","fruit","fuel","fun","funny","furnace","fury","future","gadget","gain","galaxy","gallery","game","gap","garage","garbage","garden","garlic","garment","gas","gasp","gate","gather","gauge","gaze","general","genius","genre","gentle","genuine","gesture","ghost","giant","gift","giggle","ginger","giraffe","girl","give","glad","glance","glare","glass","glide","glimpse","globe","gloom","glory","glove","glow","glue","goat","goddess","gold","good","goose","gorilla","gospel","gossip","govern","gown","grab","grace","grain","grant","grape","grass","gravity","great","green","grid","grief","grit","grocery","group","grow","grunt","guard","guess","guide","guilt","guitar","gun","gym","habit","hair","half","hammer","hamster","hand","happy","harbor","hard","harsh","harvest","hat","have","hawk","hazard","head","health","heart","heavy","hedgehog","height","hello","helmet","help","hen","hero","hidden","high","hill","hint","hip","hire","history","hobby","hockey","hold","hole","holiday","hollow","home","honey","hood","hope","horn","horror","horse","hospital","host","hotel","hour","hover","hub","huge","human","humble","humor","hundred","hungry","hunt","hurdle","hurry","hurt","husband","hybrid","ice","icon","idea","identify","idle","ignore","ill","illegal","illness","image","imitate","immense","immune","impact","impose","improve","impulse","inch","include","income","increase","index","indicate","indoor","industry","infant","inflict","inform","inhale","inherit","initial","inject","injury","inmate","inner","innocent","input","inquiry","insane","insect","inside","inspire","install","intact","interest","into","invest","invite","involve","iron","island","isolate","issue","item","ivory","jacket","jaguar","jar","jazz","jealous","jeans","jelly","jewel","job","join","joke","journey","joy","judge","juice","jump","jungle","junior","junk","just","kangaroo","keen","keep","ketchup","key","kick","kid","kidney","kind","kingdom","kiss","kit","kitchen","kite","kitten","kiwi","knee","knife","knock","know","lab","label","labor","ladder","lady","lake","lamp","language","laptop","large","later","latin","laugh","laundry","lava","law","lawn","lawsuit","layer","lazy","leader","leaf","learn","leave","lecture","left","leg","legal","legend","leisure","lemon","lend","length","lens","leopard","lesson","letter","level","liar","liberty","library","license","life","lift","light","like","limb","limit","link","lion","liquid","list","little","live","lizard","load","loan","lobster","local","lock","logic","lonely","long","loop","lottery","loud","lounge","love","loyal","lucky","luggage","lumber","lunar","lunch","luxury","lyrics","machine","mad","magic","magnet","maid","mail","main","major","make","mammal","man","manage","mandate","mango","mansion","manual","maple","marble","march","margin","marine","market","marriage","mask","mass","master","match","material","math","matrix","matter","maximum","maze","meadow","mean","measure","meat","mechanic","medal","media","melody","melt","member","memory","mention","menu","mercy","merge","merit","merry","mesh","message","metal","method","middle","midnight","milk","million","mimic","mind","minimum","minor","minute","miracle","mirror","misery","miss","mistake","mix","mixed","mixture","mobile","model","modify","mom","moment","monitor","monkey","monster","month","moon","moral","more","morning","mosquito","mother","motion","motor","mountain","mouse","move","movie","much","muffin","mule","multiply","muscle","museum","mushroom","music","must","mutual","myself","mystery","myth","naive","name","napkin","narrow","nasty","nation","nature","near","neck","need","negative","neglect","neither","nephew","nerve","nest","net","network","neutral","never","news","next","nice","night","noble","noise","nominee","noodle","normal","north","nose","notable","note","nothing","notice","novel","now","nuclear","number","nurse","nut","oak","obey","object","oblige","obscure","observe","obtain","obvious","occur","ocean","october","odor","off","offer","office","often","oil","okay","old","olive","olympic","omit","once","one","onion","online","only","open","opera","opinion","oppose","option","orange","orbit","orchard","order","ordinary","organ","orient","original","orphan","ostrich","other","outdoor","outer","output","outside","oval","oven","over","own","owner","oxygen","oyster","ozone","pact","paddle","page","pair","palace","palm","panda","panel","panic","panther","paper","parade","parent","park","parrot","party","pass","patch","path","patient","patrol","pattern","pause","pave","payment","peace","peanut","pear","peasant","pelican","pen","penalty","pencil","people","pepper","perfect","permit","person","pet","phone","photo","phrase","physical","piano","picnic","picture","piece","pig","pigeon","pill","pilot","pink","pioneer","pipe","pistol","pitch","pizza","place","planet","plastic","plate","play","please","pledge","pluck","plug","plunge","poem","poet","point","polar","pole","police","pond","pony","pool","popular","portion","position","possible","post","potato","pottery","poverty","powder","power","practice","praise","predict","prefer","prepare","present","pretty","prevent","price","pride","primary","print","priority","prison","private","prize","problem","process","produce","profit","program","project","promote","proof","property","prosper","protect","proud","provide","public","pudding","pull","pulp","pulse","pumpkin","punch","pupil","puppy","purchase","purity","purpose","purse","push","put","puzzle","pyramid","quality","quantum","quarter","question","quick","quit","quiz","quote","rabbit","raccoon","race","rack","radar","radio","rail","rain","raise","rally","ramp","ranch","random","range","rapid","rare","rate","rather","raven","raw","razor","ready","real","reason","rebel","rebuild","recall","receive","recipe","record","recycle","reduce","reflect","reform","refuse","region","regret","regular","reject","relax","release","relief","rely","remain","remember","remind","remove","render","renew","rent","reopen","repair","repeat","replace","report","require","rescue","resemble","resist","resource","response","result","retire","retreat","return","reunion","reveal","review","reward","rhythm","rib","ribbon","rice","rich","ride","ridge","rifle","right","rigid","ring","riot","ripple","risk","ritual","rival","river","road","roast","robot","robust","rocket","romance","roof","rookie","room","rose","rotate","rough","round","route","royal","rubber","rude","rug","rule","run","runway","rural","sad","saddle","sadness","safe","sail","salad","salmon","salon","salt","salute","same","sample","sand","satisfy","satoshi","sauce","sausage","save","say","scale","scan","scare","scatter","scene","scheme","school","science","scissors","scorpion","scout","scrap","screen","script","scrub","sea","search","season","seat","second","secret","section","security","seed","seek","segment","select","sell","seminar","senior","sense","sentence","series","service","session","settle","setup","seven","shadow","shaft","shallow","share","shed","shell","sheriff","shield","shift","shine","ship","shiver","shock","shoe","shoot","shop","short","shoulder","shove","shrimp","shrug","shuffle","shy","sibling","sick","side","siege","sight","sign","silent","silk","silly","silver","similar","simple","since","sing","siren","sister","situate","six","size","skate","sketch","ski","skill","skin","skirt","skull","slab","slam","sleep","slender","slice","slide","slight","slim","slogan","slot","slow","slush","small","smart","smile","smoke","smooth","snack","snake","snap","sniff","snow","soap","soccer","social","sock","soda","soft","solar","soldier","solid","solution","solve","someone","song","soon","sorry","sort","soul","sound","soup","source","south","space","spare","spatial","spawn","speak","special","speed","spell","spend","sphere","spice","spider","spike","spin","spirit","split","spoil","sponsor","spoon","sport","spot","spray","spread","spring","spy","square","squeeze","squirrel","stable","stadium","staff","stage","stairs","stamp","stand","start","state","stay","steak","steel","stem","step","stereo","stick","still","sting","stock","stomach","stone","stool","story","stove","strategy","street","strike","strong","struggle","student","stuff","stumble","style","subject","submit","subway","success","such","sudden","suffer","sugar","suggest","suit","summer","sun","sunny","sunset","super","supply","supreme","sure","surface","surge","surprise","surround","survey","suspect","sustain","swallow","swamp","swap","swarm","swear","sweet","swift","swim","swing","switch","sword","symbol","symptom","syrup","system","table","tackle","tag","tail","talent","talk","tank","tape","target","task","taste","tattoo","taxi","teach","team","tell","ten","tenant","tennis","tent","term","test","text","thank","that","theme","then","theory","there","they","thing","this","thought","three","thrive","throw","thumb","thunder","ticket","tide","tiger","tilt","timber","time","tiny","tip","tired","tissue","title","toast","tobacco","today","toddler","toe","together","toilet","token","tomato","tomorrow","tone","tongue","tonight","tool","tooth","top","topic","topple","torch","tornado","tortoise","toss","total","tourist","toward","tower","town","toy","track","trade","traffic","tragic","train","transfer","trap","trash","travel","tray","treat","tree","trend","trial","tribe","trick","trigger","trim","trip","trophy","trouble","truck","true","truly","trumpet","trust","truth","try","tube","tuition","tumble","tuna","tunnel","turkey","turn","turtle","twelve","twenty","twice","twin","twist","two","type","typical","ugly","umbrella","unable","unaware","uncle","uncover","under","undo","unfair","unfold","unhappy","uniform","unique","unit","universe","unknown","unlock","until","unusual","unveil","update","upgrade","uphold","upon","upper","upset","urban","urge","usage","use","used","useful","useless","usual","utility","vacant","vacuum","vague","valid","valley","valve","van","vanish","vapor","various","vast","vault","vehicle","velvet","vendor","venture","venue","verb","verify","version","very","vessel","veteran","viable","vibrant","vicious","victory","video","view","village","vintage","violin","virtual","virus","visa","visit","visual","vital","vivid","vocal","voice","void","volcano","volume","vote","voyage","wage","wagon","wait","walk","wall","walnut","want","warfare","warm","warrior","wash","wasp","waste","water","wave","way","wealth","weapon","wear","weasel","weather","web","wedding","weekend","weird","welcome","west","wet","whale","what","wheat","wheel","when","where","whip","whisper","wide","width","wife","wild","will","win","window","wine","wing","wink","winner","winter","wire","wisdom","wise","wish","witness","wolf","woman","wonder","wood","wool","word","work","world","worry","worth","wrap","wreck","wrestle","wrist","write","wrong","yard","year","yellow","you","young","youth","zebra","zero","zone","zoo"];Ua.wordlist=dh});var Js=$e(Xe=>{v();"use strict";var fh=Xe&&Xe.__importDefault||function(r){return r&&r.__esModule?r:{default:r}};Object.defineProperty(Xe,"__esModule",{value:!0});Xe.mnemonicFromRandomSeed=Xe.mnemonicIndexesToBytes=Xe.bytesToMnemonics=Xe.bytesToMnemonicIndexes=Xe.mnemonicNew=Xe.mnemonicValidate=Xe.mnemonicToHDSeed=Xe.mnemonicToWalletKey=Xe.mnemonicToPrivateKey=Xe.mnemonicToSeed=Xe.mnemonicToEntropy=void 0;var sc=fh(ja()),hh=Ta(),ph=Sn(),Oa=Vs(),Hs=ac(),Na=Ks(),Zs=1e5;async function oc(r){let e=await gi(r);return await mh(e)&&!await Gs(e)}function $s(r){return r.map(e=>e.toLowerCase().trim())}async function Gs(r){return(await(0,Oa.pbkdf2_sha512)(r,"TON seed version",Math.max(1,Math.floor(Zs/256)),64))[0]==0}async function mh(r){return(await(0,Oa.pbkdf2_sha512)(r,"TON fast seed version",1,64))[0]==1}async function gi(r,e){return await(0,ph.hmac_sha512)(r.join(" "),e&&e.length>0?e:"")}Xe.mnemonicToEntropy=gi;async function Ys(r,e,t){let n=await gi(r,t);return await(0,Oa.pbkdf2_sha512)(n,e,Zs,64)}Xe.mnemonicToSeed=Ys;async function lc(r,e){r=$s(r);let t=await Ys(r,"TON default seed",e),n=sc.default.sign.keyPair.fromSeed(t.slice(0,32));return{publicKey:Buffer.from(n.publicKey),secretKey:Buffer.from(n.secretKey)}}Xe.mnemonicToPrivateKey=lc;async function gh(r,e){let n=(await lc(r,e)).secretKey.slice(0,32),i=sc.default.sign.keyPair.fromSeed(n);return{publicKey:Buffer.from(i.publicKey),secretKey:Buffer.from(i.secretKey)}}Xe.mnemonicToWalletKey=gh;async function yh(r,e){return r=$s(r),await Ys(r,"TON HD Keys seed",e)}Xe.mnemonicToHDSeed=yh;async function cc(r,e){r=$s(r);for(let t of r)if(Na.wordlist.indexOf(t)<0)return!1;return e&&e.length>0&&!await oc(r)?!1:await Gs(await gi(r,e))}Xe.mnemonicValidate=cc;async function bh(r=24,e){let t=[];for(;;){t=[];for(let n=0;n<r;n++){let i=await(0,hh.getSecureRandomNumber)(0,Na.wordlist.length);t.push(Na.wordlist[i])}if(!(e&&e.length>0&&!await oc(t))&&!!await Gs(await gi(t,e)))break}return t}Xe.mnemonicNew=bh;function uc(r,e){let t=(0,Hs.bytesToBits)(r),n=[];for(let i=0;i<e;i++){let a=t.slice(i*11,i*11+11);n.push(parseInt(a,2))}return n}Xe.bytesToMnemonicIndexes=uc;function dc(r,e){let t=uc(r,e),n=[];for(let i of t)n.push(Na.wordlist[i]);return n}Xe.bytesToMnemonics=dc;function wh(r){let e="";for(let t of r){if(!Number.isSafeInteger(t)||t<0||t>=2028)throw Error("Invalid input");e+=(0,Hs.lpad)(t.toString(2),"0",11)}for(;e.length%8!=0;)e=e+"0";return(0,Hs.bitsToBytes)(e)}Xe.mnemonicIndexesToBytes=wh;async function vh(r,e=24,t){let n=Math.ceil(e*11/8),i=r;for(;;){let a=await(0,Oa.pbkdf2_sha512)(i,"TON mnemonic seed",Math.max(1,Math.floor(Zs/256)),n),s=dc(a,e);if(await cc(s,t))return s;i=a}}Xe.mnemonicFromRandomSeed=vh});var Qs=$e(Ct=>{v();"use strict";var xh=Ct&&Ct.__importDefault||function(r){return r&&r.__esModule?r:{default:r}};Object.defineProperty(Ct,"__esModule",{value:!0});Ct.openBox=Ct.sealBox=Ct.signVerify=Ct.sign=Ct.keyPairFromSeed=Ct.keyPairFromSecretKey=void 0;var _n=xh(ja());function kh(r){let e=_n.default.sign.keyPair.fromSecretKey(new Uint8Array(r));return{publicKey:Buffer.from(e.publicKey),secretKey:Buffer.from(e.secretKey)}}Ct.keyPairFromSecretKey=kh;function Ah(r){let e=_n.default.sign.keyPair.fromSeed(new Uint8Array(r));return{publicKey:Buffer.from(e.publicKey),secretKey:Buffer.from(e.secretKey)}}Ct.keyPairFromSeed=Ah;function Sh(r,e){return Buffer.from(_n.default.sign.detached(new Uint8Array(r),new Uint8Array(e)))}Ct.sign=Sh;function _h(r,e,t){return _n.default.sign.detached.verify(new Uint8Array(r),new Uint8Array(e),new Uint8Array(t))}Ct.signVerify=_h;function Ch(r,e,t){return Buffer.from(_n.default.secretbox(r,e,t))}Ct.sealBox=Ch;function Eh(r,e,t){let n=_n.default.secretbox.open(r,e,t);return n?Buffer.from(n):null}Ct.openBox=Eh});var gc=$e(Ur=>{v();"use strict";Object.defineProperty(Ur,"__esModule",{value:!0});Ur.deriveEd25519Path=Ur.deriveED25519HardenedKey=Ur.getED25519MasterKeyFromSeed=void 0;var fc=Sn(),Bh="ed25519 seed",hc=2147483648;async function pc(r){let e=await(0,fc.hmac_sha512)(Bh,r),t=e.slice(0,32),n=e.slice(32);return{key:t,chainCode:n}}Ur.getED25519MasterKeyFromSeed=pc;async function mc(r,e){if(e>=hc)throw Error("Key index must be less than offset");let t=Buffer.alloc(4);t.writeUInt32BE(e+hc,0);let n=Buffer.concat([Buffer.alloc(1,0),r.key,t]),i=await(0,fc.hmac_sha512)(r.chainCode,n),a=i.slice(0,32),s=i.slice(32);return{key:a,chainCode:s}}Ur.deriveED25519HardenedKey=mc;async function Th(r,e){let t=await pc(r),n=[...e];for(;n.length>0;){let i=n[0];n=n.slice(1),t=await mc(t,i)}return t.key}Ur.deriveEd25519Path=Th});var vc=$e(Or=>{v();"use strict";Object.defineProperty(Or,"__esModule",{value:!0});Or.deriveSymmetricPath=Or.deriveSymmetricHardenedKey=Or.getSymmetricMasterKeyFromSeed=void 0;var yc=Sn(),Rh="Symmetric key seed";async function bc(r){let e=await(0,yc.hmac_sha512)(Rh,r),t=e.slice(32),n=e.slice(0,32);return{key:t,chainCode:n}}Or.getSymmetricMasterKeyFromSeed=bc;async function wc(r,e){let t=Buffer.concat([Buffer.alloc(1,0),Buffer.from(e)]),n=await(0,yc.hmac_sha512)(r.chainCode,t),i=n.slice(32),a=n.slice(0,32);return{key:i,chainCode:a}}Or.deriveSymmetricHardenedKey=wc;async function Ih(r,e){let t=await bc(r),n=[...e];for(;n.length>0;){let i=n[0];n=n.slice(1),t=await wc(t,i)}return t.key}Or.deriveSymmetricPath=Ih});var _c=$e(Nr=>{v();"use strict";Object.defineProperty(Nr,"__esModule",{value:!0});Nr.deriveMnemonicsPath=Nr.deriveMnemonicHardenedKey=Nr.getMnemonicsMasterKeyFromSeed=void 0;var Ph=Js(),xc=Sn(),kc=2147483648,Mh="TON Mnemonics HD seed";async function Ac(r){let e=await(0,xc.hmac_sha512)(Mh,r),t=e.slice(0,32),n=e.slice(32);return{key:t,chainCode:n}}Nr.getMnemonicsMasterKeyFromSeed=Ac;async function Sc(r,e){if(e>=kc)throw Error("Key index must be less than offset");let t=Buffer.alloc(4);t.writeUInt32BE(e+kc,0);let n=Buffer.concat([Buffer.alloc(1,0),r.key,t]),i=await(0,xc.hmac_sha512)(r.chainCode,n),a=i.slice(0,32),s=i.slice(32);return{key:a,chainCode:s}}Nr.deriveMnemonicHardenedKey=Sc;async function jh(r,e,t=24,n){let i=await Ac(r),a=[...e];for(;a.length>0;){let s=a[0];a=a.slice(1),i=await Sc(i,s)}return await(0,Ph.mnemonicFromRandomSeed)(i.key,t,n)}Nr.deriveMnemonicsPath=jh});var Xr=$e(te=>{v();"use strict";Object.defineProperty(te,"__esModule",{value:!0});te.getMnemonicsMasterKeyFromSeed=te.deriveMnemonicHardenedKey=te.deriveMnemonicsPath=te.deriveSymmetricPath=te.deriveSymmetricHardenedKey=te.getSymmetricMasterKeyFromSeed=te.deriveEd25519Path=te.deriveED25519HardenedKey=te.getED25519MasterKeyFromSeed=te.signVerify=te.sign=te.keyPairFromSecretKey=te.keyPairFromSeed=te.openBox=te.sealBox=te.mnemonicWordList=te.mnemonicToHDSeed=te.mnemonicToSeed=te.mnemonicToWalletKey=te.mnemonicToPrivateKey=te.mnemonicValidate=te.mnemonicNew=te.newSecurePassphrase=te.newSecureWords=te.getSecureRandomNumber=te.getSecureRandomWords=te.getSecureRandomBytes=te.hmac_sha512=te.pbkdf2_sha512=te.sha512_sync=te.sha512=te.sha256_sync=te.sha256=void 0;var Cc=$l();Object.defineProperty(te,"sha256",{enumerable:!0,get:function(){return Cc.sha256}});Object.defineProperty(te,"sha256_sync",{enumerable:!0,get:function(){return Cc.sha256_sync}});var Ec=Yl();Object.defineProperty(te,"sha512",{enumerable:!0,get:function(){return Ec.sha512}});Object.defineProperty(te,"sha512_sync",{enumerable:!0,get:function(){return Ec.sha512_sync}});var Uh=Vs();Object.defineProperty(te,"pbkdf2_sha512",{enumerable:!0,get:function(){return Uh.pbkdf2_sha512}});var Oh=Sn();Object.defineProperty(te,"hmac_sha512",{enumerable:!0,get:function(){return Oh.hmac_sha512}});var Xs=Ta();Object.defineProperty(te,"getSecureRandomBytes",{enumerable:!0,get:function(){return Xs.getSecureRandomBytes}});Object.defineProperty(te,"getSecureRandomWords",{enumerable:!0,get:function(){return Xs.getSecureRandomWords}});Object.defineProperty(te,"getSecureRandomNumber",{enumerable:!0,get:function(){return Xs.getSecureRandomNumber}});var Nh=tc();Object.defineProperty(te,"newSecureWords",{enumerable:!0,get:function(){return Nh.newSecureWords}});var Lh=rc();Object.defineProperty(te,"newSecurePassphrase",{enumerable:!0,get:function(){return Lh.newSecurePassphrase}});var Cn=Js();Object.defineProperty(te,"mnemonicNew",{enumerable:!0,get:function(){return Cn.mnemonicNew}});Object.defineProperty(te,"mnemonicValidate",{enumerable:!0,get:function(){return Cn.mnemonicValidate}});Object.defineProperty(te,"mnemonicToPrivateKey",{enumerable:!0,get:function(){return Cn.mnemonicToPrivateKey}});Object.defineProperty(te,"mnemonicToWalletKey",{enumerable:!0,get:function(){return Cn.mnemonicToWalletKey}});Object.defineProperty(te,"mnemonicToSeed",{enumerable:!0,get:function(){return Cn.mnemonicToSeed}});Object.defineProperty(te,"mnemonicToHDSeed",{enumerable:!0,get:function(){return Cn.mnemonicToHDSeed}});var Fh=Ks();Object.defineProperty(te,"mnemonicWordList",{enumerable:!0,get:function(){return Fh.wordlist}});var Bc=Qs();Object.defineProperty(te,"sealBox",{enumerable:!0,get:function(){return Bc.sealBox}});Object.defineProperty(te,"openBox",{enumerable:!0,get:function(){return Bc.openBox}});var La=Qs();Object.defineProperty(te,"keyPairFromSeed",{enumerable:!0,get:function(){return La.keyPairFromSeed}});Object.defineProperty(te,"keyPairFromSecretKey",{enumerable:!0,get:function(){return La.keyPairFromSecretKey}});Object.defineProperty(te,"sign",{enumerable:!0,get:function(){return La.sign}});Object.defineProperty(te,"signVerify",{enumerable:!0,get:function(){return La.signVerify}});var eo=gc();Object.defineProperty(te,"getED25519MasterKeyFromSeed",{enumerable:!0,get:function(){return eo.getED25519MasterKeyFromSeed}});Object.defineProperty(te,"deriveED25519HardenedKey",{enumerable:!0,get:function(){return eo.deriveED25519HardenedKey}});Object.defineProperty(te,"deriveEd25519Path",{enumerable:!0,get:function(){return eo.deriveEd25519Path}});var to=vc();Object.defineProperty(te,"getSymmetricMasterKeyFromSeed",{enumerable:!0,get:function(){return to.getSymmetricMasterKeyFromSeed}});Object.defineProperty(te,"deriveSymmetricHardenedKey",{enumerable:!0,get:function(){return to.deriveSymmetricHardenedKey}});Object.defineProperty(te,"deriveSymmetricPath",{enumerable:!0,get:function(){return to.deriveSymmetricPath}});var ro=_c();Object.defineProperty(te,"deriveMnemonicsPath",{enumerable:!0,get:function(){return ro.deriveMnemonicsPath}});Object.defineProperty(te,"deriveMnemonicHardenedKey",{enumerable:!0,get:function(){return ro.deriveMnemonicHardenedKey}});Object.defineProperty(te,"getMnemonicsMasterKeyFromSeed",{enumerable:!0,get:function(){return ro.getMnemonicsMasterKeyFromSeed}})});var Rc=$e((Tc,Fa)=>{v();(function(r,e){"use strict";typeof Fa!="undefined"&&Fa.exports?Fa.exports=e():(r.nacl||(r.nacl={}),r.nacl.util=e())})(Tc,function(){"use strict";var r={};function e(t){if(!/^(?:[A-Za-z0-9+\/]{2}[A-Za-z0-9+\/]{2})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$/.test(t))throw new TypeError("invalid encoding")}return r.decodeUTF8=function(t){if(typeof t!="string")throw new TypeError("expected string");var n,i=unescape(encodeURIComponent(t)),a=new Uint8Array(i.length);for(n=0;n<i.length;n++)a[n]=i.charCodeAt(n);return a},r.encodeUTF8=function(t){var n,i=[];for(n=0;n<t.length;n++)i.push(String.fromCharCode(t[n]));return decodeURIComponent(escape(i.join("")))},typeof atob=="undefined"?typeof Buffer.from!="undefined"?(r.encodeBase64=function(t){return Buffer.from(t).toString("base64")},r.decodeBase64=function(t){return e(t),new Uint8Array(Array.prototype.slice.call(Buffer.from(t,"base64"),0))}):(r.encodeBase64=function(t){return new Buffer(t).toString("base64")},r.decodeBase64=function(t){return e(t),new Uint8Array(Array.prototype.slice.call(new Buffer(t,"base64"),0))}):(r.encodeBase64=function(t){var n,i=[],a=t.length;for(n=0;n<a;n++)i.push(String.fromCharCode(t[n]));return btoa(i.join(""))},r.decodeBase64=function(t){e(t);var n,i=atob(t),a=new Uint8Array(i.length);for(n=0;n<i.length;n++)a[n]=i.charCodeAt(n);return a}),r})});var Su=$e((Mb,Au)=>{v();"use strict";var Cm=function(){function r(t,n){if(typeof t!="function")throw new TypeError("DataLoader must be constructed with a function which accepts "+("Array<key> and returns Promise<Array<value>>, but got: "+t+"."));this._batchLoadFn=t,this._maxBatchSize=Rm(n),this._batchScheduleFn=Im(n),this._cacheKeyFn=Pm(n),this._cacheMap=Mm(n),this._batch=null,this.name=jm(n)}var e=r.prototype;return e.load=function(n){if(n==null)throw new TypeError("The loader.load() function must be called with a value, "+("but got: "+String(n)+"."));var i=Bm(this),a=this._cacheMap,s;if(a){s=this._cacheKeyFn(n);var l=a.get(s);if(l){var y=i.cacheHits||(i.cacheHits=[]);return new Promise(function(b){y.push(function(){b(l)})})}}i.keys.push(n);var m=new Promise(function(b,_){i.callbacks.push({resolve:b,reject:_})});return a&&a.set(s,m),m},e.loadMany=function(n){if(!ku(n))throw new TypeError("The loader.loadMany() function must be called with Array<key> "+("but got: "+n+"."));for(var i=[],a=0;a<n.length;a++)i.push(this.load(n[a]).catch(function(s){return s}));return Promise.all(i)},e.clear=function(n){var i=this._cacheMap;if(i){var a=this._cacheKeyFn(n);i.delete(a)}return this},e.clearAll=function(){var n=this._cacheMap;return n&&n.clear(),this},e.prime=function(n,i){var a=this._cacheMap;if(a){var s=this._cacheKeyFn(n);if(a.get(s)===void 0){var l;i instanceof Error?(l=Promise.reject(i),l.catch(function(){})):l=Promise.resolve(i),a.set(s,l)}}return this},r}(),Em=typeof process=="object"&&typeof process.nextTick=="function"?function(r){mo||(mo=Promise.resolve()),mo.then(function(){process.nextTick(r)})}:typeof setImmediate=="function"?function(r){setImmediate(r)}:function(r){setTimeout(r)},mo;function Bm(r){var e=r._batch;if(e!==null&&!e.hasDispatched&&e.keys.length<r._maxBatchSize)return e;var t={hasDispatched:!1,keys:[],callbacks:[]};return r._batch=t,r._batchScheduleFn(function(){Tm(r,t)}),t}function Tm(r,e){if(e.hasDispatched=!0,e.keys.length===0){yo(e);return}var t;try{t=r._batchLoadFn(e.keys)}catch(n){return go(r,e,new TypeError("DataLoader must be constructed with a function which accepts Array<key> and returns Promise<Array<value>>, but the function "+("errored synchronously: "+String(n)+".")))}if(!t||typeof t.then!="function")return go(r,e,new TypeError("DataLoader must be constructed with a function which accepts Array<key> and returns Promise<Array<value>>, but the function did "+("not return a Promise: "+String(t)+".")));t.then(function(n){if(!ku(n))throw new TypeError("DataLoader must be constructed with a function which accepts Array<key> and returns Promise<Array<value>>, but the function did "+("not return a Promise of an Array: "+String(n)+"."));if(n.length!==e.keys.length)throw new TypeError("DataLoader must be constructed with a function which accepts Array<key> and returns Promise<Array<value>>, but the function did not return a Promise of an Array of the same length as the Array of keys."+(`
+  "use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 
-Keys:
-`+String(e.keys))+(`
+// node_modules/symbol.inspect/index.js
+var require_symbol = __commonJS({
+  "node_modules/symbol.inspect/index.js"(exports2, module2) {
+    "use strict";
+    var SymbolInspect = Symbol.for("nodejs.util.inspect.custom");
+    module2.exports = SymbolInspect;
+  }
+});
 
-Values:
-`+String(n)));yo(e);for(var i=0;i<e.callbacks.length;i++){var a=n[i];a instanceof Error?e.callbacks[i].reject(a):e.callbacks[i].resolve(a)}}).catch(function(n){go(r,e,n)})}function go(r,e,t){yo(e);for(var n=0;n<e.keys.length;n++)r.clear(e.keys[n]),e.callbacks[n].reject(t)}function yo(r){if(r.cacheHits)for(var e=0;e<r.cacheHits.length;e++)r.cacheHits[e]()}function Rm(r){var e=!r||r.batch!==!1;if(!e)return 1;var t=r&&r.maxBatchSize;if(t===void 0)return 1/0;if(typeof t!="number"||t<1)throw new TypeError("maxBatchSize must be a positive number: "+t);return t}function Im(r){var e=r&&r.batchScheduleFn;if(e===void 0)return Em;if(typeof e!="function")throw new TypeError("batchScheduleFn must be a function: "+e);return e}function Pm(r){var e=r&&r.cacheKeyFn;if(e===void 0)return function(t){return t};if(typeof e!="function")throw new TypeError("cacheKeyFn must be a function: "+e);return e}function Mm(r){var e=!r||r.cache!==!1;if(!e)return null;var t=r&&r.cacheMap;if(t===void 0)return new Map;if(t!==null){var n=["get","set","delete","clear"],i=n.filter(function(a){return t&&typeof t[a]!="function"});if(i.length!==0)throw new TypeError("Custom cacheMap missing methods: "+i.join(", "))}return t}function jm(r){return r&&r.name?r.name:null}function ku(r){return typeof r=="object"&&r!==null&&typeof r.length=="number"&&(r.length===0||r.length>0&&Object.prototype.hasOwnProperty.call(r,r.length-1))}Au.exports=Cm});var dd=$e((Ov,Gg)=>{Gg.exports={name:"@ton/ton",version:"15.2.0",repository:"https://github.com/ton-org/ton.git",author:"Whales Corp. <developers@whalescorp.com>",license:"MIT",main:"./dist/index.js",types:"./types/index.d.ts",files:["dist","types","lib","pluginTypes"],scripts:{docs:"rm -fr docs && typedoc src/index.ts","build:types":"npx api-extractor run --local","rm:types":"find types -type f -name '*.d.ts' ! -name 'index.d.ts' -delete && find types -type d -empty -delete",buildLib:"rm -rf pluginTypes && rm -rf types && mkdir pluginTypes && tsc --P tsconfig.types.json && npm run build:types && node esbuild.bundle.js && npm run rm:types",test:"jest --verbose --runInBand",release:"yarn build && yarn release-it --npm.yarn1",build:"rm -rf lib && rm -rf dist && tsc --declaration && yarn buildLib"},devDependencies:{"@ijstech/ton-core":"https://github.com/ijstech/ton-core.git","@ijstech/zod":"https://github.com/ijstech/zod.git","@microsoft/api-extractor":"^7.50.0","@release-it/keep-a-changelog":"^5.0.0","@ton/crypto":"3.2.0","@ton/emulator":"^2.1.1","@tonconnect/sdk":"^3.0.6","@types/jest":"^27.0.1","@types/node":"18.8.4",buffer:"^6.0.3",esbuild:"0.13.13",expect:"^27.1.0",jest:"^27.1.0","jest-mock":"^27.1.0",karma:"^6.3.4","karma-chrome-launcher":"^3.1.0","karma-jasmine":"^4.0.1","karma-typescript":"^5.5.2","karma-webpack":"^5.0.0",prando:"^6.0.1","release-it":"^17.1.1","ts-jest":"^27.0.5","ts-loader":"^9.2.5","ts-node":"10.9.1",typedoc:"^0.23.24",typescript:"4.8.4",webpack:"^5.51.2"},dependencies:{axios:"^1.6.7",dataloader:"^2.0.0","symbol.inspect":"1.0.1",teslabot:"^1.3.0"},peerDependencies:{"@ijstech/ton-core":">=0.60.0","@ton/crypto":">=3.2.0"},publishConfig:{access:"public",registry:"https://registry.npmjs.org/"},"release-it":{github:{release:!0},plugins:{"@release-it/keep-a-changelog":{filename:"CHANGELOG.md"}}},packageManager:"yarn@3.4.1"}});Is(exports,{ABIArgument:()=>u.ABIArgument,ABIError:()=>u.ABIError,ABIField:()=>u.ABIField,ABIGetter:()=>u.ABIGetter,ABIReceiver:()=>u.ABIReceiver,ABIReceiverMessage:()=>u.ABIReceiverMessage,ABIType:()=>u.ABIType,ABITypeRef:()=>u.ABITypeRef,ADNLAddress:()=>u.ADNLAddress,Account:()=>u.Account,AccountState:()=>u.AccountState,AccountStatus:()=>u.AccountStatus,AccountStatusChange:()=>u.AccountStatusChange,AccountStorage:()=>u.AccountStorage,Address:()=>u.Address,BitBuilder:()=>u.BitBuilder,BitReader:()=>u.BitReader,BitString:()=>u.BitString,Builder:()=>u.Builder,Cell:()=>u.Cell,CellType:()=>u.CellType,CommonMessageInfo:()=>u.CommonMessageInfo,CommonMessageInfoExternalIn:()=>u.CommonMessageInfoExternalIn,CommonMessageInfoExternalOut:()=>u.CommonMessageInfoExternalOut,CommonMessageInfoInternal:()=>u.CommonMessageInfoInternal,CommonMessageInfoRelaxed:()=>u.CommonMessageInfoRelaxed,CommonMessageInfoRelaxedExternalOut:()=>u.CommonMessageInfoRelaxedExternalOut,CommonMessageInfoRelaxedInternal:()=>u.CommonMessageInfoRelaxedInternal,ComputeError:()=>u.ComputeError,ComputeSkipReason:()=>u.ComputeSkipReason,Contract:()=>u.Contract,ContractABI:()=>u.ContractABI,ContractGetMethodResult:()=>u.ContractGetMethodResult,ContractProvider:()=>u.ContractProvider,ContractState:()=>u.ContractState,CurrencyCollection:()=>u.CurrencyCollection,DepthBalanceInfo:()=>u.DepthBalanceInfo,Dictionary:()=>u.Dictionary,DictionaryKey:()=>u.DictionaryKey,DictionaryKeyTypes:()=>u.DictionaryKeyTypes,DictionaryValue:()=>u.DictionaryValue,ElectorContract:()=>ha,ExternalAddress:()=>u.ExternalAddress,ExtraCurrency:()=>u.ExtraCurrency,HashUpdate:()=>u.HashUpdate,HttpApi:()=>Qi,JettonMaster:()=>ca,JettonWallet:()=>ua,LibRef:()=>u.LibRef,MasterchainStateExtra:()=>u.MasterchainStateExtra,Maybe:()=>u.Maybe,Message:()=>u.Message,MessageRelaxed:()=>u.MessageRelaxed,MultisigOrder:()=>Hr,MultisigOrderBuilder:()=>nl,MultisigWallet:()=>fa,OpenedContract:()=>u.OpenedContract,OutAction:()=>u.OutAction,OutActionChangeLibrary:()=>u.OutActionChangeLibrary,OutActionReserve:()=>u.OutActionReserve,OutActionSendMsg:()=>u.OutActionSendMsg,OutActionSetCode:()=>u.OutActionSetCode,ReserveMode:()=>u.ReserveMode,SendMode:()=>u.SendMode,Sender:()=>u.Sender,SenderArguments:()=>u.SenderArguments,ShardAccount:()=>u.ShardAccount,ShardAccountRef:()=>u.ShardAccountRef,ShardAccountRefValue:()=>u.ShardAccountRefValue,ShardIdent:()=>u.ShardIdent,ShardStateUnsplit:()=>u.ShardStateUnsplit,SimpleLibrary:()=>u.SimpleLibrary,Slice:()=>u.Slice,SplitMergeInfo:()=>u.SplitMergeInfo,StateInit:()=>u.StateInit,StorageInfo:()=>u.StorageInfo,StorageUsed:()=>u.StorageUsed,StorageUsedShort:()=>u.StorageUsedShort,TickTock:()=>u.TickTock,TonClient:()=>Vo,TonClient4:()=>Ho,TonConnector:()=>oo,TonCrypto:()=>Hy,Transaction:()=>u.Transaction,TransactionActionPhase:()=>u.TransactionActionPhase,TransactionBounceNegativeFunds:()=>u.TransactionBounceNegativeFunds,TransactionBounceNoFunds:()=>u.TransactionBounceNoFunds,TransactionBounceOk:()=>u.TransactionBounceOk,TransactionBouncePhase:()=>u.TransactionBouncePhase,TransactionComputePhase:()=>u.TransactionComputePhase,TransactionComputeSkipped:()=>u.TransactionComputeSkipped,TransactionComputeVm:()=>u.TransactionComputeVm,TransactionCreditPhase:()=>u.TransactionCreditPhase,TransactionDescription:()=>u.TransactionDescription,TransactionDescriptionGeneric:()=>u.TransactionDescriptionGeneric,TransactionDescriptionMergeInstall:()=>u.TransactionDescriptionMergeInstall,TransactionDescriptionMergePrepare:()=>u.TransactionDescriptionMergePrepare,TransactionDescriptionSplitInstall:()=>u.TransactionDescriptionSplitInstall,TransactionDescriptionSplitPrepare:()=>u.TransactionDescriptionSplitPrepare,TransactionDescriptionStorage:()=>u.TransactionDescriptionStorage,TransactionDescriptionTickTock:()=>u.TransactionDescriptionTickTock,TransactionStoragePhase:()=>u.TransactionStoragePhase,Tuple:()=>u.Tuple,TupleBuilder:()=>u.TupleBuilder,TupleItem:()=>u.TupleItem,TupleItemBuilder:()=>u.TupleItemBuilder,TupleItemCell:()=>u.TupleItemCell,TupleItemInt:()=>u.TupleItemInt,TupleItemNaN:()=>u.TupleItemNaN,TupleItemNull:()=>u.TupleItemNull,TupleItemSlice:()=>u.TupleItemSlice,TupleReader:()=>u.TupleReader,WalletContractV1R1:()=>ta,WalletContractV1R2:()=>ra,WalletContractV1R3:()=>na,WalletContractV2R1:()=>ia,WalletContractV2R2:()=>aa,WalletContractV3R1:()=>sa,WalletContractV3R2:()=>oa,WalletContractV4:()=>la,WalletContractV5Beta:()=>qr,WalletContractV5R1:()=>Vr,Writable:()=>u.Writable,address:()=>u.address,base32Decode:()=>u.base32Decode,base32Encode:()=>u.base32Encode,beginCell:()=>u.beginCell,comment:()=>u.comment,computeExternalMessageFees:()=>Dd,computeFwdFees:()=>_s,computeGasPrices:()=>Wd,computeMessageForwardFees:()=>zd,computeStorageFees:()=>Fd,configParse12:()=>hl,configParse13:()=>Md,configParse15:()=>ol,configParse16:()=>ll,configParse17:()=>cl,configParse18:()=>ul,configParse28:()=>pl,configParse29:()=>ml,configParse40:()=>fl,configParse5:()=>sl,configParse8:()=>dl,configParseBridge:()=>pa,configParseGasLimitsPrices:()=>ks,configParseMasterAddress:()=>oi,configParseMasterAddressRequired:()=>xs,configParseMsgPrices:()=>As,configParseValidatorSet:()=>Zr,configParseWorkchainDescriptor:()=>jd,contractAddress:()=>u.contractAddress,convertToMerkleProof:()=>u.convertToMerkleProof,crc16:()=>u.crc16,crc32c:()=>u.crc32c,exoticMerkleProof:()=>u.exoticMerkleProof,exoticMerkleUpdate:()=>u.exoticMerkleUpdate,exoticPruned:()=>u.exoticPruned,external:()=>u.external,fromNano:()=>u.fromNano,generateMerkleProof:()=>u.generateMerkleProof,generateMerkleProofDirect:()=>u.generateMerkleProofDirect,generateMerkleUpdate:()=>u.generateMerkleUpdate,getMethodId:()=>u.getMethodId,internal:()=>u.internal,loadAccount:()=>u.loadAccount,loadAccountState:()=>u.loadAccountState,loadAccountStatus:()=>u.loadAccountStatus,loadAccountStatusChange:()=>u.loadAccountStatusChange,loadAccountStorage:()=>u.loadAccountStorage,loadCommonMessageInfo:()=>u.loadCommonMessageInfo,loadCommonMessageInfoRelaxed:()=>u.loadCommonMessageInfoRelaxed,loadComputeSkipReason:()=>u.loadComputeSkipReason,loadConfigParamById:()=>Od,loadConfigParamsAsSlice:()=>Nd,loadCurrencyCollection:()=>u.loadCurrencyCollection,loadDepthBalanceInfo:()=>u.loadDepthBalanceInfo,loadExtraCurrency:()=>u.loadExtraCurrency,loadHashUpdate:()=>u.loadHashUpdate,loadLibRef:()=>u.loadLibRef,loadMasterchainStateExtra:()=>u.loadMasterchainStateExtra,loadMaybeExtraCurrency:()=>u.loadMaybeExtraCurrency,loadMessage:()=>u.loadMessage,loadMessageRelaxed:()=>u.loadMessageRelaxed,loadOutAction:()=>u.loadOutAction,loadOutList:()=>u.loadOutList,loadShardAccount:()=>u.loadShardAccount,loadShardAccounts:()=>u.loadShardAccounts,loadShardIdent:()=>u.loadShardIdent,loadShardStateUnsplit:()=>u.loadShardStateUnsplit,loadSimpleLibrary:()=>u.loadSimpleLibrary,loadSplitMergeInfo:()=>u.loadSplitMergeInfo,loadStateInit:()=>u.loadStateInit,loadStorageInfo:()=>u.loadStorageInfo,loadStorageUsed:()=>u.loadStorageUsed,loadStorageUsedShort:()=>u.loadStorageUsedShort,loadTickTock:()=>u.loadTickTock,loadTransaction:()=>u.loadTransaction,loadTransactionActionPhase:()=>u.loadTransactionActionPhase,loadTransactionBouncePhase:()=>u.loadTransactionBouncePhase,loadTransactionComputePhase:()=>u.loadTransactionComputePhase,loadTransactionCreditPhase:()=>u.loadTransactionCreditPhase,loadTransactionDescription:()=>u.loadTransactionDescription,loadTransactionStoragePhase:()=>u.loadTransactionStoragePhase,openContract:()=>u.openContract,packExtraCurrencyCell:()=>u.packExtraCurrencyCell,packExtraCurrencyDict:()=>u.packExtraCurrencyDict,paddedBufferToBits:()=>u.paddedBufferToBits,parseBridge:()=>al,parseFullConfig:()=>Ld,parseProposalSetup:()=>Ss,parseTuple:()=>u.parseTuple,parseValidatorSet:()=>il,parseVotingSetup:()=>gl,safeSign:()=>u.safeSign,safeSignVerify:()=>u.safeSignVerify,serializeTuple:()=>u.serializeTuple,storeAccount:()=>u.storeAccount,storeAccountState:()=>u.storeAccountState,storeAccountStatus:()=>u.storeAccountStatus,storeAccountStatusChange:()=>u.storeAccountStatusChange,storeAccountStorage:()=>u.storeAccountStorage,storeCommonMessageInfo:()=>u.storeCommonMessageInfo,storeCommonMessageInfoRelaxed:()=>u.storeCommonMessageInfoRelaxed,storeComputeSkipReason:()=>u.storeComputeSkipReason,storeCurrencyCollection:()=>u.storeCurrencyCollection,storeDepthBalanceInfo:()=>u.storeDepthBalanceInfo,storeExtraCurrency:()=>u.storeExtraCurrency,storeHashUpdate:()=>u.storeHashUpdate,storeLibRef:()=>u.storeLibRef,storeMessage:()=>u.storeMessage,storeMessageRelaxed:()=>u.storeMessageRelaxed,storeOutAction:()=>u.storeOutAction,storeOutList:()=>u.storeOutList,storeShardAccount:()=>u.storeShardAccount,storeShardAccounts:()=>u.storeShardAccounts,storeShardIdent:()=>u.storeShardIdent,storeSimpleLibrary:()=>u.storeSimpleLibrary,storeSplitMergeInfo:()=>u.storeSplitMergeInfo,storeStateInit:()=>u.storeStateInit,storeStorageInfo:()=>u.storeStorageInfo,storeStorageUsed:()=>u.storeStorageUsed,storeStorageUsedShort:()=>u.storeStorageUsedShort,storeTickTock:()=>u.storeTickTock,storeTransaction:()=>u.storeTransaction,storeTransactionActionPhase:()=>u.storeTransactionActionPhase,storeTransactionBouncePhase:()=>u.storeTransactionBouncePhase,storeTransactionComputePhase:()=>u.storeTransactionComputePhase,storeTransactionCreditPhase:()=>u.storeTransactionCreditPhase,storeTransactionDescription:()=>u.storeTransactionDescription,storeTransactionsStoragePhase:()=>u.storeTransactionsStoragePhase,toNano:()=>u.toNano,z:()=>d});v();var u=De(require("@ijstech/ton-core")),Hy=De(Xr());var oo={};Is(oo,{BadRequestError:()=>Rn,BrowserEventDispatcher:()=>ao,CHAIN:()=>Da,CONNECT_EVENT_ERROR_CODES:()=>Ht,CONNECT_ITEM_ERROR_CODES:()=>Wa,FetchWalletsError:()=>Si,LocalstorageNotFoundError:()=>Va,ParseHexError:()=>Pn,SEND_TRANSACTION_ERROR_CODES:()=>vr,TonConnect:()=>Ti,TonConnectError:()=>pe,UnknownAppError:()=>In,UnknownError:()=>ar,UserRejectsError:()=>Tn,WalletAlreadyConnectedError:()=>ki,WalletNotConnectedError:()=>Bn,WalletNotInjectedError:()=>Ai,WalletsListManager:()=>Ei,WrongAddressError:()=>Lr,createConnectionCompletedEvent:()=>Xc,createConnectionErrorEvent:()=>eu,createConnectionRestoringCompletedEvent:()=>ru,createConnectionRestoringErrorEvent:()=>nu,createConnectionRestoringStartedEvent:()=>tu,createConnectionStartedEvent:()=>Qc,createDisconnectionEvent:()=>ou,createRequestVersionEvent:()=>Yc,createResponseVersionEvent:()=>Jc,createTransactionSentForSignatureEvent:()=>iu,createTransactionSignedEvent:()=>au,createTransactionSigningFailedEvent:()=>su,createVersionInfo:()=>tn,default:()=>Ti,encodeTelegramUrlParameters:()=>Dc,isTelegramUrl:()=>Wc,isWalletInfoCurrentlyEmbedded:()=>$c,isWalletInfoCurrentlyInjected:()=>Zc,isWalletInfoInjectable:()=>Gc,isWalletInfoInjected:()=>lp,isWalletInfoRemote:()=>op,toUserFriendlyAddress:()=>pp});v();v();var En=De(Rc()),yi=De(ja()),Ht;(function(r){r[r.UNKNOWN_ERROR=0]="UNKNOWN_ERROR",r[r.BAD_REQUEST_ERROR=1]="BAD_REQUEST_ERROR",r[r.MANIFEST_NOT_FOUND_ERROR=2]="MANIFEST_NOT_FOUND_ERROR",r[r.MANIFEST_CONTENT_ERROR=3]="MANIFEST_CONTENT_ERROR",r[r.UNKNOWN_APP_ERROR=100]="UNKNOWN_APP_ERROR",r[r.USER_REJECTS_ERROR=300]="USER_REJECTS_ERROR",r[r.METHOD_NOT_SUPPORTED=400]="METHOD_NOT_SUPPORTED"})(Ht||(Ht={}));var Wa;(function(r){r[r.UNKNOWN_ERROR=0]="UNKNOWN_ERROR",r[r.METHOD_NOT_SUPPORTED=400]="METHOD_NOT_SUPPORTED"})(Wa||(Wa={}));var vr;(function(r){r[r.UNKNOWN_ERROR=0]="UNKNOWN_ERROR",r[r.BAD_REQUEST_ERROR=1]="BAD_REQUEST_ERROR",r[r.UNKNOWN_APP_ERROR=100]="UNKNOWN_APP_ERROR",r[r.USER_REJECTS_ERROR=300]="USER_REJECTS_ERROR",r[r.METHOD_NOT_SUPPORTED=400]="METHOD_NOT_SUPPORTED"})(vr||(vr={}));var Ic;(function(r){r[r.UNKNOWN_ERROR=0]="UNKNOWN_ERROR",r[r.BAD_REQUEST_ERROR=1]="BAD_REQUEST_ERROR",r[r.UNKNOWN_APP_ERROR=100]="UNKNOWN_APP_ERROR",r[r.USER_REJECTS_ERROR=300]="USER_REJECTS_ERROR",r[r.METHOD_NOT_SUPPORTED=400]="METHOD_NOT_SUPPORTED"})(Ic||(Ic={}));var Pc;(function(r){r[r.UNKNOWN_ERROR=0]="UNKNOWN_ERROR",r[r.BAD_REQUEST_ERROR=1]="BAD_REQUEST_ERROR",r[r.UNKNOWN_APP_ERROR=100]="UNKNOWN_APP_ERROR",r[r.METHOD_NOT_SUPPORTED=400]="METHOD_NOT_SUPPORTED"})(Pc||(Pc={}));var Da;(function(r){r.MAINNET="-239",r.TESTNET="-3"})(Da||(Da={}));function Wh(r,e){let t=En.default.encodeBase64(r);return e?encodeURIComponent(t):t}function Dh(r,e){return e&&(r=decodeURIComponent(r)),En.default.decodeBase64(r)}function zh(r,e=!1){let t;return r instanceof Uint8Array?t=r:(typeof r!="string"&&(r=JSON.stringify(r)),t=En.default.decodeUTF8(r)),Wh(t,e)}function qh(r,e=!1){let t=Dh(r,e);return{toString(){return En.default.encodeUTF8(t)},toObject(){try{return JSON.parse(En.default.encodeUTF8(t))}catch{return null}},toUint8Array(){return t}}}var za={encode:zh,decode:qh};function Vh(r,e){let t=new Uint8Array(r.length+e.length);return t.set(r),t.set(e,r.length),t}function Kh(r,e){if(e>=r.length)throw new Error("Index is out of buffer");let t=r.slice(0,e),n=r.slice(e);return[t,n]}function no(r){let e="";return r.forEach(t=>{e+=("0"+(t&255).toString(16)).slice(-2)}),e}function bi(r){if(r.length%2!=0)throw new Error(`Cannot convert ${r} to bytesArray`);let e=new Uint8Array(r.length/2);for(let t=0;t<r.length;t+=2)e[t/2]=parseInt(r.slice(t,t+2),16);return e}var wi=class{constructor(e){this.nonceLength=24,this.keyPair=e?this.createKeypairFromString(e):this.createKeypair(),this.sessionId=no(this.keyPair.publicKey)}createKeypair(){return yi.default.box.keyPair()}createKeypairFromString(e){return{publicKey:bi(e.publicKey),secretKey:bi(e.secretKey)}}createNonce(){return yi.default.randomBytes(this.nonceLength)}encrypt(e,t){let n=new TextEncoder().encode(e),i=this.createNonce(),a=yi.default.box(n,i,t,this.keyPair.secretKey);return Vh(i,a)}decrypt(e,t){let[n,i]=Kh(e,this.nonceLength),a=yi.default.box.open(i,n,t,this.keyPair.secretKey);if(!a)throw new Error(`Decryption error: 
- message: ${e.toString()} 
- sender pubkey: ${t.toString()} 
- keypair pubkey: ${this.keyPair.publicKey.toString()} 
- keypair secretkey: ${this.keyPair.secretKey.toString()}`);return new TextDecoder().decode(a)}stringifyKeypair(){return{publicKey:no(this.keyPair.publicKey),secretKey:no(this.keyPair.secretKey)}}};v();v();function Hh(r,e){var t={};for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&e.indexOf(n)<0&&(t[n]=r[n]);if(r!=null&&typeof Object.getOwnPropertySymbols=="function")for(var i=0,n=Object.getOwnPropertySymbols(r);i<n.length;i++)e.indexOf(n[i])<0&&Object.prototype.propertyIsEnumerable.call(r,n[i])&&(t[n[i]]=r[n[i]]);return t}function re(r,e,t,n){function i(a){return a instanceof t?a:new t(function(s){s(a)})}return new(t||(t=Promise))(function(a,s){function l(b){try{m(n.next(b))}catch(_){s(_)}}function y(b){try{m(n.throw(b))}catch(_){s(_)}}function m(b){b.done?a(b.value):i(b.value).then(l,y)}m((n=n.apply(r,e||[])).next())})}var pe=class extends Error{constructor(e,t){super(e,t);this.message=`${pe.prefix} ${this.constructor.name}${this.info?": "+this.info:""}${e?`
-`+e:""}`,Object.setPrototypeOf(this,pe.prototype)}get info(){return""}};pe.prefix="[TON_CONNECT_SDK_ERROR]";var qa=class extends pe{get info(){return"Passed DappMetadata is in incorrect format."}constructor(...e){super(...e);Object.setPrototypeOf(this,qa.prototype)}},vi=class extends pe{get info(){return"Passed `tonconnect-manifest.json` contains errors. Check format of your manifest. See more https://github.com/ton-connect/docs/blob/main/requests-responses.md#app-manifest"}constructor(...e){super(...e);Object.setPrototypeOf(this,vi.prototype)}},xi=class extends pe{get info(){return"Manifest not found. Make sure you added `tonconnect-manifest.json` to the root of your app or passed correct manifestUrl. See more https://github.com/ton-connect/docs/blob/main/requests-responses.md#app-manifest"}constructor(...e){super(...e);Object.setPrototypeOf(this,xi.prototype)}},ki=class extends pe{get info(){return"Wallet connection called but wallet already connected. To avoid the error, disconnect the wallet before doing a new connection."}constructor(...e){super(...e);Object.setPrototypeOf(this,ki.prototype)}},Bn=class extends pe{get info(){return"Send transaction or other protocol methods called while wallet is not connected."}constructor(...e){super(...e);Object.setPrototypeOf(this,Bn.prototype)}};function Zh(r){return"jsBridgeKey"in r}var Tn=class extends pe{get info(){return"User rejects the action in the wallet."}constructor(...e){super(...e);Object.setPrototypeOf(this,Tn.prototype)}},Rn=class extends pe{get info(){return"Request to the wallet contains errors."}constructor(...e){super(...e);Object.setPrototypeOf(this,Rn.prototype)}},In=class extends pe{get info(){return"App tries to send rpc request to the injected wallet while not connected."}constructor(...e){super(...e);Object.setPrototypeOf(this,In.prototype)}},Ai=class extends pe{get info(){return"There is an attempt to connect to the injected wallet while it is not exists in the webpage."}constructor(...e){super(...e);Object.setPrototypeOf(this,Ai.prototype)}},Va=class extends pe{get info(){return"Storage was not specified in the `DappMetadata` and default `localStorage` was not detected in the environment."}constructor(...e){super(...e);Object.setPrototypeOf(this,Va.prototype)}},Si=class extends pe{get info(){return"An error occurred while fetching the wallets list."}constructor(...e){super(...e);Object.setPrototypeOf(this,Si.prototype)}},Lr=class extends pe{get info(){return"Passed address is in incorrect format."}constructor(...e){super(...e);Object.setPrototypeOf(this,Lr.prototype)}},Pn=class extends pe{get info(){return"Passed hex is in incorrect format."}constructor(...e){super(...e);Object.setPrototypeOf(this,Pn.prototype)}},ar=class extends pe{constructor(...e){super(...e);Object.setPrototypeOf(this,ar.prototype)}},Mc={[Ht.UNKNOWN_ERROR]:ar,[Ht.USER_REJECTS_ERROR]:Tn,[Ht.BAD_REQUEST_ERROR]:Rn,[Ht.UNKNOWN_APP_ERROR]:In,[Ht.MANIFEST_NOT_FOUND_ERROR]:xi,[Ht.MANIFEST_CONTENT_ERROR]:vi},jc=class{parseError(e){let t=ar;return e.code in Mc&&(t=Mc[e.code]||ar),new t(e.message)}},$h=new jc,Uc=class{isError(e){return"error"in e}},Oc={[vr.UNKNOWN_ERROR]:ar,[vr.USER_REJECTS_ERROR]:Tn,[vr.BAD_REQUEST_ERROR]:Rn,[vr.UNKNOWN_APP_ERROR]:In},Nc=class extends Uc{convertToRpcRequest(e){return{method:"sendTransaction",params:[JSON.stringify(e)]}}parseAndThrowError(e){let t=ar;throw e.error.code in Oc&&(t=Oc[e.error.code]||ar),new t(e.error.message)}convertFromRpcResponse(e){return{boc:e.result}}},Ka=new Nc,Lc=class{constructor(e,t){this.storage=e,this.storeKey="ton-connect-storage_http-bridge-gateway::"+t}storeLastEventId(e){return re(this,void 0,void 0,function*(){return this.storage.setItem(this.storeKey,e)})}removeLastEventId(){return re(this,void 0,void 0,function*(){return this.storage.removeItem(this.storeKey)})}getLastEventId(){return re(this,void 0,void 0,function*(){let e=yield this.storage.getItem(this.storeKey);return e||null})}};function Gh(r){return r.slice(-1)==="/"?r.slice(0,-1):r}function Fc(r,e){return Gh(r)+"/"+e}function Wc(r){if(!r)return!1;let e=new URL(r);return e.protocol==="tg:"||e.hostname==="t.me"}function Dc(r){return r.replaceAll(".","%2E").replaceAll("-","%2D").replaceAll("_","%5F").replaceAll("&","-").replaceAll("=","__").replaceAll("%","--")}function zc(r,e){return re(this,void 0,void 0,function*(){return new Promise((t,n)=>{var i,a;if((i=e==null?void 0:e.signal)===null||i===void 0?void 0:i.aborted){n(new pe("Delay aborted"));return}let s=setTimeout(()=>t(),r);(a=e==null?void 0:e.signal)===null||a===void 0||a.addEventListener("abort",()=>{clearTimeout(s),n(new pe("Delay aborted"))})})})}function Zt(r){let e=new AbortController;return(r==null?void 0:r.aborted)?e.abort():r==null||r.addEventListener("abort",()=>e.abort(),{once:!0}),e}function _i(r,e){var t,n;return re(this,void 0,void 0,function*(){let i=(t=e==null?void 0:e.attempts)!==null&&t!==void 0?t:10,a=(n=e==null?void 0:e.delayMs)!==null&&n!==void 0?n:200,s=Zt(e==null?void 0:e.signal);if(typeof r!="function")throw new pe(`Expected a function, got ${typeof r}`);let l=0,y;for(;l<i;){if(s.signal.aborted)throw new pe(`Aborted after attempts ${l}`);try{return yield r({signal:s.signal})}catch(m){y=m,l++,l<i&&(yield zc(a))}}throw y})}function pt(...r){try{console.debug("[TON_CONNECT_SDK]",...r)}catch{}}function xr(...r){try{console.error("[TON_CONNECT_SDK]",...r)}catch{}}function Yh(...r){try{console.warn("[TON_CONNECT_SDK]",...r)}catch{}}function Jh(r,e){let t=null,n=null,i=null,a=null,s=null,l=(_,...G)=>re(this,void 0,void 0,function*(){if(a=_??null,s==null||s.abort(),s=Zt(_),s.signal.aborted)throw new pe("Resource creation was aborted");n=G??null;let ae=r(s.signal,...G);i=ae;let Z=yield ae;if(i!==ae&&Z!==t)throw yield e(Z),new pe("Resource creation was aborted by a new resource creation");return t=Z,t});return{create:l,current:()=>t??null,dispose:()=>re(this,void 0,void 0,function*(){try{let _=t;t=null;let G=i;i=null;try{s==null||s.abort()}catch{}yield Promise.allSettled([_?e(_):Promise.resolve(),G?e(yield G):Promise.resolve()])}catch{}}),recreate:_=>re(this,void 0,void 0,function*(){let G=t,ae=i,Z=n,ne=a;if(yield zc(_),G===t&&ae===i&&Z===n&&ne===a)return yield l(a,...Z??[]);throw new pe("Resource recreation was aborted by a new resource creation")})}}function Qh(r,e){let t=e==null?void 0:e.timeout,n=e==null?void 0:e.signal,i=Zt(n);return new Promise((a,s)=>re(this,void 0,void 0,function*(){if(i.signal.aborted){s(new pe("Operation aborted"));return}let l;typeof t!="undefined"&&(l=setTimeout(()=>{i.abort(),s(new pe(`Timeout after ${t}ms`))},t)),i.signal.addEventListener("abort",()=>{clearTimeout(l),s(new pe("Operation aborted"))},{once:!0});let y={timeout:t,abort:i.signal};yield r((...m)=>{clearTimeout(l),a(...m)},()=>{clearTimeout(l),s()},y)}))}var Ha=class{constructor(e,t,n,i,a){this.bridgeUrl=t,this.sessionId=n,this.listener=i,this.errorsListener=a,this.ssePath="events",this.postPath="message",this.heartbeatMessage="heartbeat",this.defaultTtl=300,this.defaultReconnectDelay=2e3,this.defaultResendDelay=5e3,this.eventSource=Jh((s,l)=>re(this,void 0,void 0,function*(){let y={bridgeUrl:this.bridgeUrl,ssePath:this.ssePath,sessionId:this.sessionId,bridgeGatewayStorage:this.bridgeGatewayStorage,errorHandler:this.errorsHandler.bind(this),messageHandler:this.messagesHandler.bind(this),signal:s,openingDeadlineMS:l};return yield Xh(y)}),s=>re(this,void 0,void 0,function*(){s.close()})),this.bridgeGatewayStorage=new Lc(e,t)}get isReady(){let e=this.eventSource.current();return(e==null?void 0:e.readyState)===EventSource.OPEN}get isClosed(){let e=this.eventSource.current();return(e==null?void 0:e.readyState)!==EventSource.OPEN}get isConnecting(){let e=this.eventSource.current();return(e==null?void 0:e.readyState)===EventSource.CONNECTING}registerSession(e){return re(this,void 0,void 0,function*(){yield this.eventSource.create(e==null?void 0:e.signal,e==null?void 0:e.openingDeadlineMS)})}send(e,t,n,i){var a;return re(this,void 0,void 0,function*(){let s={};typeof i=="number"?s.ttl=i:(s.ttl=i==null?void 0:i.ttl,s.signal=i==null?void 0:i.signal,s.attempts=i==null?void 0:i.attempts);let l=new URL(Fc(this.bridgeUrl,this.postPath));l.searchParams.append("client_id",this.sessionId),l.searchParams.append("to",t),l.searchParams.append("ttl",((s==null?void 0:s.ttl)||this.defaultTtl).toString()),l.searchParams.append("topic",n);let y=za.encode(e);yield _i(m=>re(this,void 0,void 0,function*(){let b=yield this.post(l,y,m.signal);if(!b.ok)throw new pe(`Bridge send failed, status ${b.status}`)}),{attempts:(a=s==null?void 0:s.attempts)!==null&&a!==void 0?a:Number.MAX_SAFE_INTEGER,delayMs:this.defaultResendDelay,signal:s==null?void 0:s.signal})})}pause(){this.eventSource.dispose().catch(e=>xr(`Bridge pause failed, ${e}`))}unPause(){return re(this,void 0,void 0,function*(){let e=0;yield this.eventSource.recreate(e)})}close(){return re(this,void 0,void 0,function*(){yield this.eventSource.dispose().catch(e=>xr(`Bridge close failed, ${e}`))})}setListener(e){this.listener=e}setErrorsListener(e){this.errorsListener=e}post(e,t,n){return re(this,void 0,void 0,function*(){let i=yield fetch(e,{method:"post",body:t,signal:n});if(!i.ok)throw new pe(`Bridge send failed, status ${i.status}`);return i})}errorsHandler(e,t){return re(this,void 0,void 0,function*(){if(this.isConnecting)throw e.close(),new pe("Bridge error, failed to connect");if(this.isReady){try{this.errorsListener(t)}catch{}return}if(this.isClosed)return e.close(),pt(`Bridge reconnecting, ${this.defaultReconnectDelay}ms delay`),yield this.eventSource.recreate(this.defaultReconnectDelay);throw new pe("Bridge error, unknown state")})}messagesHandler(e){return re(this,void 0,void 0,function*(){if(e.data===this.heartbeatMessage||(yield this.bridgeGatewayStorage.storeLastEventId(e.lastEventId),this.isClosed))return;let t;try{t=JSON.parse(e.data)}catch(n){throw new pe(`Bridge message parse failed, message ${n.data}`)}this.listener(t)})}};function Xh(r){return re(this,void 0,void 0,function*(){return yield Qh((e,t,n)=>re(this,void 0,void 0,function*(){var i;let s=Zt(n.signal).signal;if(s.aborted){t(new pe("Bridge connection aborted"));return}let l=new URL(Fc(r.bridgeUrl,r.ssePath));l.searchParams.append("client_id",r.sessionId);let y=yield r.bridgeGatewayStorage.getLastEventId();if(y&&l.searchParams.append("last_event_id",y),s.aborted){t(new pe("Bridge connection aborted"));return}let m=new EventSource(l.toString());m.onerror=b=>re(this,void 0,void 0,function*(){if(s.aborted){m.close(),t(new pe("Bridge connection aborted"));return}try{let _=yield r.errorHandler(m,b);_!==m&&m.close(),_&&_!==m&&e(_)}catch(_){m.close(),t(_)}}),m.onopen=()=>{if(s.aborted){m.close(),t(new pe("Bridge connection aborted"));return}e(m)},m.onmessage=b=>{if(s.aborted){m.close(),t(new pe("Bridge connection aborted"));return}r.messageHandler(b)},(i=r.signal)===null||i===void 0||i.addEventListener("abort",()=>{m.close(),t(new pe("Bridge connection aborted"))})}),{timeout:r.openingDeadlineMS,signal:r.signal})})}function Ci(r){return!("connectEvent"in r)}var Mn=class{constructor(e){this.storage=e,this.storeKey="ton-connect-storage_bridge-connection"}storeConnection(e){return re(this,void 0,void 0,function*(){if(e.type==="injected")return this.storage.setItem(this.storeKey,JSON.stringify(e));if(!Ci(e)){let n={sessionKeyPair:e.session.sessionCrypto.stringifyKeypair(),walletPublicKey:e.session.walletPublicKey,bridgeUrl:e.session.bridgeUrl},i={type:"http",connectEvent:e.connectEvent,session:n,lastWalletEventId:e.lastWalletEventId,nextRpcRequestId:e.nextRpcRequestId};return this.storage.setItem(this.storeKey,JSON.stringify(i))}let t={type:"http",connectionSource:e.connectionSource,sessionCrypto:e.sessionCrypto.stringifyKeypair()};return this.storage.setItem(this.storeKey,JSON.stringify(t))})}removeConnection(){return re(this,void 0,void 0,function*(){return this.storage.removeItem(this.storeKey)})}getConnection(){return re(this,void 0,void 0,function*(){let e=yield this.storage.getItem(this.storeKey);if(!e)return null;let t=JSON.parse(e);if(t.type==="injected")return t;if("connectEvent"in t){let n=new wi(t.session.sessionKeyPair);return{type:"http",connectEvent:t.connectEvent,lastWalletEventId:t.lastWalletEventId,nextRpcRequestId:t.nextRpcRequestId,session:{sessionCrypto:n,bridgeUrl:t.session.bridgeUrl,walletPublicKey:t.session.walletPublicKey}}}return{type:"http",sessionCrypto:new wi(t.sessionCrypto),connectionSource:t.connectionSource}})}getHttpConnection(){return re(this,void 0,void 0,function*(){let e=yield this.getConnection();if(!e)throw new pe("Trying to read HTTP connection source while nothing is stored");if(e.type==="injected")throw new pe("Trying to read HTTP connection source while injected connection is stored");return e})}getHttpPendingConnection(){return re(this,void 0,void 0,function*(){let e=yield this.getConnection();if(!e)throw new pe("Trying to read HTTP connection source while nothing is stored");if(e.type==="injected")throw new pe("Trying to read HTTP connection source while injected connection is stored");if(!Ci(e))throw new pe("Trying to read HTTP-pending connection while http connection is stored");return e})}getInjectedConnection(){return re(this,void 0,void 0,function*(){let e=yield this.getConnection();if(!e)throw new pe("Trying to read Injected bridge connection source while nothing is stored");if((e==null?void 0:e.type)==="http")throw new pe("Trying to read Injected bridge connection source while HTTP connection is stored");return e})}storedConnectionType(){return re(this,void 0,void 0,function*(){let e=yield this.storage.getItem(this.storeKey);return e?JSON.parse(e).type:null})}storeLastWalletEventId(e){return re(this,void 0,void 0,function*(){let t=yield this.getConnection();if(t&&t.type==="http"&&!Ci(t))return t.lastWalletEventId=e,this.storeConnection(t)})}getLastWalletEventId(){return re(this,void 0,void 0,function*(){let e=yield this.getConnection();if(e&&"lastWalletEventId"in e)return e.lastWalletEventId})}increaseNextRpcRequestId(){return re(this,void 0,void 0,function*(){let e=yield this.getConnection();if(e&&"nextRpcRequestId"in e){let t=e.nextRpcRequestId||0;return e.nextRpcRequestId=t+1,this.storeConnection(e)}})}getNextRpcRequestId(){return re(this,void 0,void 0,function*(){let e=yield this.getConnection();return e&&"nextRpcRequestId"in e&&e.nextRpcRequestId||0})}},qc=2,jn=class{constructor(e,t){this.storage=e,this.walletConnectionSource=t,this.type="http",this.standardUniversalLink="tc://",this.pendingRequests=new Map,this.session=null,this.gateway=null,this.pendingGateways=[],this.listeners=[],this.defaultOpeningDeadlineMS=12e3,this.defaultRetryTimeoutMS=2e3,this.connectionStorage=new Mn(e)}static fromStorage(e){return re(this,void 0,void 0,function*(){let n=yield new Mn(e).getHttpConnection();return Ci(n)?new jn(e,n.connectionSource):new jn(e,{bridgeUrl:n.session.bridgeUrl})})}connect(e,t){var n;let i=Zt(t==null?void 0:t.signal);(n=this.abortController)===null||n===void 0||n.abort(),this.abortController=i,this.closeGateways();let a=new wi;this.session={sessionCrypto:a,bridgeUrl:"bridgeUrl"in this.walletConnectionSource?this.walletConnectionSource.bridgeUrl:""},this.connectionStorage.storeConnection({type:"http",connectionSource:this.walletConnectionSource,sessionCrypto:a}).then(()=>re(this,void 0,void 0,function*(){i.signal.aborted||(yield _i(l=>{var y;return this.openGateways(a,{openingDeadlineMS:(y=t==null?void 0:t.openingDeadlineMS)!==null&&y!==void 0?y:this.defaultOpeningDeadlineMS,signal:l==null?void 0:l.signal})},{attempts:Number.MAX_SAFE_INTEGER,delayMs:this.defaultRetryTimeoutMS,signal:i.signal}))}));let s="universalLink"in this.walletConnectionSource&&this.walletConnectionSource.universalLink?this.walletConnectionSource.universalLink:this.standardUniversalLink;return this.generateUniversalLink(s,e)}restoreConnection(e){var t,n;return re(this,void 0,void 0,function*(){let i=Zt(e==null?void 0:e.signal);if((t=this.abortController)===null||t===void 0||t.abort(),this.abortController=i,i.signal.aborted)return;this.closeGateways();let a=yield this.connectionStorage.getHttpConnection();if(!a||i.signal.aborted)return;let s=(n=e==null?void 0:e.openingDeadlineMS)!==null&&n!==void 0?n:this.defaultOpeningDeadlineMS;if(Ci(a))return this.session={sessionCrypto:a.sessionCrypto,bridgeUrl:"bridgeUrl"in this.walletConnectionSource?this.walletConnectionSource.bridgeUrl:""},yield this.openGateways(a.sessionCrypto,{openingDeadlineMS:s,signal:i==null?void 0:i.signal});if(Array.isArray(this.walletConnectionSource))throw new pe("Internal error. Connection source is array while WalletConnectionSourceHTTP was expected.");if(this.session=a.session,this.gateway&&(pt("Gateway is already opened, closing previous gateway"),yield this.gateway.close()),this.gateway=new Ha(this.storage,this.walletConnectionSource.bridgeUrl,a.session.sessionCrypto.sessionId,this.gatewayListener.bind(this),this.gatewayErrorsListener.bind(this)),!i.signal.aborted){this.listeners.forEach(l=>l(a.connectEvent));try{yield _i(l=>this.gateway.registerSession({openingDeadlineMS:s,signal:l.signal}),{attempts:Number.MAX_SAFE_INTEGER,delayMs:this.defaultRetryTimeoutMS,signal:i.signal})}catch{yield this.disconnect({signal:i.signal});return}}})}sendRequest(e,t){let n={};return typeof t=="function"?n.onRequestSent=t:(n.onRequestSent=t==null?void 0:t.onRequestSent,n.signal=t==null?void 0:t.signal,n.attempts=t==null?void 0:t.attempts),new Promise((i,a)=>re(this,void 0,void 0,function*(){var s;if(!this.gateway||!this.session||!("walletPublicKey"in this.session))throw new pe("Trying to send bridge request without session");let l=(yield this.connectionStorage.getNextRpcRequestId()).toString();yield this.connectionStorage.increaseNextRpcRequestId(),pt("Send http-bridge request:",Object.assign(Object.assign({},e),{id:l}));let y=this.session.sessionCrypto.encrypt(JSON.stringify(Object.assign(Object.assign({},e),{id:l})),bi(this.session.walletPublicKey));try{yield this.gateway.send(y,this.session.walletPublicKey,e.method,{attempts:n==null?void 0:n.attempts,signal:n==null?void 0:n.signal}),(s=n==null?void 0:n.onRequestSent)===null||s===void 0||s.call(n),this.pendingRequests.set(l.toString(),i)}catch(m){a(m)}}))}closeConnection(){this.closeGateways(),this.listeners=[],this.session=null,this.gateway=null}disconnect(e){return re(this,void 0,void 0,function*(){return new Promise(t=>re(this,void 0,void 0,function*(){let n=!1,i=null,a=()=>{n||(n=!0,this.removeBridgeAndSession().then(t))};try{this.closeGateways();let s=Zt(e==null?void 0:e.signal);i=setTimeout(()=>{s.abort()},this.defaultOpeningDeadlineMS),yield this.sendRequest({method:"disconnect",params:[]},{onRequestSent:a,signal:s.signal,attempts:1})}catch(s){pt("Disconnect error:",s),n||this.removeBridgeAndSession().then(t)}finally{i&&clearTimeout(i),a()}}))})}listen(e){return this.listeners.push(e),()=>this.listeners=this.listeners.filter(t=>t!==e)}pause(){var e;(e=this.gateway)===null||e===void 0||e.pause(),this.pendingGateways.forEach(t=>t.pause())}unPause(){return re(this,void 0,void 0,function*(){let e=this.pendingGateways.map(t=>t.unPause());this.gateway&&e.push(this.gateway.unPause()),yield Promise.all(e)})}pendingGatewaysListener(e,t,n){return re(this,void 0,void 0,function*(){if(!this.pendingGateways.includes(e)){yield e.close();return}return this.closeGateways({except:e}),this.gateway&&(pt("Gateway is already opened, closing previous gateway"),yield this.gateway.close()),this.session.bridgeUrl=t,this.gateway=e,this.gateway.setErrorsListener(this.gatewayErrorsListener.bind(this)),this.gateway.setListener(this.gatewayListener.bind(this)),this.gatewayListener(n)})}gatewayListener(e){return re(this,void 0,void 0,function*(){let t=JSON.parse(this.session.sessionCrypto.decrypt(za.decode(e.message).toUint8Array(),bi(e.from)));if(pt("Wallet message received:",t),!("event"in t)){let i=t.id.toString(),a=this.pendingRequests.get(i);if(!a){pt(`Response id ${i} doesn't match any request's id`);return}a(t),this.pendingRequests.delete(i);return}if(t.id!==void 0){let i=yield this.connectionStorage.getLastWalletEventId();if(i!==void 0&&t.id<=i){xr(`Received event id (=${t.id}) must be greater than stored last wallet event id (=${i}) `);return}t.event!=="connect"&&(yield this.connectionStorage.storeLastWalletEventId(t.id))}let n=this.listeners;t.event==="connect"&&(yield this.updateSession(t,e.from)),t.event==="disconnect"&&(pt("Removing bridge and session: received disconnect event"),yield this.removeBridgeAndSession()),n.forEach(i=>i(t))})}gatewayErrorsListener(e){return re(this,void 0,void 0,function*(){throw new pe(`Bridge error ${JSON.stringify(e)}`)})}updateSession(e,t){return re(this,void 0,void 0,function*(){this.session=Object.assign(Object.assign({},this.session),{walletPublicKey:t});let n=e.payload.items.find(a=>a.name==="ton_addr"),i=Object.assign(Object.assign({},e),{payload:Object.assign(Object.assign({},e.payload),{items:[n]})});yield this.connectionStorage.storeConnection({type:"http",session:this.session,lastWalletEventId:e.id,connectEvent:i,nextRpcRequestId:0})})}removeBridgeAndSession(){return re(this,void 0,void 0,function*(){this.closeConnection(),yield this.connectionStorage.removeConnection()})}generateUniversalLink(e,t){return Wc(e)?this.generateTGUniversalLink(e,t):this.generateRegularUniversalLink(e,t)}generateRegularUniversalLink(e,t){let n=new URL(e);return n.searchParams.append("v",qc.toString()),n.searchParams.append("id",this.session.sessionCrypto.sessionId),n.searchParams.append("r",JSON.stringify(t)),n.toString()}generateTGUniversalLink(e,t){let i=this.generateRegularUniversalLink("about:blank",t).split("?")[1],a="tonconnect-"+Dc(i),s=this.convertToDirectLink(e),l=new URL(s);return l.searchParams.append("startapp",a),l.toString()}convertToDirectLink(e){let t=new URL(e);return t.searchParams.has("attach")&&(t.searchParams.delete("attach"),t.pathname+="/start"),t.toString()}openGateways(e,t){return re(this,void 0,void 0,function*(){if(Array.isArray(this.walletConnectionSource)){this.pendingGateways.map(n=>n.close().catch()),this.pendingGateways=this.walletConnectionSource.map(n=>{let i=new Ha(this.storage,n.bridgeUrl,e.sessionId,()=>{},()=>{});return i.setListener(a=>this.pendingGatewaysListener(i,n.bridgeUrl,a)),i}),yield Promise.allSettled(this.pendingGateways.map(n=>_i(i=>{var a;return this.pendingGateways.some(s=>s===n)?n.registerSession({openingDeadlineMS:(a=t==null?void 0:t.openingDeadlineMS)!==null&&a!==void 0?a:this.defaultOpeningDeadlineMS,signal:i.signal}):n.close()},{attempts:Number.MAX_SAFE_INTEGER,delayMs:this.defaultRetryTimeoutMS,signal:t==null?void 0:t.signal})));return}else return this.gateway&&(pt("Gateway is already opened, closing previous gateway"),yield this.gateway.close()),this.gateway=new Ha(this.storage,this.walletConnectionSource.bridgeUrl,e.sessionId,this.gatewayListener.bind(this),this.gatewayErrorsListener.bind(this)),yield this.gateway.registerSession({openingDeadlineMS:t==null?void 0:t.openingDeadlineMS,signal:t==null?void 0:t.signal})})}closeGateways(e){var t;(t=this.gateway)===null||t===void 0||t.close(),this.pendingGateways.filter(n=>n!==(e==null?void 0:e.except)).forEach(n=>n.close()),this.pendingGateways=[]}};function Vc(r,e){return Kc(r,[e])}function Kc(r,e){return!r||typeof r!="object"?!1:e.every(t=>t in r)}function ep(r){try{return!Vc(r,"tonconnect")||!Vc(r.tonconnect,"walletInfo")?!1:Kc(r.tonconnect.walletInfo,["name","app_name","image","about_url","platforms"])}catch{return!1}}var en=class{constructor(){this.storage={}}static getInstance(){return en.instance||(en.instance=new en),en.instance}get length(){return Object.keys(this.storage).length}clear(){this.storage={}}getItem(e){var t;return(t=this.storage[e])!==null&&t!==void 0?t:null}key(e){var t;let n=Object.keys(this.storage);return e<0||e>=n.length?null:(t=n[e])!==null&&t!==void 0?t:null}removeItem(e){delete this.storage[e]}setItem(e,t){this.storage[e]=t}};function Za(){if(typeof window!="undefined")return window}function tp(){let r=Za();if(!r)return[];try{return Object.keys(r)}catch{return[]}}function rp(){if(typeof document!="undefined")return document}function np(){var r;let e=(r=Za())===null||r===void 0?void 0:r.location.origin;return e?e+"/tonconnect-manifest.json":""}function ip(){if(ap())return localStorage;if(sp())throw new pe("`localStorage` is unavailable, but it is required for TonConnect. For more details, see https://github.com/ton-connect/sdk/tree/main/packages/sdk#init-connector");return en.getInstance()}function ap(){try{return typeof localStorage!="undefined"}catch{return!1}}function sp(){return typeof process!="undefined"&&process.versions!=null&&process.versions.node!=null}var Bt=class{constructor(e,t){this.injectedWalletKey=t,this.type="injected",this.unsubscribeCallback=null,this.listenSubscriptions=!1,this.listeners=[];let n=Bt.window;if(!Bt.isWindowContainsWallet(n,t))throw new Ai;this.connectionStorage=new Mn(e),this.injectedWallet=n[t].tonconnect}static fromStorage(e){return re(this,void 0,void 0,function*(){let n=yield new Mn(e).getInjectedConnection();return new Bt(e,n.jsBridgeKey)})}static isWalletInjected(e){return Bt.isWindowContainsWallet(this.window,e)}static isInsideWalletBrowser(e){return Bt.isWindowContainsWallet(this.window,e)?this.window[e].tonconnect.isWalletBrowser:!1}static getCurrentlyInjectedWallets(){return this.window?tp().filter(([n,i])=>ep(i)).map(([n,i])=>({name:i.tonconnect.walletInfo.name,appName:i.tonconnect.walletInfo.app_name,aboutUrl:i.tonconnect.walletInfo.about_url,imageUrl:i.tonconnect.walletInfo.image,tondns:i.tonconnect.walletInfo.tondns,jsBridgeKey:n,injected:!0,embedded:i.tonconnect.isWalletBrowser,platforms:i.tonconnect.walletInfo.platforms})):[]}static isWindowContainsWallet(e,t){return!!e&&t in e&&typeof e[t]=="object"&&"tonconnect"in e[t]}connect(e){this._connect(qc,e)}restoreConnection(){return re(this,void 0,void 0,function*(){try{pt("Injected Provider restoring connection...");let e=yield this.injectedWallet.restoreConnection();pt("Injected Provider restoring connection response",e),e.event==="connect"?(this.makeSubscriptions(),this.listeners.forEach(t=>t(e))):yield this.connectionStorage.removeConnection()}catch(e){yield this.connectionStorage.removeConnection(),console.error(e)}})}closeConnection(){this.listenSubscriptions&&this.injectedWallet.disconnect(),this.closeAllListeners()}disconnect(){return re(this,void 0,void 0,function*(){return new Promise(e=>{let t=()=>{this.closeAllListeners(),this.connectionStorage.removeConnection().then(e)};try{this.injectedWallet.disconnect(),t()}catch(n){pt(n),this.sendRequest({method:"disconnect",params:[]},t)}})})}closeAllListeners(){var e;this.listenSubscriptions=!1,this.listeners=[],(e=this.unsubscribeCallback)===null||e===void 0||e.call(this)}listen(e){return this.listeners.push(e),()=>this.listeners=this.listeners.filter(t=>t!==e)}sendRequest(e,t){var n;return re(this,void 0,void 0,function*(){let i={};typeof t=="function"?i.onRequestSent=t:(i.onRequestSent=t==null?void 0:t.onRequestSent,i.signal=t==null?void 0:t.signal);let a=(yield this.connectionStorage.getNextRpcRequestId()).toString();yield this.connectionStorage.increaseNextRpcRequestId(),pt("Send injected-bridge request:",Object.assign(Object.assign({},e),{id:a}));let s=this.injectedWallet.send(Object.assign(Object.assign({},e),{id:a}));return s.then(l=>pt("Wallet message received:",l)),(n=i==null?void 0:i.onRequestSent)===null||n===void 0||n.call(i),s})}_connect(e,t){return re(this,void 0,void 0,function*(){try{pt(`Injected Provider connect request: protocolVersion: ${e}, message:`,t);let n=yield this.injectedWallet.connect(e,t);pt("Injected Provider connect response:",n),n.event==="connect"&&(yield this.updateSession(),this.makeSubscriptions()),this.listeners.forEach(i=>i(n))}catch(n){pt("Injected Provider connect error:",n);let i={event:"connect_error",payload:{code:0,message:n==null?void 0:n.toString()}};this.listeners.forEach(a=>a(i))}})}makeSubscriptions(){this.listenSubscriptions=!0,this.unsubscribeCallback=this.injectedWallet.listen(e=>{pt("Wallet message received:",e),this.listenSubscriptions&&this.listeners.forEach(t=>t(e)),e.event==="disconnect"&&this.disconnect()})}updateSession(){return this.connectionStorage.storeConnection({type:"injected",jsBridgeKey:this.injectedWalletKey,nextRpcRequestId:0})}};Bt.window=Za();var Hc=class{constructor(){this.localStorage=ip()}getItem(e){return re(this,void 0,void 0,function*(){return this.localStorage.getItem(e)})}removeItem(e){return re(this,void 0,void 0,function*(){this.localStorage.removeItem(e)})}setItem(e,t){return re(this,void 0,void 0,function*(){this.localStorage.setItem(e,t)})}};function Zc(r){return Gc(r)&&r.injected}function $c(r){return Zc(r)&&r.embedded}function Gc(r){return"jsBridgeKey"in r}function op(r){return"bridgeUrl"in r}function lp(r){return"jsBridgeKey"in r}var cp=[{app_name:"telegram-wallet",name:"Wallet",image:"https://wallet.tg/images/logo-288.png",about_url:"https://wallet.tg/",universal_url:"https://t.me/wallet?attach=wallet",bridge:[{type:"sse",url:"https://walletbot.me/tonconnect-bridge/bridge"}],platforms:["ios","android","macos","windows","linux"]},{app_name:"tonkeeper",name:"Tonkeeper",image:"https://tonkeeper.com/assets/tonconnect-icon.png",tondns:"tonkeeper.ton",about_url:"https://tonkeeper.com",universal_url:"https://app.tonkeeper.com/ton-connect",deepLink:"tonkeeper-tc://",bridge:[{type:"sse",url:"https://bridge.tonapi.io/bridge"},{type:"js",key:"tonkeeper"}],platforms:["ios","android","chrome","firefox","macos"]},{app_name:"mytonwallet",name:"MyTonWallet",image:"https://static.mytonwallet.io/icon-256.png",about_url:"https://mytonwallet.io",universal_url:"https://connect.mytonwallet.org",bridge:[{type:"js",key:"mytonwallet"},{type:"sse",url:"https://tonconnectbridge.mytonwallet.org/bridge/"}],platforms:["chrome","windows","macos","linux","ios","android","firefox"]},{app_name:"tonhub",name:"Tonhub",image:"https://tonhub.com/tonconnect_logo.png",about_url:"https://tonhub.com",universal_url:"https://tonhub.com/ton-connect",bridge:[{type:"js",key:"tonhub"},{type:"sse",url:"https://connect.tonhubapi.com/tonconnect"}],platforms:["ios","android"]},{app_name:"bitgetTonWallet",name:"Bitget Wallet",image:"https://raw.githubusercontent.com/bitgetwallet/download/refs/heads/main/logo/png/bitget_wallet_logo_288_mini.png",about_url:"https://web3.bitget.com",deepLink:"bitkeep://",bridge:[{type:"js",key:"bitgetTonWallet"},{type:"sse",url:"https://ton-connect-bridge.bgwapi.io/bridge"}],platforms:["ios","android","chrome"],universal_url:"https://bkcode.vip/ton-connect"},{app_name:"okxMiniWallet",name:"OKX Mini Wallet",image:"https://static.okx.com/cdn/assets/imgs/2411/8BE1A4A434D8F58A.png",about_url:"https://www.okx.com/web3",universal_url:"https://t.me/OKX_WALLET_BOT?attach=wallet",bridge:[{type:"sse",url:"https://www.okx.com/tonbridge/discover/rpc/bridge"}],platforms:["ios","android","macos","windows","linux"]},{app_name:"binanceWeb3TonWallet",name:"Binance Web3 Wallet",image:"https://public.bnbstatic.com/static/binance-w3w/ton-provider/binancew3w.png",about_url:"https://www.binance.com/en/web3wallet",deepLink:"bnc://app.binance.com/cedefi/ton-connect",bridge:[{type:"js",key:"binancew3w"},{type:"sse",url:"https://wallet.binance.com/tonbridge/bridge"}],platforms:["ios","android","macos","windows","linux"],universal_url:"https://app.binance.com/cedefi/ton-connect"},{app_name:"fintopio-tg",name:"Fintopio",image:"https://fintopio.com/tonconnect-icon.png",about_url:"https://fintopio.com",universal_url:"https://t.me/fintopio?attach=wallet",bridge:[{type:"sse",url:"https://wallet-bridge.fintopio.com/bridge"}],platforms:["ios","android","macos","windows","linux"]},{app_name:"okxTonWallet",name:"OKX Wallet",image:"https://static.okx.com/cdn/assets/imgs/247/58E63FEA47A2B7D7.png",about_url:"https://www.okx.com/web3",universal_url:"https://www.okx.com/download?appendQuery=true&deeplink=okx://web3/wallet/tonconnect",bridge:[{type:"js",key:"okxTonWallet"},{type:"sse",url:"https://www.okx.com/tonbridge/discover/rpc/bridge"}],platforms:["chrome","safari","firefox","ios","android"]},{app_name:"hot",name:"HOT",image:"https://raw.githubusercontent.com/hot-dao/media/main/logo.png",about_url:"https://hot-labs.org/",universal_url:"https://t.me/herewalletbot?attach=wallet",bridge:[{type:"sse",url:"https://sse-bridge.hot-labs.org"},{type:"js",key:"hotWallet"}],platforms:["ios","android","macos","windows","linux"]},{app_name:"bybitTonWallet",name:"Bybit Wallet",image:"https://raw.githubusercontent.com/bybit-web3/bybit-web3.github.io/main/docs/images/bybit-logo.png",about_url:"https://www.bybit.com/web3",universal_url:"https://app.bybit.com/ton-connect",deepLink:"bybitapp://",bridge:[{type:"js",key:"bybitTonWallet"},{type:"sse",url:"https://api-node.bybit.com/spot/api/web3/bridge/ton/bridge"}],platforms:["ios","android","chrome"]},{app_name:"dewallet",name:"DeWallet",image:"https://raw.githubusercontent.com/delab-team/manifests-images/main/WalletAvatar.png",about_url:"https://delabwallet.com",universal_url:"https://t.me/dewallet?attach=wallet",bridge:[{type:"sse",url:"https://bridge.dewallet.pro/bridge"}],platforms:["ios","android","macos","windows","linux"]},{app_name:"safepalwallet",name:"SafePal",image:"https://s.pvcliping.com/web/public_image/SafePal_x288.png",tondns:"",about_url:"https://www.safepal.com",universal_url:"https://link.safepal.io/ton-connect",deepLink:"safepal-tc://",bridge:[{type:"sse",url:"https://ton-bridge.safepal.com/tonbridge/v1/bridge"},{type:"js",key:"safepalwallet"}],platforms:["ios","android","chrome","firefox"]},{app_name:"GateWallet",name:"GateWallet",image:"https://img.gatedataimg.com/prd-ordinal-imgs/036f07bb8730716e/gateio-0925.png",about_url:"https://www.gate.io/",bridge:[{type:"js",key:"gatetonwallet"},{type:"sse",url:"https://dapp.gateio.services/tonbridge_api/bridge/v1"}],platforms:["ios","android"],universal_url:"https://gateio.go.link/gateio/web3?adj_t=1ff8khdw_1fu4ccc7"},{app_name:"openmask",name:"OpenMask",image:"https://raw.githubusercontent.com/OpenProduct/openmask-extension/main/public/openmask-logo-288.png",about_url:"https://www.openmask.app/",bridge:[{type:"js",key:"openmask"}],platforms:["chrome"]},{app_name:"BitgetWeb3",name:"BitgetWeb3",image:"https://img.bitgetimg.com/image/third/1731638059795.png",about_url:"\u200Bhttps://www.bitget.com",universal_url:"https://t.me/BitgetOfficialBot?attach=wallet",bridge:[{type:"sse",url:"https://ton-connect-bridge.bgwapi.io/bridge"}],platforms:["ios","android","windows","macos","linux"]},{app_name:"tobi",name:"Tobi",image:"https://app.tobiwallet.app/icons/logo-288.png",about_url:"https://tobi.fun",universal_url:"https://t.me/TobiCopilotBot?attach=wallet",bridge:[{type:"sse",url:"https://ton-bridge.tobiwallet.app/bridge"}],platforms:["ios","android","macos","windows","linux"]},{app_name:"xtonwallet",name:"XTONWallet",image:"https://xtonwallet.com/assets/img/icon-256-back.png",about_url:"https://xtonwallet.com",bridge:[{type:"js",key:"xtonwallet"}],platforms:["chrome","firefox"]},{app_name:"tonwallet",name:"TON Wallet",image:"https://wallet.ton.org/assets/ui/qr-logo.png",about_url:"https://chrome.google.com/webstore/detail/ton-wallet/nphplpgoakhhjchkkhmiggakijnkhfnd",bridge:[{type:"js",key:"tonwallet"}],platforms:["chrome"]}],Ei=class{constructor(e){this.walletsListCache=null,this.walletsListCacheCreationTimestamp=null,this.walletsListSource="https://raw.githubusercontent.com/ton-blockchain/wallets-list/main/wallets-v2.json",(e==null?void 0:e.walletsListSource)&&(this.walletsListSource=e.walletsListSource),(e==null?void 0:e.cacheTTLMs)&&(this.cacheTTLMs=e.cacheTTLMs)}getWallets(){return re(this,void 0,void 0,function*(){return this.cacheTTLMs&&this.walletsListCacheCreationTimestamp&&Date.now()>this.walletsListCacheCreationTimestamp+this.cacheTTLMs&&(this.walletsListCache=null),this.walletsListCache||(this.walletsListCache=this.fetchWalletsList(),this.walletsListCache.then(()=>{this.walletsListCacheCreationTimestamp=Date.now()}).catch(()=>{this.walletsListCache=null,this.walletsListCacheCreationTimestamp=null})),this.walletsListCache})}getEmbeddedWallet(){return re(this,void 0,void 0,function*(){let t=(yield this.getWallets()).filter($c);return t.length!==1?null:t[0]})}fetchWalletsList(){return re(this,void 0,void 0,function*(){let e=[];try{if(e=yield(yield fetch(this.walletsListSource)).json(),!Array.isArray(e))throw new Si("Wrong wallets list format, wallets list must be an array.");let i=e.filter(a=>!this.isCorrectWalletConfigDTO(a));i.length&&(xr(`Wallet(s) ${i.map(a=>a.name).join(", ")} config format is wrong. They were removed from the wallets list.`),e=e.filter(a=>this.isCorrectWalletConfigDTO(a)))}catch(n){xr(n),e=cp}let t=[];try{t=Bt.getCurrentlyInjectedWallets()}catch(n){xr(n)}return this.mergeWalletsLists(this.walletConfigDTOListToWalletConfigList(e),t)})}walletConfigDTOListToWalletConfigList(e){return e.map(t=>{let i={name:t.name,appName:t.app_name,imageUrl:t.image,aboutUrl:t.about_url,tondns:t.tondns,platforms:t.platforms};return t.bridge.forEach(a=>{if(a.type==="sse"&&(i.bridgeUrl=a.url,i.universalLink=t.universal_url,i.deepLink=t.deepLink),a.type==="js"){let s=a.key;i.jsBridgeKey=s,i.injected=Bt.isWalletInjected(s),i.embedded=Bt.isInsideWalletBrowser(s)}}),i})}mergeWalletsLists(e,t){return[...new Set(e.concat(t).map(i=>i.name)).values()].map(i=>{let a=e.find(l=>l.name===i),s=t.find(l=>l.name===i);return Object.assign(Object.assign({},a&&Object.assign({},a)),s&&Object.assign({},s))})}isCorrectWalletConfigDTO(e){if(!e||typeof e!="object")return!1;let t="name"in e,n="app_name"in e,i="image"in e,a="about_url"in e,s="platforms"in e;if(!t||!i||!a||!s||!n||!e.platforms||!Array.isArray(e.platforms)||!e.platforms.length||!("bridge"in e)||!Array.isArray(e.bridge)||!e.bridge.length)return!1;let l=e.bridge;if(l.some(b=>!b||typeof b!="object"||!("type"in b)))return!1;let y=l.find(b=>b.type==="sse");if(y&&(!("url"in y)||!y.url||!e.universal_url))return!1;let m=l.find(b=>b.type==="js");return!(m&&(!("key"in m)||!m.key))}},Bi=class extends pe{get info(){return"Wallet doesn't support requested feature method."}constructor(...e){super(...e);Object.setPrototypeOf(this,Bi.prototype)}};function up(r,e){let t=r.includes("SendTransaction"),n=r.find(i=>i&&typeof i=="object"&&i.name==="SendTransaction");if(!t&&!n)throw new Bi("Wallet doesn't support SendTransaction feature.");if(n&&n.maxMessages!==void 0){if(n.maxMessages<e.requiredMessagesNumber)throw new Bi(`Wallet is not able to handle such SendTransaction request. Max support messages number is ${n.maxMessages}, but ${e.requiredMessagesNumber} is required.`);return}Yh("Connected wallet didn't provide information about max allowed messages in the SendTransaction request. Request may be rejected by the wallet.")}function Yc(){return{type:"request-version"}}function Jc(r){return{type:"response-version",version:r}}function tn(r){return{ton_connect_sdk_lib:r.ton_connect_sdk_lib,ton_connect_ui_lib:r.ton_connect_ui_lib}}function Un(r,e){var t,n,i,a,s,l,y,m;let _=((t=e==null?void 0:e.connectItems)===null||t===void 0?void 0:t.tonProof)&&"proof"in e.connectItems.tonProof?"ton_proof":"ton_addr";return{wallet_address:(i=(n=e==null?void 0:e.account)===null||n===void 0?void 0:n.address)!==null&&i!==void 0?i:null,wallet_type:(a=e==null?void 0:e.device.appName)!==null&&a!==void 0?a:null,wallet_version:(s=e==null?void 0:e.device.appVersion)!==null&&s!==void 0?s:null,auth_type:_,custom_data:Object.assign({chain_id:(y=(l=e==null?void 0:e.account)===null||l===void 0?void 0:l.chain)!==null&&y!==void 0?y:null,provider:(m=e==null?void 0:e.provider)!==null&&m!==void 0?m:null},tn(r))}}function Qc(r){return{type:"connection-started",custom_data:tn(r)}}function Xc(r,e){return Object.assign({type:"connection-completed",is_success:!0},Un(r,e))}function eu(r,e,t){return{type:"connection-error",is_success:!1,error_message:e,error_code:t??null,custom_data:tn(r)}}function tu(r){return{type:"connection-restoring-started",custom_data:tn(r)}}function ru(r,e){return Object.assign({type:"connection-restoring-completed",is_success:!0},Un(r,e))}function nu(r,e){return{type:"connection-restoring-error",is_success:!1,error_message:e,custom_data:tn(r)}}function io(r,e){var t,n,i,a;return{valid_until:(t=String(e.validUntil))!==null&&t!==void 0?t:null,from:(a=(n=e.from)!==null&&n!==void 0?n:(i=r==null?void 0:r.account)===null||i===void 0?void 0:i.address)!==null&&a!==void 0?a:null,messages:e.messages.map(s=>{var l,y;return{address:(l=s.address)!==null&&l!==void 0?l:null,amount:(y=s.amount)!==null&&y!==void 0?y:null}})}}function iu(r,e,t){return Object.assign(Object.assign({type:"transaction-sent-for-signature"},Un(r,e)),io(e,t))}function au(r,e,t,n){return Object.assign(Object.assign({type:"transaction-signed",is_success:!0,signed_transaction:n.boc},Un(r,e)),io(e,t))}function su(r,e,t,n,i){return Object.assign(Object.assign({type:"transaction-signing-failed",is_success:!1,error_message:n,error_code:i??null},Un(r,e)),io(e,t))}function ou(r,e,t){return Object.assign({type:"disconnection",scope:t},Un(r,e))}var ao=class{constructor(){this.window=Za()}dispatchEvent(e,t){var n;return re(this,void 0,void 0,function*(){let i=new CustomEvent(e,{detail:t});(n=this.window)===null||n===void 0||n.dispatchEvent(i)})}addEventListener(e,t,n){var i;return re(this,void 0,void 0,function*(){return(i=this.window)===null||i===void 0||i.addEventListener(e,t,n),()=>{var a;return(a=this.window)===null||a===void 0?void 0:a.removeEventListener(e,t)}})}},lu=class{constructor(e){var t;this.eventPrefix="ton-connect-",this.tonConnectUiVersion=null,this.eventDispatcher=(t=e==null?void 0:e.eventDispatcher)!==null&&t!==void 0?t:new ao,this.tonConnectSdkVersion=e.tonConnectSdkVersion,this.init().catch()}get version(){return tn({ton_connect_sdk_lib:this.tonConnectSdkVersion,ton_connect_ui_lib:this.tonConnectUiVersion})}init(){return re(this,void 0,void 0,function*(){try{yield this.setRequestVersionHandler(),this.tonConnectUiVersion=yield this.requestTonConnectUiVersion()}catch{}})}setRequestVersionHandler(){return re(this,void 0,void 0,function*(){yield this.eventDispatcher.addEventListener("ton-connect-request-version",()=>re(this,void 0,void 0,function*(){yield this.eventDispatcher.dispatchEvent("ton-connect-response-version",Jc(this.tonConnectSdkVersion))}))})}requestTonConnectUiVersion(){return re(this,void 0,void 0,function*(){return new Promise((e,t)=>re(this,void 0,void 0,function*(){try{yield this.eventDispatcher.addEventListener("ton-connect-ui-response-version",n=>{e(n.detail.version)},{once:!0}),yield this.eventDispatcher.dispatchEvent("ton-connect-ui-request-version",Yc())}catch(n){t(n)}}))})}dispatchUserActionEvent(e){try{this.eventDispatcher.dispatchEvent(`${this.eventPrefix}${e.type}`,e).catch()}catch{}}trackConnectionStarted(...e){try{let t=Qc(this.version,...e);this.dispatchUserActionEvent(t)}catch{}}trackConnectionCompleted(...e){try{let t=Xc(this.version,...e);this.dispatchUserActionEvent(t)}catch{}}trackConnectionError(...e){try{let t=eu(this.version,...e);this.dispatchUserActionEvent(t)}catch{}}trackConnectionRestoringStarted(...e){try{let t=tu(this.version,...e);this.dispatchUserActionEvent(t)}catch{}}trackConnectionRestoringCompleted(...e){try{let t=ru(this.version,...e);this.dispatchUserActionEvent(t)}catch{}}trackConnectionRestoringError(...e){try{let t=nu(this.version,...e);this.dispatchUserActionEvent(t)}catch{}}trackDisconnection(...e){try{let t=ou(this.version,...e);this.dispatchUserActionEvent(t)}catch{}}trackTransactionSentForSignature(...e){try{let t=iu(this.version,...e);this.dispatchUserActionEvent(t)}catch{}}trackTransactionSigned(...e){try{let t=au(this.version,...e);this.dispatchUserActionEvent(t)}catch{}}trackTransactionSigningFailed(...e){try{let t=su(this.version,...e);this.dispatchUserActionEvent(t)}catch{}}},dp="3.0.6",Ti=class{constructor(e){if(this.walletsList=new Ei,this._wallet=null,this.provider=null,this.statusChangeSubscriptions=[],this.statusChangeErrorSubscriptions=[],this.dappSettings={manifestUrl:(e==null?void 0:e.manifestUrl)||np(),storage:(e==null?void 0:e.storage)||new Hc},this.walletsList=new Ei({walletsListSource:e==null?void 0:e.walletsListSource,cacheTTLMs:e==null?void 0:e.walletsListCacheTTLMs}),this.tracker=new lu({eventDispatcher:e==null?void 0:e.eventDispatcher,tonConnectSdkVersion:dp}),!this.dappSettings.manifestUrl)throw new qa("Dapp tonconnect-manifest.json must be specified if window.location.origin is undefined. See more https://github.com/ton-connect/docs/blob/main/requests-responses.md#app-manifest");this.bridgeConnectionStorage=new Mn(this.dappSettings.storage),(e==null?void 0:e.disableAutoPauseConnection)||this.addWindowFocusAndBlurSubscriptions()}static getWallets(){return this.walletsList.getWallets()}get connected(){return this._wallet!==null}get account(){var e;return((e=this._wallet)===null||e===void 0?void 0:e.account)||null}get wallet(){return this._wallet}set wallet(e){this._wallet=e,this.statusChangeSubscriptions.forEach(t=>t(this._wallet))}getWallets(){return this.walletsList.getWallets()}onStatusChange(e,t){return this.statusChangeSubscriptions.push(e),t&&this.statusChangeErrorSubscriptions.push(t),()=>{this.statusChangeSubscriptions=this.statusChangeSubscriptions.filter(n=>n!==e),t&&(this.statusChangeErrorSubscriptions=this.statusChangeErrorSubscriptions.filter(n=>n!==t))}}connect(e,t){var n,i;let a={};if(typeof t=="object"&&"tonProof"in t&&(a.request=t),typeof t=="object"&&("openingDeadlineMS"in t||"signal"in t||"request"in t)&&(a.request=t==null?void 0:t.request,a.openingDeadlineMS=t==null?void 0:t.openingDeadlineMS,a.signal=t==null?void 0:t.signal),this.connected)throw new ki;let s=Zt(a==null?void 0:a.signal);if((n=this.abortController)===null||n===void 0||n.abort(),this.abortController=s,s.signal.aborted)throw new pe("Connection was aborted");return(i=this.provider)===null||i===void 0||i.closeConnection(),this.provider=this.createProvider(e),s.signal.addEventListener("abort",()=>{var l;(l=this.provider)===null||l===void 0||l.closeConnection(),this.provider=null}),this.tracker.trackConnectionStarted(),this.provider.connect(this.createConnectRequest(a==null?void 0:a.request),{openingDeadlineMS:a==null?void 0:a.openingDeadlineMS,signal:s.signal})}restoreConnection(e){var t,n;return re(this,void 0,void 0,function*(){this.tracker.trackConnectionRestoringStarted();let i=Zt(e==null?void 0:e.signal);if((t=this.abortController)===null||t===void 0||t.abort(),this.abortController=i,i.signal.aborted){this.tracker.trackConnectionRestoringError("Connection restoring was aborted");return}let[a,s]=yield Promise.all([this.bridgeConnectionStorage.storedConnectionType(),this.walletsList.getEmbeddedWallet()]);if(i.signal.aborted){this.tracker.trackConnectionRestoringError("Connection restoring was aborted");return}let l=null;try{switch(a){case"http":l=yield jn.fromStorage(this.dappSettings.storage);break;case"injected":l=yield Bt.fromStorage(this.dappSettings.storage);break;default:if(s)l=this.createProvider(s);else return}}catch{this.tracker.trackConnectionRestoringError("Provider is not restored"),yield this.bridgeConnectionStorage.removeConnection(),l==null||l.closeConnection(),l=null;return}if(i.signal.aborted){l==null||l.closeConnection(),this.tracker.trackConnectionRestoringError("Connection restoring was aborted");return}if(!l){xr("Provider is not restored"),this.tracker.trackConnectionRestoringError("Provider is not restored");return}(n=this.provider)===null||n===void 0||n.closeConnection(),this.provider=l,l.listen(this.walletEventsListener.bind(this));let y=()=>{this.tracker.trackConnectionRestoringError("Connection restoring was aborted"),l==null||l.closeConnection(),l=null};i.signal.addEventListener("abort",y);let m=_i(_=>re(this,void 0,void 0,function*(){yield l==null?void 0:l.restoreConnection({openingDeadlineMS:e==null?void 0:e.openingDeadlineMS,signal:_.signal}),i.signal.removeEventListener("abort",y),this.connected?this.tracker.trackConnectionRestoringCompleted(this.wallet):this.tracker.trackConnectionRestoringError("Connection restoring failed")}),{attempts:Number.MAX_SAFE_INTEGER,delayMs:2e3,signal:e==null?void 0:e.signal}),b=new Promise(_=>setTimeout(()=>_(),12e3));return Promise.race([m,b])})}sendTransaction(e,t){return re(this,void 0,void 0,function*(){let n={};typeof t=="function"?n.onRequestSent=t:(n.onRequestSent=t==null?void 0:t.onRequestSent,n.signal=t==null?void 0:t.signal);let i=Zt(n==null?void 0:n.signal);if(i.signal.aborted)throw new pe("Transaction sending was aborted");this.checkConnection(),up(this.wallet.device.features,{requiredMessagesNumber:e.messages.length}),this.tracker.trackTransactionSentForSignature(this.wallet,e);let{validUntil:a}=e,s=Hh(e,["validUntil"]),l=e.from||this.account.address,y=e.network||this.account.chain,m=yield this.provider.sendRequest(Ka.convertToRpcRequest(Object.assign(Object.assign({},s),{valid_until:a,from:l,network:y})),{onRequestSent:n.onRequestSent,signal:i.signal});if(Ka.isError(m))return this.tracker.trackTransactionSigningFailed(this.wallet,e,m.error.message,m.error.code),Ka.parseAndThrowError(m);let b=Ka.convertFromRpcResponse(m);return this.tracker.trackTransactionSigned(this.wallet,e,b),b})}disconnect(e){var t;return re(this,void 0,void 0,function*(){if(!this.connected)throw new Bn;let n=Zt(e==null?void 0:e.signal),i=this.abortController;if(this.abortController=n,n.signal.aborted)throw new pe("Disconnect was aborted");this.onWalletDisconnected("dapp"),yield(t=this.provider)===null||t===void 0?void 0:t.disconnect({signal:n.signal}),i==null||i.abort()})}pauseConnection(){var e;((e=this.provider)===null||e===void 0?void 0:e.type)==="http"&&this.provider.pause()}unPauseConnection(){var e;return((e=this.provider)===null||e===void 0?void 0:e.type)!=="http"?Promise.resolve():this.provider.unPause()}addWindowFocusAndBlurSubscriptions(){let e=rp();if(!!e)try{e.addEventListener("visibilitychange",()=>{e.hidden?this.pauseConnection():this.unPauseConnection().catch()})}catch(t){xr("Cannot subscribe to the document.visibilitychange: ",t)}}createProvider(e){let t;return!Array.isArray(e)&&Zh(e)?t=new Bt(this.dappSettings.storage,e.jsBridgeKey):t=new jn(this.dappSettings.storage,e),t.listen(this.walletEventsListener.bind(this)),t}walletEventsListener(e){switch(e.event){case"connect":this.onWalletConnected(e.payload);break;case"connect_error":this.onWalletConnectError(e.payload);break;case"disconnect":this.onWalletDisconnected("wallet")}}onWalletConnected(e){let t=e.items.find(a=>a.name==="ton_addr"),n=e.items.find(a=>a.name==="ton_proof");if(!t)throw new pe("ton_addr connection item was not found");let i={device:e.device,provider:this.provider.type,account:{address:t.address,chain:t.network,walletStateInit:t.walletStateInit,publicKey:t.publicKey}};n&&(i.connectItems={tonProof:n}),this.wallet=i,this.tracker.trackConnectionCompleted(i)}onWalletConnectError(e){let t=$h.parseError(e);if(this.statusChangeErrorSubscriptions.forEach(n=>n(t)),pt(t),this.tracker.trackConnectionError(e.message,e.code),t instanceof xi||t instanceof vi)throw xr(t),t}onWalletDisconnected(e){this.tracker.trackDisconnection(this.wallet,e),this.wallet=null}checkConnection(){if(!this.connected)throw new Bn}createConnectRequest(e){let t=[{name:"ton_addr"}];return(e==null?void 0:e.tonProof)&&t.push({name:"ton_proof",payload:e.tonProof}),{manifestUrl:this.dappSettings.manifestUrl,items:t}}};Ti.walletsList=new Ei;Ti.isWalletInjected=r=>Bt.isWalletInjected(r);Ti.isInsideWalletBrowser=r=>Bt.isInsideWalletBrowser(r);var fp=81,hp=128;function pp(r,e=!1){let{wc:t,hex:n}=mp(r),i=fp;e&&(i|=hp);let a=new Int8Array(34);a[0]=i,a[1]=t,a.set(n,2);let s=new Uint8Array(36);return s.set(a),s.set(gp(a),34),za.encode(s).replace(/\+/g,"-").replace(/\//g,"_")}function mp(r){if(!r.includes(":"))throw new Lr(`Wrong address ${r}. Address must include ":".`);let e=r.split(":");if(e.length!==2)throw new Lr(`Wrong address ${r}. Address must include ":" only once.`);let t=parseInt(e[0]);if(t!==0&&t!==-1)throw new Lr(`Wrong address ${r}. WC must be eq 0 or -1, but ${t} received.`);let n=e[1];if((n==null?void 0:n.length)!==64)throw new Lr(`Wrong address ${r}. Hex part must be 64bytes length, but ${n==null?void 0:n.length} received.`);return{wc:t,hex:yp(n)}}function gp(r){let e=4129,t=0,n=new Uint8Array(r.length+2);n.set(r);for(let i of n){let a=128;for(;a>0;)t<<=1,i&a&&(t+=1),a>>=1,t>65535&&(t&=65535,t^=e)}return new Uint8Array([Math.floor(t/256),t%256])}var so={};for(let r=0;r<=255;r++){let e=r.toString(16);e.length<2&&(e="0"+e),so[e]=r}function yp(r){r=r.toLowerCase();let e=r.length;if(e%2!=0)throw new Pn("Hex string must have length a multiple of 2: "+r);let t=e/2,n=new Uint8Array(t);for(let i=0;i<t;i++){let a=i*2,s=r.substring(a,a+2);if(!so.hasOwnProperty(s))throw new Pn("Invalid hex character: "+s);n[i]=so[s]}return n}v();var ze;(function(r){r.assertEqual=i=>i;function e(i){}r.assertIs=e;function t(i){throw new Error}r.assertNever=t,r.arrayToEnum=i=>{let a={};for(let s of i)a[s]=s;return a},r.getValidEnumValues=i=>{let a=r.objectKeys(i).filter(l=>typeof i[i[l]]!="number"),s={};for(let l of a)s[l]=i[l];return r.objectValues(s)},r.objectValues=i=>r.objectKeys(i).map(function(a){return i[a]}),r.objectKeys=typeof Object.keys=="function"?i=>Object.keys(i):i=>{let a=[];for(let s in i)Object.prototype.hasOwnProperty.call(i,s)&&a.push(s);return a},r.find=(i,a)=>{for(let s of i)if(a(s))return s},r.isInteger=typeof Number.isInteger=="function"?i=>Number.isInteger(i):i=>typeof i=="number"&&isFinite(i)&&Math.floor(i)===i;function n(i,a=" | "){return i.map(s=>typeof s=="string"?`'${s}'`:s).join(a)}r.joinValues=n,r.jsonStringifyReplacer=(i,a)=>typeof a=="bigint"?a.toString():a})(ze||(ze={}));var lo;(function(r){r.mergeShapes=(e,t)=>({...e,...t})})(lo||(lo={}));var ee=ze.arrayToEnum(["string","nan","number","integer","float","boolean","date","bigint","symbol","function","undefined","null","array","object","unknown","promise","void","never","map","set"]),kr=r=>{switch(typeof r){case"undefined":return ee.undefined;case"string":return ee.string;case"number":return isNaN(r)?ee.nan:ee.number;case"boolean":return ee.boolean;case"function":return ee.function;case"bigint":return ee.bigint;case"symbol":return ee.symbol;case"object":return Array.isArray(r)?ee.array:r===null?ee.null:r.then&&typeof r.then=="function"&&r.catch&&typeof r.catch=="function"?ee.promise:typeof Map!="undefined"&&r instanceof Map?ee.map:typeof Set!="undefined"&&r instanceof Set?ee.set:typeof Date!="undefined"&&r instanceof Date?ee.date:ee.object;default:return ee.unknown}},z=ze.arrayToEnum(["invalid_type","invalid_literal","custom","invalid_union","invalid_union_discriminator","invalid_enum_value","unrecognized_keys","invalid_arguments","invalid_return_type","invalid_date","invalid_string","too_small","too_big","invalid_intersection_types","not_multiple_of","not_finite"]),bp=r=>JSON.stringify(r,null,2).replace(/"([^"]+)":/g,"$1:"),Mt=class extends Error{get errors(){return this.issues}constructor(e){super();this.issues=[],this.addIssue=n=>{this.issues=[...this.issues,n]},this.addIssues=(n=[])=>{this.issues=[...this.issues,...n]};let t=new.target.prototype;Object.setPrototypeOf?Object.setPrototypeOf(this,t):this.__proto__=t,this.name="ZodError",this.issues=e}format(e){let t=e||function(a){return a.message},n={_errors:[]},i=a=>{for(let s of a.issues)if(s.code==="invalid_union")s.unionErrors.map(i);else if(s.code==="invalid_return_type")i(s.returnTypeError);else if(s.code==="invalid_arguments")i(s.argumentsError);else if(s.path.length===0)n._errors.push(t(s));else{let l=n,y=0;for(;y<s.path.length;){let m=s.path[y];y===s.path.length-1?(l[m]=l[m]||{_errors:[]},l[m]._errors.push(t(s))):l[m]=l[m]||{_errors:[]},l=l[m],y++}}};return i(this),n}static assert(e){if(!(e instanceof Mt))throw new Error(`Not a ZodError: ${e}`)}toString(){return this.message}get message(){return JSON.stringify(this.issues,ze.jsonStringifyReplacer,2)}get isEmpty(){return this.issues.length===0}flatten(e=t=>t.message){let t={},n=[];for(let i of this.issues)i.path.length>0?(t[i.path[0]]=t[i.path[0]]||[],t[i.path[0]].push(e(i))):n.push(e(i));return{formErrors:n,fieldErrors:t}}get formErrors(){return this.flatten()}};Mt.create=r=>new Mt(r);var On=(r,e)=>{let t;switch(r.code){case z.invalid_type:r.received===ee.undefined?t="Required":t=`Expected ${r.expected}, received ${r.received}`;break;case z.invalid_literal:t=`Invalid literal value, expected ${JSON.stringify(r.expected,ze.jsonStringifyReplacer)}`;break;case z.unrecognized_keys:t=`Unrecognized key(s) in object: ${ze.joinValues(r.keys,", ")}`;break;case z.invalid_union:t="Invalid input";break;case z.invalid_union_discriminator:t=`Invalid discriminator value. Expected ${ze.joinValues(r.options)}`;break;case z.invalid_enum_value:t=`Invalid enum value. Expected ${ze.joinValues(r.options)}, received '${r.received}'`;break;case z.invalid_arguments:t="Invalid function arguments";break;case z.invalid_return_type:t="Invalid function return type";break;case z.invalid_date:t="Invalid date";break;case z.invalid_string:typeof r.validation=="object"?"includes"in r.validation?(t=`Invalid input: must include "${r.validation.includes}"`,typeof r.validation.position=="number"&&(t=`${t} at one or more positions greater than or equal to ${r.validation.position}`)):"startsWith"in r.validation?t=`Invalid input: must start with "${r.validation.startsWith}"`:"endsWith"in r.validation?t=`Invalid input: must end with "${r.validation.endsWith}"`:ze.assertNever(r.validation):r.validation!=="regex"?t=`Invalid ${r.validation}`:t="Invalid";break;case z.too_small:r.type==="array"?t=`Array must contain ${r.exact?"exactly":r.inclusive?"at least":"more than"} ${r.minimum} element(s)`:r.type==="string"?t=`String must contain ${r.exact?"exactly":r.inclusive?"at least":"over"} ${r.minimum} character(s)`:r.type==="number"?t=`Number must be ${r.exact?"exactly equal to ":r.inclusive?"greater than or equal to ":"greater than "}${r.minimum}`:r.type==="date"?t=`Date must be ${r.exact?"exactly equal to ":r.inclusive?"greater than or equal to ":"greater than "}${new Date(Number(r.minimum))}`:t="Invalid input";break;case z.too_big:r.type==="array"?t=`Array must contain ${r.exact?"exactly":r.inclusive?"at most":"less than"} ${r.maximum} element(s)`:r.type==="string"?t=`String must contain ${r.exact?"exactly":r.inclusive?"at most":"under"} ${r.maximum} character(s)`:r.type==="number"?t=`Number must be ${r.exact?"exactly":r.inclusive?"less than or equal to":"less than"} ${r.maximum}`:r.type==="bigint"?t=`BigInt must be ${r.exact?"exactly":r.inclusive?"less than or equal to":"less than"} ${r.maximum}`:r.type==="date"?t=`Date must be ${r.exact?"exactly":r.inclusive?"smaller than or equal to":"smaller than"} ${new Date(Number(r.maximum))}`:t="Invalid input";break;case z.custom:t="Invalid input";break;case z.invalid_intersection_types:t="Intersection results could not be merged";break;case z.not_multiple_of:t=`Number must be a multiple of ${r.multipleOf}`;break;case z.not_finite:t="Number must be finite";break;default:t=e.defaultError,ze.assertNever(r)}return{message:t}},cu=On;function wp(r){cu=r}function $a(){return cu}var Ga=r=>{let{data:e,path:t,errorMaps:n,issueData:i}=r,a=[...t,...i.path||[]],s={...i,path:a};if(i.message!==void 0)return{...i,path:a,message:i.message};let l="",y=n.filter(m=>!!m).slice().reverse();for(let m of y)l=m(s,{data:e,defaultError:l}).message;return{...i,path:a,message:l}},vp=[];function Y(r,e){let t=$a(),n=Ga({issueData:e,data:r.data,path:r.path,errorMaps:[r.common.contextualErrorMap,r.schemaErrorMap,t,t===On?void 0:On].filter(i=>!!i)});r.common.issues.push(n)}var yt=class{constructor(){this.value="valid"}dirty(){this.value==="valid"&&(this.value="dirty")}abort(){this.value!=="aborted"&&(this.value="aborted")}static mergeArray(e,t){let n=[];for(let i of t){if(i.status==="aborted")return ye;i.status==="dirty"&&e.dirty(),n.push(i.value)}return{status:e.value,value:n}}static async mergeObjectAsync(e,t){let n=[];for(let i of t){let a=await i.key,s=await i.value;n.push({key:a,value:s})}return yt.mergeObjectSync(e,n)}static mergeObjectSync(e,t){let n={};for(let i of t){let{key:a,value:s}=i;if(a.status==="aborted"||s.status==="aborted")return ye;a.status==="dirty"&&e.dirty(),s.status==="dirty"&&e.dirty(),a.value!=="__proto__"&&(typeof s.value!="undefined"||i.alwaysSet)&&(n[a.value]=s.value)}return{status:e.value,value:n}}},ye=Object.freeze({status:"aborted"}),Nn=r=>({status:"dirty",value:r}),Tt=r=>({status:"valid",value:r}),co=r=>r.status==="aborted",uo=r=>r.status==="dirty",rn=r=>r.status==="valid",Ri=r=>typeof Promise!="undefined"&&r instanceof Promise;function Ya(r,e,t,n){if(t==="a"&&!n)throw new TypeError("Private accessor was defined without a getter");if(typeof e=="function"?r!==e||!n:!e.has(r))throw new TypeError("Cannot read private member from an object whose class did not declare it");return t==="m"?n:t==="a"?n.call(r):n?n.value:e.get(r)}function uu(r,e,t,n,i){if(n==="m")throw new TypeError("Private method is not writable");if(n==="a"&&!i)throw new TypeError("Private accessor was defined without a setter");if(typeof e=="function"?r!==e||!i:!e.has(r))throw new TypeError("Cannot write private member to an object whose class did not declare it");return n==="a"?i.call(r,t):i?i.value=t:e.set(r,t),t}var fe;(function(r){r.errToObj=e=>typeof e=="string"?{message:e}:e||{},r.toString=e=>typeof e=="string"?e:e==null?void 0:e.message})(fe||(fe={}));var Ii,Pi,$t=class{constructor(e,t,n,i){this._cachedPath=[],this.parent=e,this.data=t,this._path=n,this._key=i}get path(){return this._cachedPath.length||(this._key instanceof Array?this._cachedPath.push(...this._path,...this._key):this._cachedPath.push(...this._path,this._key)),this._cachedPath}},du=(r,e)=>{if(rn(e))return{success:!0,data:e.value};if(!r.common.issues.length)throw new Error("Validation failed but no issues detected.");return{success:!1,get error(){if(this._error)return this._error;let t=new Mt(r.common.issues);return this._error=t,this._error}}};function Re(r){if(!r)return{};let{errorMap:e,invalid_type_error:t,required_error:n,description:i}=r;if(e&&(t||n))throw new Error(`Can't use "invalid_type_error" or "required_error" in conjunction with custom error map.`);return e?{errorMap:e,description:i}:{errorMap:(s,l)=>{var y,m;let{message:b}=r;return s.code==="invalid_enum_value"?{message:b??l.defaultError}:typeof l.data=="undefined"?{message:(y=b??n)!==null&&y!==void 0?y:l.defaultError}:s.code!=="invalid_type"?{message:l.defaultError}:{message:(m=b??t)!==null&&m!==void 0?m:l.defaultError}},description:i}}var Me=class{get description(){return this._def.description}_getType(e){return kr(e.data)}_getOrReturnCtx(e,t){return t||{common:e.parent.common,data:e.data,parsedType:kr(e.data),schemaErrorMap:this._def.errorMap,path:e.path,parent:e.parent}}_processInputParams(e){return{status:new yt,ctx:{common:e.parent.common,data:e.data,parsedType:kr(e.data),schemaErrorMap:this._def.errorMap,path:e.path,parent:e.parent}}}_parseSync(e){let t=this._parse(e);if(Ri(t))throw new Error("Synchronous parse encountered promise.");return t}_parseAsync(e){let t=this._parse(e);return Promise.resolve(t)}parse(e,t){let n=this.safeParse(e,t);if(n.success)return n.data;throw n.error}safeParse(e,t){var n;let i={common:{issues:[],async:(n=t==null?void 0:t.async)!==null&&n!==void 0?n:!1,contextualErrorMap:t==null?void 0:t.errorMap},path:(t==null?void 0:t.path)||[],schemaErrorMap:this._def.errorMap,parent:null,data:e,parsedType:kr(e)},a=this._parseSync({data:e,path:i.path,parent:i});return du(i,a)}"~validate"(e){var t,n;let i={common:{issues:[],async:!!this["~standard"].async},path:[],schemaErrorMap:this._def.errorMap,parent:null,data:e,parsedType:kr(e)};if(!this["~standard"].async)try{let a=this._parseSync({data:e,path:[],parent:i});return rn(a)?{value:a.value}:{issues:i.common.issues}}catch(a){((n=(t=a==null?void 0:a.message)===null||t===void 0?void 0:t.toLowerCase())===null||n===void 0?void 0:n.includes("encountered"))&&(this["~standard"].async=!0),i.common={issues:[],async:!0}}return this._parseAsync({data:e,path:[],parent:i}).then(a=>rn(a)?{value:a.value}:{issues:i.common.issues})}async parseAsync(e,t){let n=await this.safeParseAsync(e,t);if(n.success)return n.data;throw n.error}async safeParseAsync(e,t){let n={common:{issues:[],contextualErrorMap:t==null?void 0:t.errorMap,async:!0},path:(t==null?void 0:t.path)||[],schemaErrorMap:this._def.errorMap,parent:null,data:e,parsedType:kr(e)},i=this._parse({data:e,path:n.path,parent:n}),a=await(Ri(i)?i:Promise.resolve(i));return du(n,a)}refine(e,t){let n=i=>typeof t=="string"||typeof t=="undefined"?{message:t}:typeof t=="function"?t(i):t;return this._refinement((i,a)=>{let s=e(i),l=()=>a.addIssue({code:z.custom,...n(i)});return typeof Promise!="undefined"&&s instanceof Promise?s.then(y=>y?!0:(l(),!1)):s?!0:(l(),!1)})}refinement(e,t){return this._refinement((n,i)=>e(n)?!0:(i.addIssue(typeof t=="function"?t(n,i):t),!1))}_refinement(e){return new Vt({schema:this,typeName:ge.ZodEffects,effect:{type:"refinement",refinement:e}})}superRefine(e){return this._refinement(e)}constructor(e){this.spa=this.safeParseAsync,this._def=e,this.parse=this.parse.bind(this),this.safeParse=this.safeParse.bind(this),this.parseAsync=this.parseAsync.bind(this),this.safeParseAsync=this.safeParseAsync.bind(this),this.spa=this.spa.bind(this),this.refine=this.refine.bind(this),this.refinement=this.refinement.bind(this),this.superRefine=this.superRefine.bind(this),this.optional=this.optional.bind(this),this.nullable=this.nullable.bind(this),this.nullish=this.nullish.bind(this),this.array=this.array.bind(this),this.promise=this.promise.bind(this),this.or=this.or.bind(this),this.and=this.and.bind(this),this.transform=this.transform.bind(this),this.brand=this.brand.bind(this),this.default=this.default.bind(this),this.catch=this.catch.bind(this),this.describe=this.describe.bind(this),this.pipe=this.pipe.bind(this),this.readonly=this.readonly.bind(this),this.isNullable=this.isNullable.bind(this),this.isOptional=this.isOptional.bind(this),this["~standard"]={version:1,vendor:"zod",validate:t=>this["~validate"](t)}}optional(){return Yt.create(this,this._def)}nullable(){return Er.create(this,this._def)}nullish(){return this.nullable().optional()}array(){return qt.create(this)}promise(){return sn.create(this,this._def)}or(e){return zn.create([this,e],this._def)}and(e){return qn.create(this,e,this._def)}transform(e){return new Vt({...Re(this._def),schema:this,typeName:ge.ZodEffects,effect:{type:"transform",transform:e}})}default(e){let t=typeof e=="function"?e:()=>e;return new $n({...Re(this._def),innerType:this,defaultValue:t,typeName:ge.ZodDefault})}brand(){return new Ja({typeName:ge.ZodBranded,type:this,...Re(this._def)})}catch(e){let t=typeof e=="function"?e:()=>e;return new Gn({...Re(this._def),innerType:this,catchValue:t,typeName:ge.ZodCatch})}describe(e){let t=this.constructor;return new t({...this._def,description:e})}pipe(e){return Yn.create(this,e)}readonly(){return Jn.create(this)}isOptional(){return this.safeParse(void 0).success}isNullable(){return this.safeParse(null).success}},xp=/^c[^\s-]{8,}$/i,kp=/^[0-9a-z]+$/,Ap=/^[0-9A-HJKMNP-TV-Z]{26}$/i,Sp=/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i,_p=/^[a-z0-9_-]{21}$/i,Cp=/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]*$/,Ep=/^[-+]?P(?!$)(?:(?:[-+]?\d+Y)|(?:[-+]?\d+[.,]\d+Y$))?(?:(?:[-+]?\d+M)|(?:[-+]?\d+[.,]\d+M$))?(?:(?:[-+]?\d+W)|(?:[-+]?\d+[.,]\d+W$))?(?:(?:[-+]?\d+D)|(?:[-+]?\d+[.,]\d+D$))?(?:T(?=[\d+-])(?:(?:[-+]?\d+H)|(?:[-+]?\d+[.,]\d+H$))?(?:(?:[-+]?\d+M)|(?:[-+]?\d+[.,]\d+M$))?(?:[-+]?\d+(?:[.,]\d+)?S)?)??$/,Bp=/^(?!\.)(?!.*\.\.)([A-Z0-9_'+\-\.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i,Tp="^(\\p{Extended_Pictographic}|\\p{Emoji_Component})+$",fo,Rp=/^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$/,Ip=/^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\/(3[0-2]|[12]?[0-9])$/,Pp=/^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/,Mp=/^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\/(12[0-8]|1[01][0-9]|[1-9]?[0-9])$/,jp=/^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/,Up=/^([0-9a-zA-Z-_]{4})*(([0-9a-zA-Z-_]{2}(==)?)|([0-9a-zA-Z-_]{3}(=)?))?$/,fu="((\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-((0[13578]|1[02])-(0[1-9]|[12]\\d|3[01])|(0[469]|11)-(0[1-9]|[12]\\d|30)|(02)-(0[1-9]|1\\d|2[0-8])))",Op=new RegExp(`^${fu}$`);function hu(r){let e="([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d";return r.precision?e=`${e}\\.\\d{${r.precision}}`:r.precision==null&&(e=`${e}(\\.\\d+)?`),e}function Np(r){return new RegExp(`^${hu(r)}$`)}function pu(r){let e=`${fu}T${hu(r)}`,t=[];return t.push(r.local?"Z?":"Z"),r.offset&&t.push("([+-]\\d{2}:?\\d{2})"),e=`${e}(${t.join("|")})`,new RegExp(`^${e}$`)}function Lp(r,e){return!!((e==="v4"||!e)&&Rp.test(r)||(e==="v6"||!e)&&Pp.test(r))}function Fp(r,e){if(!Cp.test(r))return!1;try{let[t]=r.split("."),n=t.replace(/-/g,"+").replace(/_/g,"/").padEnd(t.length+(4-t.length%4)%4,"="),i=JSON.parse(atob(n));return!(typeof i!="object"||i===null||!i.typ||!i.alg||e&&i.alg!==e)}catch{return!1}}function Wp(r,e){return!!((e==="v4"||!e)&&Ip.test(r)||(e==="v6"||!e)&&Mp.test(r))}var zt=class extends Me{_parse(e){if(this._def.coerce&&(e.data=String(e.data)),this._getType(e)!==ee.string){let a=this._getOrReturnCtx(e);return Y(a,{code:z.invalid_type,expected:ee.string,received:a.parsedType}),ye}let n=new yt,i;for(let a of this._def.checks)if(a.kind==="min")e.data.length<a.value&&(i=this._getOrReturnCtx(e,i),Y(i,{code:z.too_small,minimum:a.value,type:"string",inclusive:!0,exact:!1,message:a.message}),n.dirty());else if(a.kind==="max")e.data.length>a.value&&(i=this._getOrReturnCtx(e,i),Y(i,{code:z.too_big,maximum:a.value,type:"string",inclusive:!0,exact:!1,message:a.message}),n.dirty());else if(a.kind==="length"){let s=e.data.length>a.value,l=e.data.length<a.value;(s||l)&&(i=this._getOrReturnCtx(e,i),s?Y(i,{code:z.too_big,maximum:a.value,type:"string",inclusive:!0,exact:!0,message:a.message}):l&&Y(i,{code:z.too_small,minimum:a.value,type:"string",inclusive:!0,exact:!0,message:a.message}),n.dirty())}else if(a.kind==="email")Bp.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"email",code:z.invalid_string,message:a.message}),n.dirty());else if(a.kind==="emoji")fo||(fo=new RegExp(Tp,"u")),fo.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"emoji",code:z.invalid_string,message:a.message}),n.dirty());else if(a.kind==="uuid")Sp.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"uuid",code:z.invalid_string,message:a.message}),n.dirty());else if(a.kind==="nanoid")_p.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"nanoid",code:z.invalid_string,message:a.message}),n.dirty());else if(a.kind==="cuid")xp.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"cuid",code:z.invalid_string,message:a.message}),n.dirty());else if(a.kind==="cuid2")kp.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"cuid2",code:z.invalid_string,message:a.message}),n.dirty());else if(a.kind==="ulid")Ap.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"ulid",code:z.invalid_string,message:a.message}),n.dirty());else if(a.kind==="url")try{new URL(e.data)}catch{i=this._getOrReturnCtx(e,i),Y(i,{validation:"url",code:z.invalid_string,message:a.message}),n.dirty()}else a.kind==="regex"?(a.regex.lastIndex=0,a.regex.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"regex",code:z.invalid_string,message:a.message}),n.dirty())):a.kind==="trim"?e.data=e.data.trim():a.kind==="includes"?e.data.includes(a.value,a.position)||(i=this._getOrReturnCtx(e,i),Y(i,{code:z.invalid_string,validation:{includes:a.value,position:a.position},message:a.message}),n.dirty()):a.kind==="toLowerCase"?e.data=e.data.toLowerCase():a.kind==="toUpperCase"?e.data=e.data.toUpperCase():a.kind==="startsWith"?e.data.startsWith(a.value)||(i=this._getOrReturnCtx(e,i),Y(i,{code:z.invalid_string,validation:{startsWith:a.value},message:a.message}),n.dirty()):a.kind==="endsWith"?e.data.endsWith(a.value)||(i=this._getOrReturnCtx(e,i),Y(i,{code:z.invalid_string,validation:{endsWith:a.value},message:a.message}),n.dirty()):a.kind==="datetime"?pu(a).test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{code:z.invalid_string,validation:"datetime",message:a.message}),n.dirty()):a.kind==="date"?Op.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{code:z.invalid_string,validation:"date",message:a.message}),n.dirty()):a.kind==="time"?Np(a).test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{code:z.invalid_string,validation:"time",message:a.message}),n.dirty()):a.kind==="duration"?Ep.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"duration",code:z.invalid_string,message:a.message}),n.dirty()):a.kind==="ip"?Lp(e.data,a.version)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"ip",code:z.invalid_string,message:a.message}),n.dirty()):a.kind==="jwt"?Fp(e.data,a.alg)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"jwt",code:z.invalid_string,message:a.message}),n.dirty()):a.kind==="cidr"?Wp(e.data,a.version)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"cidr",code:z.invalid_string,message:a.message}),n.dirty()):a.kind==="base64"?jp.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"base64",code:z.invalid_string,message:a.message}),n.dirty()):a.kind==="base64url"?Up.test(e.data)||(i=this._getOrReturnCtx(e,i),Y(i,{validation:"base64url",code:z.invalid_string,message:a.message}),n.dirty()):ze.assertNever(a);return{status:n.value,value:e.data}}_regex(e,t,n){return this.refinement(i=>e.test(i),{validation:t,code:z.invalid_string,...fe.errToObj(n)})}_addCheck(e){return new zt({...this._def,checks:[...this._def.checks,e]})}email(e){return this._addCheck({kind:"email",...fe.errToObj(e)})}url(e){return this._addCheck({kind:"url",...fe.errToObj(e)})}emoji(e){return this._addCheck({kind:"emoji",...fe.errToObj(e)})}uuid(e){return this._addCheck({kind:"uuid",...fe.errToObj(e)})}nanoid(e){return this._addCheck({kind:"nanoid",...fe.errToObj(e)})}cuid(e){return this._addCheck({kind:"cuid",...fe.errToObj(e)})}cuid2(e){return this._addCheck({kind:"cuid2",...fe.errToObj(e)})}ulid(e){return this._addCheck({kind:"ulid",...fe.errToObj(e)})}base64(e){return this._addCheck({kind:"base64",...fe.errToObj(e)})}base64url(e){return this._addCheck({kind:"base64url",...fe.errToObj(e)})}jwt(e){return this._addCheck({kind:"jwt",...fe.errToObj(e)})}ip(e){return this._addCheck({kind:"ip",...fe.errToObj(e)})}cidr(e){return this._addCheck({kind:"cidr",...fe.errToObj(e)})}datetime(e){var t,n;return typeof e=="string"?this._addCheck({kind:"datetime",precision:null,offset:!1,local:!1,message:e}):this._addCheck({kind:"datetime",precision:typeof(e==null?void 0:e.precision)=="undefined"?null:e==null?void 0:e.precision,offset:(t=e==null?void 0:e.offset)!==null&&t!==void 0?t:!1,local:(n=e==null?void 0:e.local)!==null&&n!==void 0?n:!1,...fe.errToObj(e==null?void 0:e.message)})}date(e){return this._addCheck({kind:"date",message:e})}time(e){return typeof e=="string"?this._addCheck({kind:"time",precision:null,message:e}):this._addCheck({kind:"time",precision:typeof(e==null?void 0:e.precision)=="undefined"?null:e==null?void 0:e.precision,...fe.errToObj(e==null?void 0:e.message)})}duration(e){return this._addCheck({kind:"duration",...fe.errToObj(e)})}regex(e,t){return this._addCheck({kind:"regex",regex:e,...fe.errToObj(t)})}includes(e,t){return this._addCheck({kind:"includes",value:e,position:t==null?void 0:t.position,...fe.errToObj(t==null?void 0:t.message)})}startsWith(e,t){return this._addCheck({kind:"startsWith",value:e,...fe.errToObj(t)})}endsWith(e,t){return this._addCheck({kind:"endsWith",value:e,...fe.errToObj(t)})}min(e,t){return this._addCheck({kind:"min",value:e,...fe.errToObj(t)})}max(e,t){return this._addCheck({kind:"max",value:e,...fe.errToObj(t)})}length(e,t){return this._addCheck({kind:"length",value:e,...fe.errToObj(t)})}nonempty(e){return this.min(1,fe.errToObj(e))}trim(){return new zt({...this._def,checks:[...this._def.checks,{kind:"trim"}]})}toLowerCase(){return new zt({...this._def,checks:[...this._def.checks,{kind:"toLowerCase"}]})}toUpperCase(){return new zt({...this._def,checks:[...this._def.checks,{kind:"toUpperCase"}]})}get isDatetime(){return!!this._def.checks.find(e=>e.kind==="datetime")}get isDate(){return!!this._def.checks.find(e=>e.kind==="date")}get isTime(){return!!this._def.checks.find(e=>e.kind==="time")}get isDuration(){return!!this._def.checks.find(e=>e.kind==="duration")}get isEmail(){return!!this._def.checks.find(e=>e.kind==="email")}get isURL(){return!!this._def.checks.find(e=>e.kind==="url")}get isEmoji(){return!!this._def.checks.find(e=>e.kind==="emoji")}get isUUID(){return!!this._def.checks.find(e=>e.kind==="uuid")}get isNANOID(){return!!this._def.checks.find(e=>e.kind==="nanoid")}get isCUID(){return!!this._def.checks.find(e=>e.kind==="cuid")}get isCUID2(){return!!this._def.checks.find(e=>e.kind==="cuid2")}get isULID(){return!!this._def.checks.find(e=>e.kind==="ulid")}get isIP(){return!!this._def.checks.find(e=>e.kind==="ip")}get isCIDR(){return!!this._def.checks.find(e=>e.kind==="cidr")}get isBase64(){return!!this._def.checks.find(e=>e.kind==="base64")}get isBase64url(){return!!this._def.checks.find(e=>e.kind==="base64url")}get minLength(){let e=null;for(let t of this._def.checks)t.kind==="min"&&(e===null||t.value>e)&&(e=t.value);return e}get maxLength(){let e=null;for(let t of this._def.checks)t.kind==="max"&&(e===null||t.value<e)&&(e=t.value);return e}};zt.create=r=>{var e;return new zt({checks:[],typeName:ge.ZodString,coerce:(e=r==null?void 0:r.coerce)!==null&&e!==void 0?e:!1,...Re(r)})};function Dp(r,e){let t=(r.toString().split(".")[1]||"").length,n=(e.toString().split(".")[1]||"").length,i=t>n?t:n,a=parseInt(r.toFixed(i).replace(".","")),s=parseInt(e.toFixed(i).replace(".",""));return a%s/Math.pow(10,i)}var Ar=class extends Me{constructor(){super(...arguments);this.min=this.gte,this.max=this.lte,this.step=this.multipleOf}_parse(e){if(this._def.coerce&&(e.data=Number(e.data)),this._getType(e)!==ee.number){let a=this._getOrReturnCtx(e);return Y(a,{code:z.invalid_type,expected:ee.number,received:a.parsedType}),ye}let n,i=new yt;for(let a of this._def.checks)a.kind==="int"?ze.isInteger(e.data)||(n=this._getOrReturnCtx(e,n),Y(n,{code:z.invalid_type,expected:"integer",received:"float",message:a.message}),i.dirty()):a.kind==="min"?(a.inclusive?e.data<a.value:e.data<=a.value)&&(n=this._getOrReturnCtx(e,n),Y(n,{code:z.too_small,minimum:a.value,type:"number",inclusive:a.inclusive,exact:!1,message:a.message}),i.dirty()):a.kind==="max"?(a.inclusive?e.data>a.value:e.data>=a.value)&&(n=this._getOrReturnCtx(e,n),Y(n,{code:z.too_big,maximum:a.value,type:"number",inclusive:a.inclusive,exact:!1,message:a.message}),i.dirty()):a.kind==="multipleOf"?Dp(e.data,a.value)!==0&&(n=this._getOrReturnCtx(e,n),Y(n,{code:z.not_multiple_of,multipleOf:a.value,message:a.message}),i.dirty()):a.kind==="finite"?Number.isFinite(e.data)||(n=this._getOrReturnCtx(e,n),Y(n,{code:z.not_finite,message:a.message}),i.dirty()):ze.assertNever(a);return{status:i.value,value:e.data}}gte(e,t){return this.setLimit("min",e,!0,fe.toString(t))}gt(e,t){return this.setLimit("min",e,!1,fe.toString(t))}lte(e,t){return this.setLimit("max",e,!0,fe.toString(t))}lt(e,t){return this.setLimit("max",e,!1,fe.toString(t))}setLimit(e,t,n,i){return new Ar({...this._def,checks:[...this._def.checks,{kind:e,value:t,inclusive:n,message:fe.toString(i)}]})}_addCheck(e){return new Ar({...this._def,checks:[...this._def.checks,e]})}int(e){return this._addCheck({kind:"int",message:fe.toString(e)})}positive(e){return this._addCheck({kind:"min",value:0,inclusive:!1,message:fe.toString(e)})}negative(e){return this._addCheck({kind:"max",value:0,inclusive:!1,message:fe.toString(e)})}nonpositive(e){return this._addCheck({kind:"max",value:0,inclusive:!0,message:fe.toString(e)})}nonnegative(e){return this._addCheck({kind:"min",value:0,inclusive:!0,message:fe.toString(e)})}multipleOf(e,t){return this._addCheck({kind:"multipleOf",value:e,message:fe.toString(t)})}finite(e){return this._addCheck({kind:"finite",message:fe.toString(e)})}safe(e){return this._addCheck({kind:"min",inclusive:!0,value:Number.MIN_SAFE_INTEGER,message:fe.toString(e)})._addCheck({kind:"max",inclusive:!0,value:Number.MAX_SAFE_INTEGER,message:fe.toString(e)})}get minValue(){let e=null;for(let t of this._def.checks)t.kind==="min"&&(e===null||t.value>e)&&(e=t.value);return e}get maxValue(){let e=null;for(let t of this._def.checks)t.kind==="max"&&(e===null||t.value<e)&&(e=t.value);return e}get isInt(){return!!this._def.checks.find(e=>e.kind==="int"||e.kind==="multipleOf"&&ze.isInteger(e.value))}get isFinite(){let e=null,t=null;for(let n of this._def.checks){if(n.kind==="finite"||n.kind==="int"||n.kind==="multipleOf")return!0;n.kind==="min"?(t===null||n.value>t)&&(t=n.value):n.kind==="max"&&(e===null||n.value<e)&&(e=n.value)}return Number.isFinite(t)&&Number.isFinite(e)}};Ar.create=r=>new Ar({checks:[],typeName:ge.ZodNumber,coerce:(r==null?void 0:r.coerce)||!1,...Re(r)});var Sr=class extends Me{constructor(){super(...arguments);this.min=this.gte,this.max=this.lte}_parse(e){if(this._def.coerce)try{e.data=BigInt(e.data)}catch{return this._getInvalidInput(e)}if(this._getType(e)!==ee.bigint)return this._getInvalidInput(e);let n,i=new yt;for(let a of this._def.checks)a.kind==="min"?(a.inclusive?e.data<a.value:e.data<=a.value)&&(n=this._getOrReturnCtx(e,n),Y(n,{code:z.too_small,type:"bigint",minimum:a.value,inclusive:a.inclusive,message:a.message}),i.dirty()):a.kind==="max"?(a.inclusive?e.data>a.value:e.data>=a.value)&&(n=this._getOrReturnCtx(e,n),Y(n,{code:z.too_big,type:"bigint",maximum:a.value,inclusive:a.inclusive,message:a.message}),i.dirty()):a.kind==="multipleOf"?e.data%a.value!==BigInt(0)&&(n=this._getOrReturnCtx(e,n),Y(n,{code:z.not_multiple_of,multipleOf:a.value,message:a.message}),i.dirty()):ze.assertNever(a);return{status:i.value,value:e.data}}_getInvalidInput(e){let t=this._getOrReturnCtx(e);return Y(t,{code:z.invalid_type,expected:ee.bigint,received:t.parsedType}),ye}gte(e,t){return this.setLimit("min",e,!0,fe.toString(t))}gt(e,t){return this.setLimit("min",e,!1,fe.toString(t))}lte(e,t){return this.setLimit("max",e,!0,fe.toString(t))}lt(e,t){return this.setLimit("max",e,!1,fe.toString(t))}setLimit(e,t,n,i){return new Sr({...this._def,checks:[...this._def.checks,{kind:e,value:t,inclusive:n,message:fe.toString(i)}]})}_addCheck(e){return new Sr({...this._def,checks:[...this._def.checks,e]})}positive(e){return this._addCheck({kind:"min",value:BigInt(0),inclusive:!1,message:fe.toString(e)})}negative(e){return this._addCheck({kind:"max",value:BigInt(0),inclusive:!1,message:fe.toString(e)})}nonpositive(e){return this._addCheck({kind:"max",value:BigInt(0),inclusive:!0,message:fe.toString(e)})}nonnegative(e){return this._addCheck({kind:"min",value:BigInt(0),inclusive:!0,message:fe.toString(e)})}multipleOf(e,t){return this._addCheck({kind:"multipleOf",value:e,message:fe.toString(t)})}get minValue(){let e=null;for(let t of this._def.checks)t.kind==="min"&&(e===null||t.value>e)&&(e=t.value);return e}get maxValue(){let e=null;for(let t of this._def.checks)t.kind==="max"&&(e===null||t.value<e)&&(e=t.value);return e}};Sr.create=r=>{var e;return new Sr({checks:[],typeName:ge.ZodBigInt,coerce:(e=r==null?void 0:r.coerce)!==null&&e!==void 0?e:!1,...Re(r)})};var Ln=class extends Me{_parse(e){if(this._def.coerce&&(e.data=Boolean(e.data)),this._getType(e)!==ee.boolean){let n=this._getOrReturnCtx(e);return Y(n,{code:z.invalid_type,expected:ee.boolean,received:n.parsedType}),ye}return Tt(e.data)}};Ln.create=r=>new Ln({typeName:ge.ZodBoolean,coerce:(r==null?void 0:r.coerce)||!1,...Re(r)});var Fr=class extends Me{_parse(e){if(this._def.coerce&&(e.data=new Date(e.data)),this._getType(e)!==ee.date){let a=this._getOrReturnCtx(e);return Y(a,{code:z.invalid_type,expected:ee.date,received:a.parsedType}),ye}if(isNaN(e.data.getTime())){let a=this._getOrReturnCtx(e);return Y(a,{code:z.invalid_date}),ye}let n=new yt,i;for(let a of this._def.checks)a.kind==="min"?e.data.getTime()<a.value&&(i=this._getOrReturnCtx(e,i),Y(i,{code:z.too_small,message:a.message,inclusive:!0,exact:!1,minimum:a.value,type:"date"}),n.dirty()):a.kind==="max"?e.data.getTime()>a.value&&(i=this._getOrReturnCtx(e,i),Y(i,{code:z.too_big,message:a.message,inclusive:!0,exact:!1,maximum:a.value,type:"date"}),n.dirty()):ze.assertNever(a);return{status:n.value,value:new Date(e.data.getTime())}}_addCheck(e){return new Fr({...this._def,checks:[...this._def.checks,e]})}min(e,t){return this._addCheck({kind:"min",value:e.getTime(),message:fe.toString(t)})}max(e,t){return this._addCheck({kind:"max",value:e.getTime(),message:fe.toString(t)})}get minDate(){let e=null;for(let t of this._def.checks)t.kind==="min"&&(e===null||t.value>e)&&(e=t.value);return e!=null?new Date(e):null}get maxDate(){let e=null;for(let t of this._def.checks)t.kind==="max"&&(e===null||t.value<e)&&(e=t.value);return e!=null?new Date(e):null}};Fr.create=r=>new Fr({checks:[],coerce:(r==null?void 0:r.coerce)||!1,typeName:ge.ZodDate,...Re(r)});var Mi=class extends Me{_parse(e){if(this._getType(e)!==ee.symbol){let n=this._getOrReturnCtx(e);return Y(n,{code:z.invalid_type,expected:ee.symbol,received:n.parsedType}),ye}return Tt(e.data)}};Mi.create=r=>new Mi({typeName:ge.ZodSymbol,...Re(r)});var Fn=class extends Me{_parse(e){if(this._getType(e)!==ee.undefined){let n=this._getOrReturnCtx(e);return Y(n,{code:z.invalid_type,expected:ee.undefined,received:n.parsedType}),ye}return Tt(e.data)}};Fn.create=r=>new Fn({typeName:ge.ZodUndefined,...Re(r)});var Wn=class extends Me{_parse(e){if(this._getType(e)!==ee.null){let n=this._getOrReturnCtx(e);return Y(n,{code:z.invalid_type,expected:ee.null,received:n.parsedType}),ye}return Tt(e.data)}};Wn.create=r=>new Wn({typeName:ge.ZodNull,...Re(r)});var nn=class extends Me{constructor(){super(...arguments);this._any=!0}_parse(e){return Tt(e.data)}};nn.create=r=>new nn({typeName:ge.ZodAny,...Re(r)});var Wr=class extends Me{constructor(){super(...arguments);this._unknown=!0}_parse(e){return Tt(e.data)}};Wr.create=r=>new Wr({typeName:ge.ZodUnknown,...Re(r)});var sr=class extends Me{_parse(e){let t=this._getOrReturnCtx(e);return Y(t,{code:z.invalid_type,expected:ee.never,received:t.parsedType}),ye}};sr.create=r=>new sr({typeName:ge.ZodNever,...Re(r)});var ji=class extends Me{_parse(e){if(this._getType(e)!==ee.undefined){let n=this._getOrReturnCtx(e);return Y(n,{code:z.invalid_type,expected:ee.void,received:n.parsedType}),ye}return Tt(e.data)}};ji.create=r=>new ji({typeName:ge.ZodVoid,...Re(r)});var qt=class extends Me{_parse(e){let{ctx:t,status:n}=this._processInputParams(e),i=this._def;if(t.parsedType!==ee.array)return Y(t,{code:z.invalid_type,expected:ee.array,received:t.parsedType}),ye;if(i.exactLength!==null){let s=t.data.length>i.exactLength.value,l=t.data.length<i.exactLength.value;(s||l)&&(Y(t,{code:s?z.too_big:z.too_small,minimum:l?i.exactLength.value:void 0,maximum:s?i.exactLength.value:void 0,type:"array",inclusive:!0,exact:!0,message:i.exactLength.message}),n.dirty())}if(i.minLength!==null&&t.data.length<i.minLength.value&&(Y(t,{code:z.too_small,minimum:i.minLength.value,type:"array",inclusive:!0,exact:!1,message:i.minLength.message}),n.dirty()),i.maxLength!==null&&t.data.length>i.maxLength.value&&(Y(t,{code:z.too_big,maximum:i.maxLength.value,type:"array",inclusive:!0,exact:!1,message:i.maxLength.message}),n.dirty()),t.common.async)return Promise.all([...t.data].map((s,l)=>i.type._parseAsync(new $t(t,s,t.path,l)))).then(s=>yt.mergeArray(n,s));let a=[...t.data].map((s,l)=>i.type._parseSync(new $t(t,s,t.path,l)));return yt.mergeArray(n,a)}get element(){return this._def.type}min(e,t){return new qt({...this._def,minLength:{value:e,message:fe.toString(t)}})}max(e,t){return new qt({...this._def,maxLength:{value:e,message:fe.toString(t)}})}length(e,t){return new qt({...this._def,exactLength:{value:e,message:fe.toString(t)}})}nonempty(e){return this.min(1,e)}};qt.create=(r,e)=>new qt({type:r,minLength:null,maxLength:null,exactLength:null,typeName:ge.ZodArray,...Re(e)});function Dn(r){if(r instanceof tt){let e={};for(let t in r.shape){let n=r.shape[t];e[t]=Yt.create(Dn(n))}return new tt({...r._def,shape:()=>e})}else return r instanceof qt?new qt({...r._def,type:Dn(r.element)}):r instanceof Yt?Yt.create(Dn(r.unwrap())):r instanceof Er?Er.create(Dn(r.unwrap())):r instanceof Gt?Gt.create(r.items.map(e=>Dn(e))):r}var tt=class extends Me{constructor(){super(...arguments);this._cached=null,this.nonstrict=this.passthrough,this.augment=this.extend}_getCached(){if(this._cached!==null)return this._cached;let e=this._def.shape(),t=ze.objectKeys(e);return this._cached={shape:e,keys:t}}_parse(e){if(this._getType(e)!==ee.object){let m=this._getOrReturnCtx(e);return Y(m,{code:z.invalid_type,expected:ee.object,received:m.parsedType}),ye}let{status:n,ctx:i}=this._processInputParams(e),{shape:a,keys:s}=this._getCached(),l=[];if(!(this._def.catchall instanceof sr&&this._def.unknownKeys==="strip"))for(let m in i.data)s.includes(m)||l.push(m);let y=[];for(let m of s){let b=a[m],_=i.data[m];y.push({key:{status:"valid",value:m},value:b._parse(new $t(i,_,i.path,m)),alwaysSet:m in i.data})}if(this._def.catchall instanceof sr){let m=this._def.unknownKeys;if(m==="passthrough")for(let b of l)y.push({key:{status:"valid",value:b},value:{status:"valid",value:i.data[b]}});else if(m==="strict")l.length>0&&(Y(i,{code:z.unrecognized_keys,keys:l}),n.dirty());else if(m!=="strip")throw new Error("Internal ZodObject error: invalid unknownKeys value.")}else{let m=this._def.catchall;for(let b of l){let _=i.data[b];y.push({key:{status:"valid",value:b},value:m._parse(new $t(i,_,i.path,b)),alwaysSet:b in i.data})}}return i.common.async?Promise.resolve().then(async()=>{let m=[];for(let b of y){let _=await b.key,G=await b.value;m.push({key:_,value:G,alwaysSet:b.alwaysSet})}return m}).then(m=>yt.mergeObjectSync(n,m)):yt.mergeObjectSync(n,y)}get shape(){return this._def.shape()}strict(e){return fe.errToObj,new tt({...this._def,unknownKeys:"strict",...e!==void 0?{errorMap:(t,n)=>{var i,a,s,l;let y=(s=(a=(i=this._def).errorMap)===null||a===void 0?void 0:a.call(i,t,n).message)!==null&&s!==void 0?s:n.defaultError;return t.code==="unrecognized_keys"?{message:(l=fe.errToObj(e).message)!==null&&l!==void 0?l:y}:{message:y}}}:{}})}strip(){return new tt({...this._def,unknownKeys:"strip"})}passthrough(){return new tt({...this._def,unknownKeys:"passthrough"})}extend(e){return new tt({...this._def,shape:()=>({...this._def.shape(),...e})})}merge(e){return new tt({unknownKeys:e._def.unknownKeys,catchall:e._def.catchall,shape:()=>({...this._def.shape(),...e._def.shape()}),typeName:ge.ZodObject})}setKey(e,t){return this.augment({[e]:t})}catchall(e){return new tt({...this._def,catchall:e})}pick(e){let t={};return ze.objectKeys(e).forEach(n=>{e[n]&&this.shape[n]&&(t[n]=this.shape[n])}),new tt({...this._def,shape:()=>t})}omit(e){let t={};return ze.objectKeys(this.shape).forEach(n=>{e[n]||(t[n]=this.shape[n])}),new tt({...this._def,shape:()=>t})}deepPartial(){return Dn(this)}partial(e){let t={};return ze.objectKeys(this.shape).forEach(n=>{let i=this.shape[n];e&&!e[n]?t[n]=i:t[n]=i.optional()}),new tt({...this._def,shape:()=>t})}required(e){let t={};return ze.objectKeys(this.shape).forEach(n=>{if(e&&!e[n])t[n]=this.shape[n];else{let a=this.shape[n];for(;a instanceof Yt;)a=a._def.innerType;t[n]=a}}),new tt({...this._def,shape:()=>t})}keyof(){return mu(ze.objectKeys(this.shape))}};tt.create=(r,e)=>new tt({shape:()=>r,unknownKeys:"strip",catchall:sr.create(),typeName:ge.ZodObject,...Re(e)});tt.strictCreate=(r,e)=>new tt({shape:()=>r,unknownKeys:"strict",catchall:sr.create(),typeName:ge.ZodObject,...Re(e)});tt.lazycreate=(r,e)=>new tt({shape:r,unknownKeys:"strip",catchall:sr.create(),typeName:ge.ZodObject,...Re(e)});var zn=class extends Me{_parse(e){let{ctx:t}=this._processInputParams(e),n=this._def.options;function i(a){for(let l of a)if(l.result.status==="valid")return l.result;for(let l of a)if(l.result.status==="dirty")return t.common.issues.push(...l.ctx.common.issues),l.result;let s=a.map(l=>new Mt(l.ctx.common.issues));return Y(t,{code:z.invalid_union,unionErrors:s}),ye}if(t.common.async)return Promise.all(n.map(async a=>{let s={...t,common:{...t.common,issues:[]},parent:null};return{result:await a._parseAsync({data:t.data,path:t.path,parent:s}),ctx:s}})).then(i);{let a,s=[];for(let y of n){let m={...t,common:{...t.common,issues:[]},parent:null},b=y._parseSync({data:t.data,path:t.path,parent:m});if(b.status==="valid")return b;b.status==="dirty"&&!a&&(a={result:b,ctx:m}),m.common.issues.length&&s.push(m.common.issues)}if(a)return t.common.issues.push(...a.ctx.common.issues),a.result;let l=s.map(y=>new Mt(y));return Y(t,{code:z.invalid_union,unionErrors:l}),ye}}get options(){return this._def.options}};zn.create=(r,e)=>new zn({options:r,typeName:ge.ZodUnion,...Re(e)});var _r=r=>r instanceof Kn?_r(r.schema):r instanceof Vt?_r(r.innerType()):r instanceof Hn?[r.value]:r instanceof Cr?r.options:r instanceof Zn?ze.objectValues(r.enum):r instanceof $n?_r(r._def.innerType):r instanceof Fn?[void 0]:r instanceof Wn?[null]:r instanceof Yt?[void 0,..._r(r.unwrap())]:r instanceof Er?[null,..._r(r.unwrap())]:r instanceof Ja||r instanceof Jn?_r(r.unwrap()):r instanceof Gn?_r(r._def.innerType):[],Ui=class extends Me{_parse(e){let{ctx:t}=this._processInputParams(e);if(t.parsedType!==ee.object)return Y(t,{code:z.invalid_type,expected:ee.object,received:t.parsedType}),ye;let n=this.discriminator,i=t.data[n],a=this.optionsMap.get(i);return a?t.common.async?a._parseAsync({data:t.data,path:t.path,parent:t}):a._parseSync({data:t.data,path:t.path,parent:t}):(Y(t,{code:z.invalid_union_discriminator,options:Array.from(this.optionsMap.keys()),path:[n]}),ye)}get discriminator(){return this._def.discriminator}get options(){return this._def.options}get optionsMap(){return this._def.optionsMap}static create(e,t,n){let i=new Map;for(let a of t){let s=_r(a.shape[e]);if(!s.length)throw new Error(`A discriminator value for key \`${e}\` could not be extracted from all schema options`);for(let l of s){if(i.has(l))throw new Error(`Discriminator property ${String(e)} has duplicate value ${String(l)}`);i.set(l,a)}}return new Ui({typeName:ge.ZodDiscriminatedUnion,discriminator:e,options:t,optionsMap:i,...Re(n)})}};function ho(r,e){let t=kr(r),n=kr(e);if(r===e)return{valid:!0,data:r};if(t===ee.object&&n===ee.object){let i=ze.objectKeys(e),a=ze.objectKeys(r).filter(l=>i.indexOf(l)!==-1),s={...r,...e};for(let l of a){let y=ho(r[l],e[l]);if(!y.valid)return{valid:!1};s[l]=y.data}return{valid:!0,data:s}}else if(t===ee.array&&n===ee.array){if(r.length!==e.length)return{valid:!1};let i=[];for(let a=0;a<r.length;a++){let s=r[a],l=e[a],y=ho(s,l);if(!y.valid)return{valid:!1};i.push(y.data)}return{valid:!0,data:i}}else return t===ee.date&&n===ee.date&&+r==+e?{valid:!0,data:r}:{valid:!1}}var qn=class extends Me{_parse(e){let{status:t,ctx:n}=this._processInputParams(e),i=(a,s)=>{if(co(a)||co(s))return ye;let l=ho(a.value,s.value);return l.valid?((uo(a)||uo(s))&&t.dirty(),{status:t.value,value:l.data}):(Y(n,{code:z.invalid_intersection_types}),ye)};return n.common.async?Promise.all([this._def.left._parseAsync({data:n.data,path:n.path,parent:n}),this._def.right._parseAsync({data:n.data,path:n.path,parent:n})]).then(([a,s])=>i(a,s)):i(this._def.left._parseSync({data:n.data,path:n.path,parent:n}),this._def.right._parseSync({data:n.data,path:n.path,parent:n}))}};qn.create=(r,e,t)=>new qn({left:r,right:e,typeName:ge.ZodIntersection,...Re(t)});var Gt=class extends Me{_parse(e){let{status:t,ctx:n}=this._processInputParams(e);if(n.parsedType!==ee.array)return Y(n,{code:z.invalid_type,expected:ee.array,received:n.parsedType}),ye;if(n.data.length<this._def.items.length)return Y(n,{code:z.too_small,minimum:this._def.items.length,inclusive:!0,exact:!1,type:"array"}),ye;!this._def.rest&&n.data.length>this._def.items.length&&(Y(n,{code:z.too_big,maximum:this._def.items.length,inclusive:!0,exact:!1,type:"array"}),t.dirty());let a=[...n.data].map((s,l)=>{let y=this._def.items[l]||this._def.rest;return y?y._parse(new $t(n,s,n.path,l)):null}).filter(s=>!!s);return n.common.async?Promise.all(a).then(s=>yt.mergeArray(t,s)):yt.mergeArray(t,a)}get items(){return this._def.items}rest(e){return new Gt({...this._def,rest:e})}};Gt.create=(r,e)=>{if(!Array.isArray(r))throw new Error("You must pass an array of schemas to z.tuple([ ... ])");return new Gt({items:r,typeName:ge.ZodTuple,rest:null,...Re(e)})};var Vn=class extends Me{get keySchema(){return this._def.keyType}get valueSchema(){return this._def.valueType}_parse(e){let{status:t,ctx:n}=this._processInputParams(e);if(n.parsedType!==ee.object)return Y(n,{code:z.invalid_type,expected:ee.object,received:n.parsedType}),ye;let i=[],a=this._def.keyType,s=this._def.valueType;for(let l in n.data)i.push({key:a._parse(new $t(n,l,n.path,l)),value:s._parse(new $t(n,n.data[l],n.path,l)),alwaysSet:l in n.data});return n.common.async?yt.mergeObjectAsync(t,i):yt.mergeObjectSync(t,i)}get element(){return this._def.valueType}static create(e,t,n){return t instanceof Me?new Vn({keyType:e,valueType:t,typeName:ge.ZodRecord,...Re(n)}):new Vn({keyType:zt.create(),valueType:e,typeName:ge.ZodRecord,...Re(t)})}},Oi=class extends Me{get keySchema(){return this._def.keyType}get valueSchema(){return this._def.valueType}_parse(e){let{status:t,ctx:n}=this._processInputParams(e);if(n.parsedType!==ee.map)return Y(n,{code:z.invalid_type,expected:ee.map,received:n.parsedType}),ye;let i=this._def.keyType,a=this._def.valueType,s=[...n.data.entries()].map(([l,y],m)=>({key:i._parse(new $t(n,l,n.path,[m,"key"])),value:a._parse(new $t(n,y,n.path,[m,"value"]))}));if(n.common.async){let l=new Map;return Promise.resolve().then(async()=>{for(let y of s){let m=await y.key,b=await y.value;if(m.status==="aborted"||b.status==="aborted")return ye;(m.status==="dirty"||b.status==="dirty")&&t.dirty(),l.set(m.value,b.value)}return{status:t.value,value:l}})}else{let l=new Map;for(let y of s){let m=y.key,b=y.value;if(m.status==="aborted"||b.status==="aborted")return ye;(m.status==="dirty"||b.status==="dirty")&&t.dirty(),l.set(m.value,b.value)}return{status:t.value,value:l}}}};Oi.create=(r,e,t)=>new Oi({valueType:e,keyType:r,typeName:ge.ZodMap,...Re(t)});var Dr=class extends Me{_parse(e){let{status:t,ctx:n}=this._processInputParams(e);if(n.parsedType!==ee.set)return Y(n,{code:z.invalid_type,expected:ee.set,received:n.parsedType}),ye;let i=this._def;i.minSize!==null&&n.data.size<i.minSize.value&&(Y(n,{code:z.too_small,minimum:i.minSize.value,type:"set",inclusive:!0,exact:!1,message:i.minSize.message}),t.dirty()),i.maxSize!==null&&n.data.size>i.maxSize.value&&(Y(n,{code:z.too_big,maximum:i.maxSize.value,type:"set",inclusive:!0,exact:!1,message:i.maxSize.message}),t.dirty());let a=this._def.valueType;function s(y){let m=new Set;for(let b of y){if(b.status==="aborted")return ye;b.status==="dirty"&&t.dirty(),m.add(b.value)}return{status:t.value,value:m}}let l=[...n.data.values()].map((y,m)=>a._parse(new $t(n,y,n.path,m)));return n.common.async?Promise.all(l).then(y=>s(y)):s(l)}min(e,t){return new Dr({...this._def,minSize:{value:e,message:fe.toString(t)}})}max(e,t){return new Dr({...this._def,maxSize:{value:e,message:fe.toString(t)}})}size(e,t){return this.min(e,t).max(e,t)}nonempty(e){return this.min(1,e)}};Dr.create=(r,e)=>new Dr({valueType:r,minSize:null,maxSize:null,typeName:ge.ZodSet,...Re(e)});var an=class extends Me{constructor(){super(...arguments);this.validate=this.implement}_parse(e){let{ctx:t}=this._processInputParams(e);if(t.parsedType!==ee.function)return Y(t,{code:z.invalid_type,expected:ee.function,received:t.parsedType}),ye;function n(l,y){return Ga({data:l,path:t.path,errorMaps:[t.common.contextualErrorMap,t.schemaErrorMap,$a(),On].filter(m=>!!m),issueData:{code:z.invalid_arguments,argumentsError:y}})}function i(l,y){return Ga({data:l,path:t.path,errorMaps:[t.common.contextualErrorMap,t.schemaErrorMap,$a(),On].filter(m=>!!m),issueData:{code:z.invalid_return_type,returnTypeError:y}})}let a={errorMap:t.common.contextualErrorMap},s=t.data;if(this._def.returns instanceof sn){let l=this;return Tt(async function(...y){let m=new Mt([]),b=await l._def.args.parseAsync(y,a).catch(ae=>{throw m.addIssue(n(y,ae)),m}),_=await Reflect.apply(s,this,b);return await l._def.returns._def.type.parseAsync(_,a).catch(ae=>{throw m.addIssue(i(_,ae)),m})})}else{let l=this;return Tt(function(...y){let m=l._def.args.safeParse(y,a);if(!m.success)throw new Mt([n(y,m.error)]);let b=Reflect.apply(s,this,m.data),_=l._def.returns.safeParse(b,a);if(!_.success)throw new Mt([i(b,_.error)]);return _.data})}}parameters(){return this._def.args}returnType(){return this._def.returns}args(...e){return new an({...this._def,args:Gt.create(e).rest(Wr.create())})}returns(e){return new an({...this._def,returns:e})}implement(e){return this.parse(e)}strictImplement(e){return this.parse(e)}static create(e,t,n){return new an({args:e||Gt.create([]).rest(Wr.create()),returns:t||Wr.create(),typeName:ge.ZodFunction,...Re(n)})}},Kn=class extends Me{get schema(){return this._def.getter()}_parse(e){let{ctx:t}=this._processInputParams(e);return this._def.getter()._parse({data:t.data,path:t.path,parent:t})}};Kn.create=(r,e)=>new Kn({getter:r,typeName:ge.ZodLazy,...Re(e)});var Hn=class extends Me{_parse(e){if(e.data!==this._def.value){let t=this._getOrReturnCtx(e);return Y(t,{received:t.data,code:z.invalid_literal,expected:this._def.value}),ye}return{status:"valid",value:e.data}}get value(){return this._def.value}};Hn.create=(r,e)=>new Hn({value:r,typeName:ge.ZodLiteral,...Re(e)});function mu(r,e){return new Cr({values:r,typeName:ge.ZodEnum,...Re(e)})}var Cr=class extends Me{constructor(){super(...arguments);Ii.set(this,void 0)}_parse(e){if(typeof e.data!="string"){let t=this._getOrReturnCtx(e),n=this._def.values;return Y(t,{expected:ze.joinValues(n),received:t.parsedType,code:z.invalid_type}),ye}if(Ya(this,Ii,"f")||uu(this,Ii,new Set(this._def.values),"f"),!Ya(this,Ii,"f").has(e.data)){let t=this._getOrReturnCtx(e),n=this._def.values;return Y(t,{received:t.data,code:z.invalid_enum_value,options:n}),ye}return Tt(e.data)}get options(){return this._def.values}get enum(){let e={};for(let t of this._def.values)e[t]=t;return e}get Values(){let e={};for(let t of this._def.values)e[t]=t;return e}get Enum(){let e={};for(let t of this._def.values)e[t]=t;return e}extract(e,t=this._def){return Cr.create(e,{...this._def,...t})}exclude(e,t=this._def){return Cr.create(this.options.filter(n=>!e.includes(n)),{...this._def,...t})}};Ii=new WeakMap;Cr.create=mu;var Zn=class extends Me{constructor(){super(...arguments);Pi.set(this,void 0)}_parse(e){let t=ze.getValidEnumValues(this._def.values),n=this._getOrReturnCtx(e);if(n.parsedType!==ee.string&&n.parsedType!==ee.number){let i=ze.objectValues(t);return Y(n,{expected:ze.joinValues(i),received:n.parsedType,code:z.invalid_type}),ye}if(Ya(this,Pi,"f")||uu(this,Pi,new Set(ze.getValidEnumValues(this._def.values)),"f"),!Ya(this,Pi,"f").has(e.data)){let i=ze.objectValues(t);return Y(n,{received:n.data,code:z.invalid_enum_value,options:i}),ye}return Tt(e.data)}get enum(){return this._def.values}};Pi=new WeakMap;Zn.create=(r,e)=>new Zn({values:r,typeName:ge.ZodNativeEnum,...Re(e)});var sn=class extends Me{unwrap(){return this._def.type}_parse(e){let{ctx:t}=this._processInputParams(e);if(t.parsedType!==ee.promise&&t.common.async===!1)return Y(t,{code:z.invalid_type,expected:ee.promise,received:t.parsedType}),ye;let n=t.parsedType===ee.promise?t.data:Promise.resolve(t.data);return Tt(n.then(i=>this._def.type.parseAsync(i,{path:t.path,errorMap:t.common.contextualErrorMap})))}};sn.create=(r,e)=>new sn({type:r,typeName:ge.ZodPromise,...Re(e)});var Vt=class extends Me{innerType(){return this._def.schema}sourceType(){return this._def.schema._def.typeName===ge.ZodEffects?this._def.schema.sourceType():this._def.schema}_parse(e){let{status:t,ctx:n}=this._processInputParams(e),i=this._def.effect||null,a={addIssue:s=>{Y(n,s),s.fatal?t.abort():t.dirty()},get path(){return n.path}};if(a.addIssue=a.addIssue.bind(a),i.type==="preprocess"){let s=i.transform(n.data,a);if(n.common.async)return Promise.resolve(s).then(async l=>{if(t.value==="aborted")return ye;let y=await this._def.schema._parseAsync({data:l,path:n.path,parent:n});return y.status==="aborted"?ye:y.status==="dirty"||t.value==="dirty"?Nn(y.value):y});{if(t.value==="aborted")return ye;let l=this._def.schema._parseSync({data:s,path:n.path,parent:n});return l.status==="aborted"?ye:l.status==="dirty"||t.value==="dirty"?Nn(l.value):l}}if(i.type==="refinement"){let s=l=>{let y=i.refinement(l,a);if(n.common.async)return Promise.resolve(y);if(y instanceof Promise)throw new Error("Async refinement encountered during synchronous parse operation. Use .parseAsync instead.");return l};if(n.common.async===!1){let l=this._def.schema._parseSync({data:n.data,path:n.path,parent:n});return l.status==="aborted"?ye:(l.status==="dirty"&&t.dirty(),s(l.value),{status:t.value,value:l.value})}else return this._def.schema._parseAsync({data:n.data,path:n.path,parent:n}).then(l=>l.status==="aborted"?ye:(l.status==="dirty"&&t.dirty(),s(l.value).then(()=>({status:t.value,value:l.value}))))}if(i.type==="transform")if(n.common.async===!1){let s=this._def.schema._parseSync({data:n.data,path:n.path,parent:n});if(!rn(s))return s;let l=i.transform(s.value,a);if(l instanceof Promise)throw new Error("Asynchronous transform encountered during synchronous parse operation. Use .parseAsync instead.");return{status:t.value,value:l}}else return this._def.schema._parseAsync({data:n.data,path:n.path,parent:n}).then(s=>rn(s)?Promise.resolve(i.transform(s.value,a)).then(l=>({status:t.value,value:l})):s);ze.assertNever(i)}};Vt.create=(r,e,t)=>new Vt({schema:r,typeName:ge.ZodEffects,effect:e,...Re(t)});Vt.createWithPreprocess=(r,e,t)=>new Vt({schema:e,effect:{type:"preprocess",transform:r},typeName:ge.ZodEffects,...Re(t)});var Yt=class extends Me{_parse(e){return this._getType(e)===ee.undefined?Tt(void 0):this._def.innerType._parse(e)}unwrap(){return this._def.innerType}};Yt.create=(r,e)=>new Yt({innerType:r,typeName:ge.ZodOptional,...Re(e)});var Er=class extends Me{_parse(e){return this._getType(e)===ee.null?Tt(null):this._def.innerType._parse(e)}unwrap(){return this._def.innerType}};Er.create=(r,e)=>new Er({innerType:r,typeName:ge.ZodNullable,...Re(e)});var $n=class extends Me{_parse(e){let{ctx:t}=this._processInputParams(e),n=t.data;return t.parsedType===ee.undefined&&(n=this._def.defaultValue()),this._def.innerType._parse({data:n,path:t.path,parent:t})}removeDefault(){return this._def.innerType}};$n.create=(r,e)=>new $n({innerType:r,typeName:ge.ZodDefault,defaultValue:typeof e.default=="function"?e.default:()=>e.default,...Re(e)});var Gn=class extends Me{_parse(e){let{ctx:t}=this._processInputParams(e),n={...t,common:{...t.common,issues:[]}},i=this._def.innerType._parse({data:n.data,path:n.path,parent:{...n}});return Ri(i)?i.then(a=>({status:"valid",value:a.status==="valid"?a.value:this._def.catchValue({get error(){return new Mt(n.common.issues)},input:n.data})})):{status:"valid",value:i.status==="valid"?i.value:this._def.catchValue({get error(){return new Mt(n.common.issues)},input:n.data})}}removeCatch(){return this._def.innerType}};Gn.create=(r,e)=>new Gn({innerType:r,typeName:ge.ZodCatch,catchValue:typeof e.catch=="function"?e.catch:()=>e.catch,...Re(e)});var Ni=class extends Me{_parse(e){if(this._getType(e)!==ee.nan){let n=this._getOrReturnCtx(e);return Y(n,{code:z.invalid_type,expected:ee.nan,received:n.parsedType}),ye}return{status:"valid",value:e.data}}};Ni.create=r=>new Ni({typeName:ge.ZodNaN,...Re(r)});var zp=Symbol("zod_brand"),Ja=class extends Me{_parse(e){let{ctx:t}=this._processInputParams(e),n=t.data;return this._def.type._parse({data:n,path:t.path,parent:t})}unwrap(){return this._def.type}},Yn=class extends Me{_parse(e){let{status:t,ctx:n}=this._processInputParams(e);if(n.common.async)return(async()=>{let a=await this._def.in._parseAsync({data:n.data,path:n.path,parent:n});return a.status==="aborted"?ye:a.status==="dirty"?(t.dirty(),Nn(a.value)):this._def.out._parseAsync({data:a.value,path:n.path,parent:n})})();{let i=this._def.in._parseSync({data:n.data,path:n.path,parent:n});return i.status==="aborted"?ye:i.status==="dirty"?(t.dirty(),{status:"dirty",value:i.value}):this._def.out._parseSync({data:i.value,path:n.path,parent:n})}}static create(e,t){return new Yn({in:e,out:t,typeName:ge.ZodPipeline})}},Jn=class extends Me{_parse(e){let t=this._def.innerType._parse(e),n=i=>(rn(i)&&(i.value=Object.freeze(i.value)),i);return Ri(t)?t.then(i=>n(i)):n(t)}unwrap(){return this._def.innerType}};Jn.create=(r,e)=>new Jn({innerType:r,typeName:ge.ZodReadonly,...Re(e)});function gu(r,e){let t=typeof r=="function"?r(e):typeof r=="string"?{message:r}:r;return typeof t=="string"?{message:t}:t}function yu(r,e={},t){return r?nn.create().superRefine((n,i)=>{var a,s;let l=r(n);if(l instanceof Promise)return l.then(y=>{var m,b;if(!y){let _=gu(e,n),G=(b=(m=_.fatal)!==null&&m!==void 0?m:t)!==null&&b!==void 0?b:!0;i.addIssue({code:"custom",..._,fatal:G})}});if(!l){let y=gu(e,n),m=(s=(a=y.fatal)!==null&&a!==void 0?a:t)!==null&&s!==void 0?s:!0;i.addIssue({code:"custom",...y,fatal:m})}}):nn.create()}var qp={object:tt.lazycreate},ge;(function(r){r.ZodString="ZodString",r.ZodNumber="ZodNumber",r.ZodNaN="ZodNaN",r.ZodBigInt="ZodBigInt",r.ZodBoolean="ZodBoolean",r.ZodDate="ZodDate",r.ZodSymbol="ZodSymbol",r.ZodUndefined="ZodUndefined",r.ZodNull="ZodNull",r.ZodAny="ZodAny",r.ZodUnknown="ZodUnknown",r.ZodNever="ZodNever",r.ZodVoid="ZodVoid",r.ZodArray="ZodArray",r.ZodObject="ZodObject",r.ZodUnion="ZodUnion",r.ZodDiscriminatedUnion="ZodDiscriminatedUnion",r.ZodIntersection="ZodIntersection",r.ZodTuple="ZodTuple",r.ZodRecord="ZodRecord",r.ZodMap="ZodMap",r.ZodSet="ZodSet",r.ZodFunction="ZodFunction",r.ZodLazy="ZodLazy",r.ZodLiteral="ZodLiteral",r.ZodEnum="ZodEnum",r.ZodEffects="ZodEffects",r.ZodNativeEnum="ZodNativeEnum",r.ZodOptional="ZodOptional",r.ZodNullable="ZodNullable",r.ZodDefault="ZodDefault",r.ZodCatch="ZodCatch",r.ZodPromise="ZodPromise",r.ZodBranded="ZodBranded",r.ZodPipeline="ZodPipeline",r.ZodReadonly="ZodReadonly"})(ge||(ge={}));var Vp=(r,e={message:`Input not instance of ${r.name}`})=>yu(t=>t instanceof r,e),bu=zt.create,wu=Ar.create,Kp=Ni.create,Hp=Sr.create,vu=Ln.create,Zp=Fr.create,$p=Mi.create,Gp=Fn.create,Yp=Wn.create,Jp=nn.create,Qp=Wr.create,Xp=sr.create,em=ji.create,tm=qt.create,rm=tt.create,nm=tt.strictCreate,im=zn.create,am=Ui.create,sm=qn.create,om=Gt.create,lm=Vn.create,cm=Oi.create,um=Dr.create,dm=an.create,fm=Kn.create,hm=Hn.create,pm=Cr.create,mm=Zn.create,gm=sn.create,xu=Vt.create,ym=Yt.create,bm=Er.create,wm=Vt.createWithPreprocess,vm=Yn.create,xm=()=>bu().optional(),km=()=>wu().optional(),Am=()=>vu().optional(),Sm={string:r=>zt.create({...r,coerce:!0}),number:r=>Ar.create({...r,coerce:!0}),boolean:r=>Ln.create({...r,coerce:!0}),bigint:r=>Sr.create({...r,coerce:!0}),date:r=>Fr.create({...r,coerce:!0})},_m=ye,d=Object.freeze({__proto__:null,defaultErrorMap:On,setErrorMap:wp,getErrorMap:$a,makeIssue:Ga,EMPTY_PATH:vp,addIssueToContext:Y,ParseStatus:yt,INVALID:ye,DIRTY:Nn,OK:Tt,isAborted:co,isDirty:uo,isValid:rn,isAsync:Ri,get util(){return ze},get objectUtil(){return lo},ZodParsedType:ee,getParsedType:kr,ZodType:Me,datetimeRegex:pu,ZodString:zt,ZodNumber:Ar,ZodBigInt:Sr,ZodBoolean:Ln,ZodDate:Fr,ZodSymbol:Mi,ZodUndefined:Fn,ZodNull:Wn,ZodAny:nn,ZodUnknown:Wr,ZodNever:sr,ZodVoid:ji,ZodArray:qt,ZodObject:tt,ZodUnion:zn,ZodDiscriminatedUnion:Ui,ZodIntersection:qn,ZodTuple:Gt,ZodRecord:Vn,ZodMap:Oi,ZodSet:Dr,ZodFunction:an,ZodLazy:Kn,ZodLiteral:Hn,ZodEnum:Cr,ZodNativeEnum:Zn,ZodPromise:sn,ZodEffects:Vt,ZodTransformer:Vt,ZodOptional:Yt,ZodNullable:Er,ZodDefault:$n,ZodCatch:Gn,ZodNaN:Ni,BRAND:zp,ZodBranded:Ja,ZodPipeline:Yn,ZodReadonly:Jn,custom:yu,Schema:Me,ZodSchema:Me,late:qp,get ZodFirstPartyTypeKind(){return ge},coerce:Sm,any:Jp,array:tm,bigint:Hp,boolean:vu,date:Zp,discriminatedUnion:am,effect:xu,enum:pm,function:dm,instanceof:Vp,intersection:sm,lazy:fm,literal:hm,map:cm,nan:Kp,nativeEnum:mm,never:Xp,null:Yp,nullable:bm,number:wu,object:rm,oboolean:Am,onumber:km,optional:ym,ostring:xm,pipeline:vm,preprocess:wm,promise:gm,record:lm,set:um,strictObject:nm,string:bu,symbol:$p,transformer:xu,tuple:om,undefined:Gp,union:im,unknown:Qp,void:em,NEVER:_m,ZodIssueCode:z,quotelessJson:bp,ZodError:Mt});v();v();var po=class{constructor(){this.cache=new Map;this.set=async(e,t,n)=>{n!==null?this.cache.set(e+"$$"+t,n):this.cache.delete(e+"$$"+t)};this.get=async(e,t)=>{let n=this.cache.get(e+"$$"+t);return n!==void 0?n:null}}};var Do=De(Su());v();v();v();v();"use strict";function Li(r,e){return function(){return r.apply(e,arguments)}}"use strict";var{toString:Um}=Object.prototype,{getPrototypeOf:bo}=Object,Qa=(r=>e=>{let t=Um.call(e);return r[t]||(r[t]=t.slice(8,-1).toLowerCase())})(Object.create(null)),Jt=r=>(r=r.toLowerCase(),e=>Qa(e)===r),Xa=r=>e=>typeof e===r,{isArray:Qn}=Array,Fi=Xa("undefined");function Om(r){return r!==null&&!Fi(r)&&r.constructor!==null&&!Fi(r.constructor)&&Lt(r.constructor.isBuffer)&&r.constructor.isBuffer(r)}var _u=Jt("ArrayBuffer");function Nm(r){let e;return typeof ArrayBuffer!="undefined"&&ArrayBuffer.isView?e=ArrayBuffer.isView(r):e=r&&r.buffer&&_u(r.buffer),e}var Lm=Xa("string"),Lt=Xa("function"),Cu=Xa("number"),es=r=>r!==null&&typeof r=="object",Fm=r=>r===!0||r===!1,ts=r=>{if(Qa(r)!=="object")return!1;let e=bo(r);return(e===null||e===Object.prototype||Object.getPrototypeOf(e)===null)&&!(Symbol.toStringTag in r)&&!(Symbol.iterator in r)},Wm=Jt("Date"),Dm=Jt("File"),zm=Jt("Blob"),qm=Jt("FileList"),Vm=r=>es(r)&&Lt(r.pipe),Km=r=>{let e;return r&&(typeof FormData=="function"&&r instanceof FormData||Lt(r.append)&&((e=Qa(r))==="formdata"||e==="object"&&Lt(r.toString)&&r.toString()==="[object FormData]"))},Hm=Jt("URLSearchParams"),[Zm,$m,Gm,Ym]=["ReadableStream","Request","Response","Headers"].map(Jt),Jm=r=>r.trim?r.trim():r.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,"");function Wi(r,e,{allOwnKeys:t=!1}={}){if(r===null||typeof r=="undefined")return;let n,i;if(typeof r!="object"&&(r=[r]),Qn(r))for(n=0,i=r.length;n<i;n++)e.call(null,r[n],n,r);else{let a=t?Object.getOwnPropertyNames(r):Object.keys(r),s=a.length,l;for(n=0;n<s;n++)l=a[n],e.call(null,r[l],l,r)}}function Eu(r,e){e=e.toLowerCase();let t=Object.keys(r),n=t.length,i;for(;n-- >0;)if(i=t[n],e===i.toLowerCase())return i;return null}var on=(()=>typeof globalThis!="undefined"?globalThis:typeof self!="undefined"?self:typeof window!="undefined"?window:global)(),Bu=r=>!Fi(r)&&r!==on;function wo(){let{caseless:r}=Bu(this)&&this||{},e={},t=(n,i)=>{let a=r&&Eu(e,i)||i;ts(e[a])&&ts(n)?e[a]=wo(e[a],n):ts(n)?e[a]=wo({},n):Qn(n)?e[a]=n.slice():e[a]=n};for(let n=0,i=arguments.length;n<i;n++)arguments[n]&&Wi(arguments[n],t);return e}var Qm=(r,e,t,{allOwnKeys:n}={})=>(Wi(e,(i,a)=>{t&&Lt(i)?r[a]=Li(i,t):r[a]=i},{allOwnKeys:n}),r),Xm=r=>(r.charCodeAt(0)===65279&&(r=r.slice(1)),r),eg=(r,e,t,n)=>{r.prototype=Object.create(e.prototype,n),r.prototype.constructor=r,Object.defineProperty(r,"super",{value:e.prototype}),t&&Object.assign(r.prototype,t)},tg=(r,e,t,n)=>{let i,a,s,l={};if(e=e||{},r==null)return e;do{for(i=Object.getOwnPropertyNames(r),a=i.length;a-- >0;)s=i[a],(!n||n(s,r,e))&&!l[s]&&(e[s]=r[s],l[s]=!0);r=t!==!1&&bo(r)}while(r&&(!t||t(r,e))&&r!==Object.prototype);return e},rg=(r,e,t)=>{r=String(r),(t===void 0||t>r.length)&&(t=r.length),t-=e.length;let n=r.indexOf(e,t);return n!==-1&&n===t},ng=r=>{if(!r)return null;if(Qn(r))return r;let e=r.length;if(!Cu(e))return null;let t=new Array(e);for(;e-- >0;)t[e]=r[e];return t},ig=(r=>e=>r&&e instanceof r)(typeof Uint8Array!="undefined"&&bo(Uint8Array)),ag=(r,e)=>{let n=(r&&r[Symbol.iterator]).call(r),i;for(;(i=n.next())&&!i.done;){let a=i.value;e.call(r,a[0],a[1])}},sg=(r,e)=>{let t,n=[];for(;(t=r.exec(e))!==null;)n.push(t);return n},og=Jt("HTMLFormElement"),lg=r=>r.toLowerCase().replace(/[-_\s]([a-z\d])(\w*)/g,function(t,n,i){return n.toUpperCase()+i}),Tu=(({hasOwnProperty:r})=>(e,t)=>r.call(e,t))(Object.prototype),cg=Jt("RegExp"),Ru=(r,e)=>{let t=Object.getOwnPropertyDescriptors(r),n={};Wi(t,(i,a)=>{let s;(s=e(i,a,r))!==!1&&(n[a]=s||i)}),Object.defineProperties(r,n)},ug=r=>{Ru(r,(e,t)=>{if(Lt(r)&&["arguments","caller","callee"].indexOf(t)!==-1)return!1;let n=r[t];if(!!Lt(n)){if(e.enumerable=!1,"writable"in e){e.writable=!1;return}e.set||(e.set=()=>{throw Error("Can not rewrite read-only method '"+t+"'")})}})},dg=(r,e)=>{let t={},n=i=>{i.forEach(a=>{t[a]=!0})};return Qn(r)?n(r):n(String(r).split(e)),t},fg=()=>{},hg=(r,e)=>r!=null&&Number.isFinite(r=+r)?r:e,vo="abcdefghijklmnopqrstuvwxyz",Iu="0123456789",Pu={DIGIT:Iu,ALPHA:vo,ALPHA_DIGIT:vo+vo.toUpperCase()+Iu},pg=(r=16,e=Pu.ALPHA_DIGIT)=>{let t="",{length:n}=e;for(;r--;)t+=e[Math.random()*n|0];return t};function mg(r){return!!(r&&Lt(r.append)&&r[Symbol.toStringTag]==="FormData"&&r[Symbol.iterator])}var gg=r=>{let e=new Array(10),t=(n,i)=>{if(es(n)){if(e.indexOf(n)>=0)return;if(!("toJSON"in n)){e[i]=n;let a=Qn(n)?[]:{};return Wi(n,(s,l)=>{let y=t(s,i+1);!Fi(y)&&(a[l]=y)}),e[i]=void 0,a}}return n};return t(r,0)},yg=Jt("AsyncFunction"),bg=r=>r&&(es(r)||Lt(r))&&Lt(r.then)&&Lt(r.catch),Mu=((r,e)=>r?setImmediate:e?((t,n)=>(on.addEventListener("message",({source:i,data:a})=>{i===on&&a===t&&n.length&&n.shift()()},!1),i=>{n.push(i),on.postMessage(t,"*")}))(`axios@${Math.random()}`,[]):t=>setTimeout(t))(typeof setImmediate=="function",Lt(on.postMessage)),wg=typeof queueMicrotask!="undefined"?queueMicrotask.bind(on):typeof process!="undefined"&&process.nextTick||Mu,T={isArray:Qn,isArrayBuffer:_u,isBuffer:Om,isFormData:Km,isArrayBufferView:Nm,isString:Lm,isNumber:Cu,isBoolean:Fm,isObject:es,isPlainObject:ts,isReadableStream:Zm,isRequest:$m,isResponse:Gm,isHeaders:Ym,isUndefined:Fi,isDate:Wm,isFile:Dm,isBlob:zm,isRegExp:cg,isFunction:Lt,isStream:Vm,isURLSearchParams:Hm,isTypedArray:ig,isFileList:qm,forEach:Wi,merge:wo,extend:Qm,trim:Jm,stripBOM:Xm,inherits:eg,toFlatObject:tg,kindOf:Qa,kindOfTest:Jt,endsWith:rg,toArray:ng,forEachEntry:ag,matchAll:sg,isHTMLForm:og,hasOwnProperty:Tu,hasOwnProp:Tu,reduceDescriptors:Ru,freezeMethods:ug,toObjectSet:dg,toCamelCase:lg,noop:fg,toFiniteNumber:hg,findKey:Eu,global:on,isContextDefined:Bu,ALPHABET:Pu,generateString:pg,isSpecCompliantForm:mg,toJSONObject:gg,isAsyncFn:yg,isThenable:bg,setImmediate:Mu,asap:wg};v();v();v();v();v();"use strict";function Xn(r,e,t,n,i){Error.call(this),Error.captureStackTrace?Error.captureStackTrace(this,this.constructor):this.stack=new Error().stack,this.message=r,this.name="AxiosError",e&&(this.code=e),t&&(this.config=t),n&&(this.request=n),i&&(this.response=i,this.status=i.status?i.status:null)}T.inherits(Xn,Error,{toJSON:function(){return{message:this.message,name:this.name,description:this.description,number:this.number,fileName:this.fileName,lineNumber:this.lineNumber,columnNumber:this.columnNumber,stack:this.stack,config:T.toJSONObject(this.config),code:this.code,status:this.status}}});var ju=Xn.prototype,Uu={};["ERR_BAD_OPTION_VALUE","ERR_BAD_OPTION","ECONNABORTED","ETIMEDOUT","ERR_NETWORK","ERR_FR_TOO_MANY_REDIRECTS","ERR_DEPRECATED","ERR_BAD_RESPONSE","ERR_BAD_REQUEST","ERR_CANCELED","ERR_NOT_SUPPORT","ERR_INVALID_URL"].forEach(r=>{Uu[r]={value:r}});Object.defineProperties(Xn,Uu);Object.defineProperty(ju,"isAxiosError",{value:!0});Xn.from=(r,e,t,n,i,a)=>{let s=Object.create(ju);return T.toFlatObject(r,s,function(y){return y!==Error.prototype},l=>l!=="isAxiosError"),Xn.call(s,r.message,e,t,n,i),s.cause=r,s.name=r.name,a&&Object.assign(s,a),s};var ve=Xn;v();var rs=null;"use strict";function xo(r){return T.isPlainObject(r)||T.isArray(r)}function Ou(r){return T.endsWith(r,"[]")?r.slice(0,-2):r}function Nu(r,e,t){return r?r.concat(e).map(function(i,a){return i=Ou(i),!t&&a?"["+i+"]":i}).join(t?".":""):e}function vg(r){return T.isArray(r)&&!r.some(xo)}var xg=T.toFlatObject(T,{},null,function(e){return/^is[A-Z]/.test(e)});function kg(r,e,t){if(!T.isObject(r))throw new TypeError("target must be an object");e=e||new(rs||FormData),t=T.toFlatObject(t,{metaTokens:!0,dots:!1,indexes:!1},!1,function(ne,se){return!T.isUndefined(se[ne])});let n=t.metaTokens,i=t.visitor||b,a=t.dots,s=t.indexes,y=(t.Blob||typeof Blob!="undefined"&&Blob)&&T.isSpecCompliantForm(e);if(!T.isFunction(i))throw new TypeError("visitor must be a function");function m(Z){if(Z===null)return"";if(T.isDate(Z))return Z.toISOString();if(!y&&T.isBlob(Z))throw new ve("Blob is not supported. Use a Buffer instead.");return T.isArrayBuffer(Z)||T.isTypedArray(Z)?y&&typeof Blob=="function"?new Blob([Z]):Buffer.from(Z):Z}function b(Z,ne,se){let Ze=Z;if(Z&&!se&&typeof Z=="object"){if(T.endsWith(ne,"{}"))ne=n?ne:ne.slice(0,-2),Z=JSON.stringify(Z);else if(T.isArray(Z)&&vg(Z)||(T.isFileList(Z)||T.endsWith(ne,"[]"))&&(Ze=T.toArray(Z)))return ne=Ou(ne),Ze.forEach(function(Ge,dt){!(T.isUndefined(Ge)||Ge===null)&&e.append(s===!0?Nu([ne],dt,a):s===null?ne:ne+"[]",m(Ge))}),!1}return xo(Z)?!0:(e.append(Nu(se,ne,a),m(Z)),!1)}let _=[],G=Object.assign(xg,{defaultVisitor:b,convertValue:m,isVisitable:xo});function ae(Z,ne){if(!T.isUndefined(Z)){if(_.indexOf(Z)!==-1)throw Error("Circular reference detected in "+ne.join("."));_.push(Z),T.forEach(Z,function(Ze,Je){(!(T.isUndefined(Ze)||Ze===null)&&i.call(e,Ze,T.isString(Je)?Je.trim():Je,ne,G))===!0&&ae(Ze,ne?ne.concat(Je):[Je])}),_.pop()}}if(!T.isObject(r))throw new TypeError("data must be an object");return ae(r),e}var zr=kg;"use strict";function Lu(r){let e={"!":"%21","'":"%27","(":"%28",")":"%29","~":"%7E","%20":"+","%00":"\0"};return encodeURIComponent(r).replace(/[!'()~]|%20|%00/g,function(n){return e[n]})}function Fu(r,e){this._pairs=[],r&&zr(r,this,e)}var Wu=Fu.prototype;Wu.append=function(e,t){this._pairs.push([e,t])};Wu.toString=function(e){let t=e?function(n){return e.call(this,n,Lu)}:Lu;return this._pairs.map(function(i){return t(i[0])+"="+t(i[1])},"").join("&")};var ns=Fu;"use strict";function Ag(r){return encodeURIComponent(r).replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"+").replace(/%5B/gi,"[").replace(/%5D/gi,"]")}function Di(r,e,t){if(!e)return r;let n=t&&t.encode||Ag;T.isFunction(t)&&(t={serialize:t});let i=t&&t.serialize,a;if(i?a=i(e,t):a=T.isURLSearchParams(e)?e.toString():new ns(e,t).toString(n),a){let s=r.indexOf("#");s!==-1&&(r=r.slice(0,s)),r+=(r.indexOf("?")===-1?"?":"&")+a}return r}v();"use strict";var Du=class{constructor(){this.handlers=[]}use(e,t,n){return this.handlers.push({fulfilled:e,rejected:t,synchronous:n?n.synchronous:!1,runWhen:n?n.runWhen:null}),this.handlers.length-1}eject(e){this.handlers[e]&&(this.handlers[e]=null)}clear(){this.handlers&&(this.handlers=[])}forEach(e){T.forEach(this.handlers,function(n){n!==null&&e(n)})}},ko=Du;v();v();v();v();"use strict";var is={silentJSONParsing:!0,forcedJSONParsing:!0,clarifyTimeoutError:!1};v();v();v();v();"use strict";var zu=typeof URLSearchParams!="undefined"?URLSearchParams:ns;v();"use strict";var qu=typeof FormData!="undefined"?FormData:null;v();"use strict";var Vu=typeof Blob!="undefined"?Blob:null;var Ku={isBrowser:!0,classes:{URLSearchParams:zu,FormData:qu,Blob:Vu},protocols:["http","https","file","blob","url","data"]};var _o={};Is(_o,{hasBrowserEnv:()=>Ao,hasStandardBrowserEnv:()=>Sg,hasStandardBrowserWebWorkerEnv:()=>_g,navigator:()=>So,origin:()=>Cg});v();var Ao=typeof window!="undefined"&&typeof document!="undefined",So=typeof navigator=="object"&&navigator||void 0,Sg=Ao&&(!So||["ReactNative","NativeScript","NS"].indexOf(So.product)<0),_g=(()=>typeof WorkerGlobalScope!="undefined"&&self instanceof WorkerGlobalScope&&typeof self.importScripts=="function")(),Cg=Ao&&window.location.href||"http://localhost";var nt={..._o,...Ku};"use strict";function Co(r,e){return zr(r,new nt.classes.URLSearchParams,Object.assign({visitor:function(t,n,i,a){return nt.isNode&&T.isBuffer(t)?(this.append(n,t.toString("base64")),!1):a.defaultVisitor.apply(this,arguments)}},e))}v();"use strict";function Eg(r){return T.matchAll(/\w+|\[(\w*)]/g,r).map(e=>e[0]==="[]"?"":e[1]||e[0])}function Bg(r){let e={},t=Object.keys(r),n,i=t.length,a;for(n=0;n<i;n++)a=t[n],e[a]=r[a];return e}function Tg(r){function e(t,n,i,a){let s=t[a++];if(s==="__proto__")return!0;let l=Number.isFinite(+s),y=a>=t.length;return s=!s&&T.isArray(i)?i.length:s,y?(T.hasOwnProp(i,s)?i[s]=[i[s],n]:i[s]=n,!l):((!i[s]||!T.isObject(i[s]))&&(i[s]=[]),e(t,n,i[s],a)&&T.isArray(i[s])&&(i[s]=Bg(i[s])),!l)}if(T.isFormData(r)&&T.isFunction(r.entries)){let t={};return T.forEachEntry(r,(n,i)=>{e(Eg(n),i,t,0)}),t}return null}var as=Tg;"use strict";function Rg(r,e,t){if(T.isString(r))try{return(e||JSON.parse)(r),T.trim(r)}catch(n){if(n.name!=="SyntaxError")throw n}return(t||JSON.stringify)(r)}var Eo={transitional:is,adapter:["xhr","http","fetch"],transformRequest:[function(e,t){let n=t.getContentType()||"",i=n.indexOf("application/json")>-1,a=T.isObject(e);if(a&&T.isHTMLForm(e)&&(e=new FormData(e)),T.isFormData(e))return i?JSON.stringify(as(e)):e;if(T.isArrayBuffer(e)||T.isBuffer(e)||T.isStream(e)||T.isFile(e)||T.isBlob(e)||T.isReadableStream(e))return e;if(T.isArrayBufferView(e))return e.buffer;if(T.isURLSearchParams(e))return t.setContentType("application/x-www-form-urlencoded;charset=utf-8",!1),e.toString();let l;if(a){if(n.indexOf("application/x-www-form-urlencoded")>-1)return Co(e,this.formSerializer).toString();if((l=T.isFileList(e))||n.indexOf("multipart/form-data")>-1){let y=this.env&&this.env.FormData;return zr(l?{"files[]":e}:e,y&&new y,this.formSerializer)}}return a||i?(t.setContentType("application/json",!1),Rg(e)):e}],transformResponse:[function(e){let t=this.transitional||Eo.transitional,n=t&&t.forcedJSONParsing,i=this.responseType==="json";if(T.isResponse(e)||T.isReadableStream(e))return e;if(e&&T.isString(e)&&(n&&!this.responseType||i)){let s=!(t&&t.silentJSONParsing)&&i;try{return JSON.parse(e)}catch(l){if(s)throw l.name==="SyntaxError"?ve.from(l,ve.ERR_BAD_RESPONSE,this,null,this.response):l}}return e}],timeout:0,xsrfCookieName:"XSRF-TOKEN",xsrfHeaderName:"X-XSRF-TOKEN",maxContentLength:-1,maxBodyLength:-1,env:{FormData:nt.classes.FormData,Blob:nt.classes.Blob},validateStatus:function(e){return e>=200&&e<300},headers:{common:{Accept:"application/json, text/plain, */*","Content-Type":void 0}}};T.forEach(["delete","get","head","post","put","patch"],r=>{Eo.headers[r]={}});var ei=Eo;v();v();"use strict";var Ig=T.toObjectSet(["age","authorization","content-length","content-type","etag","expires","from","host","if-modified-since","if-unmodified-since","last-modified","location","max-forwards","proxy-authorization","referer","retry-after","user-agent"]),Hu=r=>{let e={},t,n,i;return r&&r.split(`
-`).forEach(function(s){i=s.indexOf(":"),t=s.substring(0,i).trim().toLowerCase(),n=s.substring(i+1).trim(),!(!t||e[t]&&Ig[t])&&(t==="set-cookie"?e[t]?e[t].push(n):e[t]=[n]:e[t]=e[t]?e[t]+", "+n:n)}),e};"use strict";var Zu=Symbol("internals");function zi(r){return r&&String(r).trim().toLowerCase()}function ss(r){return r===!1||r==null?r:T.isArray(r)?r.map(ss):String(r)}function Pg(r){let e=Object.create(null),t=/([^\s,;=]+)\s*(?:=\s*([^,;]+))?/g,n;for(;n=t.exec(r);)e[n[1]]=n[2];return e}var Mg=r=>/^[-_a-zA-Z0-9^`|~,!#$%&'*+.]+$/.test(r.trim());function Bo(r,e,t,n,i){if(T.isFunction(n))return n.call(this,e,t);if(i&&(e=t),!!T.isString(e)){if(T.isString(n))return e.indexOf(n)!==-1;if(T.isRegExp(n))return n.test(e)}}function jg(r){return r.trim().toLowerCase().replace(/([a-z\d])(\w*)/g,(e,t,n)=>t.toUpperCase()+n)}function Ug(r,e){let t=T.toCamelCase(" "+e);["get","set","has"].forEach(n=>{Object.defineProperty(r,n+t,{value:function(i,a,s){return this[n].call(this,e,i,a,s)},configurable:!0})})}var qi=class{constructor(e){e&&this.set(e)}set(e,t,n){let i=this;function a(l,y,m){let b=zi(y);if(!b)throw new Error("header name must be a non-empty string");let _=T.findKey(i,b);(!_||i[_]===void 0||m===!0||m===void 0&&i[_]!==!1)&&(i[_||y]=ss(l))}let s=(l,y)=>T.forEach(l,(m,b)=>a(m,b,y));if(T.isPlainObject(e)||e instanceof this.constructor)s(e,t);else if(T.isString(e)&&(e=e.trim())&&!Mg(e))s(Hu(e),t);else if(T.isHeaders(e))for(let[l,y]of e.entries())a(y,l,n);else e!=null&&a(t,e,n);return this}get(e,t){if(e=zi(e),e){let n=T.findKey(this,e);if(n){let i=this[n];if(!t)return i;if(t===!0)return Pg(i);if(T.isFunction(t))return t.call(this,i,n);if(T.isRegExp(t))return t.exec(i);throw new TypeError("parser must be boolean|regexp|function")}}}has(e,t){if(e=zi(e),e){let n=T.findKey(this,e);return!!(n&&this[n]!==void 0&&(!t||Bo(this,this[n],n,t)))}return!1}delete(e,t){let n=this,i=!1;function a(s){if(s=zi(s),s){let l=T.findKey(n,s);l&&(!t||Bo(n,n[l],l,t))&&(delete n[l],i=!0)}}return T.isArray(e)?e.forEach(a):a(e),i}clear(e){let t=Object.keys(this),n=t.length,i=!1;for(;n--;){let a=t[n];(!e||Bo(this,this[a],a,e,!0))&&(delete this[a],i=!0)}return i}normalize(e){let t=this,n={};return T.forEach(this,(i,a)=>{let s=T.findKey(n,a);if(s){t[s]=ss(i),delete t[a];return}let l=e?jg(a):String(a).trim();l!==a&&delete t[a],t[l]=ss(i),n[l]=!0}),this}concat(...e){return this.constructor.concat(this,...e)}toJSON(e){let t=Object.create(null);return T.forEach(this,(n,i)=>{n!=null&&n!==!1&&(t[i]=e&&T.isArray(n)?n.join(", "):n)}),t}[Symbol.iterator](){return Object.entries(this.toJSON())[Symbol.iterator]()}toString(){return Object.entries(this.toJSON()).map(([e,t])=>e+": "+t).join(`
-`)}get[Symbol.toStringTag](){return"AxiosHeaders"}static from(e){return e instanceof this?e:new this(e)}static concat(e,...t){let n=new this(e);return t.forEach(i=>n.set(i)),n}static accessor(e){let n=(this[Zu]=this[Zu]={accessors:{}}).accessors,i=this.prototype;function a(s){let l=zi(s);n[l]||(Ug(i,s),n[l]=!0)}return T.isArray(e)?e.forEach(a):a(e),this}};qi.accessor(["Content-Type","Content-Length","Accept","Accept-Encoding","User-Agent","Authorization"]);T.reduceDescriptors(qi.prototype,({value:r},e)=>{let t=e[0].toUpperCase()+e.slice(1);return{get:()=>r,set(n){this[t]=n}}});T.freezeMethods(qi);var mt=qi;"use strict";function Vi(r,e){let t=this||ei,n=e||t,i=mt.from(n.headers),a=n.data;return T.forEach(r,function(l){a=l.call(t,a,i.normalize(),e?e.status:void 0)}),i.normalize(),a}v();"use strict";function Ki(r){return!!(r&&r.__CANCEL__)}v();"use strict";function $u(r,e,t){ve.call(this,r??"canceled",ve.ERR_CANCELED,e,t),this.name="CanceledError"}T.inherits($u,ve,{__CANCEL__:!0});var or=$u;v();v();v();"use strict";function Hi(r,e,t){let n=t.config.validateStatus;!t.status||!n||n(t.status)?r(t):e(new ve("Request failed with status code "+t.status,[ve.ERR_BAD_REQUEST,ve.ERR_BAD_RESPONSE][Math.floor(t.status/100)-4],t.config,t.request,t))}v();"use strict";function To(r){let e=/^([-+\w]{1,25})(:?\/\/|:)/.exec(r);return e&&e[1]||""}v();v();"use strict";function Og(r,e){r=r||10;let t=new Array(r),n=new Array(r),i=0,a=0,s;return e=e!==void 0?e:1e3,function(y){let m=Date.now(),b=n[a];s||(s=m),t[i]=y,n[i]=m;let _=a,G=0;for(;_!==i;)G+=t[_++],_=_%r;if(i=(i+1)%r,i===a&&(a=(a+1)%r),m-s<e)return;let ae=b&&m-b;return ae?Math.round(G*1e3/ae):void 0}}var Gu=Og;v();function Ng(r,e){let t=0,n=1e3/e,i,a,s=(m,b=Date.now())=>{t=b,i=null,a&&(clearTimeout(a),a=null),r.apply(null,m)};return[(...m)=>{let b=Date.now(),_=b-t;_>=n?s(m,b):(i=m,a||(a=setTimeout(()=>{a=null,s(i)},n-_)))},()=>i&&s(i)]}var Yu=Ng;var ti=(r,e,t=3)=>{let n=0,i=Gu(50,250);return Yu(a=>{let s=a.loaded,l=a.lengthComputable?a.total:void 0,y=s-n,m=i(y),b=s<=l;n=s;let _={loaded:s,total:l,progress:l?s/l:void 0,bytes:y,rate:m||void 0,estimated:m&&l&&b?(l-s)/m:void 0,event:a,lengthComputable:l!=null,[e?"download":"upload"]:!0};r(_)},t)},Ro=(r,e)=>{let t=r!=null;return[n=>e[0]({lengthComputable:t,total:r,loaded:n}),e[1]]},Io=r=>(...e)=>T.asap(()=>r(...e));v();v();var Ju=nt.hasStandardBrowserEnv?((r,e)=>t=>(t=new URL(t,nt.origin),r.protocol===t.protocol&&r.host===t.host&&(e||r.port===t.port)))(new URL(nt.origin),nt.navigator&&/(msie|trident)/i.test(nt.navigator.userAgent)):()=>!0;v();var Qu=nt.hasStandardBrowserEnv?{write(r,e,t,n,i,a){let s=[r+"="+encodeURIComponent(e)];T.isNumber(t)&&s.push("expires="+new Date(t).toGMTString()),T.isString(n)&&s.push("path="+n),T.isString(i)&&s.push("domain="+i),a===!0&&s.push("secure"),document.cookie=s.join("; ")},read(r){let e=document.cookie.match(new RegExp("(^|;\\s*)("+r+")=([^;]*)"));return e?decodeURIComponent(e[3]):null},remove(r){this.write(r,"",Date.now()-864e5)}}:{write(){},read(){return null},remove(){}};v();v();"use strict";function Po(r){return/^([a-z][a-z\d+\-.]*:)?\/\//i.test(r)}v();"use strict";function Mo(r,e){return e?r.replace(/\/?\/$/,"")+"/"+e.replace(/^\/+/,""):r}"use strict";function Zi(r,e){return r&&!Po(e)?Mo(r,e):e}v();"use strict";var Xu=r=>r instanceof mt?{...r}:r;function Qt(r,e){e=e||{};let t={};function n(m,b,_,G){return T.isPlainObject(m)&&T.isPlainObject(b)?T.merge.call({caseless:G},m,b):T.isPlainObject(b)?T.merge({},b):T.isArray(b)?b.slice():b}function i(m,b,_,G){if(T.isUndefined(b)){if(!T.isUndefined(m))return n(void 0,m,_,G)}else return n(m,b,_,G)}function a(m,b){if(!T.isUndefined(b))return n(void 0,b)}function s(m,b){if(T.isUndefined(b)){if(!T.isUndefined(m))return n(void 0,m)}else return n(void 0,b)}function l(m,b,_){if(_ in e)return n(m,b);if(_ in r)return n(void 0,m)}let y={url:a,method:a,data:a,baseURL:s,transformRequest:s,transformResponse:s,paramsSerializer:s,timeout:s,timeoutMessage:s,withCredentials:s,withXSRFToken:s,adapter:s,responseType:s,xsrfCookieName:s,xsrfHeaderName:s,onUploadProgress:s,onDownloadProgress:s,decompress:s,maxContentLength:s,maxBodyLength:s,beforeRedirect:s,transport:s,httpAgent:s,httpsAgent:s,cancelToken:s,socketPath:s,responseEncoding:s,validateStatus:l,headers:(m,b,_)=>i(Xu(m),Xu(b),_,!0)};return T.forEach(Object.keys(Object.assign({},r,e)),function(b){let _=y[b]||i,G=_(r[b],e[b],b);T.isUndefined(G)&&_!==l||(t[b]=G)}),t}var os=r=>{let e=Qt({},r),{data:t,withXSRFToken:n,xsrfHeaderName:i,xsrfCookieName:a,headers:s,auth:l}=e;e.headers=s=mt.from(s),e.url=Di(Zi(e.baseURL,e.url),r.params,r.paramsSerializer),l&&s.set("Authorization","Basic "+btoa((l.username||"")+":"+(l.password?unescape(encodeURIComponent(l.password)):"")));let y;if(T.isFormData(t)){if(nt.hasStandardBrowserEnv||nt.hasStandardBrowserWebWorkerEnv)s.setContentType(void 0);else if((y=s.getContentType())!==!1){let[m,...b]=y?y.split(";").map(_=>_.trim()).filter(Boolean):[];s.setContentType([m||"multipart/form-data",...b].join("; "))}}if(nt.hasStandardBrowserEnv&&(n&&T.isFunction(n)&&(n=n(e)),n||n!==!1&&Ju(e.url))){let m=i&&a&&Qu.read(a);m&&s.set(i,m)}return e};var Lg=typeof XMLHttpRequest!="undefined",ed=Lg&&function(r){return new Promise(function(t,n){let i=os(r),a=i.data,s=mt.from(i.headers).normalize(),{responseType:l,onUploadProgress:y,onDownloadProgress:m}=i,b,_,G,ae,Z;function ne(){ae&&ae(),Z&&Z(),i.cancelToken&&i.cancelToken.unsubscribe(b),i.signal&&i.signal.removeEventListener("abort",b)}let se=new XMLHttpRequest;se.open(i.method.toUpperCase(),i.url,!0),se.timeout=i.timeout;function Ze(){if(!se)return;let Ge=mt.from("getAllResponseHeaders"in se&&se.getAllResponseHeaders()),Ie={data:!l||l==="text"||l==="json"?se.responseText:se.response,status:se.status,statusText:se.statusText,headers:Ge,config:r,request:se};Hi(function(kt){t(kt),ne()},function(kt){n(kt),ne()},Ie),se=null}"onloadend"in se?se.onloadend=Ze:se.onreadystatechange=function(){!se||se.readyState!==4||se.status===0&&!(se.responseURL&&se.responseURL.indexOf("file:")===0)||setTimeout(Ze)},se.onabort=function(){!se||(n(new ve("Request aborted",ve.ECONNABORTED,r,se)),se=null)},se.onerror=function(){n(new ve("Network Error",ve.ERR_NETWORK,r,se)),se=null},se.ontimeout=function(){let dt=i.timeout?"timeout of "+i.timeout+"ms exceeded":"timeout exceeded",Ie=i.transitional||is;i.timeoutErrorMessage&&(dt=i.timeoutErrorMessage),n(new ve(dt,Ie.clarifyTimeoutError?ve.ETIMEDOUT:ve.ECONNABORTED,r,se)),se=null},a===void 0&&s.setContentType(null),"setRequestHeader"in se&&T.forEach(s.toJSON(),function(dt,Ie){se.setRequestHeader(Ie,dt)}),T.isUndefined(i.withCredentials)||(se.withCredentials=!!i.withCredentials),l&&l!=="json"&&(se.responseType=i.responseType),m&&([G,Z]=ti(m,!0),se.addEventListener("progress",G)),y&&se.upload&&([_,ae]=ti(y),se.upload.addEventListener("progress",_),se.upload.addEventListener("loadend",ae)),(i.cancelToken||i.signal)&&(b=Ge=>{!se||(n(!Ge||Ge.type?new or(null,r,se):Ge),se.abort(),se=null)},i.cancelToken&&i.cancelToken.subscribe(b),i.signal&&(i.signal.aborted?b():i.signal.addEventListener("abort",b)));let Je=To(i.url);if(Je&&nt.protocols.indexOf(Je)===-1){n(new ve("Unsupported protocol "+Je+":",ve.ERR_BAD_REQUEST,r));return}se.send(a||null)})};v();v();var Fg=(r,e)=>{let{length:t}=r=r?r.filter(Boolean):[];if(e||t){let n=new AbortController,i,a=function(m){if(!i){i=!0,l();let b=m instanceof Error?m:this.reason;n.abort(b instanceof ve?b:new or(b instanceof Error?b.message:b))}},s=e&&setTimeout(()=>{s=null,a(new ve(`timeout ${e} of ms exceeded`,ve.ETIMEDOUT))},e),l=()=>{r&&(s&&clearTimeout(s),s=null,r.forEach(m=>{m.unsubscribe?m.unsubscribe(a):m.removeEventListener("abort",a)}),r=null)};r.forEach(m=>m.addEventListener("abort",a));let{signal:y}=n;return y.unsubscribe=()=>T.asap(l),y}},td=Fg;v();var Wg=function*(r,e){let t=r.byteLength;if(!e||t<e){yield r;return}let n=0,i;for(;n<t;)i=n+e,yield r.slice(n,i),n=i},Dg=async function*(r,e){for await(let t of zg(r))yield*Wg(t,e)},zg=async function*(r){if(r[Symbol.asyncIterator]){yield*r;return}let e=r.getReader();try{for(;;){let{done:t,value:n}=await e.read();if(t)break;yield n}}finally{await e.cancel()}},jo=(r,e,t,n)=>{let i=Dg(r,e),a=0,s,l=y=>{s||(s=!0,n&&n(y))};return new ReadableStream({async pull(y){try{let{done:m,value:b}=await i.next();if(m){l(),y.close();return}let _=b.byteLength;if(t){let G=a+=_;t(G)}y.enqueue(new Uint8Array(b))}catch(m){throw l(m),m}},cancel(y){return l(y),i.return()}},{highWaterMark:2})};var ls=typeof fetch=="function"&&typeof Request=="function"&&typeof Response=="function",rd=ls&&typeof ReadableStream=="function",qg=ls&&(typeof TextEncoder=="function"?(r=>e=>r.encode(e))(new TextEncoder):async r=>new Uint8Array(await new Response(r).arrayBuffer())),nd=(r,...e)=>{try{return!!r(...e)}catch{return!1}},Vg=rd&&nd(()=>{let r=!1,e=new Request(nt.origin,{body:new ReadableStream,method:"POST",get duplex(){return r=!0,"half"}}).headers.has("Content-Type");return r&&!e}),id=64*1024,Uo=rd&&nd(()=>T.isReadableStream(new Response("").body)),cs={stream:Uo&&(r=>r.body)};ls&&(r=>{["text","arrayBuffer","blob","formData","stream"].forEach(e=>{!cs[e]&&(cs[e]=T.isFunction(r[e])?t=>t[e]():(t,n)=>{throw new ve(`Response type '${e}' is not supported`,ve.ERR_NOT_SUPPORT,n)})})})(new Response);var Kg=async r=>{if(r==null)return 0;if(T.isBlob(r))return r.size;if(T.isSpecCompliantForm(r))return(await new Request(nt.origin,{method:"POST",body:r}).arrayBuffer()).byteLength;if(T.isArrayBufferView(r)||T.isArrayBuffer(r))return r.byteLength;if(T.isURLSearchParams(r)&&(r=r+""),T.isString(r))return(await qg(r)).byteLength},Hg=async(r,e)=>{let t=T.toFiniteNumber(r.getContentLength());return t??Kg(e)},ad=ls&&(async r=>{let{url:e,method:t,data:n,signal:i,cancelToken:a,timeout:s,onDownloadProgress:l,onUploadProgress:y,responseType:m,headers:b,withCredentials:_="same-origin",fetchOptions:G}=os(r);m=m?(m+"").toLowerCase():"text";let ae=td([i,a&&a.toAbortSignal()],s),Z,ne=ae&&ae.unsubscribe&&(()=>{ae.unsubscribe()}),se;try{if(y&&Vg&&t!=="get"&&t!=="head"&&(se=await Hg(b,n))!==0){let Ie=new Request(e,{method:"POST",body:n,duplex:"half"}),Et;if(T.isFormData(n)&&(Et=Ie.headers.get("content-type"))&&b.setContentType(Et),Ie.body){let[kt,gr]=Ro(se,ti(Io(y)));n=jo(Ie.body,id,kt,gr)}}T.isString(_)||(_=_?"include":"omit");let Ze="credentials"in Request.prototype;Z=new Request(e,{...G,signal:ae,method:t.toUpperCase(),headers:b.normalize().toJSON(),body:n,duplex:"half",credentials:Ze?_:void 0});let Je=await fetch(Z),Ge=Uo&&(m==="stream"||m==="response");if(Uo&&(l||Ge&&ne)){let Ie={};["status","statusText","headers"].forEach(Br=>{Ie[Br]=Je[Br]});let Et=T.toFiniteNumber(Je.headers.get("content-length")),[kt,gr]=l&&Ro(Et,ti(Io(l),!0))||[];Je=new Response(jo(Je.body,id,kt,()=>{gr&&gr(),ne&&ne()}),Ie)}m=m||"text";let dt=await cs[T.findKey(cs,m)||"text"](Je,r);return!Ge&&ne&&ne(),await new Promise((Ie,Et)=>{Hi(Ie,Et,{data:dt,headers:mt.from(Je.headers),status:Je.status,statusText:Je.statusText,config:r,request:Z})})}catch(Ze){throw ne&&ne(),Ze&&Ze.name==="TypeError"&&/fetch/i.test(Ze.message)?Object.assign(new ve("Network Error",ve.ERR_NETWORK,r,Z),{cause:Ze.cause||Ze}):ve.from(Ze,Ze&&Ze.code,r,Z)}});var Oo={http:rs,xhr:ed,fetch:ad};T.forEach(Oo,(r,e)=>{if(r){try{Object.defineProperty(r,"name",{value:e})}catch{}Object.defineProperty(r,"adapterName",{value:e})}});var sd=r=>`- ${r}`,Zg=r=>T.isFunction(r)||r===null||r===!1,us={getAdapter:r=>{r=T.isArray(r)?r:[r];let{length:e}=r,t,n,i={};for(let a=0;a<e;a++){t=r[a];let s;if(n=t,!Zg(t)&&(n=Oo[(s=String(t)).toLowerCase()],n===void 0))throw new ve(`Unknown adapter '${s}'`);if(n)break;i[s||"#"+a]=n}if(!n){let a=Object.entries(i).map(([l,y])=>`adapter ${l} `+(y===!1?"is not supported by the environment":"is not available in the build")),s=e?a.length>1?`since :
-`+a.map(sd).join(`
-`):" "+sd(a[0]):"as no adapter specified";throw new ve("There is no suitable adapter to dispatch the request "+s,"ERR_NOT_SUPPORT")}return n},adapters:Oo};"use strict";function No(r){if(r.cancelToken&&r.cancelToken.throwIfRequested(),r.signal&&r.signal.aborted)throw new or(null,r)}function ds(r){return No(r),r.headers=mt.from(r.headers),r.data=Vi.call(r,r.transformRequest),["post","put","patch"].indexOf(r.method)!==-1&&r.headers.setContentType("application/x-www-form-urlencoded",!1),us.getAdapter(r.adapter||ei.adapter)(r).then(function(n){return No(r),n.data=Vi.call(r,r.transformResponse,n),n.headers=mt.from(n.headers),n},function(n){return Ki(n)||(No(r),n&&n.response&&(n.response.data=Vi.call(r,r.transformResponse,n.response),n.response.headers=mt.from(n.response.headers))),Promise.reject(n)})}v();v();var fs="1.7.9";"use strict";var hs={};["object","boolean","number","function","string","symbol"].forEach((r,e)=>{hs[r]=function(n){return typeof n===r||"a"+(e<1?"n ":" ")+r}});var od={};hs.transitional=function(e,t,n){function i(a,s){return"[Axios v"+fs+"] Transitional option '"+a+"'"+s+(n?". "+n:"")}return(a,s,l)=>{if(e===!1)throw new ve(i(s," has been removed"+(t?" in "+t:"")),ve.ERR_DEPRECATED);return t&&!od[s]&&(od[s]=!0,console.warn(i(s," has been deprecated since v"+t+" and will be removed in the near future"))),e?e(a,s,l):!0}};hs.spelling=function(e){return(t,n)=>(console.warn(`${n} is likely a misspelling of ${e}`),!0)};function $g(r,e,t){if(typeof r!="object")throw new ve("options must be an object",ve.ERR_BAD_OPTION_VALUE);let n=Object.keys(r),i=n.length;for(;i-- >0;){let a=n[i],s=e[a];if(s){let l=r[a],y=l===void 0||s(l,a,r);if(y!==!0)throw new ve("option "+a+" must be "+y,ve.ERR_BAD_OPTION_VALUE);continue}if(t!==!0)throw new ve("Unknown option "+a,ve.ERR_BAD_OPTION)}}var $i={assertOptions:$g,validators:hs};"use strict";var lr=$i.validators,Gi=class{constructor(e){this.defaults=e,this.interceptors={request:new ko,response:new ko}}async request(e,t){try{return await this._request(e,t)}catch(n){if(n instanceof Error){let i={};Error.captureStackTrace?Error.captureStackTrace(i):i=new Error;let a=i.stack?i.stack.replace(/^.+\n/,""):"";try{n.stack?a&&!String(n.stack).endsWith(a.replace(/^.+\n.+\n/,""))&&(n.stack+=`
-`+a):n.stack=a}catch{}}throw n}}_request(e,t){typeof e=="string"?(t=t||{},t.url=e):t=e||{},t=Qt(this.defaults,t);let{transitional:n,paramsSerializer:i,headers:a}=t;n!==void 0&&$i.assertOptions(n,{silentJSONParsing:lr.transitional(lr.boolean),forcedJSONParsing:lr.transitional(lr.boolean),clarifyTimeoutError:lr.transitional(lr.boolean)},!1),i!=null&&(T.isFunction(i)?t.paramsSerializer={serialize:i}:$i.assertOptions(i,{encode:lr.function,serialize:lr.function},!0)),$i.assertOptions(t,{baseUrl:lr.spelling("baseURL"),withXsrfToken:lr.spelling("withXSRFToken")},!0),t.method=(t.method||this.defaults.method||"get").toLowerCase();let s=a&&T.merge(a.common,a[t.method]);a&&T.forEach(["delete","get","head","post","put","patch","common"],Z=>{delete a[Z]}),t.headers=mt.concat(s,a);let l=[],y=!0;this.interceptors.request.forEach(function(ne){typeof ne.runWhen=="function"&&ne.runWhen(t)===!1||(y=y&&ne.synchronous,l.unshift(ne.fulfilled,ne.rejected))});let m=[];this.interceptors.response.forEach(function(ne){m.push(ne.fulfilled,ne.rejected)});let b,_=0,G;if(!y){let Z=[ds.bind(this),void 0];for(Z.unshift.apply(Z,l),Z.push.apply(Z,m),G=Z.length,b=Promise.resolve(t);_<G;)b=b.then(Z[_++],Z[_++]);return b}G=l.length;let ae=t;for(_=0;_<G;){let Z=l[_++],ne=l[_++];try{ae=Z(ae)}catch(se){ne.call(this,se);break}}try{b=ds.call(this,ae)}catch(Z){return Promise.reject(Z)}for(_=0,G=m.length;_<G;)b=b.then(m[_++],m[_++]);return b}getUri(e){e=Qt(this.defaults,e);let t=Zi(e.baseURL,e.url);return Di(t,e.params,e.paramsSerializer)}};T.forEach(["delete","get","head","options"],function(e){Gi.prototype[e]=function(t,n){return this.request(Qt(n||{},{method:e,url:t,data:(n||{}).data}))}});T.forEach(["post","put","patch"],function(e){function t(n){return function(a,s,l){return this.request(Qt(l||{},{method:e,headers:n?{"Content-Type":"multipart/form-data"}:{},url:a,data:s}))}}Gi.prototype[e]=t(),Gi.prototype[e+"Form"]=t(!0)});var Yi=Gi;v();"use strict";var ps=class{constructor(e){if(typeof e!="function")throw new TypeError("executor must be a function.");let t;this.promise=new Promise(function(a){t=a});let n=this;this.promise.then(i=>{if(!n._listeners)return;let a=n._listeners.length;for(;a-- >0;)n._listeners[a](i);n._listeners=null}),this.promise.then=i=>{let a,s=new Promise(l=>{n.subscribe(l),a=l}).then(i);return s.cancel=function(){n.unsubscribe(a)},s},e(function(a,s,l){n.reason||(n.reason=new or(a,s,l),t(n.reason))})}throwIfRequested(){if(this.reason)throw this.reason}subscribe(e){if(this.reason){e(this.reason);return}this._listeners?this._listeners.push(e):this._listeners=[e]}unsubscribe(e){if(!this._listeners)return;let t=this._listeners.indexOf(e);t!==-1&&this._listeners.splice(t,1)}toAbortSignal(){let e=new AbortController,t=n=>{e.abort(n)};return this.subscribe(t),e.signal.unsubscribe=()=>this.unsubscribe(t),e.signal}static source(){let e;return{token:new ps(function(i){e=i}),cancel:e}}},ld=ps;v();"use strict";function Lo(r){return function(t){return r.apply(null,t)}}v();"use strict";function Fo(r){return T.isObject(r)&&r.isAxiosError===!0}v();var Wo={Continue:100,SwitchingProtocols:101,Processing:102,EarlyHints:103,Ok:200,Created:201,Accepted:202,NonAuthoritativeInformation:203,NoContent:204,ResetContent:205,PartialContent:206,MultiStatus:207,AlreadyReported:208,ImUsed:226,MultipleChoices:300,MovedPermanently:301,Found:302,SeeOther:303,NotModified:304,UseProxy:305,Unused:306,TemporaryRedirect:307,PermanentRedirect:308,BadRequest:400,Unauthorized:401,PaymentRequired:402,Forbidden:403,NotFound:404,MethodNotAllowed:405,NotAcceptable:406,ProxyAuthenticationRequired:407,RequestTimeout:408,Conflict:409,Gone:410,LengthRequired:411,PreconditionFailed:412,PayloadTooLarge:413,UriTooLong:414,UnsupportedMediaType:415,RangeNotSatisfiable:416,ExpectationFailed:417,ImATeapot:418,MisdirectedRequest:421,UnprocessableEntity:422,Locked:423,FailedDependency:424,TooEarly:425,UpgradeRequired:426,PreconditionRequired:428,TooManyRequests:429,RequestHeaderFieldsTooLarge:431,UnavailableForLegalReasons:451,InternalServerError:500,NotImplemented:501,BadGateway:502,ServiceUnavailable:503,GatewayTimeout:504,HttpVersionNotSupported:505,VariantAlsoNegotiates:506,InsufficientStorage:507,LoopDetected:508,NotExtended:510,NetworkAuthenticationRequired:511};Object.entries(Wo).forEach(([r,e])=>{Wo[e]=r});var cd=Wo;"use strict";function ud(r){let e=new Yi(r),t=Li(Yi.prototype.request,e);return T.extend(t,Yi.prototype,e,{allOwnKeys:!0}),T.extend(t,e,null,{allOwnKeys:!0}),t.create=function(i){return ud(Qt(r,i))},t}var ct=ud(ei);ct.Axios=Yi;ct.CanceledError=or;ct.CancelToken=ld;ct.isCancel=Ki;ct.VERSION=fs;ct.toFormData=zr;ct.AxiosError=ve;ct.Cancel=ct.CanceledError;ct.all=function(e){return Promise.all(e)};ct.spread=Lo;ct.isAxiosError=Fo;ct.mergeConfig=Qt;ct.AxiosHeaders=mt;ct.formToJSON=r=>as(T.isHTMLForm(r)?new FormData(r):r);ct.getAdapter=us.getAdapter;ct.HttpStatusCode=cd;ct.default=ct;var Ji=ct;var Yg=dd().version,ri=d.object({"@type":d.literal("ton.blockIdExt"),workchain:d.number(),shard:d.string(),seqno:d.number(),root_hash:d.string(),file_hash:d.string()}),Jg=d.object({balance:d.union([d.number(),d.string()]),extra_currencies:d.array(d.object({"@type":d.literal("extraCurrency"),id:d.number(),amount:d.string()})),state:d.union([d.literal("active"),d.literal("uninitialized"),d.literal("frozen")]),data:d.string(),code:d.string(),last_transaction_id:d.object({"@type":d.literal("internal.transactionId"),lt:d.string(),hash:d.string()}),block_id:ri,sync_utime:d.number()}),Qg=d.object({"@type":d.literal("ok")}),Xg=d.object({"@type":d.literal("query.fees"),source_fees:d.object({"@type":d.literal("fees"),in_fwd_fee:d.number(),storage_fee:d.number(),gas_fee:d.number(),fwd_fee:d.number()})}),ey=d.object({gas_used:d.number(),exit_code:d.number(),stack:d.array(d.unknown())}),ty=d.union([d.object({"@type":d.literal("msg.dataRaw"),body:d.string()}),d.object({"@type":d.literal("msg.dataText"),text:d.string()}),d.object({"@type":d.literal("msg.dataDecryptedText"),text:d.string()}),d.object({"@type":d.literal("msg.dataEncryptedText"),text:d.string()})]),fd=d.object({source:d.string(),destination:d.string(),value:d.string(),fwd_fee:d.string(),ihr_fee:d.string(),created_lt:d.string(),body_hash:d.string(),msg_data:ty,message:d.string().optional()}),zo=d.object({data:d.string(),utime:d.number(),transaction_id:d.object({lt:d.string(),hash:d.string()}),fee:d.string(),storage_fee:d.string(),other_fee:d.string(),in_msg:d.union([d.undefined(),fd]),out_msgs:d.array(fd)}),hd=d.array(zo),ry=d.object({state_root_hash:d.string(),last:ri,init:ri}),ny=d.object({shards:d.array(ri)}),iy=d.object({"@type":d.literal("blocks.shortTxId"),mode:d.number(),account:d.string(),lt:d.string(),hash:d.string()}),pd=d.object({id:ri,req_count:d.number(),incomplete:d.boolean(),transactions:d.array(iy)}),qo=class{constructor(e,t,n,i){this.namespace=e,this.cache=t,this.codec=n,this.keyEncoder=i}async get(e){let t=await this.cache.get(this.namespace,this.keyEncoder(e));if(t){let n=this.codec.safeParse(JSON.parse(t));if(n.success)return n.data}return null}async set(e,t){t!==null?await this.cache.set(this.namespace,this.keyEncoder(e),JSON.stringify(t)):await this.cache.set(this.namespace,this.keyEncoder(e),null)}},Qi=class{constructor(e,t){this.endpoint=e,this.cache=new po,this.parameters={timeout:t?.timeout||3e4,apiKey:t?.apiKey,adapter:t?.adapter},this.shardCache=new qo("ton-shard",this.cache,d.array(ri),n=>n+""),this.shardLoader=new Do.default(async n=>await Promise.all(n.map(async i=>{let a=await this.shardCache.get(i);if(a)return a;let s=(await this.doCall("shards",{seqno:i},ny)).shards;return await this.shardCache.set(i,s),s}))),this.shardTransactionsCache=new qo("ton-shard-tx",this.cache,pd,n=>n.workchain+":"+n.shard+":"+n.seqno),this.shardTransactionsLoader=new Do.default(async n=>await Promise.all(n.map(async i=>{let a=await this.shardTransactionsCache.get(i);if(a)return a;let s=await this.doCall("getBlockTransactions",{workchain:i.workchain,seqno:i.seqno,shard:i.shard},pd);return await this.shardTransactionsCache.set(i,s),s})),{cacheKeyFn:n=>n.workchain+":"+n.shard+":"+n.seqno})}getAddressInformation(e){return this.doCall("getAddressInformation",{address:e.toString()},Jg)}async getTransactions(e,t){let n=t.inclusive;delete t.inclusive;let i;t.hash&&(i=Buffer.from(t.hash,"base64").toString("hex"));let a=t.limit;t.hash&&t.lt&&n!==!0&&a++;let s=await this.doCall("getTransactions",{address:e.toString(),...t,limit:a,hash:i},hd);return s.length>a&&(s=s.slice(0,a)),t.hash&&t.lt&&n!==!0&&s.shift(),s}async getMasterchainInfo(){return await this.doCall("getMasterchainInfo",{},ry)}async getShards(e){return await this.shardLoader.load(e)}async getBlockTransactions(e,t,n){return await this.shardTransactionsLoader.load({workchain:e,seqno:t,shard:n})}async getTransaction(e,t,n){let i=Buffer.from(n,"base64").toString("hex"),s=(await this.doCall("getTransactions",{address:e.toString(),lt:t,hash:i,limit:1},hd)).find(l=>l.transaction_id.lt===t&&l.transaction_id.hash===n);return s||null}async callGetMethod(e,t,n){return await this.doCall("runGetMethod",{address:e.toString(),method:t,stack:ay(n)},ey)}async sendBoc(e){await this.doCall("sendBoc",{boc:e.toString("base64")},Qg)}async estimateFee(e,t){return await this.doCall("estimateFee",{address:e.toString(),body:t.body.toBoc().toString("base64"),init_data:t.initData?t.initData.toBoc().toString("base64"):"",init_code:t.initCode?t.initCode.toBoc().toString("base64"):"",ignore_chksig:t.ignoreSignature},Xg)}async tryLocateResultTx(e,t,n){return await this.doCall("tryLocateResultTx",{source:e.toString(),destination:t.toString(),created_lt:n},zo)}async tryLocateSourceTx(e,t,n){return await this.doCall("tryLocateSourceTx",{source:e.toString(),destination:t.toString(),created_lt:n},zo)}async doCall(e,t,n){let i={"Content-Type":"application/json","X-Ton-Client-Version":Yg};this.parameters.apiKey&&(i["X-API-Key"]=this.parameters.apiKey);let a=await Ji.post(this.endpoint,JSON.stringify({id:"1",jsonrpc:"2.0",method:e,params:t}),{headers:i,timeout:this.parameters.timeout,adapter:this.parameters.adapter});if(a.status!==200||!a.data.ok)throw Error("Received error: "+JSON.stringify(a.data));let s=n.safeParse(a.data.result);if(s.success)return s.data;throw"error"in s?Error("Malformed response: "+s.error.format()._errors.join(", ")):Error("Malformed response: ")}};function ay(r){let e=[];for(let t of r)if(t.type==="int")e.push(["num",t.value.toString()]);else if(t.type==="cell")e.push(["tvm.Cell",t.cell.toBoc().toString("base64")]);else if(t.type==="slice")e.push(["tvm.Slice",t.cell.toBoc().toString("base64")]);else if(t.type==="builder")e.push(["tvm.Builder",t.cell.toBoc().toString("base64")]);else throw Error("Unsupported stack item type: "+t.type);return e}v();var Le=De(require("@ijstech/ton-core")),Vo=class{constructor(e){this.parameters={endpoint:e.endpoint},this.api=new Qi(this.parameters.endpoint,{timeout:e.timeout,apiKey:e.apiKey,adapter:e.httpAdapter})}async getBalance(e){return(await this.getContractState(e)).balance}async runMethod(e,t,n=[]){let i=await this.api.callGetMethod(e,t,n);if(i.exit_code!==0)throw Error("Unable to execute get method. Got exit_code: "+i.exit_code);return{gas_used:i.gas_used,stack:md(i.stack)}}async callGetMethod(e,t,n=[]){return this.runMethod(e,t,n)}async runMethodWithError(e,t,n=[]){let i=await this.api.callGetMethod(e,t,n);return{gas_used:i.gas_used,stack:md(i.stack),exit_code:i.exit_code}}async callGetMethodWithError(e,t,n=[]){return this.runMethodWithError(e,t,n)}async getTransactions(e,t){let n=await this.api.getTransactions(e,t),i=[];for(let a of n)i.push((0,Le.loadTransaction)(Le.Cell.fromBoc(Buffer.from(a.data,"base64"))[0].beginParse()));return i}async getTransaction(e,t,n){let i=await this.api.getTransaction(e,t,n);return i?(0,Le.loadTransaction)(Le.Cell.fromBoc(Buffer.from(i.data,"base64"))[0].beginParse()):null}async tryLocateResultTx(e,t,n){let i=await this.api.tryLocateResultTx(e,t,n);return(0,Le.loadTransaction)(Le.Cell.fromBase64(i.data).beginParse())}async tryLocateSourceTx(e,t,n){let i=await this.api.tryLocateSourceTx(e,t,n);return(0,Le.loadTransaction)(Le.Cell.fromBase64(i.data).beginParse())}async getMasterchainInfo(){let e=await this.api.getMasterchainInfo();return{workchain:e.init.workchain,shard:e.last.shard,initSeqno:e.init.seqno,latestSeqno:e.last.seqno}}async getWorkchainShards(e){return(await this.api.getShards(e)).map(n=>({workchain:n.workchain,shard:n.shard,seqno:n.seqno}))}async getShardTransactions(e,t,n){let i=await this.api.getBlockTransactions(e,t,n);if(i.incomplete)throw Error("Unsupported");return i.transactions.map(a=>({account:Le.Address.parseRaw(a.account),lt:a.lt,hash:a.hash}))}async sendMessage(e){let t=(0,Le.beginCell)().store((0,Le.storeMessage)(e)).endCell().toBoc();await this.api.sendBoc(t)}async sendFile(e){await this.api.sendBoc(e)}async estimateExternalMessageFee(e,t){return await this.api.estimateFee(e,{body:t.body,initCode:t.initCode,initData:t.initData,ignoreSignature:t.ignoreSignature})}async sendExternalMessage(e,t){if(await this.isContractDeployed(e.address)||!e.init){let n=(0,Le.external)({to:e.address,body:t});await this.sendMessage(n)}else{let n=(0,Le.external)({to:e.address,init:e.init,body:t});await this.sendMessage(n)}}async isContractDeployed(e){return(await this.getContractState(e)).state==="active"}async getContractState(e){let t=await this.api.getAddressInformation(e),n=BigInt(t.balance),i=t.state;return{balance:n,extra_currencies:t.extra_currencies,state:i,code:t.code!==""?Buffer.from(t.code,"base64"):null,data:t.data!==""?Buffer.from(t.data,"base64"):null,lastTransaction:t.last_transaction_id.lt!=="0"?{lt:t.last_transaction_id.lt,hash:t.last_transaction_id.hash}:null,blockId:{workchain:t.block_id.workchain,shard:t.block_id.shard,seqno:t.block_id.seqno},timestampt:t.sync_utime}}open(e){return(0,Le.openContract)(e,t=>Ko(this,t.address,t.init))}provider(e,t){return Ko(this,e,t??null)}};function ln(r){let e=r["@type"];switch(e){case"tvm.list":case"tvm.tuple":return r.elements.map(ln);case"tvm.cell":return Le.Cell.fromBoc(Buffer.from(r.bytes,"base64"))[0];case"tvm.slice":return Le.Cell.fromBoc(Buffer.from(r.bytes,"base64"))[0];case"tvm.stackEntryCell":return ln(r.cell);case"tvm.stackEntrySlice":return ln(r.slice);case"tvm.stackEntryTuple":return ln(r.tuple);case"tvm.stackEntryList":return ln(r.list);case"tvm.stackEntryNumber":return ln(r.number);case"tvm.numberDecimal":return BigInt(r.number);default:throw Error("Unsupported item type: "+e)}}function sy(r){if(r[0]==="num"){let e=r[1];return e.startsWith("-")?{type:"int",value:-BigInt(e.slice(1))}:{type:"int",value:BigInt(e)}}else{if(r[0]==="null")return{type:"null"};if(r[0]==="cell")return{type:"cell",cell:Le.Cell.fromBoc(Buffer.from(r[1].bytes,"base64"))[0]};if(r[0]==="slice")return{type:"slice",cell:Le.Cell.fromBoc(Buffer.from(r[1].bytes,"base64"))[0]};if(r[0]==="builder")return{type:"builder",cell:Le.Cell.fromBoc(Buffer.from(r[1].bytes,"base64"))[0]};if(r[0]==="tuple"||r[0]==="list")return r[1].elements.length===0?{type:"null"}:{type:"tuple",items:r[1].elements.map(ln)};throw Error("Unsupported stack item type: "+r[0])}}function md(r){let e=[];for(let t of r)e.push(sy(t));return new Le.TupleReader(e)}function Ko(r,e,t){return{async getState(){let n=await r.getContractState(e),i=n.balance,a=n.lastTransaction?{lt:BigInt(n.lastTransaction.lt),hash:Buffer.from(n.lastTransaction.hash,"base64")}:null,s=null,l;if(n.state==="active")l={type:"active",code:n.code?n.code:null,data:n.data?n.data:null};else if(n.state==="uninitialized")l={type:"uninit"};else if(n.state==="frozen")l={type:"frozen",stateHash:Buffer.alloc(0)};else throw Error("Unsupported state");if(n.extra_currencies.length>0){s={};for(let y of n.extra_currencies)s[y.id]=BigInt(y.amount)}return{balance:i,extracurrency:s,last:a,state:l}},async get(n,i){if(typeof n!="string")throw new Error("Method name must be a string for TonClient provider");return{stack:(await r.runMethod(e,n,i)).stack}},async external(n){let i=null;t&&!await r.isContractDeployed(e)&&(i=t);let a=(0,Le.external)({to:e,init:i,body:n}),s=(0,Le.beginCell)().store((0,Le.storeMessage)(a)).endCell().toBoc();await r.sendFile(s)},async internal(n,i){let a=null;t&&!await r.isContractDeployed(e)&&(a=t);let s=!0;i.bounce!==null&&i.bounce!==void 0&&(s=i.bounce);let l;typeof i.value=="string"?l=(0,Le.toNano)(i.value):l=i.value;let y=null;typeof i.body=="string"?y=(0,Le.comment)(i.body):i.body&&(y=i.body),await n.send({to:e,value:l,bounce:s,sendMode:i.sendMode,extracurrency:i.extracurrency,init:a,body:y})},open(n){return(0,Le.openContract)(n,i=>Ko(r,i.address,i.init??null))},getTransactions(n,i,a,s){return r.getTransactions(n,{limit:s??100,lt:i.toString(),hash:a.toString("base64"),inclusive:!0})}}}v();var et=De(require("@ijstech/ton-core"));v();function ms(r){for(;r.indexOf("/")>=0;)r=r.replace("/","_");for(;r.indexOf("+")>=0;)r=r.replace("+","-");for(;r.indexOf("=")>=0;)r=r.replace("=","");return r}var Ho=class{#t;#r;#n;#e;constructor(e){this.#e=Ji.create(),this.#t=e.endpoint,this.#r=e.timeout||5e3,this.#n=e.httpAdapter,e.requestInterceptor&&this.#e.interceptors.request.use(e.requestInterceptor)}async getLastBlock(){let e=await this.#e.get(this.#t+"/block/latest",{adapter:this.#n,timeout:this.#r}),t=oy.safeParse(e.data);if(!t.success)throw Error("Mailformed response: "+t.error.format()._errors.join(", "));return t.data}async getBlock(e){let t=await this.#e.get(this.#t+"/block/"+e,{adapter:this.#n,timeout:this.#r}),n=gd.safeParse(t.data);if(!n.success)throw Error("Mailformed response");if(!n.data.exist)throw Error("Block is out of scope");return n.data.block}async getBlockByUtime(e){let t=await this.#e.get(this.#t+"/block/utime/"+e,{adapter:this.#n,timeout:this.#r}),n=gd.safeParse(t.data);if(!n.success)throw Error("Mailformed response");if(!n.data.exist)throw Error("Block is out of scope");return n.data.block}async getAccount(e,t){let n=await this.#e.get(this.#t+"/block/"+e+"/"+t.toString({urlSafe:!0}),{adapter:this.#n,timeout:this.#r}),i=ly.safeParse(n.data);if(!i.success)throw Error("Mailformed response");return i.data}async getAccountLite(e,t){let n=await this.#e.get(this.#t+"/block/"+e+"/"+t.toString({urlSafe:!0})+"/lite",{adapter:this.#n,timeout:this.#r}),i=cy.safeParse(n.data);if(!i.success)throw Error("Mailformed response");return i.data}async isContractDeployed(e,t){return(await this.getAccountLite(e,t)).account.state.type==="active"}async isAccountChanged(e,t,n){let i=await this.#e.get(this.#t+"/block/"+e+"/"+t.toString({urlSafe:!0})+"/changed/"+n.toString(10),{adapter:this.#n,timeout:this.#r}),a=uy.safeParse(i.data);if(!a.success)throw Error("Mailformed response");return a.data}async getAccountTransactions(e,t,n){let i=await this.#e.get(this.#t+"/account/"+e.toString({urlSafe:!0})+"/tx/"+t.toString(10)+"/"+ms(n.toString("base64")),{adapter:this.#n,timeout:this.#r}),a=py.safeParse(i.data);if(!a.success)throw Error("Mailformed response");let s=a.data,l=[],y=et.Cell.fromBoc(Buffer.from(s.boc,"base64"));for(let m=0;m<s.blocks.length;m++)l.push({block:s.blocks[m],tx:(0,et.loadTransaction)(y[m].beginParse())});return l}async getAccountTransactionsParsed(e,t,n,i=20){let a=await this.#e.get(this.#t+"/account/"+e.toString({urlSafe:!0})+"/tx/parsed/"+t.toString(10)+"/"+ms(n.toString("base64")),{adapter:this.#n,timeout:this.#r,params:{count:i}}),s=Ay.safeParse(a.data);if(!s.success)throw Error("Mailformed response");return s.data}async getConfig(e,t){let n="";t&&t.length>0&&(n="/"+[...t].sort().join(","));let i=await this.#e.get(this.#t+"/block/"+e+"/config"+n,{adapter:this.#n,timeout:this.#r}),a=fy.safeParse(i.data);if(!a.success)throw Error("Mailformed response");return a.data}async runMethod(e,t,n,i){let a=i&&i.length>0?"/"+ms((0,et.serializeTuple)(i).toBoc({idx:!1,crc32:!1}).toString("base64")):"",s=this.#t+"/block/"+e+"/"+t.toString({urlSafe:!0})+"/run/"+encodeURIComponent(n)+a,l=await this.#e.get(s,{adapter:this.#n,timeout:this.#r}),y=dy.safeParse(l.data);if(!y.success)throw Error("Mailformed response");let m=y.data.resultRaw?(0,et.parseTuple)(et.Cell.fromBoc(Buffer.from(y.data.resultRaw,"base64"))[0]):[];return{exitCode:y.data.exitCode,result:m,resultRaw:y.data.resultRaw,block:y.data.block,shardBlock:y.data.shardBlock,reader:new et.TupleReader(m)}}async sendMessage(e){let t=await this.#e.post(this.#t+"/send",{boc:e.toString("base64")},{adapter:this.#n,timeout:this.#r});if(!hy.safeParse(t.data).success)throw Error("Mailformed response");return{status:t.data.status}}open(e){return(0,et.openContract)(e,t=>Xi(this,null,t.address,t.init))}openAt(e,t){return(0,et.openContract)(t,n=>Xi(this,e,n.address,n.init))}provider(e,t){return Xi(this,null,e,t??null)}providerAt(e,t,n){return Xi(this,e,t,n??null)}};function Xi(r,e,t,n){return{async getState(){let i=e;i===null&&(i=(await r.getLastBlock()).last.seqno);let a=await r.getAccount(i,t),s=a.account.last?{lt:BigInt(a.account.last.lt),hash:Buffer.from(a.account.last.hash,"base64")}:null,l;if(a.account.state.type==="active")l={type:"active",code:a.account.state.code?Buffer.from(a.account.state.code,"base64"):null,data:a.account.state.data?Buffer.from(a.account.state.data,"base64"):null};else if(a.account.state.type==="uninit")l={type:"uninit"};else if(a.account.state.type==="frozen")l={type:"frozen",stateHash:Buffer.from(a.account.state.stateHash,"base64")};else throw Error("Unsupported state");let y=null;if(a.account.balance.currencies){y={};let m=a.account.balance.currencies;for(let[b,_]of Object.entries(m))y[Number(b)]=BigInt(_)}return{balance:BigInt(a.account.balance.coins),extracurrency:y,last:s,state:l}},async get(i,a){if(typeof i!="string")throw new Error("Method name must be a string for TonClient4 provider");let s=e;s===null&&(s=(await r.getLastBlock()).last.seqno);let l=await r.runMethod(s,t,i,a);if(l.exitCode!==0&&l.exitCode!==1)throw Error("Exit code: "+l.exitCode);return{stack:new et.TupleReader(l.result)}},async external(i){let a=await r.getLastBlock(),s=null;n&&(await r.getAccountLite(a.last.seqno,t)).account.state.type!=="active"&&(s=n);let l=(0,et.external)({to:t,init:s,body:i}),y=(0,et.beginCell)().store((0,et.storeMessage)(l)).endCell().toBoc();await r.sendMessage(y)},async internal(i,a){let s=await r.getLastBlock(),l=null;n&&(await r.getAccountLite(s.last.seqno,t)).account.state.type!=="active"&&(l=n);let y=!0;a.bounce!==null&&a.bounce!==void 0&&(y=a.bounce);let m;typeof a.value=="string"?m=(0,et.toNano)(a.value):m=a.value;let b=null;typeof a.body=="string"?b=(0,et.comment)(a.body):a.body&&(b=a.body),await i.send({to:t,value:m,extracurrency:a.extracurrency,bounce:y,sendMode:a.sendMode,init:l,body:b})},open(i){return(0,et.openContract)(i,a=>Xi(r,e,a.address,a.init??null))},async getTransactions(i,a,s,l){let y=typeof l=="number";if(y&&l<=0)return[];let m=[];do{let b=await r.getAccountTransactions(i,a,s),_=b[0].tx,[G,ae]=[_.lt,_.hash()];if(m.length>0&&G===a&&ae.equals(s)&&b.shift(),b.length===0)break;let ne=b[b.length-1].tx,[se,Ze]=[ne.lt,ne.hash()];if(se===a&&Ze.equals(s))break;m.push(...b.map(Je=>Je.tx)),a=se,s=Ze}while(y&&m.length<l);return y&&(m=m.slice(0,l)),m}}}var oy=d.object({last:d.object({seqno:d.number(),shard:d.string(),workchain:d.number(),fileHash:d.string(),rootHash:d.string()}),init:d.object({fileHash:d.string(),rootHash:d.string()}),stateRootHash:d.string(),now:d.number()}),gd=d.union([d.object({exist:d.literal(!1)}),d.object({exist:d.literal(!0),block:d.object({shards:d.array(d.object({workchain:d.number(),seqno:d.number(),shard:d.string(),rootHash:d.string(),fileHash:d.string(),transactions:d.array(d.object({account:d.string(),hash:d.string(),lt:d.string()}))}))})})]),yd=d.object({lastPaid:d.number(),duePayment:d.union([d.null(),d.string()]),used:d.object({bits:d.number(),cells:d.number(),publicCells:d.number()})}),ly=d.object({account:d.object({state:d.union([d.object({type:d.literal("uninit")}),d.object({type:d.literal("active"),code:d.union([d.string(),d.null()]),data:d.union([d.string(),d.null()])}),d.object({type:d.literal("frozen"),stateHash:d.string()})]),balance:d.object({coins:d.string(),currencies:d.record(d.string(),d.string())}),last:d.union([d.null(),d.object({lt:d.string(),hash:d.string()})]),storageStat:d.union([d.null(),yd])}),block:d.object({workchain:d.number(),seqno:d.number(),shard:d.string(),rootHash:d.string(),fileHash:d.string()})}),cy=d.object({account:d.object({state:d.union([d.object({type:d.literal("uninit")}),d.object({type:d.literal("active"),codeHash:d.string(),dataHash:d.string()}),d.object({type:d.literal("frozen"),stateHash:d.string()})]),balance:d.object({coins:d.string(),currencies:d.record(d.string(),d.string())}),last:d.union([d.null(),d.object({lt:d.string(),hash:d.string()})]),storageStat:d.union([d.null(),yd])})}),uy=d.object({changed:d.boolean(),block:d.object({workchain:d.number(),seqno:d.number(),shard:d.string(),rootHash:d.string(),fileHash:d.string()})}),dy=d.object({exitCode:d.number(),resultRaw:d.union([d.string(),d.null()]),block:d.object({workchain:d.number(),seqno:d.number(),shard:d.string(),rootHash:d.string(),fileHash:d.string()}),shardBlock:d.object({workchain:d.number(),seqno:d.number(),shard:d.string(),rootHash:d.string(),fileHash:d.string()})}),fy=d.object({config:d.object({cell:d.string(),address:d.string(),globalBalance:d.object({coins:d.string()})})}),hy=d.object({status:d.number()}),bd=d.array(d.object({workchain:d.number(),seqno:d.number(),shard:d.string(),rootHash:d.string(),fileHash:d.string()})),py=d.object({blocks:bd,boc:d.string()}),wd=d.object({bits:d.number(),data:d.string()}),my=d.union([d.object({type:d.literal("internal"),value:d.string(),dest:d.string(),src:d.string(),bounced:d.boolean(),bounce:d.boolean(),ihrDisabled:d.boolean(),createdAt:d.number(),createdLt:d.string(),fwdFee:d.string(),ihrFee:d.string()}),d.object({type:d.literal("external-in"),dest:d.string(),src:d.union([wd,d.null()]),importFee:d.string()}),d.object({type:d.literal("external-out"),dest:d.union([wd,d.null()])})]),gy=d.object({splitDepth:d.union([d.number(),d.null()]),code:d.union([d.string(),d.null()]),data:d.union([d.string(),d.null()]),special:d.union([d.object({tick:d.boolean(),tock:d.boolean()}),d.null()])}),vd=d.object({body:d.string(),info:my,init:d.union([gy,d.null()])}),xd=d.union([d.literal("uninitialized"),d.literal("frozen"),d.literal("active"),d.literal("non-existing")]),yy=d.union([d.object({type:d.literal("comment"),comment:d.string()}),d.object({type:d.literal("payload"),cell:d.string()})]),by=d.union([d.object({kind:d.literal("ton"),amount:d.string()}),d.object({kind:d.literal("token"),amount:d.string()})]),wy=d.union([d.literal("jetton::excesses"),d.literal("jetton::transfer"),d.literal("jetton::transfer_notification"),d.literal("deposit"),d.literal("deposit::ok"),d.literal("withdraw"),d.literal("withdraw::all"),d.literal("withdraw::delayed"),d.literal("withdraw::ok"),d.literal("airdrop")]),vy=d.object({type:wy,options:d.optional(d.record(d.string()))}),xy=d.object({address:d.string(),comment:d.optional(d.string()),items:d.array(by),op:d.optional(vy)}),ky=d.object({address:d.string(),lt:d.string(),hash:d.string(),prevTransaction:d.object({lt:d.string(),hash:d.string()}),time:d.number(),outMessagesCount:d.number(),oldStatus:xd,newStatus:xd,fees:d.string(),update:d.object({oldHash:d.string(),newHash:d.string()}),inMessage:d.union([vd,d.null()]),outMessages:d.array(vd),parsed:d.object({seqno:d.union([d.number(),d.null()]),body:d.union([yy,d.null()]),status:d.union([d.literal("success"),d.literal("failed"),d.literal("pending")]),dest:d.union([d.string(),d.null()]),kind:d.union([d.literal("out"),d.literal("in")]),amount:d.string(),resolvedAddress:d.string(),bounced:d.boolean(),mentioned:d.array(d.string())}),operation:xy}),Ay=d.object({blocks:bd,transactions:d.array(ky)});v();var Xt=De(require("@ijstech/ton-core"));v();var ot=De(require("@ijstech/ton-core")),rl=De(Xr());v();var bt=De(require("@ijstech/ton-core"));v();var Zo=De(require("@ijstech/ton-core")),Sy={v5:0};function $o(r){return e=>{e.storeInt(r.networkGlobalId,32),e.storeInt(r.workchain,8),e.storeUint(Sy[r.walletVersion],8),e.storeUint(r.subwalletNumber,32)}}var Go=class{constructor(e,t){this.walletId=e;this.publicKey=t;this.walletId=e;let n=bt.Cell.fromBoc(Buffer.from("te6cckEBAQEAIwAIQgLkzzsvTG1qYeoPK1RH0mZ4WyavNjfbLe7mvNGqgm80Eg3NjhE=","base64"))[0],i=(0,bt.beginCell)().storeInt(0,33).store($o(this.walletId)).storeBuffer(this.publicKey,32).storeBit(0).endCell();this.init={code:n,data:i},this.address=(0,bt.contractAddress)(this.walletId.workchain,{code:n,data:i})}static create(e){let t={networkGlobalId:e.walletId?.networkGlobalId??-239,workchain:e?.walletId?.workchain??0,subwalletNumber:e?.walletId?.subwalletNumber??0,walletVersion:e?.walletId?.walletVersion??"v5"};return new Go(t,e.publicKey)}async getBalance(e){return(await e.getState()).balance}async getSeqno(e){return(await e.getState()).state.type==="active"?(await e.get("seqno",[])).stack.readNumber():0}async getExtensions(e){return(await e.getState()).state.type==="active"?(await e.get("get_extensions",[])).stack.readCellOpt():null}async getExtensionsArray(e){let t=await this.getExtensions(e);if(!t)return[];let n=bt.Dictionary.loadDirect(bt.Dictionary.Keys.BigUint(256),bt.Dictionary.Values.BigInt(8),t);return n.keys().map(i=>{let a=n.get(i),s=i^a+1n;return bt.Address.parseRaw(`${a}:${s.toString(16).padStart(64,"0")}`)})}async getIsSecretKeyAuthEnabled(e){return(await e.get("get_is_signature_auth_allowed",[])).stack.readNumber()!==0}async send(e,t){await e.external(t)}async sendTransfer(e,t){let n=await this.createTransfer(t);await this.send(e,n)}async sendAddExtension(e,t){let n=await this.createAddExtension(t);await this.send(e,n)}async sendRemoveExtension(e,t){let n=await this.createRemoveExtension(t);await this.send(e,n)}async sendActionsBatch(e,t){let n=await this.createRequest(t);await this.send(e,n)}createActions(e){return e.messages.map(n=>({type:"sendMsg",mode:e.sendMode,outMsg:n}))}createTransfer(e){return this.createRequest({...e,actions:this.createActions({messages:e.messages,sendMode:e.sendMode})})}createAddExtension(e){return this.createRequest({...e,actions:[{type:"addExtension",address:e.extensionAddress}]})}createRemoveExtension(e){return this.createRequest({...e,actions:[{type:"removeExtension",address:e.extensionAddress}]})}createRequest(e){return e.authType==="extension"?Yo(e):Yo({...e,walletId:$o(this.walletId)})}sender(e,t){return{send:async n=>{let i=await this.getSeqno(e),a=this.createTransfer({seqno:i,secretKey:t,sendMode:n.sendMode??bt.SendMode.PAY_GAS_SEPARATELY+bt.SendMode.IGNORE_ERRORS,messages:[(0,bt.internal)({to:n.to,value:n.value,extracurrency:n.extracurrency,init:n.init,body:n.body,bounce:n.bounce})]});await this.send(e,a)}}}},qr=Go;qr.OpCodes={auth_extension:1702392942,auth_signed_external:1936287598,auth_signed_internal:1936289396};v();var ii=De(require("@ijstech/ton-core"));v();function ni(r){return r.type==="setIsPublicKeyEnabled"||r.type==="addExtension"||r.type==="removeExtension"}function kd(r){return!ni(r)}var _y=550222170;function Cy(r){return e=>{e.storeUint(_y,32).storeUint(r.isEnabled?1:0,1)}}var Ey=474012575;function By(r){return e=>{e.storeUint(Ey,32).storeAddress(r.address)}}var Ty=1588524196;function Ry(r){return e=>{e.storeUint(Ty,32).storeAddress(r.address)}}function Iy(r){switch(r.type){case"setIsPublicKeyEnabled":return Cy(r);case"addExtension":return By(r);case"removeExtension":return Ry(r);default:throw new Error("Unknown action type"+r?.type)}}function gs(r){let[e,...t]=r;if(!e||!ni(e)){if(r.some(ni))throw new Error("Can't serialize actions list: all extended actions must be placed before out actions");return n=>{n.storeUint(0,1).storeRef((0,ii.beginCell)().store((0,ii.storeOutList)(r)).endCell())}}return n=>{n.storeUint(1,1).store(Iy(e)).storeRef((0,ii.beginCell)().store(gs(t)).endCell())}}v();var Ad=De(Xr());function ea(r,e,t){return"secretKey"in r?t((0,Ad.sign)(e.endCell().hash(),r.secretKey),e):r.signer(e.endCell()).then(n=>t(n,e))}v();var wt=De(require("@ijstech/ton-core"));v();var ai=De(require("@ijstech/ton-core"));function Jo(r){return typeof r!="number"}var Py={v5r1:0};function Qo(r){return e=>{let t;return Jo(r.context)?t=(0,ai.beginCell)().storeUint(1,1).storeInt(r.context.workchain,8).storeUint(Py[r.context.walletVersion],8).storeUint(r.context.subwalletNumber,15).endCell().beginParse().loadInt(32):t=(0,ai.beginCell)().storeUint(0,1).storeUint(r.context,31).endCell().beginParse().loadInt(32),e.storeInt(BigInt(r.networkGlobalId)^BigInt(t),32)}}var Xo=class{constructor(e,t,n){this.publicKey=t;this.walletId=n;this.walletId=n;let i=wt.Cell.fromBoc(Buffer.from("b5ee9c7241021401000281000114ff00f4a413f4bcf2c80b01020120020d020148030402dcd020d749c120915b8f6320d70b1f2082106578746ebd21821073696e74bdb0925f03e082106578746eba8eb48020d72101d074d721fa4030fa44f828fa443058bd915be0ed44d0810141d721f4058307f40e6fa1319130e18040d721707fdb3ce03120d749810280b99130e070e2100f020120050c020120060902016e07080019adce76a2684020eb90eb85ffc00019af1df6a2684010eb90eb858fc00201480a0b0017b325fb51341c75c875c2c7e00011b262fb513435c280200019be5f0f6a2684080a0eb90fa02c0102f20e011e20d70b1f82107369676ebaf2e08a7f0f01e68ef0eda2edfb218308d722028308d723208020d721d31fd31fd31fed44d0d200d31f20d31fd3ffd70a000af90140ccf9109a28945f0adb31e1f2c087df02b35007b0f2d0845125baf2e0855036baf2e086f823bbf2d0882292f800de01a47fc8ca00cb1f01cf16c9ed542092f80fde70db3cd81003f6eda2edfb02f404216e926c218e4c0221d73930709421c700b38e2d01d72820761e436c20d749c008f2e09320d74ac002f2e09320d71d06c712c2005230b0f2d089d74cd7393001a4e86c128407bbf2e093d74ac000f2e093ed55e2d20001c000915be0ebd72c08142091709601d72c081c12e25210b1e30f20d74a111213009601fa4001fa44f828fa443058baf2e091ed44d0810141d718f405049d7fc8ca0040048307f453f2e08b8e14038307f45bf2e08c22d70a00216e01b3b0f2d090e2c85003cf1612f400c9ed54007230d72c08248e2d21f2e092d200ed44d0d2005113baf2d08f54503091319c01810140d721d70a00f2e08ee2c8ca0058cf16c9ed5493f2c08de20010935bdb31e1d74cd0b4d6c35e","hex"))[0],a=(0,wt.beginCell)().storeUint(1,1).storeUint(0,32).store(Qo(this.walletId)).storeBuffer(this.publicKey,32).storeBit(0).endCell();this.init={code:i,data:a},this.address=(0,wt.contractAddress)(e,{code:i,data:a})}static create(e){let t=0;return"workchain"in e&&e.workchain!=null&&(t=e.workchain),e.walletId?.context&&Jo(e.walletId.context)&&e.walletId.context.workchain!=null&&(t=e.walletId.context.workchain),new Xo(t,e.publicKey,{networkGlobalId:e.walletId?.networkGlobalId??-239,context:e.walletId?.context??{workchain:0,walletVersion:"v5r1",subwalletNumber:0}})}async getBalance(e){return(await e.getState()).balance}async getSeqno(e){return(await e.getState()).state.type==="active"?(await e.get("seqno",[])).stack.readNumber():0}async getExtensions(e){return(await e.getState()).state.type==="active"?(await e.get("get_extensions",[])).stack.readCellOpt():null}async getExtensionsArray(e){let t=await this.getExtensions(e);return t?wt.Dictionary.loadDirect(wt.Dictionary.Keys.BigUint(256),wt.Dictionary.Values.BigInt(1),t).keys().map(i=>{let a=this.address.workChain;return wt.Address.parseRaw(`${a}:${i.toString(16).padStart(64,"0")}`)}):[]}async getIsSecretKeyAuthEnabled(e){return(await e.get("is_signature_allowed",[])).stack.readBoolean()}async send(e,t){await e.external(t)}async sendTransfer(e,t){let n=await this.createTransfer(t);await this.send(e,n)}async sendAddExtension(e,t){let n=await this.createAddExtension(t);await this.send(e,n)}async sendRemoveExtension(e,t){let n=await this.createRemoveExtension(t);await this.send(e,n)}createActions(e){return e.messages.map(n=>({type:"sendMsg",mode:e.sendMode,outMsg:n}))}createTransfer(e){return this.createRequest({actions:this.createActions({messages:e.messages,sendMode:e.sendMode}),...e})}createAddExtension(e){return this.createRequest({actions:[{type:"addExtension",address:e.extensionAddress}],...e})}createRemoveExtension(e){return this.createRequest({actions:[{type:"removeExtension",address:e.extensionAddress}],...e})}createRequest(e){return e.authType==="extension"?el(e):el({...e,walletId:Qo(this.walletId)})}sender(e,t){return{send:async n=>{let i=await this.getSeqno(e),a=this.createTransfer({seqno:i,secretKey:t,sendMode:n.sendMode??wt.SendMode.PAY_GAS_SEPARATELY+wt.SendMode.IGNORE_ERRORS,messages:[(0,wt.internal)({to:n.to,value:n.value,extracurrency:n.extracurrency,init:n.init,body:n.body,bounce:n.bounce})]});await this.send(e,a)}}}},Vr=Xo;Vr.OpCodes={auth_extension:1702392942,auth_signed_external:1936287598,auth_signed_internal:1936289396};v();var Kr=De(require("@ijstech/ton-core"));var My=4;function jy(r){return e=>{e.storeUint(My,8).storeUint(r.isEnabled?1:0,1)}}var Uy=2;function Oy(r){return e=>{e.storeUint(Uy,8).storeAddress(r.address)}}var Ny=3;function Ly(r){return e=>{e.storeUint(Ny,8).storeAddress(r.address)}}function Sd(r){switch(r.type){case"setIsPublicKeyEnabled":return jy(r);case"addExtension":return Oy(r);case"removeExtension":return Ly(r);default:throw new Error("Unknown action type"+r?.type)}}function tl(r){let e=r.filter(ni),t=r.filter(kd);return n=>{let i=t.length?(0,Kr.beginCell)().store((0,Kr.storeOutList)(t.slice().reverse())):null;if(n.storeMaybeRef(i),e.length===0)n.storeUint(0,1);else{let[a,...s]=e;n.storeUint(1,1).store(Sd(a)),s.length>0&&n.storeRef(_d(s))}}}function _d(r){let[e,...t]=r,n=(0,Kr.beginCell)().store(Sd(e));return t.length>0&&(n=n.storeRef(_d(t))),n.endCell()}function Fy(r,e){return e==="internal"||e==="extension"?r:r|Kr.SendMode.IGNORE_ERRORS}function Cd(r,e){return r.map(t=>t.type==="sendMsg"?{...t,mode:Fy(t.mode,e)}:t)}function Ed(r,e){return(0,ot.beginCell)().storeBuffer(r).storeBuilder(e).endCell()}function Bd(r,e){return(0,ot.beginCell)().storeBuilder(e).storeBuffer(r).endCell()}function si(r){let e=(0,ot.beginCell)().storeUint(r.seqno,32);r.message&&(e.storeUint(r.sendMode,8),e.storeRef((0,ot.beginCell)().store((0,ot.storeMessageRelaxed)(r.message))));let t=(0,rl.sign)(e.endCell().hash(),r.secretKey);return(0,ot.beginCell)().storeBuffer(t).storeBuilder(e).endCell()}function ys(r){if(r.messages.length>4)throw Error("Maximum number of messages in a single transfer is 4");let e=(0,ot.beginCell)().storeUint(r.seqno,32);if(r.seqno===0)for(let i=0;i<32;i++)e.storeBit(1);else e.storeUint(r.timeout||Math.floor(Date.now()/1e3)+60,32);for(let i of r.messages)e.storeUint(r.sendMode,8),e.storeRef((0,ot.beginCell)().store((0,ot.storeMessageRelaxed)(i)));let t=(0,rl.sign)(e.endCell().hash(),r.secretKey);return(0,ot.beginCell)().storeBuffer(t).storeBuilder(e).endCell()}function bs(r){if(r.messages.length>4)throw Error("Maximum number of messages in a single transfer is 4");let e=(0,ot.beginCell)().storeUint(r.walletId,32);if(r.seqno===0)for(let t=0;t<32;t++)e.storeBit(1);else e.storeUint(r.timeout||Math.floor(Date.now()/1e3)+60,32);e.storeUint(r.seqno,32);for(let t of r.messages)e.storeUint(r.sendMode,8),e.storeRef((0,ot.beginCell)().store((0,ot.storeMessageRelaxed)(t)));return ea(r,e,Ed)}function Td(r){if(r.messages.length>4)throw Error("Maximum number of messages in a single transfer is 4");let e=(0,ot.beginCell)().storeUint(r.walletId,32);if(r.seqno===0)for(let t=0;t<32;t++)e.storeBit(1);else e.storeUint(r.timeout||Math.floor(Date.now()/1e3)+60,32);e.storeUint(r.seqno,32),e.storeUint(0,8);for(let t of r.messages)e.storeUint(r.sendMode,8),e.storeRef((0,ot.beginCell)().store((0,ot.storeMessageRelaxed)(t)));return ea(r,e,Ed)}function Yo(r){if(r.actions.length>255)throw Error("Maximum number of OutActions in a single request is 255");if(r.authType==="extension")return(0,ot.beginCell)().storeUint(qr.OpCodes.auth_extension,32).store(gs(r.actions)).endCell();let e=(0,ot.beginCell)().storeUint(r.authType==="internal"?qr.OpCodes.auth_signed_internal:qr.OpCodes.auth_signed_external,32).store(r.walletId);if(r.seqno===0)for(let t=0;t<32;t++)e.storeBit(1);else e.storeUint(r.timeout||Math.floor(Date.now()/1e3)+60,32);return e.storeUint(r.seqno,32).store(gs(r.actions)),ea(r,e,Bd)}function el(r){if(r.actions.length>255)throw Error("Maximum number of OutActions in a single request is 255");if(r={...r},r.authType==="extension")return(0,ot.beginCell)().storeUint(Vr.OpCodes.auth_extension,32).storeUint(r.queryId??0,64).store(tl(r.actions)).endCell();r.actions=Cd(r.actions,r.authType);let e=(0,ot.beginCell)().storeUint(r.authType==="internal"?Vr.OpCodes.auth_signed_internal:Vr.OpCodes.auth_signed_external,32).store(r.walletId);if(r.seqno===0)for(let t=0;t<32;t++)e.storeBit(1);else e.storeUint(r.timeout||Math.floor(Date.now()/1e3)+60,32);return e.storeUint(r.seqno,32).store(tl(r.actions)),ea(r,e,Bd)}var ta=class{static create(e){return new ta(e.workchain,e.publicKey)}constructor(e,t){this.workchain=e,this.publicKey=t;let n=Xt.Cell.fromBoc(Buffer.from("te6cckEBAQEARAAAhP8AIN2k8mCBAgDXGCDXCx/tRNDTH9P/0VESuvKhIvkBVBBE+RDyovgAAdMfMSDXSpbTB9QC+wDe0aTIyx/L/8ntVEH98Ik=","base64"))[0],i=(0,Xt.beginCell)().storeUint(0,32).storeBuffer(t).endCell();this.init={code:n,data:i},this.address=(0,Xt.contractAddress)(e,{code:n,data:i})}async getBalance(e){return(await e.getState()).balance}async getSeqno(e){let t=await e.getState();return t.state.type==="active"?Xt.Cell.fromBoc(t.state.data)[0].beginParse().loadUint(32):0}async send(e,t){await e.external(t)}async sendTransfer(e,t){let n=this.createTransfer(t);await this.send(e,n)}createTransfer(e){let t=Xt.SendMode.PAY_GAS_SEPARATELY;return e.sendMode!==null&&e.sendMode!==void 0&&(t=e.sendMode),si({seqno:e.seqno,sendMode:t,secretKey:e.secretKey,message:e.message})}sender(e,t){return{send:async n=>{let i=await this.getSeqno(e),a=this.createTransfer({seqno:i,secretKey:t,sendMode:n.sendMode,message:(0,Xt.internal)({to:n.to,value:n.value,extracurrency:n.extracurrency,init:n.init,body:n.body,bounce:n.bounce})});await this.send(e,a)}}}};v();var cr=De(require("@ijstech/ton-core"));var ra=class{static create(e){return new ra(e.workchain,e.publicKey)}constructor(e,t){this.workchain=e,this.publicKey=t;let n=cr.Cell.fromBoc(Buffer.from("te6cckEBAQEAUwAAov8AIN0gggFMl7qXMO1E0NcLH+Ck8mCBAgDXGCDXCx/tRNDTH9P/0VESuvKhIvkBVBBE+RDyovgAAdMfMSDXSpbTB9QC+wDe0aTIyx/L/8ntVNDieG8=","base64"))[0],i=(0,cr.beginCell)().storeUint(0,32).storeBuffer(t).endCell();this.init={code:n,data:i},this.address=(0,cr.contractAddress)(e,{code:n,data:i})}async getBalance(e){return(await e.getState()).balance}async getSeqno(e){return(await e.getState()).state.type==="active"?(await e.get("seqno",[])).stack.readNumber():0}async send(e,t){await e.external(t)}async sendTransfer(e,t){let n=this.createTransfer(t);await this.send(e,n)}createTransfer(e){let t=cr.SendMode.PAY_GAS_SEPARATELY;return e.sendMode!==null&&e.sendMode!==void 0&&(t=e.sendMode),si({seqno:e.seqno,sendMode:t,secretKey:e.secretKey,message:e.message})}sender(e,t){return{send:async n=>{let i=await this.getSeqno(e),a=this.createTransfer({seqno:i,secretKey:t,sendMode:n.sendMode,message:(0,cr.internal)({to:n.to,value:n.value,extracurrency:n.extracurrency,init:n.init,body:n.body,bounce:n.bounce})});await this.send(e,a)}}}};v();var ur=De(require("@ijstech/ton-core"));var na=class{static create(e){return new na(e.workchain,e.publicKey)}constructor(e,t){this.workchain=e,this.publicKey=t;let n=ur.Cell.fromBoc(Buffer.from("te6cckEBAQEAXwAAuv8AIN0gggFMl7ohggEznLqxnHGw7UTQ0x/XC//jBOCk8mCBAgDXGCDXCx/tRNDTH9P/0VESuvKhIvkBVBBE+RDyovgAAdMfMSDXSpbTB9QC+wDe0aTIyx/L/8ntVLW4bkI=","base64"))[0],i=(0,ur.beginCell)().storeUint(0,32).storeBuffer(t).endCell();this.init={code:n,data:i},this.address=(0,ur.contractAddress)(e,{code:n,data:i})}async getBalance(e){return(await e.getState()).balance}async getSeqno(e){return(await e.getState()).state.type==="active"?(await e.get("seqno",[])).stack.readNumber():0}async send(e,t){await e.external(t)}async sendTransfer(e,t){let n=this.createTransfer(t);await this.send(e,n)}createTransfer(e){let t=ur.SendMode.PAY_GAS_SEPARATELY;return e.sendMode!==null&&e.sendMode!==void 0&&(t=e.sendMode),si({seqno:e.seqno,sendMode:t,secretKey:e.secretKey,message:e.message})}sender(e,t){return{send:async n=>{let i=await this.getSeqno(e),a=this.createTransfer({seqno:i,secretKey:t,sendMode:n.sendMode,message:(0,ur.internal)({to:n.to,value:n.value,init:n.init,body:n.body,bounce:n.bounce})});await this.send(e,a)}}}};v();var dr=De(require("@ijstech/ton-core"));var ia=class{static create(e){return new ia(e.workchain,e.publicKey)}constructor(e,t){this.workchain=e,this.publicKey=t;let n=dr.Cell.fromBoc(Buffer.from("te6cckEBAQEAVwAAqv8AIN0gggFMl7qXMO1E0NcLH+Ck8mCDCNcYINMf0x8B+CO78mPtRNDTH9P/0VExuvKhA/kBVBBC+RDyovgAApMg10qW0wfUAvsA6NGkyMsfy//J7VShNwu2","base64"))[0],i=(0,dr.beginCell)().storeUint(0,32).storeBuffer(t).endCell();this.init={code:n,data:i},this.address=(0,dr.contractAddress)(e,{code:n,data:i})}async getBalance(e){return(await e.getState()).balance}async getSeqno(e){return(await e.getState()).state.type==="active"?(await e.get("seqno",[])).stack.readNumber():0}async send(e,t){await e.external(t)}async sendTransfer(e,t){let n=this.createTransfer(t);await this.send(e,n)}createTransfer(e){let t=dr.SendMode.PAY_GAS_SEPARATELY;return e.sendMode!==null&&e.sendMode!==void 0&&(t=e.sendMode),ys({seqno:e.seqno,sendMode:t,secretKey:e.secretKey,messages:e.messages,timeout:e.timeout})}sender(e,t){return{send:async n=>{let i=await this.getSeqno(e),a=this.createTransfer({seqno:i,secretKey:t,sendMode:n.sendMode,messages:[(0,dr.internal)({to:n.to,value:n.value,extracurrency:n.extracurrency,init:n.init,body:n.body,bounce:n.bounce})]});await this.send(e,a)}}}};v();var fr=De(require("@ijstech/ton-core"));var aa=class{static create(e){return new aa(e.workchain,e.publicKey)}constructor(e,t){this.workchain=e,this.publicKey=t;let n=fr.Cell.fromBoc(Buffer.from("te6cckEBAQEAYwAAwv8AIN0gggFMl7ohggEznLqxnHGw7UTQ0x/XC//jBOCk8mCDCNcYINMf0x8B+CO78mPtRNDTH9P/0VExuvKhA/kBVBBC+RDyovgAApMg10qW0wfUAvsA6NGkyMsfy//J7VQETNeh","base64"))[0],i=(0,fr.beginCell)().storeUint(0,32).storeBuffer(t).endCell();this.init={code:n,data:i},this.address=(0,fr.contractAddress)(e,{code:n,data:i})}async getBalance(e){return(await e.getState()).balance}async getSeqno(e){return(await e.getState()).state.type==="active"?(await e.get("seqno",[])).stack.readNumber():0}async send(e,t){await e.external(t)}async sendTransfer(e,t){let n=this.createTransfer(t);await this.send(e,n)}createTransfer(e){let t=fr.SendMode.PAY_GAS_SEPARATELY;return e.sendMode!==null&&e.sendMode!==void 0&&(t=e.sendMode),ys({seqno:e.seqno,sendMode:t,secretKey:e.secretKey,messages:e.messages,timeout:e.timeout})}sender(e,t){return{send:async n=>{let i=await this.getSeqno(e),a=this.createTransfer({seqno:i,secretKey:t,sendMode:n.sendMode,messages:[(0,fr.internal)({to:n.to,value:n.value,extracurrency:n.extracurrency,init:n.init,body:n.body,bounce:n.bounce})]});await this.send(e,a)}}}};v();var hr=De(require("@ijstech/ton-core"));var sa=class{static create(e){return new sa(e.workchain,e.publicKey,e.walletId)}constructor(e,t,n){this.workchain=e,this.publicKey=t,n!=null?this.walletId=n:this.walletId=698983191+e;let i=hr.Cell.fromBoc(Buffer.from("te6cckEBAQEAYgAAwP8AIN0gggFMl7qXMO1E0NcLH+Ck8mCDCNcYINMf0x/TH/gjE7vyY+1E0NMf0x/T/9FRMrryoVFEuvKiBPkBVBBV+RDyo/gAkyDXSpbTB9QC+wDo0QGkyMsfyx/L/8ntVD++buA=","base64"))[0],a=(0,hr.beginCell)().storeUint(0,32).storeUint(this.walletId,32).storeBuffer(t).endCell();this.init={code:i,data:a},this.address=(0,hr.contractAddress)(e,{code:i,data:a})}async getBalance(e){return(await e.getState()).balance}async getSeqno(e){return(await e.getState()).state.type==="active"?(await e.get("seqno",[])).stack.readNumber():0}async send(e,t){await e.external(t)}async sendTransfer(e,t){let n=this.createTransfer(t);await this.send(e,n)}createTransfer(e){return bs({...e,sendMode:e.sendMode??hr.SendMode.PAY_GAS_SEPARATELY,walletId:this.walletId})}sender(e,t){return{send:async n=>{let i=await this.getSeqno(e),a=this.createTransfer({seqno:i,secretKey:t,sendMode:n.sendMode,messages:[(0,hr.internal)({to:n.to,value:n.value,extracurrency:n.extracurrency,init:n.init,body:n.body,bounce:n.bounce})]});await this.send(e,a)}}}};v();var pr=De(require("@ijstech/ton-core"));var oa=class{static create(e){return new oa(e.workchain,e.publicKey,e.walletId)}constructor(e,t,n){this.workchain=e,this.publicKey=t,n!=null?this.walletId=n:this.walletId=698983191+e;let i=pr.Cell.fromBoc(Buffer.from("te6cckEBAQEAcQAA3v8AIN0gggFMl7ohggEznLqxn3Gw7UTQ0x/THzHXC//jBOCk8mCDCNcYINMf0x/TH/gjE7vyY+1E0NMf0x/T/9FRMrryoVFEuvKiBPkBVBBV+RDyo/gAkyDXSpbTB9QC+wDo0QGkyMsfyx/L/8ntVBC9ba0=","base64"))[0],a=(0,pr.beginCell)().storeUint(0,32).storeUint(this.walletId,32).storeBuffer(t).endCell();this.init={code:i,data:a},this.address=(0,pr.contractAddress)(e,{code:i,data:a})}async getBalance(e){return(await e.getState()).balance}async getSeqno(e){return(await e.getState()).state.type==="active"?(await e.get("seqno",[])).stack.readNumber():0}async send(e,t){await e.external(t)}async sendTransfer(e,t){let n=this.createTransfer(t);await this.send(e,n)}createTransfer(e){return bs({...e,sendMode:e.sendMode??pr.SendMode.PAY_GAS_SEPARATELY,walletId:this.walletId})}sender(e,t){return{send:async n=>{let i=await this.getSeqno(e),a=this.createTransfer({seqno:i,secretKey:t,sendMode:n.sendMode,messages:[(0,pr.internal)({to:n.to,value:n.value,extracurrency:n.extracurrency,init:n.init,body:n.body,bounce:n.bounce})]});await this.send(e,a)}}}};v();var mr=De(require("@ijstech/ton-core"));var la=class{static create(e){return new la(e.workchain,e.publicKey,e.walletId)}constructor(e,t,n){this.workchain=e,this.publicKey=t,n!=null?this.walletId=n:this.walletId=698983191+e;let i=mr.Cell.fromBoc(Buffer.from("te6ccgECFAEAAtQAART/APSkE/S88sgLAQIBIAIDAgFIBAUE+PKDCNcYINMf0x/THwL4I7vyZO1E0NMf0x/T//QE0VFDuvKhUVG68qIF+QFUEGT5EPKj+AAkpMjLH1JAyx9SMMv/UhD0AMntVPgPAdMHIcAAn2xRkyDXSpbTB9QC+wDoMOAhwAHjACHAAuMAAcADkTDjDQOkyMsfEssfy/8QERITAubQAdDTAyFxsJJfBOAi10nBIJJfBOAC0x8hghBwbHVnvSKCEGRzdHK9sJJfBeAD+kAwIPpEAcjKB8v/ydDtRNCBAUDXIfQEMFyBAQj0Cm+hMbOSXwfgBdM/yCWCEHBsdWe6kjgw4w0DghBkc3RyupJfBuMNBgcCASAICQB4AfoA9AQw+CdvIjBQCqEhvvLgUIIQcGx1Z4MesXCAGFAEywUmzxZY+gIZ9ADLaRfLH1Jgyz8gyYBA+wAGAIpQBIEBCPRZMO1E0IEBQNcgyAHPFvQAye1UAXKwjiOCEGRzdHKDHrFwgBhQBcsFUAPPFiP6AhPLassfyz/JgED7AJJfA+ICASAKCwBZvSQrb2omhAgKBrkPoCGEcNQICEekk30pkQzmkD6f+YN4EoAbeBAUiYcVnzGEAgFYDA0AEbjJftRNDXCx+AA9sp37UTQgQFA1yH0BDACyMoHy//J0AGBAQj0Cm+hMYAIBIA4PABmtznaiaEAga5Drhf/AABmvHfaiaEAQa5DrhY/AAG7SB/oA1NQi+QAFyMoHFcv/ydB3dIAYyMsFywIizxZQBfoCFMtrEszMyXP7AMhAFIEBCPRR8qcCAHCBAQjXGPoA0z/IVCBHgQEI9FHyp4IQbm90ZXB0gBjIywXLAlAGzxZQBPoCFMtqEssfyz/Jc/sAAgBsgQEI1xj6ANM/MFIkgQEI9Fnyp4IQZHN0cnB0gBjIywXLAlAFzxZQA/oCE8tqyx8Syz/Jc/sAAAr0AMntVA==","base64"))[0],a=(0,mr.beginCell)().storeUint(0,32).storeUint(this.walletId,32).storeBuffer(this.publicKey).storeBit(0).endCell();this.init={code:i,data:a},this.address=(0,mr.contractAddress)(e,{code:i,data:a})}async getBalance(e){return(await e.getState()).balance}async getSeqno(e){return(await e.getState()).state.type==="active"?(await e.get("seqno",[])).stack.readNumber():0}async send(e,t){await e.external(t)}async sendTransfer(e,t){let n=this.createTransfer(t);await this.send(e,n)}createTransfer(e){return Td({...e,sendMode:e.sendMode??mr.SendMode.PAY_GAS_SEPARATELY,walletId:this.walletId})}sender(e,t){return{send:async n=>{let i=await this.getSeqno(e),a=this.createTransfer({seqno:i,secretKey:t,sendMode:n.sendMode,messages:[(0,mr.internal)({to:n.to,value:n.value,extracurrency:n.extracurrency,init:n.init,body:n.body,bounce:n.bounce})]});await this.send(e,a)}}}};v();v();v();var Rd=De(require("@ijstech/ton-core")),ca=class{static create(e){return new ca(e)}constructor(e){this.address=e}async getWalletAddress(e,t){return(await e.get("get_wallet_address",[{type:"slice",cell:(0,Rd.beginCell)().storeAddress(t).endCell()}])).stack.readAddress()}async getJettonData(e){let t=await e.get("get_jetton_data",[]),n=t.stack.readBigNumber(),i=t.stack.readBoolean(),a=t.stack.readAddress(),s=t.stack.readCell(),l=t.stack.readCell();return{totalSupply:n,mintable:i,adminAddress:a,content:s,walletCode:l}}};v();var ua=class{static create(e){return new ua(e)}constructor(e){this.address=e}async getBalance(e){return(await e.getState()).state.type!=="active"?0n:(await e.get("get_wallet_data",[])).stack.readBigNumber()}};v();var ws=De(Xr()),da=De(require("@ijstech/ton-core")),Hr=class{constructor(e){this.signatures={};this.payload=e}static fromCell(e){let t=e.beginParse(),n=t.loadMaybeRef()?.beginParse(),i=t.asCell(),a=new Hr(i);if(n){for(;n.remainingBits>0;){let s=n.loadBuffer(64),l=n.loadUint(8);a.signatures[l]=s,n.remainingRefs>0?n=n.loadRef().asSlice():n.skip(1)}n.endParse()}return a}static fromPayload(e){return new Hr(e)}addSignature(e,t,n){let i=this.payload.hash();if(!(0,ws.signVerify)(i,t,n.owners.get(e).slice(0,-1)))throw Error("invalid signature");this.signatures[e]=t}sign(e,t){let n=this.payload.hash();return this.signatures[e]=(0,ws.sign)(n,t),n}unionSignatures(e){this.signatures=Object.assign({},this.signatures,e.signatures)}clearSignatures(){this.signatures={}}toCell(e){let t=(0,da.beginCell)().storeBit(0);for(let n in this.signatures){let i=this.signatures[n];t=(0,da.beginCell)().storeBit(1).storeRef((0,da.beginCell)().storeBuffer(i).storeUint(parseInt(n),8).storeBuilder(t).endCell())}return(0,da.beginCell)().storeUint(e,8).storeBuilder(t).storeBuilder(this.payload.asBuilder()).endCell()}};v();var cn=De(require("@ijstech/ton-core"));var nl=class{constructor(e,t){this.messages=(0,cn.beginCell)();this.queryId=0n;this.walletId=e,this.queryOffset=t||7200}addMessage(e,t){if(this.messages.refs>=4)throw Error("only 4 refs are allowed");this.updateQueryId(),this.messages.storeUint(t,8),this.messages.storeRef((0,cn.beginCell)().store((0,cn.storeMessageRelaxed)(e)).endCell())}clearMessages(){this.messages=(0,cn.beginCell)()}build(){return Hr.fromPayload((0,cn.beginCell)().storeUint(this.walletId,32).storeUint(this.queryId,64).storeBuilder(this.messages).endCell())}updateQueryId(){let e=BigInt(Math.floor(Date.now()/1e3+this.queryOffset));this.queryId=e<<32n}};v();var vs=De(Xr()),ut=De(require("@ijstech/ton-core")),Wy=ut.Cell.fromBase64("te6ccgECKwEABBgAART/APSkE/S88sgLAQIBIAIDAgFIBAUE2vIgxwCOgzDbPOCDCNcYIPkBAdMH2zwiwAAToVNxePQOb6Hyn9s8VBq6+RDyoAb0BCD5AQHTH1EYuvKq0z9wUwHwCgHCCAGDCryx8mhTFYBA9A5voSCYDqQgwgryZw7f+COqH1NAufJhVCOjU04gIyEiAgLMBgcCASAMDQIBIAgJAgFmCgsAA9GEAiPymAvHoHN9CYbZ5S7Z4BPHohwhJQAtAKkItdJEqCTItdKlwLUAdAT8ArobBKAATwhbpEx4CBukTDgAdAg10rDAJrUAvALyFjPFszJ4HHXI8gBzxb0AMmACASAODwIBIBQVARW77ZbVA0cFUg2zyCoCAUgQEQIBIBITAXOxHXQgwjXGCD5AQHTB4IB1MTtQ9hTIHj0Dm+h8p/XC/9eMfkQ8qCuAfQEIW6TW3Ey4PkBWNs8AaQBgJwA9rtqA6ADoAPoCAXoCEfyAgPyA3XlP+AXkegAA54tkwAAXrhlXP8EA1WZ2oexAAgEgFhcCASAYGQFRtyVbZ4YmRmpGEAgegc30McJNhFpAADMaYeYuAFrgJhwLb+4cC3d0bhAjAYm1WZtnhqvgb+2xxsoicAgej430pBHEoFpAADHDhBACGuQkuuBk9kUWE5kAOeLKhACQCB6IYFImHFImHFImXEA2YlzNijAjAgEgGhsAF7UGtc4QQDVZnah7EAIBIBwdAgOZOB4fARGsGm2eL4G2CUAjABWt+UEAzJV2oewYQAENqTbPBVfBYCMAFa3f3CCAarM7UPYgAiDbPALyZfgAUENxQxPbPO1UIyoACtP/0wcwBKDbPC+uUyCw8mISsQKkJbNTHLmwJYEA4aojoCi8sPJpggGGoPgBBZcCERACPj4wjo0REB/bPEDXePRDEL0F4lQWW1Rz51YQU9zbPFRxClR6vCQlKCYAIO1E0NMf0wfTB9M/9AT0BNEAXgGOGjDSAAHyo9MH0wdQA9cBIPkBBfkBFbrypFAD4GwhIddKqgIi10m68qtwVCATAAwByMv/ywcE1ts87VT4D3AlblOJvrGYEG4QLVDHXwePGzBUJANQTds8UFWgRlAQSRA6SwlTuds8UFQWf+L4AAeDJaGOLCaAQPSWb6UglDBTA7neII4WODk5CNIAAZfTBzAW8AcFkTDifwgHBZJsMeKz5jAGKicoKQBgcI4pA9CDCNcY0wf0BDBTFnj0Dm+h8qXXC/9URUT5EPKmrlIgsVIDvRShI27mbCIyAH5SML6OIF8D+ACTItdKmALTB9QC+wAC6DJwyMoAQBSAQPRDAvAHjhdxyMsAFMsHEssHWM8BWM8WQBOAQPRDAeIBII6KEEUQNEMA2zztVJJfBuIqABzIyx/LB8sHyz/0APQAyQ=="),fa=class{constructor(e,t,n,i,a){this.provider=null;this.owners=ut.Dictionary.empty(),this.workchain=t,this.walletId=n,this.k=i;for(let s=0;s<e.length;s+=1)this.owners.set(s,Buffer.concat([e[s],Buffer.alloc(1)]));this.init={code:Wy,data:(0,ut.beginCell)().storeUint(this.walletId,32).storeUint(this.owners.size,8).storeUint(this.k,8).storeUint(0,64).storeDict(this.owners,ut.Dictionary.Keys.Uint(8),ut.Dictionary.Values.Buffer(33)).storeBit(0).endCell()},this.address=a?.address||(0,ut.contractAddress)(t,this.init),a?.provider?this.provider=a.provider:a?.client&&(this.provider=a.client.provider(this.address,{code:this.init.code,data:this.init.data}))}static async fromAddress(e,t){let n;if(t.provider)n=t.provider;else{if(!t.client)throw Error("Either provider or client must be specified");n=t.client.provider(e,{code:null,data:null})}let i=(await n.getState()).state;if(i.type!=="active")throw Error("Contract must be active");let a=ut.Cell.fromBoc(i.data)[0].beginParse(),s=a.loadUint(32);a.skip(8);let l=a.loadUint(8);a.skip(64);let y=a.loadDict(ut.Dictionary.Keys.Uint(8),ut.Dictionary.Values.Buffer(33)),m=[];for(let[b,_]of y){let G=_.subarray(0,32);m.push(G)}return new fa(m,e.workChain,s,l,{address:e,provider:n,client:t.client})}async deployExternal(e){if(!e&&!this.provider)throw Error("you must specify provider if there is no such property in MultisigWallet instance");e||(e=this.provider),await e.external(ut.Cell.EMPTY)}async deployInternal(e,t=1000000000n){await e.send({sendMode:ut.SendMode.PAY_GAS_SEPARATELY+ut.SendMode.IGNORE_ERRORS,to:this.address,value:t,init:this.init,body:ut.Cell.EMPTY,bounce:!0})}async sendOrder(e,t,n){if(!n&&!this.provider)throw Error("you must specify provider if there is no such property in MultisigWallet instance");n||(n=this.provider);let i=(0,vs.keyPairFromSecretKey)(t).publicKey,a=this.getOwnerIdByPubkey(i),s=e.toCell(a),l=(0,vs.sign)(s.hash(),t);s=(0,ut.beginCell)().storeBuffer(l).storeSlice(s.asSlice()).endCell(),await n.external(s)}async sendOrderWithoutSecretKey(e,t,n,i){if(!i&&!this.provider)throw Error("you must specify provider if there is no such property in MultisigWallet instance");i||(i=this.provider);let a=e.toCell(n);a=(0,ut.beginCell)().storeBuffer(t).storeSlice(a.asSlice()).endCell(),await i.external(a)}getOwnerIdByPubkey(e){for(let[t,n]of this.owners)if(n.subarray(0,32).equals(e))return t;throw Error("public key is not an owner")}};v();var vt=De(require("@ijstech/ton-core")),Dy={serialize(r,e){throw Error("not implemented")},parse(r){let e=new vt.Address(-1,r.loadBuffer(32)),t=r.loadUintBig(64),n=r.loadCoins();return{address:e,weight:t,stake:n}}},zy={serialize(r,e){throw Error("not implemented")},parse(r){let e=r.loadCoins();r.skip(64);let t=new vt.Address(-1,r.loadBuffer(32)),n=r.loadBuffer(32);return{stake:e,address:t,adnl:n}}},ha=class{constructor(){this.address=vt.Address.parseRaw("-1:3333333333333333333333333333333333333333333333333333333333333333")}static create(){return new ha}async getReturnedStake(e,t){if(t.workChain!==-1)throw Error("Only masterchain addresses could have stake");return(await e.get("compute_returned_stake",[{type:"int",value:BigInt("0x"+t.hash.toString("hex"))}])).stack.readBigNumber()}async getPastElectionsList(e){let t=await e.get("past_elections_list",[]),n=new vt.TupleReader(t.stack.readLispList()),i=[];for(;n.remaining>0;){let a=n.readTuple(),s=a.readNumber(),l=a.readNumber();a.pop();let y=a.readNumber();i.push({id:s,unfreezeAt:l,stakeHeld:y})}return i}async getPastElections(e){let t=await e.get("past_elections",[]),n=new vt.TupleReader(t.stack.readLispList()),i=[];for(;n.remaining>0;){let a=n.readTuple(),s=a.readNumber(),l=a.readNumber(),y=a.readNumber();a.pop();let m=a.readCell(),b=a.readBigNumber(),_=a.readBigNumber(),G=new Map,ae=m.beginParse().loadDictDirect(vt.Dictionary.Keys.Buffer(32),Dy);for(let[Z,ne]of ae)G.set(BigInt("0x"+Z.toString("hex")).toString(10),{address:ne.address,weight:ne.weight,stake:ne.stake});i.push({id:s,unfreezeAt:l,stakeHeld:y,totalStake:b,bonuses:_,frozen:G})}return i}async getElectionEntities(e){let t=await e.getState();if(t.state.type!=="active")throw Error("Unexpected error");let i=vt.Cell.fromBoc(t.state.data)[0].beginParse();if(!i.loadBit())return null;let a=i.loadRef().beginParse(),s=a.loadUint(32),l=a.loadUint(32),y=a.loadCoins(),m=a.loadCoins(),b=a.loadDict(vt.Dictionary.Keys.Buffer(32),zy),_=[];if(b)for(let[G,ae]of b)_.push({pubkey:G,stake:ae.stake,address:ae.address,adnl:ae.adnl});return{minStake:y,allStakes:m,endElectionsTime:l,startWorkTime:s,entities:_}}async getActiveElectionId(e){let n=(await e.get("active_election_id",[])).stack.readNumber();return n>0?n:null}async getComplaints(e,t){let n=new vt.TupleBuilder;n.writeNumber(t);let i=await e.get("list_complaints",n.build());if(i.stack.peek().type==="null")return[];let a=new vt.TupleReader(i.stack.readLispList()),s=[];for(;a.remaining>0;){let l=a.readTuple(),y=l.readBigNumber(),m=l.readTuple(),b=m.readTuple(),_=Buffer.from(b.readBigNumber().toString(16),"hex"),G=b.readCell(),ae=b.readNumber(),Z=b.readNumber(),ne=new vt.Address(-1,Buffer.from(b.readBigNumber().toString(16),"hex")),se=b.readBigNumber(),Ze=b.readBigNumber(),Je=b.readBigNumber(),Ge=[],dt=new vt.TupleReader(m.readLispList());for(;dt.remaining>0;)Ge.push(dt.readNumber());let Ie=m.readBigNumber(),Et=m.readBigNumber();s.push({id:y,publicKey:_,createdAt:ae,severity:Z,paid:se,suggestedFine:Ze,suggestedFinePart:Je,rewardAddress:ne,votes:Ge,remainingWeight:Et,vsetId:Ie})}return s}};v();var xt=De(require("@ijstech/ton-core"));function oi(r){return r?new xt.Address(-1,r.loadBuffer(32)):null}function Id(r){if(r.loadUint(32)!==2390828938)throw Error("Invalid config");return r.loadBuffer(32)}var Pd={serialize(r,e){throw Error("not implemented")},parse(r){let e=r.loadUint(8);if(e===83)return{publicKey:Id(r),weight:r.loadUintBig(64),adnlAddress:null};if(e===115)return{publicKey:Id(r),weight:r.loadUintBig(64),adnlAddress:r.loadBuffer(32)};throw Error("Invalid config")}};function il(r){let e=r.loadUint(8);if(e===17){let t=r.loadUint(32),n=r.loadUint(32),i=r.loadUint(16),a=r.loadUint(16),s=r.loadDictDirect(xt.Dictionary.Keys.Uint(16),Pd);return{timeSince:t,timeUntil:n,total:i,main:a,totalWeight:null,list:s}}else if(e===18){let t=r.loadUint(32),n=r.loadUint(32),i=r.loadUint(16),a=r.loadUint(16),s=r.loadUintBig(64),l=r.loadDict(xt.Dictionary.Keys.Uint(16),Pd);return{timeSince:t,timeUntil:n,total:i,main:a,totalWeight:s,list:l}}}function al(r){let e=new xt.Address(-1,r.loadBuffer(32)),t=new xt.Address(-1,r.loadBuffer(32)),n=r.loadDict(xt.Dictionary.Keys.Buffer(32),xt.Dictionary.Values.Buffer(32)),i=new Map;for(let[s,l]of n)i.set(new xt.Address(-1,s).toString(),l);let a=r.loadBuffer(32);return{bridgeAddress:e,oracleMultisigAddress:t,oracles:i,externalChainAddress:a}}function xs(r){if(!r)throw Error("Invalid config");return oi(r)}function sl(r){if(!r)throw Error("Invalid config");if(r.loadUint(8)===1){let t=r.loadBit()?new xt.Address(-1,r.loadBuffer(32)):null,n=r.loadUint(32),i=r.loadUint(32);return{blackholeAddr:t,feeBurnNominator:n,feeBurnDenominator:i}}throw new Error("Invalid config")}function Md(r){if(!r)throw Error("Invalid config");if(r.loadUint(8)===26){let t=r.loadCoins(),n=r.loadCoins(),i=r.loadCoins();return{deposit:t,bitPrice:n,cellPrice:i}}throw new Error("Invalid config")}function ol(r){if(!r)throw Error("Invalid config");let e=r.loadUint(32),t=r.loadUint(32),n=r.loadUint(32),i=r.loadUint(32);return{validatorsElectedFor:e,electorsStartBefore:t,electorsEndBefore:n,stakeHeldFor:i}}function ll(r){if(!r)throw Error("Invalid config");let e=r.loadUint(16),t=r.loadUint(16),n=r.loadUint(16);return{maxValidators:e,maxMainValidators:t,minValidators:n}}function cl(r){if(!r)throw Error("Invalid config");let e=r.loadCoins(),t=r.loadCoins(),n=r.loadCoins(),i=r.loadUint(32);return{minStake:e,maxStake:t,minTotalStake:n,maxStakeFactor:i}}var qy={serialize(r,e){throw Error("not implemented")},parse(r){if(r.loadUint(8)!==204)throw Error("Invalid config");let t=r.loadUint(32),n=r.loadUintBig(64),i=r.loadUintBig(64),a=r.loadUintBig(64),s=r.loadUintBig(64);return{utime_since:t,bit_price_ps:n,cell_price_ps:i,mc_bit_price_ps:a,mc_cell_price_ps:s}}};function ul(r){if(!r)throw Error("Invalid config");return r.loadDictDirect(xt.Dictionary.Keys.Buffer(4),qy).values()}function dl(r){if(!r)return{version:0,capabilities:0n};let e=r.loadUint(32),t=r.loadUintBig(64);return{version:e,capabilities:t}}function fl(r){if(!r)return null;if(r.loadUint(8)!==1)throw Error("Invalid config");let t=r.loadCoins(),n=r.loadCoins(),i=r.loadUint(16),a=r.loadUint(16),s=r.loadUint(16),l=r.loadUint(16),y=r.loadUint(16),m=r.loadUint(16),b=r.loadUint(16),_=r.loadUint(16),G=r.loadUint(16);return{defaultFlatFine:t,defaultProportionaFine:n,severityFlatMult:i,severityProportionalMult:a,unfunishableInterval:s,longInterval:l,longFlatMult:y,longProportionalMult:m,mediumInterval:b,mediumFlatMult:_,mediumProportionalMult:G}}function jd(r){if(r.loadUint(8)!==166)throw Error("Invalid config");let e=r.loadUint(32),t=r.loadUint(8),n=r.loadUint(8),i=r.loadUint(8),a=r.loadBit(),s=r.loadBit(),l=r.loadBit(),y=r.loadUint(13),m=r.loadBuffer(32),b=r.loadBuffer(32),_=r.loadUint(32);if(r.loadBit())throw Error("Invalid config");let G=r.loadUint(32),ae=r.loadUintBig(64);return{enabledSince:e,actialMinSplit:t,min_split:n,max_split:i,basic:a,active:s,accept_msgs:l,flags:y,zerostateRootHash:m,zerostateFileHash:b,version:_,format:{vmVersion:G,vmMode:ae}}}var Vy={serialize(r,e){throw Error("not implemented")},parse(r){if(r.loadUint(8)!==166)throw Error("Invalid config");let e=r.loadUint(32),t=r.loadUint(8),n=r.loadUint(8),i=r.loadUint(8),a=r.loadBit(),s=r.loadBit(),l=r.loadBit(),y=r.loadUint(13),m=r.loadBuffer(32),b=r.loadBuffer(32),_=r.loadUint(32);if(r.loadBit())throw Error("Invalid config");let G=r.loadUint(32),ae=r.loadUintBig(64);return{enabledSince:e,actialMinSplit:t,min_split:n,max_split:i,basic:a,active:s,accept_msgs:l,flags:y,zerostateRootHash:m,zerostateFileHash:b,version:_,format:{vmVersion:G,vmMode:ae}}}};function hl(r){if(!r)throw Error("Invalid config");let e=r.loadDict(xt.Dictionary.Keys.Uint(32),Vy);if(e)return e;throw Error("No workchains exist")}function Zr(r){return r?il(r):null}function pa(r){return r?al(r):null}function Ky(r){let e=r.loadUint(8);if(e===222){let t=r.loadUintBig(64),n=r.loadUintBig(64),i=r.loadUintBig(64),a=r.loadUintBig(64),s=r.loadUintBig(64),l=r.loadUintBig(64),y=r.loadUintBig(64);return{gasPrice:t,gasLimit:n,specialGasLimit:i,gasCredit:a,blockGasLimit:s,freezeDueLimit:l,deleteDueLimit:y}}else if(e===221){let t=r.loadUintBig(64),n=r.loadUintBig(64),i=r.loadUintBig(64),a=r.loadUintBig(64),s=r.loadUintBig(64),l=r.loadUintBig(64);return{gasPrice:t,gasLimit:n,gasCredit:i,blockGasLimit:a,freezeDueLimit:s,deleteDueLimit:l}}else throw Error("Invalid config")}function ks(r){if(!r)throw Error("Invalid config");if(r.loadUint(8)===209){let t=r.loadUintBig(64),n=r.loadUintBig(64),i=Ky(r);return{flatLimit:t,flatGasPrice:n,other:i}}else throw Error("Invalid config")}function As(r){if(!r)throw new Error("Invalid config");if(r.loadUint(8)!==234)throw new Error("Invalid msg prices param");return{lumpPrice:r.loadUintBig(64),bitPrice:r.loadUintBig(64),cellPrice:r.loadUintBig(64),ihrPriceFactor:r.loadUint(32),firstFrac:r.loadUint(16),nextFrac:r.loadUint(16)}}function pl(r){if(!r)throw new Error("Invalid config");let e=r.loadUint(8);if(e===193){let t=r.loadUint(32),n=r.loadUint(32),i=r.loadUint(32),a=r.loadUint(32);return{masterCatchainLifetime:t,shardCatchainLifetime:n,shardValidatorsLifetime:i,shardValidatorsCount:a}}if(e===194){let t=r.loadUint(7),n=r.loadBit(),i=r.loadUint(32),a=r.loadUint(32),s=r.loadUint(32),l=r.loadUint(32);return{flags:t,suffleMasterValidators:n,masterCatchainLifetime:i,shardCatchainLifetime:a,shardValidatorsLifetime:s,shardValidatorsCount:l}}throw new Error("Invalid config")}function ml(r){if(!r)throw new Error("Invalid config");let e=r.loadUint(8);if(e===214){let t=r.loadUint(32),n=r.loadUint(32),i=r.loadUint(32),a=r.loadUint(32),s=r.loadUint(32),l=r.loadUint(32),y=r.loadUint(32),m=r.loadUint(32);return{roundCandidates:t,nextCandidateDelay:n,consensusTimeout:i,fastAttempts:a,attemptDuration:s,catchainMaxDeps:l,maxBlockBytes:y,maxColaltedBytes:m}}else if(e===215){let t=r.loadUint(7),n=r.loadBit(),i=r.loadUint(8),a=r.loadUint(32),s=r.loadUint(32),l=r.loadUint(32),y=r.loadUint(32),m=r.loadUint(32),b=r.loadUint(32),_=r.loadUint(32);return{flags:t,newCatchainIds:n,roundCandidates:i,nextCandidateDelay:a,consensusTimeout:s,fastAttempts:l,attemptDuration:y,catchainMaxDeps:m,maxBlockBytes:b,maxColaltedBytes:_}}else if(e===216){let t=r.loadUint(7),n=r.loadBit(),i=r.loadUint(8),a=r.loadUint(32),s=r.loadUint(32),l=r.loadUint(32),y=r.loadUint(32),m=r.loadUint(32),b=r.loadUint(32),_=r.loadUint(32),G=r.loadUint(16);return{flags:t,newCatchainIds:n,roundCandidates:i,nextCandidateDelay:a,consensusTimeout:s,fastAttempts:l,attemptDuration:y,catchainMaxDeps:m,maxBlockBytes:b,maxColaltedBytes:_,protoVersion:G}}else if(e===217){let t=r.loadUint(7),n=r.loadBit(),i=r.loadUint(8),a=r.loadUint(32),s=r.loadUint(32),l=r.loadUint(32),y=r.loadUint(32),m=r.loadUint(32),b=r.loadUint(32),_=r.loadUint(32),G=r.loadUint(16),ae=r.loadUint(32);return{flags:t,newCatchainIds:n,roundCandidates:i,nextCandidateDelay:a,consensusTimeout:s,fastAttempts:l,attemptDuration:y,catchainMaxDeps:m,maxBlockBytes:b,maxColaltedBytes:_,protoVersion:G,catchainMaxBlocksCoeff:ae}}throw new Error("Invalid config")}function Ss(r){if(r.loadUint(8)!==54)throw new Error("Invalid config");let t=r.loadUint(8),n=r.loadUint(8),i=r.loadUint(8),a=r.loadUint(8),s=r.loadUint(32),l=r.loadUint(32),y=r.loadUint(32),m=r.loadUint(32);return{minTotalRounds:t,maxTotalRounds:n,minWins:i,maxLoses:a,minStoreSec:s,maxStoreSec:l,bitPrice:y,cellPrice:m}}function gl(r){if(!r)throw new Error("Invalid config");if(r.loadUint(8)!==145)throw new Error("Invalid config");let t=Ss(r.loadRef().beginParse()),n=Ss(r.loadRef().beginParse());return{normalParams:t,criticalParams:n}}function Ud(r){return xt.Cell.fromBase64(r).beginParse().loadDictDirect(xt.Dictionary.Keys.Int(32),xt.Dictionary.Values.Cell())}function Od(r,e){return Ud(r).get(e)}function Nd(r){let e=Ud(r),t=new Map;for(let[n,i]of e)t.set(n,i.beginParse());return t}function Ld(r){return{configAddress:xs(r.get(0)),electorAddress:xs(r.get(1)),minterAddress:oi(r.get(2)),feeCollectorAddress:oi(r.get(3)),dnsRootAddress:oi(r.get(4)),burningConfig:sl(r.get(5)),globalVersion:dl(r.get(8)),workchains:hl(r.get(12)),voting:gl(r.get(11)),validators:{...ol(r.get(15)),...ll(r.get(16)),...cl(r.get(17))},storagePrices:ul(r.get(18)),gasPrices:{masterchain:ks(r.get(20)),workchain:ks(r.get(21))},msgPrices:{masterchain:As(r.get(24)),workchain:As(r.get(25))},validatorSets:{prevValidators:Zr(r.get(32)),prevTempValidators:Zr(r.get(33)),currentValidators:Zr(r.get(34)),currentTempValidators:Zr(r.get(35)),nextValidators:Zr(r.get(36)),nextTempValidators:Zr(r.get(37))},validatorsPunish:fl(r.get(40)),bridges:{ethereum:pa(r.get(71)),binance:pa(r.get(72)),polygon:pa(r.get(73))},catchain:pl(r.get(28)),consensus:ml(r.get(29))}}v();var li=De(require("@ijstech/ton-core"));function Fd(r){let{lastPaid:e,now:t,storagePrices:n,storageStat:i,special:a,masterchain:s}=r;if(t<=e||n.length===0||t<n[0].utime_since||a)return BigInt(0);let l=Math.max(e,n[0].utime_since),y=BigInt(0);for(let m=0;m<n.length&&l<t;m++){let b=m<n.length-1?Math.min(t,n[m+1].utime_since):t,_=BigInt(0);if(l<b){let G=b-l;_+=BigInt(i.cells)*(s?n[m].mc_cell_price_ps:n[m].cell_price_ps),_+=BigInt(i.bits)*(s?n[m].mc_bit_price_ps:n[m].bit_price_ps),_=_*BigInt(G)}l=b,y+=_}return qd(y)}function _s(r,e,t){return r.lumpPrice+qd(r.bitPrice*t+r.cellPrice*e)}function Wd(r,e){return r<=e.flatLimit?e.flatPrice:e.flatPrice+(e.price*(r-e.flatLimit)>>16n)}function Dd(r,e){let t=Cs(e);return t.bits-=e.bits.length,t.cells-=1,_s(r,BigInt(t.cells),BigInt(t.bits))}function zd(r,e){let t=(0,li.loadMessageRelaxed)(e.beginParse()),n={bits:0,cells:0};if(t.init){let y=new li.Cell().asBuilder();(0,li.storeStateInit)(t.init)(y);let m=y.endCell(),b=Cs(m);b.bits-=m.bits.length,b.cells-=1,n.bits+=b.bits,n.cells+=b.cells}let i=Cs(t.body);i.bits-=t.body.bits.length,i.cells-=1,n.bits+=i.bits,n.cells+=i.cells;let a=_s(r,BigInt(n.cells),BigInt(n.bits)),s=a*BigInt(r.firstFrac)>>16n,l=a-s;return{fees:s,remaining:l}}function Cs(r){let e=r.bits.length,t=1;for(let n of r.refs){let i=Cs(n);t+=i.cells,e+=i.bits}return{bits:e,cells:t}}function qd(r){let e=r%65536n,t=r>>16n;return e!==0n&&(t+=1n),t}
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
+// node_modules/@ton/core/dist/utils/crc16.js
+var require_crc16 = __commonJS({
+  "node_modules/@ton/core/dist/utils/crc16.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.crc16 = void 0;
+    function crc162(data) {
+      const poly = 4129;
+      let reg = 0;
+      const message = Buffer.alloc(data.length + 2);
+      message.set(data);
+      for (let byte of message) {
+        let mask = 128;
+        while (mask > 0) {
+          reg <<= 1;
+          if (byte & mask) {
+            reg += 1;
+          }
+          mask >>= 1;
+          if (reg > 65535) {
+            reg &= 65535;
+            reg ^= poly;
+          }
+        }
+      }
+      return Buffer.from([Math.floor(reg / 256), reg % 256]);
+    }
+    exports2.crc16 = crc162;
+  }
+});
 
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
+// node_modules/@ton/core/dist/address/Address.js
+var require_Address = __commonJS({
+  "node_modules/@ton/core/dist/address/Address.js"(exports2) {
+    "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    var _a;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.address = exports2.Address = void 0;
+    var symbol_inspect_1 = __importDefault(require_symbol());
+    var crc16_1 = require_crc16();
+    var bounceable_tag = 17;
+    var non_bounceable_tag = 81;
+    var test_flag = 128;
+    function parseFriendlyAddress(src) {
+      if (typeof src === "string" && !Address2.isFriendly(src)) {
+        throw new Error("Unknown address type");
+      }
+      const data = Buffer.isBuffer(src) ? src : Buffer.from(src, "base64");
+      if (data.length !== 36) {
+        throw new Error("Unknown address type: byte length is not equal to 36");
+      }
+      const addr = data.subarray(0, 34);
+      const crc = data.subarray(34, 36);
+      const calcedCrc = (0, crc16_1.crc16)(addr);
+      if (!(calcedCrc[0] === crc[0] && calcedCrc[1] === crc[1])) {
+        throw new Error("Invalid checksum: " + src);
+      }
+      let tag = addr[0];
+      let isTestOnly = false;
+      let isBounceable = false;
+      if (tag & test_flag) {
+        isTestOnly = true;
+        tag = tag ^ test_flag;
+      }
+      if (tag !== bounceable_tag && tag !== non_bounceable_tag)
+        throw "Unknown address tag";
+      isBounceable = tag === bounceable_tag;
+      let workchain = null;
+      if (addr[1] === 255) {
+        workchain = -1;
+      } else {
+        workchain = addr[1];
+      }
+      const hashPart = addr.subarray(2, 34);
+      return { isTestOnly, isBounceable, workchain, hashPart };
+    }
+    var Address2 = class _Address {
+      static isAddress(src) {
+        return src instanceof _Address;
+      }
+      static isFriendly(source) {
+        if (source.length !== 48) {
+          return false;
+        }
+        if (!/[A-Za-z0-9+/_-]+/.test(source)) {
+          return false;
+        }
+        return true;
+      }
+      static isRaw(source) {
+        if (source.indexOf(":") === -1) {
+          return false;
+        }
+        let [wc, hash] = source.split(":");
+        if (!Number.isInteger(parseFloat(wc))) {
+          return false;
+        }
+        if (!/[a-f0-9]+/.test(hash.toLowerCase())) {
+          return false;
+        }
+        if (hash.length !== 64) {
+          return false;
+        }
+        return true;
+      }
+      static normalize(source) {
+        if (typeof source === "string") {
+          return _Address.parse(source).toString();
+        } else {
+          return source.toString();
+        }
+      }
+      static parse(source) {
+        if (_Address.isFriendly(source)) {
+          return this.parseFriendly(source).address;
+        } else if (_Address.isRaw(source)) {
+          return this.parseRaw(source);
+        } else {
+          throw new Error("Unknown address type: " + source);
+        }
+      }
+      static parseRaw(source) {
+        let workChain = parseInt(source.split(":")[0]);
+        let hash = Buffer.from(source.split(":")[1], "hex");
+        return new _Address(workChain, hash);
+      }
+      static parseFriendly(source) {
+        if (Buffer.isBuffer(source)) {
+          let r = parseFriendlyAddress(source);
+          return {
+            isBounceable: r.isBounceable,
+            isTestOnly: r.isTestOnly,
+            address: new _Address(r.workchain, r.hashPart)
+          };
+        } else {
+          let addr = source.replace(/\-/g, "+").replace(/_/g, "/");
+          let r = parseFriendlyAddress(addr);
+          return {
+            isBounceable: r.isBounceable,
+            isTestOnly: r.isTestOnly,
+            address: new _Address(r.workchain, r.hashPart)
+          };
+        }
+      }
+      constructor(workChain, hash) {
+        this.toRawString = () => {
+          return this.workChain + ":" + this.hash.toString("hex");
+        };
+        this.toRaw = () => {
+          const addressWithChecksum = Buffer.alloc(36);
+          addressWithChecksum.set(this.hash);
+          addressWithChecksum.set([this.workChain, this.workChain, this.workChain, this.workChain], 32);
+          return addressWithChecksum;
+        };
+        this.toStringBuffer = (args) => {
+          let testOnly = args && args.testOnly !== void 0 ? args.testOnly : false;
+          let bounceable = args && args.bounceable !== void 0 ? args.bounceable : true;
+          let tag = bounceable ? bounceable_tag : non_bounceable_tag;
+          if (testOnly) {
+            tag |= test_flag;
+          }
+          const addr = Buffer.alloc(34);
+          addr[0] = tag;
+          addr[1] = this.workChain;
+          addr.set(this.hash, 2);
+          const addressWithChecksum = Buffer.alloc(36);
+          addressWithChecksum.set(addr);
+          addressWithChecksum.set((0, crc16_1.crc16)(addr), 34);
+          return addressWithChecksum;
+        };
+        this.toString = (args) => {
+          let urlSafe = args && args.urlSafe !== void 0 ? args.urlSafe : true;
+          let buffer = this.toStringBuffer(args);
+          if (urlSafe) {
+            return buffer.toString("base64").replace(/\+/g, "-").replace(/\//g, "_");
+          } else {
+            return buffer.toString("base64");
+          }
+        };
+        this[_a] = () => this.toString();
+        if (hash.length !== 32) {
+          throw new Error("Invalid address hash length: " + hash.length);
+        }
+        this.workChain = workChain;
+        this.hash = hash;
+        Object.freeze(this);
+      }
+      equals(src) {
+        if (src.workChain !== this.workChain) {
+          return false;
+        }
+        return src.hash.equals(this.hash);
+      }
+    };
+    exports2.Address = Address2;
+    _a = symbol_inspect_1.default;
+    function address2(src) {
+      return Address2.parse(src);
+    }
+    exports2.address = address2;
+  }
+});
 
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+// node_modules/@ton/core/dist/address/ExternalAddress.js
+var require_ExternalAddress = __commonJS({
+  "node_modules/@ton/core/dist/address/ExternalAddress.js"(exports2) {
+    "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    var _a;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.ExternalAddress = void 0;
+    var symbol_inspect_1 = __importDefault(require_symbol());
+    var ExternalAddress2 = class _ExternalAddress {
+      static isAddress(src) {
+        return src instanceof _ExternalAddress;
+      }
+      constructor(value, bits) {
+        this[_a] = () => this.toString();
+        this.value = value;
+        this.bits = bits;
+      }
+      toString() {
+        return `External<${this.bits}:${this.value}>`;
+      }
+    };
+    exports2.ExternalAddress = ExternalAddress2;
+    _a = symbol_inspect_1.default;
+  }
+});
 
-  window.TonCore = exports;
+// node_modules/@ton/core/dist/utils/base32.js
+var require_base32 = __commonJS({
+  "node_modules/@ton/core/dist/utils/base32.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.base32Decode = exports2.base32Encode = void 0;
+    var alphabet = "abcdefghijklmnopqrstuvwxyz234567";
+    function base32Encode2(buffer) {
+      const length = buffer.byteLength;
+      let bits = 0;
+      let value = 0;
+      let output = "";
+      for (let i = 0; i < length; i++) {
+        value = value << 8 | buffer[i];
+        bits += 8;
+        while (bits >= 5) {
+          output += alphabet[value >>> bits - 5 & 31];
+          bits -= 5;
+        }
+      }
+      if (bits > 0) {
+        output += alphabet[value << 5 - bits & 31];
+      }
+      return output;
+    }
+    exports2.base32Encode = base32Encode2;
+    function readChar(alphabet2, char) {
+      const idx = alphabet2.indexOf(char);
+      if (idx === -1) {
+        throw new Error("Invalid character found: " + char);
+      }
+      return idx;
+    }
+    function base32Decode2(input) {
+      let cleanedInput;
+      cleanedInput = input.toLowerCase();
+      const { length } = cleanedInput;
+      let bits = 0;
+      let value = 0;
+      let index = 0;
+      const output = Buffer.alloc(length * 5 / 8 | 0);
+      for (let i = 0; i < length; i++) {
+        value = value << 5 | readChar(alphabet, cleanedInput[i]);
+        bits += 5;
+        if (bits >= 8) {
+          output[index++] = value >>> bits - 8 & 255;
+          bits -= 8;
+        }
+      }
+      return output;
+    }
+    exports2.base32Decode = base32Decode2;
+  }
+});
+
+// node_modules/@ton/core/dist/address/ADNLAddress.js
+var require_ADNLAddress = __commonJS({
+  "node_modules/@ton/core/dist/address/ADNLAddress.js"(exports2) {
+    "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    var _a;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.ADNLAddress = void 0;
+    var symbol_inspect_1 = __importDefault(require_symbol());
+    var base32_1 = require_base32();
+    var crc16_1 = require_crc16();
+    var ADNLAddress2 = class _ADNLAddress {
+      static parseFriendly(src) {
+        if (src.length !== 55) {
+          throw Error("Invalid address");
+        }
+        src = "f" + src;
+        let decoded = (0, base32_1.base32Decode)(src);
+        if (decoded[0] !== 45) {
+          throw Error("Invalid address");
+        }
+        let gotHash = decoded.slice(33);
+        let hash = (0, crc16_1.crc16)(decoded.slice(0, 33));
+        if (!hash.equals(gotHash)) {
+          throw Error("Invalid address");
+        }
+        return new _ADNLAddress(decoded.slice(1, 33));
+      }
+      static parseRaw(src) {
+        const data = Buffer.from(src, "base64");
+        return new _ADNLAddress(data);
+      }
+      constructor(address2) {
+        this.toRaw = () => {
+          return this.address.toString("hex").toUpperCase();
+        };
+        this.toString = () => {
+          let data = Buffer.concat([Buffer.from([45]), this.address]);
+          let hash = (0, crc16_1.crc16)(data);
+          data = Buffer.concat([data, hash]);
+          return (0, base32_1.base32Encode)(data).slice(1);
+        };
+        this[_a] = () => this.toString();
+        if (address2.length !== 32) {
+          throw Error("Invalid address");
+        }
+        this.address = address2;
+      }
+      equals(b) {
+        return this.address.equals(b.address);
+      }
+    };
+    exports2.ADNLAddress = ADNLAddress2;
+    _a = symbol_inspect_1.default;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/utils/paddedBits.js
+var require_paddedBits = __commonJS({
+  "node_modules/@ton/core/dist/boc/utils/paddedBits.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.paddedBufferToBits = exports2.bitsToPaddedBuffer = void 0;
+    var BitBuilder_1 = require_BitBuilder();
+    var BitString_1 = require_BitString();
+    function bitsToPaddedBuffer(bits) {
+      let builder = new BitBuilder_1.BitBuilder(Math.ceil(bits.length / 8) * 8);
+      builder.writeBits(bits);
+      let padding = Math.ceil(bits.length / 8) * 8 - bits.length;
+      for (let i = 0; i < padding; i++) {
+        if (i === 0) {
+          builder.writeBit(1);
+        } else {
+          builder.writeBit(0);
+        }
+      }
+      return builder.buffer();
+    }
+    exports2.bitsToPaddedBuffer = bitsToPaddedBuffer;
+    function paddedBufferToBits(buff) {
+      let bitLen = 0;
+      for (let i = buff.length - 1; i >= 0; i--) {
+        if (buff[i] !== 0) {
+          const testByte = buff[i];
+          let bitPos = testByte & -testByte;
+          if ((bitPos & 1) == 0) {
+            bitPos = Math.log2(bitPos) + 1;
+          }
+          if (i > 0) {
+            bitLen = i << 3;
+          }
+          bitLen += 8 - bitPos;
+          break;
+        }
+      }
+      return new BitString_1.BitString(buff, 0, bitLen);
+    }
+    exports2.paddedBufferToBits = paddedBufferToBits;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/BitString.js
+var require_BitString = __commonJS({
+  "node_modules/@ton/core/dist/boc/BitString.js"(exports2) {
+    "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    var _a;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.BitString = void 0;
+    var paddedBits_1 = require_paddedBits();
+    var symbol_inspect_1 = __importDefault(require_symbol());
+    var BitString2 = class _BitString {
+      /**
+       * Checks if supplied object is BitString
+       * @param src is unknow object
+       * @returns true if object is BitString and false otherwise
+       **/
+      static isBitString(src) {
+        return src instanceof _BitString;
+      }
+      /**
+       * Constructing BitString from a buffer
+       * @param data data that contains the bitstring data. NOTE: We are expecting this buffer to be NOT modified
+       * @param offset offset in bits from the start of the buffer
+       * @param length length of the bitstring in bits
+       */
+      constructor(data, offset, length) {
+        this[_a] = () => this.toString();
+        if (length < 0) {
+          throw new Error(`Length ${length} is out of bounds`);
+        }
+        this._length = length;
+        this._data = data;
+        this._offset = offset;
+      }
+      /**
+       * Returns the length of the bitstring
+       */
+      get length() {
+        return this._length;
+      }
+      /**
+       * Returns the bit at the specified index
+       * @param index index of the bit
+       * @throws Error if index is out of bounds
+       * @returns true if the bit is set, false otherwise
+       */
+      at(index) {
+        if (index >= this._length) {
+          throw new Error(`Index ${index} > ${this._length} is out of bounds`);
+        }
+        if (index < 0) {
+          throw new Error(`Index ${index} < 0 is out of bounds`);
+        }
+        let byteIndex = this._offset + index >> 3;
+        let bitIndex = 7 - (this._offset + index) % 8;
+        return (this._data[byteIndex] & 1 << bitIndex) !== 0;
+      }
+      /**
+       * Get a subscring of the bitstring
+       * @param offset
+       * @param length
+       * @returns
+       */
+      substring(offset, length) {
+        if (offset > this._length) {
+          throw new Error(`Offset(${offset}) > ${this._length} is out of bounds`);
+        }
+        if (offset < 0) {
+          throw new Error(`Offset(${offset}) < 0 is out of bounds`);
+        }
+        if (length === 0) {
+          return _BitString.EMPTY;
+        }
+        if (offset + length > this._length) {
+          throw new Error(`Offset ${offset} + Length ${length} > ${this._length} is out of bounds`);
+        }
+        return new _BitString(this._data, this._offset + offset, length);
+      }
+      /**
+       * Try to get a buffer from the bitstring without allocations
+       * @param offset offset in bits
+       * @param length length in bits
+       * @returns buffer if the bitstring is aligned to bytes, null otherwise
+       */
+      subbuffer(offset, length) {
+        if (offset > this._length) {
+          throw new Error(`Offset ${offset} is out of bounds`);
+        }
+        if (offset < 0) {
+          throw new Error(`Offset ${offset} is out of bounds`);
+        }
+        if (offset + length > this._length) {
+          throw new Error(`Offset + Lenght = ${offset + length} is out of bounds`);
+        }
+        if (length % 8 !== 0) {
+          return null;
+        }
+        if ((this._offset + offset) % 8 !== 0) {
+          return null;
+        }
+        let start = this._offset + offset >> 3;
+        let end = start + (length >> 3);
+        return this._data.subarray(start, end);
+      }
+      /**
+       * Checks for equality
+       * @param b other bitstring
+       * @returns true if the bitstrings are equal, false otherwise
+       */
+      equals(b) {
+        if (this._length !== b._length) {
+          return false;
+        }
+        for (let i = 0; i < this._length; i++) {
+          if (this.at(i) !== b.at(i)) {
+            return false;
+          }
+        }
+        return true;
+      }
+      /**
+       * Format to canonical string
+       * @returns formatted bits as a string
+       */
+      toString() {
+        const padded = (0, paddedBits_1.bitsToPaddedBuffer)(this);
+        if (this._length % 4 === 0) {
+          const s = padded.subarray(0, Math.ceil(this._length / 8)).toString("hex").toUpperCase();
+          if (this._length % 8 === 0) {
+            return s;
+          } else {
+            return s.substring(0, s.length - 1);
+          }
+        } else {
+          const hex = padded.toString("hex").toUpperCase();
+          if (this._length % 8 <= 4) {
+            return hex.substring(0, hex.length - 1) + "_";
+          } else {
+            return hex + "_";
+          }
+        }
+      }
+    };
+    exports2.BitString = BitString2;
+    _a = symbol_inspect_1.default;
+    BitString2.EMPTY = new BitString2(Buffer.alloc(0), 0, 0);
+  }
+});
+
+// node_modules/@ton/core/dist/boc/BitBuilder.js
+var require_BitBuilder = __commonJS({
+  "node_modules/@ton/core/dist/boc/BitBuilder.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.BitBuilder = void 0;
+    var Address_1 = require_Address();
+    var ExternalAddress_1 = require_ExternalAddress();
+    var BitString_1 = require_BitString();
+    var BitBuilder2 = class {
+      constructor(size = 1023) {
+        this._buffer = Buffer.alloc(Math.ceil(size / 8));
+        this._length = 0;
+      }
+      /**
+       * Current number of bits written
+       */
+      get length() {
+        return this._length;
+      }
+      /**
+       * Write a single bit
+       * @param value bit to write, true or positive number for 1, false or zero or negative for 0
+       */
+      writeBit(value) {
+        let n = this._length;
+        if (n > this._buffer.length * 8) {
+          throw new Error("BitBuilder overflow");
+        }
+        if (typeof value === "boolean" && value === true || typeof value === "number" && value > 0) {
+          this._buffer[n / 8 | 0] |= 1 << 7 - n % 8;
+        }
+        this._length++;
+      }
+      /**
+       * Copy bits from BitString
+       * @param src source bits
+       */
+      writeBits(src) {
+        for (let i = 0; i < src.length; i++) {
+          this.writeBit(src.at(i));
+        }
+      }
+      /**
+       * Write bits from buffer
+       * @param src source buffer
+       */
+      writeBuffer(src) {
+        if (this._length % 8 === 0) {
+          if (this._length + src.length * 8 > this._buffer.length * 8) {
+            throw new Error("BitBuilder overflow");
+          }
+          src.copy(this._buffer, this._length / 8);
+          this._length += src.length * 8;
+        } else {
+          for (let i = 0; i < src.length; i++) {
+            this.writeUint(src[i], 8);
+          }
+        }
+      }
+      /**
+       * Write uint value
+       * @param value value as bigint or number
+       * @param bits number of bits to write
+       */
+      writeUint(value, bits) {
+        if (bits < 0 || !Number.isSafeInteger(bits)) {
+          throw Error(`invalid bit length. Got ${bits}`);
+        }
+        const v = BigInt(value);
+        if (bits === 0) {
+          if (v !== 0n) {
+            throw Error(`value is not zero for ${bits} bits. Got ${value}`);
+          } else {
+            return;
+          }
+        }
+        const vBits = 1n << BigInt(bits);
+        if (v < 0 || v >= vBits) {
+          throw Error(`bitLength is too small for a value ${value}. Got ${bits}`);
+        }
+        if (this._length + bits > this._buffer.length * 8) {
+          throw new Error("BitBuilder overflow");
+        }
+        const tillByte = 8 - this._length % 8;
+        if (tillByte > 0) {
+          const bidx = Math.floor(this._length / 8);
+          if (bits < tillByte) {
+            const wb = Number(v);
+            this._buffer[bidx] |= wb << tillByte - bits;
+            this._length += bits;
+          } else {
+            const wb = Number(v >> BigInt(bits - tillByte));
+            this._buffer[bidx] |= wb;
+            this._length += tillByte;
+          }
+        }
+        bits -= tillByte;
+        while (bits > 0) {
+          if (bits >= 8) {
+            this._buffer[this._length / 8] = Number(v >> BigInt(bits - 8) & 0xffn);
+            this._length += 8;
+            bits -= 8;
+          } else {
+            this._buffer[this._length / 8] = Number(v << BigInt(8 - bits) & 0xffn);
+            this._length += bits;
+            bits = 0;
+          }
+        }
+      }
+      /**
+       * Write int value
+       * @param value value as bigint or number
+       * @param bits number of bits to write
+       */
+      writeInt(value, bits) {
+        let v = BigInt(value);
+        if (bits < 0 || !Number.isSafeInteger(bits)) {
+          throw Error(`invalid bit length. Got ${bits}`);
+        }
+        if (bits === 0) {
+          if (value !== 0n) {
+            throw Error(`value is not zero for ${bits} bits. Got ${value}`);
+          } else {
+            return;
+          }
+        }
+        if (bits === 1) {
+          if (value !== -1n && value !== 0n) {
+            throw Error(`value is not zero or -1 for ${bits} bits. Got ${value}`);
+          } else {
+            this.writeBit(value === -1n);
+            return;
+          }
+        }
+        let vBits = 1n << BigInt(bits) - 1n;
+        if (v < -vBits || v >= vBits) {
+          throw Error(`value is out of range for ${bits} bits. Got ${value}`);
+        }
+        if (v < 0) {
+          this.writeBit(true);
+          v = vBits + v;
+        } else {
+          this.writeBit(false);
+        }
+        this.writeUint(v, bits - 1);
+      }
+      /**
+       * Wrtie var uint value, used for serializing coins
+       * @param value value to write as bigint or number
+       * @param bits header bits to write size
+       */
+      writeVarUint(value, bits) {
+        let v = BigInt(value);
+        if (bits < 0 || !Number.isSafeInteger(bits)) {
+          throw Error(`invalid bit length. Got ${bits}`);
+        }
+        if (v < 0) {
+          throw Error(`value is negative. Got ${value}`);
+        }
+        if (v === 0n) {
+          this.writeUint(0, bits);
+          return;
+        }
+        const sizeBytes = Math.ceil(v.toString(2).length / 8);
+        const sizeBits = sizeBytes * 8;
+        this.writeUint(sizeBytes, bits);
+        this.writeUint(v, sizeBits);
+      }
+      /**
+       * Wrtie var int value, used for serializing coins
+       * @param value value to write as bigint or number
+       * @param bits header bits to write size
+       */
+      writeVarInt(value, bits) {
+        let v = BigInt(value);
+        if (bits < 0 || !Number.isSafeInteger(bits)) {
+          throw Error(`invalid bit length. Got ${bits}`);
+        }
+        if (v === 0n) {
+          this.writeUint(0, bits);
+          return;
+        }
+        let v2 = v > 0 ? v : -v;
+        const sizeBytes = Math.ceil((v2.toString(2).length + 1) / 8);
+        const sizeBits = sizeBytes * 8;
+        this.writeUint(sizeBytes, bits);
+        this.writeInt(v, sizeBits);
+      }
+      /**
+       * Write coins in var uint format
+       * @param amount amount to write
+       */
+      writeCoins(amount) {
+        this.writeVarUint(amount, 4);
+      }
+      /**
+       * Write address
+       * @param address write address or address external
+       */
+      writeAddress(address2) {
+        if (address2 === null || address2 === void 0) {
+          this.writeUint(0, 2);
+          return;
+        }
+        if (Address_1.Address.isAddress(address2)) {
+          this.writeUint(2, 2);
+          this.writeUint(0, 1);
+          this.writeInt(address2.workChain, 8);
+          this.writeBuffer(address2.hash);
+          return;
+        }
+        if (ExternalAddress_1.ExternalAddress.isAddress(address2)) {
+          this.writeUint(1, 2);
+          this.writeUint(address2.bits, 9);
+          this.writeUint(address2.value, address2.bits);
+          return;
+        }
+        throw Error(`Invalid address. Got ${address2}`);
+      }
+      /**
+       * Build BitString
+       * @returns result bit string
+       */
+      build() {
+        return new BitString_1.BitString(this._buffer, 0, this._length);
+      }
+      /**
+       * Build into Buffer
+       * @returns result buffer
+       */
+      buffer() {
+        if (this._length % 8 !== 0) {
+          throw new Error("BitBuilder buffer is not byte aligned");
+        }
+        return this._buffer.subarray(0, this._length / 8);
+      }
+    };
+    exports2.BitBuilder = BitBuilder2;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/CellType.js
+var require_CellType = __commonJS({
+  "node_modules/@ton/core/dist/boc/CellType.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.CellType = void 0;
+    var CellType2;
+    (function(CellType3) {
+      CellType3[CellType3["Ordinary"] = -1] = "Ordinary";
+      CellType3[CellType3["PrunedBranch"] = 1] = "PrunedBranch";
+      CellType3[CellType3["Library"] = 2] = "Library";
+      CellType3[CellType3["MerkleProof"] = 3] = "MerkleProof";
+      CellType3[CellType3["MerkleUpdate"] = 4] = "MerkleUpdate";
+    })(CellType2 || (exports2.CellType = CellType2 = {}));
+  }
+});
+
+// node_modules/@ton/core/dist/dict/utils/readUnaryLength.js
+var require_readUnaryLength = __commonJS({
+  "node_modules/@ton/core/dist/dict/utils/readUnaryLength.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.readUnaryLength = void 0;
+    function readUnaryLength(slice) {
+      let res = 0;
+      while (slice.loadBit()) {
+        res++;
+      }
+      return res;
+    }
+    exports2.readUnaryLength = readUnaryLength;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/BitReader.js
+var require_BitReader = __commonJS({
+  "node_modules/@ton/core/dist/boc/BitReader.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.BitReader = void 0;
+    var Address_1 = require_Address();
+    var ExternalAddress_1 = require_ExternalAddress();
+    var BitReader2 = class _BitReader {
+      constructor(bits, offset = 0) {
+        this._checkpoints = [];
+        this._bits = bits;
+        this._offset = offset;
+      }
+      /**
+       * Offset in source bit string
+       */
+      get offset() {
+        return this._offset;
+      }
+      /**
+       * Number of bits remaining
+       */
+      get remaining() {
+        return this._bits.length - this._offset;
+      }
+      /**
+       * Skip bits
+       * @param bits number of bits to skip
+       */
+      skip(bits) {
+        if (bits < 0 || this._offset + bits > this._bits.length) {
+          throw new Error(`Index ${this._offset + bits} is out of bounds`);
+        }
+        this._offset += bits;
+      }
+      /**
+       * Reset to the beginning or latest checkpoint
+       */
+      reset() {
+        if (this._checkpoints.length > 0) {
+          this._offset = this._checkpoints.pop();
+        } else {
+          this._offset = 0;
+        }
+      }
+      /**
+       * Save checkpoint
+       */
+      save() {
+        this._checkpoints.push(this._offset);
+      }
+      /**
+       * Load a single bit
+       * @returns true if the bit is set, false otherwise
+       */
+      loadBit() {
+        let r = this._bits.at(this._offset);
+        this._offset++;
+        return r;
+      }
+      /**
+       * Preload bit
+       * @returns true if the bit is set, false otherwise
+       */
+      preloadBit() {
+        return this._bits.at(this._offset);
+      }
+      /**
+       * Load bit string
+       * @param bits number of bits to read
+       * @returns new bitstring
+       */
+      loadBits(bits) {
+        let r = this._bits.substring(this._offset, bits);
+        this._offset += bits;
+        return r;
+      }
+      /**
+       * Preload bit string
+       * @param bits number of bits to read
+       * @returns new bitstring
+       */
+      preloadBits(bits) {
+        return this._bits.substring(this._offset, bits);
+      }
+      /**
+       * Load buffer
+       * @param bytes number of bytes
+       * @returns new buffer
+       */
+      loadBuffer(bytes) {
+        let buf = this._preloadBuffer(bytes, this._offset);
+        this._offset += bytes * 8;
+        return buf;
+      }
+      /**
+       * Preload buffer
+       * @param bytes number of bytes
+       * @returns new buffer
+       */
+      preloadBuffer(bytes) {
+        return this._preloadBuffer(bytes, this._offset);
+      }
+      /**
+       * Load uint value
+       * @param bits uint bits
+       * @returns read value as number
+       */
+      loadUint(bits) {
+        return this._toSafeInteger(this.loadUintBig(bits), "loadUintBig");
+      }
+      /**
+       * Load uint value as bigint
+       * @param bits uint bits
+       * @returns read value as bigint
+       */
+      loadUintBig(bits) {
+        let loaded = this.preloadUintBig(bits);
+        this._offset += bits;
+        return loaded;
+      }
+      /**
+       * Preload uint value
+       * @param bits uint bits
+       * @returns read value as number
+       */
+      preloadUint(bits) {
+        return this._toSafeInteger(this._preloadUint(bits, this._offset), "preloadUintBig");
+      }
+      /**
+       * Preload uint value as bigint
+       * @param bits uint bits
+       * @returns read value as bigint
+       */
+      preloadUintBig(bits) {
+        return this._preloadUint(bits, this._offset);
+      }
+      /**
+       * Load int value
+       * @param bits int bits
+       * @returns read value as bigint
+       */
+      loadInt(bits) {
+        let res = this._preloadInt(bits, this._offset);
+        this._offset += bits;
+        return this._toSafeInteger(res, "loadUintBig");
+      }
+      /**
+       * Load int value as bigint
+       * @param bits int bits
+       * @returns read value as bigint
+       */
+      loadIntBig(bits) {
+        let res = this._preloadInt(bits, this._offset);
+        this._offset += bits;
+        return res;
+      }
+      /**
+       * Preload int value
+       * @param bits int bits
+       * @returns read value as bigint
+       */
+      preloadInt(bits) {
+        return this._toSafeInteger(this._preloadInt(bits, this._offset), "preloadIntBig");
+      }
+      /**
+       * Preload int value
+       * @param bits int bits
+       * @returns read value as bigint
+       */
+      preloadIntBig(bits) {
+        return this._preloadInt(bits, this._offset);
+      }
+      /**
+       * Load varuint value
+       * @param bits number of bits to read the size
+       * @returns read value as bigint
+       */
+      loadVarUint(bits) {
+        let size = Number(this.loadUint(bits));
+        return this._toSafeInteger(this.loadUintBig(size * 8), "loadVarUintBig");
+      }
+      /**
+       * Load varuint value
+       * @param bits number of bits to read the size
+       * @returns read value as bigint
+       */
+      loadVarUintBig(bits) {
+        let size = Number(this.loadUint(bits));
+        return this.loadUintBig(size * 8);
+      }
+      /**
+       * Preload varuint value
+       * @param bits number of bits to read the size
+       * @returns read value as bigint
+       */
+      preloadVarUint(bits) {
+        let size = Number(this._preloadUint(bits, this._offset));
+        return this._toSafeInteger(this._preloadUint(size * 8, this._offset + bits), "preloadVarUintBig");
+      }
+      /**
+       * Preload varuint value
+       * @param bits number of bits to read the size
+       * @returns read value as bigint
+       */
+      preloadVarUintBig(bits) {
+        let size = Number(this._preloadUint(bits, this._offset));
+        return this._preloadUint(size * 8, this._offset + bits);
+      }
+      /**
+       * Load varint value
+       * @param bits number of bits to read the size
+       * @returns read value as bigint
+       */
+      loadVarInt(bits) {
+        let size = Number(this.loadUint(bits));
+        return this._toSafeInteger(this.loadIntBig(size * 8), "loadVarIntBig");
+      }
+      /**
+       * Load varint value
+       * @param bits number of bits to read the size
+       * @returns read value as bigint
+       */
+      loadVarIntBig(bits) {
+        let size = Number(this.loadUint(bits));
+        return this.loadIntBig(size * 8);
+      }
+      /**
+       * Preload varint value
+       * @param bits number of bits to read the size
+       * @returns read value as bigint
+       */
+      preloadVarInt(bits) {
+        let size = Number(this._preloadUint(bits, this._offset));
+        return this._toSafeInteger(this._preloadInt(size * 8, this._offset + bits), "preloadVarIntBig");
+      }
+      /**
+       * Preload varint value
+       * @param bits number of bits to read the size
+       * @returns read value as bigint
+       */
+      preloadVarIntBig(bits) {
+        let size = Number(this._preloadUint(bits, this._offset));
+        return this._preloadInt(size * 8, this._offset + bits);
+      }
+      /**
+       * Load coins value
+       * @returns read value as bigint
+       */
+      loadCoins() {
+        return this.loadVarUintBig(4);
+      }
+      /**
+       * Preload coins value
+       * @returns read value as bigint
+       */
+      preloadCoins() {
+        return this.preloadVarUintBig(4);
+      }
+      /**
+       * Load Address
+       * @returns Address
+       */
+      loadAddress() {
+        let type = Number(this._preloadUint(2, this._offset));
+        if (type === 2) {
+          return this._loadInternalAddress();
+        } else {
+          throw new Error("Invalid address: " + type);
+        }
+      }
+      /**
+       * Load internal address
+       * @returns Address or null
+       */
+      loadMaybeAddress() {
+        let type = Number(this._preloadUint(2, this._offset));
+        if (type === 0) {
+          this._offset += 2;
+          return null;
+        } else if (type === 2) {
+          return this._loadInternalAddress();
+        } else {
+          throw new Error("Invalid address");
+        }
+      }
+      /**
+       * Load external address
+       * @returns ExternalAddress
+       */
+      loadExternalAddress() {
+        let type = Number(this._preloadUint(2, this._offset));
+        if (type === 1) {
+          return this._loadExternalAddress();
+        } else {
+          throw new Error("Invalid address");
+        }
+      }
+      /**
+       * Load external address
+       * @returns ExternalAddress or null
+       */
+      loadMaybeExternalAddress() {
+        let type = Number(this._preloadUint(2, this._offset));
+        if (type === 0) {
+          this._offset += 2;
+          return null;
+        } else if (type === 1) {
+          return this._loadExternalAddress();
+        } else {
+          throw new Error("Invalid address");
+        }
+      }
+      /**
+       * Read address of any type
+       * @returns Address or ExternalAddress or null
+       */
+      loadAddressAny() {
+        let type = Number(this._preloadUint(2, this._offset));
+        if (type === 0) {
+          this._offset += 2;
+          return null;
+        } else if (type === 2) {
+          return this._loadInternalAddress();
+        } else if (type === 1) {
+          return this._loadExternalAddress();
+        } else if (type === 3) {
+          throw Error("Unsupported");
+        } else {
+          throw Error("Unreachable");
+        }
+      }
+      /**
+       * Load bit string that was padded to make it byte alligned. Used in BOC serialization
+       * @param bytes number of bytes to read
+       */
+      loadPaddedBits(bits) {
+        if (bits % 8 !== 0) {
+          throw new Error("Invalid number of bits");
+        }
+        let length = bits;
+        while (true) {
+          if (this._bits.at(this._offset + length - 1)) {
+            length--;
+            break;
+          } else {
+            length--;
+          }
+        }
+        let r = this._bits.substring(this._offset, length);
+        this._offset += bits;
+        return r;
+      }
+      /**
+       * Clone BitReader
+       */
+      clone() {
+        return new _BitReader(this._bits, this._offset);
+      }
+      /**
+       * Preload int from specific offset
+       * @param bits bits to preload
+       * @param offset offset to start from
+       * @returns read value as bigint
+       */
+      _preloadInt(bits, offset) {
+        if (bits == 0) {
+          return 0n;
+        }
+        let sign = this._bits.at(offset);
+        let res = 0n;
+        for (let i = 0; i < bits - 1; i++) {
+          if (this._bits.at(offset + 1 + i)) {
+            res += 1n << BigInt(bits - i - 1 - 1);
+          }
+        }
+        if (sign) {
+          res = res - (1n << BigInt(bits - 1));
+        }
+        return res;
+      }
+      /**
+       * Preload uint from specific offset
+       * @param bits bits to preload
+       * @param offset offset to start from
+       * @returns read value as bigint
+       */
+      _preloadUint(bits, offset) {
+        if (bits == 0) {
+          return 0n;
+        }
+        let res = 0n;
+        for (let i = 0; i < bits; i++) {
+          if (this._bits.at(offset + i)) {
+            res += 1n << BigInt(bits - i - 1);
+          }
+        }
+        return res;
+      }
+      _preloadBuffer(bytes, offset) {
+        let fastBuffer = this._bits.subbuffer(offset, bytes * 8);
+        if (fastBuffer) {
+          return fastBuffer;
+        }
+        let buf = Buffer.alloc(bytes);
+        for (let i = 0; i < bytes; i++) {
+          buf[i] = Number(this._preloadUint(8, offset + i * 8));
+        }
+        return buf;
+      }
+      _loadInternalAddress() {
+        let type = Number(this._preloadUint(2, this._offset));
+        if (type !== 2) {
+          throw Error("Invalid address");
+        }
+        if (this._preloadUint(1, this._offset + 2) !== 0n) {
+          throw Error("Invalid address");
+        }
+        let wc = Number(this._preloadInt(8, this._offset + 3));
+        let hash = this._preloadBuffer(32, this._offset + 11);
+        this._offset += 267;
+        return new Address_1.Address(wc, hash);
+      }
+      _loadExternalAddress() {
+        let type = Number(this._preloadUint(2, this._offset));
+        if (type !== 1) {
+          throw Error("Invalid address");
+        }
+        let bits = Number(this._preloadUint(9, this._offset + 2));
+        let value = this._preloadUint(bits, this._offset + 11);
+        this._offset += 11 + bits;
+        return new ExternalAddress_1.ExternalAddress(value, bits);
+      }
+      _toSafeInteger(src, alt) {
+        if (BigInt(Number.MAX_SAFE_INTEGER) < src || src < BigInt(Number.MIN_SAFE_INTEGER)) {
+          throw new TypeError(`${src} is out of safe integer range. Use ${alt} instead`);
+        }
+        return Number(src);
+      }
+    };
+    exports2.BitReader = BitReader2;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/cell/exoticMerkleProof.js
+var require_exoticMerkleProof = __commonJS({
+  "node_modules/@ton/core/dist/boc/cell/exoticMerkleProof.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.convertToMerkleProof = exports2.exoticMerkleProof = void 0;
+    var BitReader_1 = require_BitReader();
+    var Builder_1 = require_Builder();
+    function exoticMerkleProof2(bits, refs) {
+      const reader = new BitReader_1.BitReader(bits);
+      const size = 8 + 256 + 16;
+      if (bits.length !== size) {
+        throw new Error(`Merkle Proof cell must have exactly (8 + 256 + 16) bits, got "${bits.length}"`);
+      }
+      if (refs.length !== 1) {
+        throw new Error(`Merkle Proof cell must have exactly 1 ref, got "${refs.length}"`);
+      }
+      let type = reader.loadUint(8);
+      if (type !== 3) {
+        throw new Error(`Merkle Proof cell must have type 3, got "${type}"`);
+      }
+      const proofHash = reader.loadBuffer(32);
+      const proofDepth = reader.loadUint(16);
+      const refHash = refs[0].hash(0);
+      const refDepth = refs[0].depth(0);
+      if (proofDepth !== refDepth) {
+        throw new Error(`Merkle Proof cell ref depth must be exactly "${proofDepth}", got "${refDepth}"`);
+      }
+      if (!proofHash.equals(refHash)) {
+        throw new Error(`Merkle Proof cell ref hash must be exactly "${proofHash.toString("hex")}", got "${refHash.toString("hex")}"`);
+      }
+      return {
+        proofDepth,
+        proofHash
+      };
+    }
+    exports2.exoticMerkleProof = exoticMerkleProof2;
+    function convertToMerkleProof2(c) {
+      return (0, Builder_1.beginCell)().storeUint(3, 8).storeBuffer(c.hash(0)).storeUint(c.depth(0), 16).storeRef(c).endCell({ exotic: true });
+    }
+    exports2.convertToMerkleProof = convertToMerkleProof2;
+  }
+});
+
+// node_modules/@ton/core/dist/dict/generateMerkleProof.js
+var require_generateMerkleProof = __commonJS({
+  "node_modules/@ton/core/dist/dict/generateMerkleProof.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.generateMerkleProof = exports2.generateMerkleProofDirect = void 0;
+    var Builder_1 = require_Builder();
+    var readUnaryLength_1 = require_readUnaryLength();
+    var exoticMerkleProof_1 = require_exoticMerkleProof();
+    function convertToPrunedBranch(c) {
+      return (0, Builder_1.beginCell)().storeUint(1, 8).storeUint(1, 8).storeBuffer(c.hash(0)).storeUint(c.depth(0), 16).endCell({ exotic: true });
+    }
+    function doGenerateMerkleProof(prefix, slice, n, keys) {
+      const originalCell = slice.asCell();
+      if (keys.length == 0) {
+        return convertToPrunedBranch(originalCell);
+      }
+      let lb0 = slice.loadBit() ? 1 : 0;
+      let prefixLength = 0;
+      let pp = prefix;
+      if (lb0 === 0) {
+        prefixLength = (0, readUnaryLength_1.readUnaryLength)(slice);
+        for (let i = 0; i < prefixLength; i++) {
+          pp += slice.loadBit() ? "1" : "0";
+        }
+      } else {
+        let lb1 = slice.loadBit() ? 1 : 0;
+        if (lb1 === 0) {
+          prefixLength = slice.loadUint(Math.ceil(Math.log2(n + 1)));
+          for (let i = 0; i < prefixLength; i++) {
+            pp += slice.loadBit() ? "1" : "0";
+          }
+        } else {
+          let bit = slice.loadBit() ? "1" : "0";
+          prefixLength = slice.loadUint(Math.ceil(Math.log2(n + 1)));
+          for (let i = 0; i < prefixLength; i++) {
+            pp += bit;
+          }
+        }
+      }
+      if (n - prefixLength === 0) {
+        return originalCell;
+      } else {
+        let sl = originalCell.beginParse();
+        let left = sl.loadRef();
+        let right = sl.loadRef();
+        if (!left.isExotic) {
+          const leftKeys = keys.filter((key) => {
+            return pp + "0" === key.slice(0, pp.length + 1);
+          });
+          left = doGenerateMerkleProof(pp + "0", left.beginParse(), n - prefixLength - 1, leftKeys);
+        }
+        if (!right.isExotic) {
+          const rightKeys = keys.filter((key) => {
+            return pp + "1" === key.slice(0, pp.length + 1);
+          });
+          right = doGenerateMerkleProof(pp + "1", right.beginParse(), n - prefixLength - 1, rightKeys);
+        }
+        return (0, Builder_1.beginCell)().storeSlice(sl).storeRef(left).storeRef(right).endCell();
+      }
+    }
+    function generateMerkleProofDirect2(dict, keys, keyObject) {
+      keys.forEach((key) => {
+        if (!dict.has(key)) {
+          throw new Error(`Trying to generate merkle proof for a missing key "${key}"`);
+        }
+      });
+      const s = (0, Builder_1.beginCell)().storeDictDirect(dict).asSlice();
+      return doGenerateMerkleProof("", s, keyObject.bits, keys.map((key) => keyObject.serialize(key).toString(2).padStart(keyObject.bits, "0")));
+    }
+    exports2.generateMerkleProofDirect = generateMerkleProofDirect2;
+    function generateMerkleProof2(dict, keys, keyObject) {
+      return (0, exoticMerkleProof_1.convertToMerkleProof)(generateMerkleProofDirect2(dict, keys, keyObject));
+    }
+    exports2.generateMerkleProof = generateMerkleProof2;
+  }
+});
+
+// node_modules/@ton/core/dist/dict/generateMerkleUpdate.js
+var require_generateMerkleUpdate = __commonJS({
+  "node_modules/@ton/core/dist/dict/generateMerkleUpdate.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.generateMerkleUpdate = void 0;
+    var Builder_1 = require_Builder();
+    var generateMerkleProof_1 = require_generateMerkleProof();
+    function convertToMerkleUpdate(c1, c2) {
+      return (0, Builder_1.beginCell)().storeUint(4, 8).storeBuffer(c1.hash(0)).storeBuffer(c2.hash(0)).storeUint(c1.depth(0), 16).storeUint(c2.depth(0), 16).storeRef(c1).storeRef(c2).endCell({ exotic: true });
+    }
+    function generateMerkleUpdate2(dict, key, keyObject, newValue) {
+      const oldProof = (0, generateMerkleProof_1.generateMerkleProof)(dict, [key], keyObject).refs[0];
+      dict.set(key, newValue);
+      const newProof = (0, generateMerkleProof_1.generateMerkleProof)(dict, [key], keyObject).refs[0];
+      return convertToMerkleUpdate(oldProof, newProof);
+    }
+    exports2.generateMerkleUpdate = generateMerkleUpdate2;
+  }
+});
+
+// node_modules/@ton/core/dist/dict/parseDict.js
+var require_parseDict = __commonJS({
+  "node_modules/@ton/core/dist/dict/parseDict.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.parseDict = void 0;
+    function readUnaryLength(slice) {
+      let res = 0;
+      while (slice.loadBit()) {
+        res++;
+      }
+      return res;
+    }
+    function doParse(prefix, slice, n, res, extractor) {
+      let lb0 = slice.loadBit() ? 1 : 0;
+      let prefixLength = 0;
+      let pp = prefix;
+      if (lb0 === 0) {
+        prefixLength = readUnaryLength(slice);
+        for (let i = 0; i < prefixLength; i++) {
+          pp += slice.loadBit() ? "1" : "0";
+        }
+      } else {
+        let lb1 = slice.loadBit() ? 1 : 0;
+        if (lb1 === 0) {
+          prefixLength = slice.loadUint(Math.ceil(Math.log2(n + 1)));
+          for (let i = 0; i < prefixLength; i++) {
+            pp += slice.loadBit() ? "1" : "0";
+          }
+        } else {
+          let bit = slice.loadBit() ? "1" : "0";
+          prefixLength = slice.loadUint(Math.ceil(Math.log2(n + 1)));
+          for (let i = 0; i < prefixLength; i++) {
+            pp += bit;
+          }
+        }
+      }
+      if (n - prefixLength === 0) {
+        res.set(BigInt("0b" + pp), extractor(slice));
+      } else {
+        let left = slice.loadRef();
+        let right = slice.loadRef();
+        if (!left.isExotic) {
+          doParse(pp + "0", left.beginParse(), n - prefixLength - 1, res, extractor);
+        }
+        if (!right.isExotic) {
+          doParse(pp + "1", right.beginParse(), n - prefixLength - 1, res, extractor);
+        }
+      }
+    }
+    function parseDict(sc, keySize, extractor) {
+      let res = /* @__PURE__ */ new Map();
+      if (sc) {
+        doParse("", sc, keySize, res, extractor);
+      }
+      return res;
+    }
+    exports2.parseDict = parseDict;
+  }
+});
+
+// node_modules/@ton/core/dist/dict/utils/findCommonPrefix.js
+var require_findCommonPrefix = __commonJS({
+  "node_modules/@ton/core/dist/dict/utils/findCommonPrefix.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.findCommonPrefix = void 0;
+    function findCommonPrefix(src, startPos = 0) {
+      if (src.length === 0) {
+        return "";
+      }
+      let r = src[0].slice(startPos);
+      for (let i = 1; i < src.length; i++) {
+        const s = src[i];
+        while (s.indexOf(r, startPos) !== startPos) {
+          r = r.substring(0, r.length - 1);
+          if (r === "") {
+            return r;
+          }
+        }
+      }
+      return r;
+    }
+    exports2.findCommonPrefix = findCommonPrefix;
+  }
+});
+
+// node_modules/@ton/core/dist/dict/serializeDict.js
+var require_serializeDict = __commonJS({
+  "node_modules/@ton/core/dist/dict/serializeDict.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.serializeDict = exports2.detectLabelType = exports2.writeLabelSame = exports2.writeLabelLong = exports2.writeLabelShort = exports2.buildTree = void 0;
+    var Builder_1 = require_Builder();
+    var findCommonPrefix_1 = require_findCommonPrefix();
+    function pad(src, size) {
+      while (src.length < size) {
+        src = "0" + src;
+      }
+      return src;
+    }
+    function forkMap(src, prefixLen) {
+      if (src.size === 0) {
+        throw Error("Internal inconsistency");
+      }
+      let left = /* @__PURE__ */ new Map();
+      let right = /* @__PURE__ */ new Map();
+      for (let [k, d] of src.entries()) {
+        if (k[prefixLen] === "0") {
+          left.set(k, d);
+        } else {
+          right.set(k, d);
+        }
+      }
+      if (left.size === 0) {
+        throw Error("Internal inconsistency. Left emtpy.");
+      }
+      if (right.size === 0) {
+        throw Error("Internal inconsistency. Right emtpy.");
+      }
+      return { left, right };
+    }
+    function buildNode(src, prefixLen) {
+      if (src.size === 0) {
+        throw Error("Internal inconsistency");
+      }
+      if (src.size === 1) {
+        return { type: "leaf", value: Array.from(src.values())[0] };
+      }
+      let { left, right } = forkMap(src, prefixLen);
+      return {
+        type: "fork",
+        left: buildEdge(left, prefixLen + 1),
+        right: buildEdge(right, prefixLen + 1)
+      };
+    }
+    function buildEdge(src, prefixLen = 0) {
+      if (src.size === 0) {
+        throw Error("Internal inconsistency");
+      }
+      const label = (0, findCommonPrefix_1.findCommonPrefix)(Array.from(src.keys()), prefixLen);
+      return { label, node: buildNode(src, label.length + prefixLen) };
+    }
+    function buildTree(src, keyLength) {
+      let converted = /* @__PURE__ */ new Map();
+      for (let k of Array.from(src.keys())) {
+        const padded = pad(k.toString(2), keyLength);
+        converted.set(padded, src.get(k));
+      }
+      return buildEdge(converted);
+    }
+    exports2.buildTree = buildTree;
+    function writeLabelShort(src, to) {
+      to.storeBit(0);
+      for (let i = 0; i < src.length; i++) {
+        to.storeBit(1);
+      }
+      to.storeBit(0);
+      if (src.length > 0) {
+        to.storeUint(BigInt("0b" + src), src.length);
+      }
+      return to;
+    }
+    exports2.writeLabelShort = writeLabelShort;
+    function labelShortLength(src) {
+      return 1 + src.length + 1 + src.length;
+    }
+    function writeLabelLong(src, keyLength, to) {
+      to.storeBit(1);
+      to.storeBit(0);
+      let length = Math.ceil(Math.log2(keyLength + 1));
+      to.storeUint(src.length, length);
+      if (src.length > 0) {
+        to.storeUint(BigInt("0b" + src), src.length);
+      }
+      return to;
+    }
+    exports2.writeLabelLong = writeLabelLong;
+    function labelLongLength(src, keyLength) {
+      return 1 + 1 + Math.ceil(Math.log2(keyLength + 1)) + src.length;
+    }
+    function writeLabelSame(value, length, keyLength, to) {
+      to.storeBit(1);
+      to.storeBit(1);
+      to.storeBit(value);
+      let lenLen = Math.ceil(Math.log2(keyLength + 1));
+      to.storeUint(length, lenLen);
+    }
+    exports2.writeLabelSame = writeLabelSame;
+    function labelSameLength(keyLength) {
+      return 1 + 1 + 1 + Math.ceil(Math.log2(keyLength + 1));
+    }
+    function isSame(src) {
+      if (src.length === 0 || src.length === 1) {
+        return true;
+      }
+      for (let i = 1; i < src.length; i++) {
+        if (src[i] !== src[0]) {
+          return false;
+        }
+      }
+      return true;
+    }
+    function detectLabelType(src, keyLength) {
+      let kind = "short";
+      let kindLength = labelShortLength(src);
+      let longLength = labelLongLength(src, keyLength);
+      if (longLength < kindLength) {
+        kindLength = longLength;
+        kind = "long";
+      }
+      if (isSame(src)) {
+        let sameLength = labelSameLength(keyLength);
+        if (sameLength < kindLength) {
+          kindLength = sameLength;
+          kind = "same";
+        }
+      }
+      return kind;
+    }
+    exports2.detectLabelType = detectLabelType;
+    function writeLabel(src, keyLength, to) {
+      let type = detectLabelType(src, keyLength);
+      if (type === "short") {
+        writeLabelShort(src, to);
+      } else if (type === "long") {
+        writeLabelLong(src, keyLength, to);
+      } else if (type === "same") {
+        writeLabelSame(src[0] === "1", src.length, keyLength, to);
+      }
+    }
+    function writeNode(src, keyLength, serializer, to) {
+      if (src.type === "leaf") {
+        serializer(src.value, to);
+      }
+      if (src.type === "fork") {
+        const leftCell = (0, Builder_1.beginCell)();
+        const rightCell = (0, Builder_1.beginCell)();
+        writeEdge(src.left, keyLength - 1, serializer, leftCell);
+        writeEdge(src.right, keyLength - 1, serializer, rightCell);
+        to.storeRef(leftCell);
+        to.storeRef(rightCell);
+      }
+    }
+    function writeEdge(src, keyLength, serializer, to) {
+      writeLabel(src.label, keyLength, to);
+      writeNode(src.node, keyLength - src.label.length, serializer, to);
+    }
+    function serializeDict(src, keyLength, serializer, to) {
+      const tree = buildTree(src, keyLength);
+      writeEdge(tree, keyLength, serializer, to);
+    }
+    exports2.serializeDict = serializeDict;
+  }
+});
+
+// node_modules/@ton/core/dist/dict/utils/internalKeySerializer.js
+var require_internalKeySerializer = __commonJS({
+  "node_modules/@ton/core/dist/dict/utils/internalKeySerializer.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.deserializeInternalKey = exports2.serializeInternalKey = void 0;
+    var Address_1 = require_Address();
+    var BitString_1 = require_BitString();
+    var paddedBits_1 = require_paddedBits();
+    function serializeInternalKey(value) {
+      if (typeof value === "number") {
+        if (!Number.isSafeInteger(value)) {
+          throw Error("Invalid key type: not a safe integer: " + value);
+        }
+        return "n:" + value.toString(10);
+      } else if (typeof value === "bigint") {
+        return "b:" + value.toString(10);
+      } else if (Address_1.Address.isAddress(value)) {
+        return "a:" + value.toString();
+      } else if (Buffer.isBuffer(value)) {
+        return "f:" + value.toString("hex");
+      } else if (BitString_1.BitString.isBitString(value)) {
+        return "B:" + value.toString();
+      } else {
+        throw Error("Invalid key type");
+      }
+    }
+    exports2.serializeInternalKey = serializeInternalKey;
+    function deserializeInternalKey(value) {
+      let k = value.slice(0, 2);
+      let v = value.slice(2);
+      if (k === "n:") {
+        return parseInt(v, 10);
+      } else if (k === "b:") {
+        return BigInt(v);
+      } else if (k === "a:") {
+        return Address_1.Address.parse(v);
+      } else if (k === "f:") {
+        return Buffer.from(v, "hex");
+      } else if (k === "B:") {
+        const lastDash = v.slice(-1) == "_";
+        const isPadded = lastDash || v.length % 2 != 0;
+        if (isPadded) {
+          let charLen = lastDash ? v.length - 1 : v.length;
+          const padded = v.substr(0, charLen) + "0";
+          if (!lastDash && (charLen & 1) !== 0) {
+            return new BitString_1.BitString(Buffer.from(padded, "hex"), 0, charLen << 2);
+          } else {
+            return (0, paddedBits_1.paddedBufferToBits)(Buffer.from(padded, "hex"));
+          }
+        } else {
+          return new BitString_1.BitString(Buffer.from(v, "hex"), 0, v.length << 2);
+        }
+      }
+      throw Error("Invalid key type: " + k);
+    }
+    exports2.deserializeInternalKey = deserializeInternalKey;
+  }
+});
+
+// node_modules/@ton/core/dist/dict/Dictionary.js
+var require_Dictionary = __commonJS({
+  "node_modules/@ton/core/dist/dict/Dictionary.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.Dictionary = void 0;
+    var Address_1 = require_Address();
+    var Builder_1 = require_Builder();
+    var Cell_1 = require_Cell();
+    var BitString_1 = require_BitString();
+    var generateMerkleProof_1 = require_generateMerkleProof();
+    var generateMerkleUpdate_1 = require_generateMerkleUpdate();
+    var parseDict_1 = require_parseDict();
+    var serializeDict_1 = require_serializeDict();
+    var internalKeySerializer_1 = require_internalKeySerializer();
+    var Dictionary2 = class _Dictionary {
+      /**
+       * Create an empty map
+       * @param key key type
+       * @param value value type
+       * @returns Dictionary<K, V>
+       */
+      static empty(key, value) {
+        if (key && value) {
+          return new _Dictionary(/* @__PURE__ */ new Map(), key, value);
+        } else {
+          return new _Dictionary(/* @__PURE__ */ new Map(), null, null);
+        }
+      }
+      /**
+       * Load dictionary from slice
+       * @param key key description
+       * @param value value description
+       * @param src slice
+       * @returns Dictionary<K, V>
+       */
+      static load(key, value, sc) {
+        let slice;
+        if (sc instanceof Cell_1.Cell) {
+          if (sc.isExotic) {
+            return _Dictionary.empty(key, value);
+          }
+          slice = sc.beginParse();
+        } else {
+          slice = sc;
+        }
+        let cell = slice.loadMaybeRef();
+        if (cell && !cell.isExotic) {
+          return _Dictionary.loadDirect(key, value, cell.beginParse());
+        } else {
+          return _Dictionary.empty(key, value);
+        }
+      }
+      /**
+       * Low level method for rare dictionaries from system contracts.
+       * Loads dictionary from slice directly without going to the ref.
+       *
+       * @param key key description
+       * @param value value description
+       * @param sc slice
+       * @returns Dictionary<K, V>
+       */
+      static loadDirect(key, value, sc) {
+        if (!sc) {
+          return _Dictionary.empty(key, value);
+        }
+        let slice;
+        if (sc instanceof Cell_1.Cell) {
+          slice = sc.beginParse();
+        } else {
+          slice = sc;
+        }
+        let values = (0, parseDict_1.parseDict)(slice, key.bits, value.parse);
+        let prepare = /* @__PURE__ */ new Map();
+        for (let [k, v] of values) {
+          prepare.set((0, internalKeySerializer_1.serializeInternalKey)(key.parse(k)), v);
+        }
+        return new _Dictionary(prepare, key, value);
+      }
+      constructor(values, key, value) {
+        this._key = key;
+        this._value = value;
+        this._map = values;
+      }
+      get size() {
+        return this._map.size;
+      }
+      get(key) {
+        return this._map.get((0, internalKeySerializer_1.serializeInternalKey)(key));
+      }
+      has(key) {
+        return this._map.has((0, internalKeySerializer_1.serializeInternalKey)(key));
+      }
+      set(key, value) {
+        this._map.set((0, internalKeySerializer_1.serializeInternalKey)(key), value);
+        return this;
+      }
+      delete(key) {
+        const k = (0, internalKeySerializer_1.serializeInternalKey)(key);
+        return this._map.delete(k);
+      }
+      clear() {
+        this._map.clear();
+      }
+      *[Symbol.iterator]() {
+        for (const [k, v] of this._map) {
+          const key = (0, internalKeySerializer_1.deserializeInternalKey)(k);
+          yield [key, v];
+        }
+      }
+      keys() {
+        return Array.from(this._map.keys()).map((v) => (0, internalKeySerializer_1.deserializeInternalKey)(v));
+      }
+      values() {
+        return Array.from(this._map.values());
+      }
+      store(builder, key, value) {
+        if (this._map.size === 0) {
+          builder.storeBit(0);
+        } else {
+          let resolvedKey = this._key;
+          if (key !== null && key !== void 0) {
+            resolvedKey = key;
+          }
+          let resolvedValue = this._value;
+          if (value !== null && value !== void 0) {
+            resolvedValue = value;
+          }
+          if (!resolvedKey) {
+            throw Error("Key serializer is not defined");
+          }
+          if (!resolvedValue) {
+            throw Error("Value serializer is not defined");
+          }
+          let prepared = /* @__PURE__ */ new Map();
+          for (const [k, v] of this._map) {
+            prepared.set(resolvedKey.serialize((0, internalKeySerializer_1.deserializeInternalKey)(k)), v);
+          }
+          builder.storeBit(1);
+          let dd = (0, Builder_1.beginCell)();
+          (0, serializeDict_1.serializeDict)(prepared, resolvedKey.bits, resolvedValue.serialize, dd);
+          builder.storeRef(dd.endCell());
+        }
+      }
+      storeDirect(builder, key, value) {
+        if (this._map.size === 0) {
+          throw Error("Cannot store empty dictionary directly");
+        }
+        let resolvedKey = this._key;
+        if (key !== null && key !== void 0) {
+          resolvedKey = key;
+        }
+        let resolvedValue = this._value;
+        if (value !== null && value !== void 0) {
+          resolvedValue = value;
+        }
+        if (!resolvedKey) {
+          throw Error("Key serializer is not defined");
+        }
+        if (!resolvedValue) {
+          throw Error("Value serializer is not defined");
+        }
+        let prepared = /* @__PURE__ */ new Map();
+        for (const [k, v] of this._map) {
+          prepared.set(resolvedKey.serialize((0, internalKeySerializer_1.deserializeInternalKey)(k)), v);
+        }
+        (0, serializeDict_1.serializeDict)(prepared, resolvedKey.bits, resolvedValue.serialize, builder);
+      }
+      /**
+       * Generate merkle proof for multiple keys in the dictionary
+       * @param keys an array of the keys
+       * @returns generated merkle proof cell
+       */
+      generateMerkleProof(keys) {
+        return (0, generateMerkleProof_1.generateMerkleProof)(this, keys, this._key);
+      }
+      /**
+       * Low level method for generating pruned dictionary directly.
+       * The result can be used as a part of a bigger merkle proof
+       * @param keys an array of the keys
+       * @returns cell that contains the pruned dictionary
+       */
+      generateMerkleProofDirect(keys) {
+        return (0, generateMerkleProof_1.generateMerkleProofDirect)(this, keys, this._key);
+      }
+      generateMerkleUpdate(key, newValue) {
+        return (0, generateMerkleUpdate_1.generateMerkleUpdate)(this, key, this._key, newValue);
+      }
+    };
+    exports2.Dictionary = Dictionary2;
+    Dictionary2.Keys = {
+      /**
+       * Standard address key
+       * @returns DictionaryKey<Address>
+       */
+      Address: () => {
+        return createAddressKey();
+      },
+      /**
+       * Create standard big integer key
+       * @param bits number of bits
+       * @returns DictionaryKey<bigint>
+       */
+      BigInt: (bits) => {
+        return createBigIntKey(bits);
+      },
+      /**
+       * Create integer key
+       * @param bits bits of integer
+       * @returns DictionaryKey<number>
+       */
+      Int: (bits) => {
+        return createIntKey(bits);
+      },
+      /**
+       * Create standard unsigned big integer key
+       * @param bits number of bits
+       * @returns DictionaryKey<bigint>
+       */
+      BigUint: (bits) => {
+        return createBigUintKey(bits);
+      },
+      /**
+       * Create standard unsigned integer key
+       * @param bits number of bits
+       * @returns DictionaryKey<number>
+       */
+      Uint: (bits) => {
+        return createUintKey(bits);
+      },
+      /**
+       * Create standard buffer key
+       * @param bytes number of bytes of a buffer
+       * @returns DictionaryKey<Buffer>
+       */
+      Buffer: (bytes) => {
+        return createBufferKey(bytes);
+      },
+      /**
+       * Create BitString key
+       * @param bits key length
+       * @returns DictionaryKey<BitString>
+       * Point is that Buffer has to be 8 bit aligned,
+       * while key is TVM dictionary doesn't have to be
+       * aligned at all.
+       */
+      BitString: (bits) => {
+        return createBitStringKey(bits);
+      }
+    };
+    Dictionary2.Values = {
+      /**
+       * Create standard integer value
+       * @returns DictionaryValue<bigint>
+       */
+      BigInt: (bits) => {
+        return createBigIntValue(bits);
+      },
+      /**
+       * Create standard integer value
+       * @returns DictionaryValue<number>
+       */
+      Int: (bits) => {
+        return createIntValue(bits);
+      },
+      /**
+       * Create big var int
+       * @param bits nubmer of header bits
+       * @returns DictionaryValue<bigint>
+       */
+      BigVarInt: (bits) => {
+        return createBigVarIntValue(bits);
+      },
+      /**
+       * Create standard unsigned integer value
+       * @param bits number of bits
+       * @returns DictionaryValue<bigint>
+       */
+      BigUint: (bits) => {
+        return createBigUintValue(bits);
+      },
+      /**
+       * Create standard unsigned integer value
+       * @param bits number of bits
+       * @returns DictionaryValue<bigint>
+       */
+      Uint: (bits) => {
+        return createUintValue(bits);
+      },
+      /**
+       * Create big var int
+       * @param bits nubmer of header bits
+       * @returns DictionaryValue<bigint>
+       */
+      BigVarUint: (bits) => {
+        return createBigVarUintValue(bits);
+      },
+      /**
+       * Create standard boolean value
+       * @returns DictionaryValue<boolean>
+       */
+      Bool: () => {
+        return createBooleanValue();
+      },
+      /**
+       * Create standard address value
+       * @returns DictionaryValue<Address>
+       */
+      Address: () => {
+        return createAddressValue();
+      },
+      /**
+       * Create standard cell value
+       * @returns DictionaryValue<Cell>
+       */
+      Cell: () => {
+        return createCellValue();
+      },
+      /**
+       * Create Builder value
+       * @param bytes number of bytes of a buffer
+       * @returns DictionaryValue<Builder>
+       */
+      Buffer: (bytes) => {
+        return createBufferValue(bytes);
+      },
+      /**
+       * Create BitString value
+       * @param requested bit length
+       * @returns DictionaryValue<BitString>
+       * Point is that Buffer is not applicable
+       * when length is not 8 bit alligned.
+       */
+      BitString: (bits) => {
+        return createBitStringValue(bits);
+      },
+      /**
+       * Create dictionary value
+       * @param key
+       * @param value
+       */
+      Dictionary: (key, value) => {
+        return createDictionaryValue(key, value);
+      }
+    };
+    function createAddressKey() {
+      return {
+        bits: 267,
+        serialize: (src) => {
+          if (!Address_1.Address.isAddress(src)) {
+            throw Error("Key is not an address");
+          }
+          return (0, Builder_1.beginCell)().storeAddress(src).endCell().beginParse().preloadUintBig(267);
+        },
+        parse: (src) => {
+          return (0, Builder_1.beginCell)().storeUint(src, 267).endCell().beginParse().loadAddress();
+        }
+      };
+    }
+    function createBigIntKey(bits) {
+      return {
+        bits,
+        serialize: (src) => {
+          if (typeof src !== "bigint") {
+            throw Error("Key is not a bigint");
+          }
+          return (0, Builder_1.beginCell)().storeInt(src, bits).endCell().beginParse().loadUintBig(bits);
+        },
+        parse: (src) => {
+          return (0, Builder_1.beginCell)().storeUint(src, bits).endCell().beginParse().loadIntBig(bits);
+        }
+      };
+    }
+    function createIntKey(bits) {
+      return {
+        bits,
+        serialize: (src) => {
+          if (typeof src !== "number") {
+            throw Error("Key is not a number");
+          }
+          if (!Number.isSafeInteger(src)) {
+            throw Error("Key is not a safe integer: " + src);
+          }
+          return (0, Builder_1.beginCell)().storeInt(src, bits).endCell().beginParse().loadUintBig(bits);
+        },
+        parse: (src) => {
+          return (0, Builder_1.beginCell)().storeUint(src, bits).endCell().beginParse().loadInt(bits);
+        }
+      };
+    }
+    function createBigUintKey(bits) {
+      return {
+        bits,
+        serialize: (src) => {
+          if (typeof src !== "bigint") {
+            throw Error("Key is not a bigint");
+          }
+          if (src < 0) {
+            throw Error("Key is negative: " + src);
+          }
+          return (0, Builder_1.beginCell)().storeUint(src, bits).endCell().beginParse().loadUintBig(bits);
+        },
+        parse: (src) => {
+          return (0, Builder_1.beginCell)().storeUint(src, bits).endCell().beginParse().loadUintBig(bits);
+        }
+      };
+    }
+    function createUintKey(bits) {
+      return {
+        bits,
+        serialize: (src) => {
+          if (typeof src !== "number") {
+            throw Error("Key is not a number");
+          }
+          if (!Number.isSafeInteger(src)) {
+            throw Error("Key is not a safe integer: " + src);
+          }
+          if (src < 0) {
+            throw Error("Key is negative: " + src);
+          }
+          return (0, Builder_1.beginCell)().storeUint(src, bits).endCell().beginParse().loadUintBig(bits);
+        },
+        parse: (src) => {
+          return Number((0, Builder_1.beginCell)().storeUint(src, bits).endCell().beginParse().loadUint(bits));
+        }
+      };
+    }
+    function createBufferKey(bytes) {
+      return {
+        bits: bytes * 8,
+        serialize: (src) => {
+          if (!Buffer.isBuffer(src)) {
+            throw Error("Key is not a buffer");
+          }
+          return (0, Builder_1.beginCell)().storeBuffer(src).endCell().beginParse().loadUintBig(bytes * 8);
+        },
+        parse: (src) => {
+          return (0, Builder_1.beginCell)().storeUint(src, bytes * 8).endCell().beginParse().loadBuffer(bytes);
+        }
+      };
+    }
+    function createBitStringKey(bits) {
+      return {
+        bits,
+        serialize: (src) => {
+          if (!BitString_1.BitString.isBitString(src))
+            throw Error("Key is not a BitString");
+          return (0, Builder_1.beginCell)().storeBits(src).endCell().beginParse().loadUintBig(bits);
+        },
+        parse: (src) => {
+          return (0, Builder_1.beginCell)().storeUint(src, bits).endCell().beginParse().loadBits(bits);
+        }
+      };
+    }
+    function createIntValue(bits) {
+      return {
+        serialize: (src, buidler) => {
+          buidler.storeInt(src, bits);
+        },
+        parse: (src) => {
+          let value = src.loadInt(bits);
+          src.endParse();
+          return value;
+        }
+      };
+    }
+    function createBigIntValue(bits) {
+      return {
+        serialize: (src, buidler) => {
+          buidler.storeInt(src, bits);
+        },
+        parse: (src) => {
+          let value = src.loadIntBig(bits);
+          src.endParse();
+          return value;
+        }
+      };
+    }
+    function createBigVarIntValue(bits) {
+      return {
+        serialize: (src, buidler) => {
+          buidler.storeVarInt(src, bits);
+        },
+        parse: (src) => {
+          let value = src.loadVarIntBig(bits);
+          src.endParse();
+          return value;
+        }
+      };
+    }
+    function createBigVarUintValue(bits) {
+      return {
+        serialize: (src, buidler) => {
+          buidler.storeVarUint(src, bits);
+        },
+        parse: (src) => {
+          let value = src.loadVarUintBig(bits);
+          src.endParse();
+          return value;
+        }
+      };
+    }
+    function createUintValue(bits) {
+      return {
+        serialize: (src, buidler) => {
+          buidler.storeUint(src, bits);
+        },
+        parse: (src) => {
+          let value = src.loadUint(bits);
+          src.endParse();
+          return value;
+        }
+      };
+    }
+    function createBigUintValue(bits) {
+      return {
+        serialize: (src, buidler) => {
+          buidler.storeUint(src, bits);
+        },
+        parse: (src) => {
+          let value = src.loadUintBig(bits);
+          src.endParse();
+          return value;
+        }
+      };
+    }
+    function createBooleanValue() {
+      return {
+        serialize: (src, buidler) => {
+          buidler.storeBit(src);
+        },
+        parse: (src) => {
+          let value = src.loadBit();
+          src.endParse();
+          return value;
+        }
+      };
+    }
+    function createAddressValue() {
+      return {
+        serialize: (src, buidler) => {
+          buidler.storeAddress(src);
+        },
+        parse: (src) => {
+          let addr = src.loadAddress();
+          src.endParse();
+          return addr;
+        }
+      };
+    }
+    function createCellValue() {
+      return {
+        serialize: (src, buidler) => {
+          buidler.storeRef(src);
+        },
+        parse: (src) => {
+          let value = src.loadRef();
+          src.endParse();
+          return value;
+        }
+      };
+    }
+    function createDictionaryValue(key, value) {
+      return {
+        serialize: (src, buidler) => {
+          src.store(buidler);
+        },
+        parse: (src) => {
+          let dict = Dictionary2.load(key, value, src);
+          src.endParse();
+          return dict;
+        }
+      };
+    }
+    function createBufferValue(size) {
+      return {
+        serialize: (src, buidler) => {
+          if (src.length !== size) {
+            throw Error("Invalid buffer size");
+          }
+          buidler.storeBuffer(src);
+        },
+        parse: (src) => {
+          let value = src.loadBuffer(size);
+          src.endParse();
+          return value;
+        }
+      };
+    }
+    function createBitStringValue(bits) {
+      return {
+        serialize: (src, builder) => {
+          if (src.length !== bits) {
+            throw Error("Invalid BitString size");
+          }
+          builder.storeBits(src);
+        },
+        parse: (src) => {
+          let value = src.loadBits(bits);
+          src.endParse();
+          return value;
+        }
+      };
+    }
+  }
+});
+
+// node_modules/@ton/core/dist/boc/utils/strings.js
+var require_strings = __commonJS({
+  "node_modules/@ton/core/dist/boc/utils/strings.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.writeString = exports2.stringToCell = exports2.readString = void 0;
+    var Builder_1 = require_Builder();
+    function readBuffer(slice) {
+      if (slice.remainingBits % 8 !== 0) {
+        throw new Error(`Invalid string length: ${slice.remainingBits}`);
+      }
+      if (slice.remainingRefs !== 0 && slice.remainingRefs !== 1) {
+        throw new Error(`invalid number of refs: ${slice.remainingRefs}`);
+      }
+      let res;
+      if (slice.remainingBits === 0) {
+        res = Buffer.alloc(0);
+      } else {
+        res = slice.loadBuffer(slice.remainingBits / 8);
+      }
+      if (slice.remainingRefs === 1) {
+        res = Buffer.concat([res, readBuffer(slice.loadRef().beginParse())]);
+      }
+      return res;
+    }
+    function readString(slice) {
+      return readBuffer(slice).toString();
+    }
+    exports2.readString = readString;
+    function writeBuffer(src, builder) {
+      if (src.length > 0) {
+        let bytes = Math.floor(builder.availableBits / 8);
+        if (src.length > bytes) {
+          let a = src.subarray(0, bytes);
+          let t = src.subarray(bytes);
+          builder = builder.storeBuffer(a);
+          let bb = (0, Builder_1.beginCell)();
+          writeBuffer(t, bb);
+          builder = builder.storeRef(bb.endCell());
+        } else {
+          builder = builder.storeBuffer(src);
+        }
+      }
+    }
+    function stringToCell(src) {
+      let builder = (0, Builder_1.beginCell)();
+      writeBuffer(Buffer.from(src), builder);
+      return builder.endCell();
+    }
+    exports2.stringToCell = stringToCell;
+    function writeString(src, builder) {
+      writeBuffer(Buffer.from(src), builder);
+    }
+    exports2.writeString = writeString;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/Slice.js
+var require_Slice = __commonJS({
+  "node_modules/@ton/core/dist/boc/Slice.js"(exports2) {
+    "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    var _a;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.Slice = void 0;
+    var symbol_inspect_1 = __importDefault(require_symbol());
+    var Dictionary_1 = require_Dictionary();
+    var Builder_1 = require_Builder();
+    var strings_1 = require_strings();
+    var Slice2 = class _Slice {
+      constructor(reader, refs) {
+        this[_a] = () => this.toString();
+        this._reader = reader.clone();
+        this._refs = [...refs];
+        this._refsOffset = 0;
+      }
+      /**
+       * Get remaining bits
+       */
+      get remainingBits() {
+        return this._reader.remaining;
+      }
+      /**
+       * Get offset bits
+       */
+      get offsetBits() {
+        return this._reader.offset;
+      }
+      /**
+       * Get remaining refs
+       */
+      get remainingRefs() {
+        return this._refs.length - this._refsOffset;
+      }
+      /**
+       * Get offset refs
+       */
+      get offsetRefs() {
+        return this._refsOffset;
+      }
+      /**
+       * Skip bits
+       * @param bits
+       */
+      skip(bits) {
+        this._reader.skip(bits);
+        return this;
+      }
+      /**
+       * Load a single bit
+       * @returns true or false depending on the bit value
+       */
+      loadBit() {
+        return this._reader.loadBit();
+      }
+      /**
+       * Preload a signle bit
+       * @returns true or false depending on the bit value
+       */
+      preloadBit() {
+        return this._reader.preloadBit();
+      }
+      /**
+       * Load a boolean
+       * @returns true or false depending on the bit value
+       */
+      loadBoolean() {
+        return this.loadBit();
+      }
+      /**
+       * Load maybe boolean
+       * @returns true or false depending on the bit value or null
+       */
+      loadMaybeBoolean() {
+        if (this.loadBit()) {
+          return this.loadBoolean();
+        } else {
+          return null;
+        }
+      }
+      /**
+       * Load bits as a new BitString
+       * @param bits number of bits to read
+       * @returns new BitString
+       */
+      loadBits(bits) {
+        return this._reader.loadBits(bits);
+      }
+      /**
+       * Preload bits as a new BitString
+       * @param bits number of bits to read
+       * @returns new BitString
+       */
+      preloadBits(bits) {
+        return this._reader.preloadBits(bits);
+      }
+      /**
+       * Load uint
+       * @param bits number of bits to read
+       * @returns uint value
+       */
+      loadUint(bits) {
+        return this._reader.loadUint(bits);
+      }
+      /**
+       * Load uint
+       * @param bits number of bits to read
+       * @returns uint value
+       */
+      loadUintBig(bits) {
+        return this._reader.loadUintBig(bits);
+      }
+      /**
+       * Preload uint
+       * @param bits number of bits to read
+       * @returns uint value
+       */
+      preloadUint(bits) {
+        return this._reader.preloadUint(bits);
+      }
+      /**
+       * Preload uint
+       * @param bits number of bits to read
+       * @returns uint value
+       */
+      preloadUintBig(bits) {
+        return this._reader.preloadUintBig(bits);
+      }
+      /**
+       * Load maybe uint
+       * @param bits number of bits to read
+       * @returns uint value or null
+       */
+      loadMaybeUint(bits) {
+        if (this.loadBit()) {
+          return this.loadUint(bits);
+        } else {
+          return null;
+        }
+      }
+      /**
+       * Load maybe uint
+       * @param bits number of bits to read
+       * @returns uint value or null
+       */
+      loadMaybeUintBig(bits) {
+        if (this.loadBit()) {
+          return this.loadUintBig(bits);
+        } else {
+          return null;
+        }
+      }
+      /**
+       * Load int
+       * @param bits number of bits to read
+       * @returns int value
+       */
+      loadInt(bits) {
+        return this._reader.loadInt(bits);
+      }
+      /**
+       * Load int
+       * @param bits number of bits to read
+       * @returns int value
+       */
+      loadIntBig(bits) {
+        return this._reader.loadIntBig(bits);
+      }
+      /**
+       * Preload int
+       * @param bits number of bits to read
+       * @returns int value
+       */
+      preloadInt(bits) {
+        return this._reader.preloadInt(bits);
+      }
+      /**
+       * Preload int
+       * @param bits number of bits to read
+       * @returns int value
+       */
+      preloadIntBig(bits) {
+        return this._reader.preloadIntBig(bits);
+      }
+      /**
+       * Load maybe uint
+       * @param bits number of bits to read
+       * @returns uint value or null
+       */
+      loadMaybeInt(bits) {
+        if (this.loadBit()) {
+          return this.loadInt(bits);
+        } else {
+          return null;
+        }
+      }
+      /**
+       * Load maybe uint
+       * @param bits number of bits to read
+       * @returns uint value or null
+       */
+      loadMaybeIntBig(bits) {
+        if (this.loadBit()) {
+          return this.loadIntBig(bits);
+        } else {
+          return null;
+        }
+      }
+      /**
+       * Load varuint
+       * @param bits number of bits to read in header
+       * @returns varuint value
+       */
+      loadVarUint(bits) {
+        return this._reader.loadVarUint(bits);
+      }
+      /**
+       * Load varuint
+       * @param bits number of bits to read in header
+       * @returns varuint value
+       */
+      loadVarUintBig(bits) {
+        return this._reader.loadVarUintBig(bits);
+      }
+      /**
+       * Preload varuint
+       * @param bits number of bits to read in header
+       * @returns varuint value
+       */
+      preloadVarUint(bits) {
+        return this._reader.preloadVarUint(bits);
+      }
+      /**
+       * Preload varuint
+       * @param bits number of bits to read in header
+       * @returns varuint value
+       */
+      preloadVarUintBig(bits) {
+        return this._reader.preloadVarUintBig(bits);
+      }
+      /**
+       * Load varint
+       * @param bits number of bits to read in header
+       * @returns varint value
+       */
+      loadVarInt(bits) {
+        return this._reader.loadVarInt(bits);
+      }
+      /**
+       * Load varint
+       * @param bits number of bits to read in header
+       * @returns varint value
+       */
+      loadVarIntBig(bits) {
+        return this._reader.loadVarIntBig(bits);
+      }
+      /**
+       * Preload varint
+       * @param bits number of bits to read in header
+       * @returns varint value
+       */
+      preloadVarInt(bits) {
+        return this._reader.preloadVarInt(bits);
+      }
+      /**
+       * Preload varint
+       * @param bits number of bits to read in header
+       * @returns varint value
+       */
+      preloadVarIntBig(bits) {
+        return this._reader.preloadVarIntBig(bits);
+      }
+      /**
+       * Load coins
+       * @returns coins value
+       */
+      loadCoins() {
+        return this._reader.loadCoins();
+      }
+      /**
+       * Preload coins
+       * @returns coins value
+       */
+      preloadCoins() {
+        return this._reader.preloadCoins();
+      }
+      /**
+       * Load maybe coins
+       * @returns coins value or null
+       */
+      loadMaybeCoins() {
+        if (this._reader.loadBit()) {
+          return this._reader.loadCoins();
+        } else {
+          return null;
+        }
+      }
+      /**
+       * Load internal Address
+       * @returns Address
+       */
+      loadAddress() {
+        return this._reader.loadAddress();
+      }
+      /**
+       * Load optional internal Address
+       * @returns Address or null
+       */
+      loadMaybeAddress() {
+        return this._reader.loadMaybeAddress();
+      }
+      /**
+       * Load external address
+       * @returns ExternalAddress
+       */
+      loadExternalAddress() {
+        return this._reader.loadExternalAddress();
+      }
+      /**
+       * Load optional external address
+       * @returns ExternalAddress or null
+       */
+      loadMaybeExternalAddress() {
+        return this._reader.loadMaybeExternalAddress();
+      }
+      /**
+       * Load address
+       * @returns Address, ExternalAddress or null
+       */
+      loadAddressAny() {
+        return this._reader.loadAddressAny();
+      }
+      /**
+       * Load reference
+       * @returns Cell
+       */
+      loadRef() {
+        if (this._refsOffset >= this._refs.length) {
+          throw new Error("No more references");
+        }
+        return this._refs[this._refsOffset++];
+      }
+      /**
+       * Preload reference
+       * @returns Cell
+       */
+      preloadRef() {
+        if (this._refsOffset >= this._refs.length) {
+          throw new Error("No more references");
+        }
+        return this._refs[this._refsOffset];
+      }
+      /**
+       * Load optional reference
+       * @returns Cell or null
+       */
+      loadMaybeRef() {
+        if (this.loadBit()) {
+          return this.loadRef();
+        } else {
+          return null;
+        }
+      }
+      /**
+       * Preload optional reference
+       * @returns Cell or null
+       */
+      preloadMaybeRef() {
+        if (this.preloadBit()) {
+          return this.preloadRef();
+        } else {
+          return null;
+        }
+      }
+      /**
+       * Load byte buffer
+       * @param bytes number of bytes to load
+       * @returns Buffer
+       */
+      loadBuffer(bytes) {
+        return this._reader.loadBuffer(bytes);
+      }
+      /**
+       * Load byte buffer
+       * @param bytes number of bytes to load
+       * @returns Buffer
+       */
+      preloadBuffer(bytes) {
+        return this._reader.preloadBuffer(bytes);
+      }
+      /**
+       * Load string tail
+       */
+      loadStringTail() {
+        return (0, strings_1.readString)(this);
+      }
+      /**
+       * Load maybe string tail
+       * @returns string or null
+       */
+      loadMaybeStringTail() {
+        if (this.loadBit()) {
+          return (0, strings_1.readString)(this);
+        } else {
+          return null;
+        }
+      }
+      /**
+       * Load string tail from ref
+       * @returns string
+       */
+      loadStringRefTail() {
+        return (0, strings_1.readString)(this.loadRef().beginParse());
+      }
+      /**
+       * Load maybe string tail from ref
+       * @returns string or null
+       */
+      loadMaybeStringRefTail() {
+        const ref = this.loadMaybeRef();
+        if (ref) {
+          return (0, strings_1.readString)(ref.beginParse());
+        } else {
+          return null;
+        }
+      }
+      /**
+       * Loads dictionary
+       * @param key key description
+       * @param value value description
+       * @returns Dictionary<K, V>
+       */
+      loadDict(key, value) {
+        return Dictionary_1.Dictionary.load(key, value, this);
+      }
+      /**
+       * Loads dictionary directly from current slice
+       * @param key key description
+       * @param value value description
+       * @returns Dictionary<K, V>
+       */
+      loadDictDirect(key, value) {
+        return Dictionary_1.Dictionary.loadDirect(key, value, this);
+      }
+      /**
+       * Checks if slice is empty
+       */
+      endParse() {
+        if (this.remainingBits > 0 || this.remainingRefs > 0) {
+          throw new Error("Slice is not empty");
+        }
+      }
+      /**
+       * Convert slice to cell
+       */
+      asCell() {
+        return (0, Builder_1.beginCell)().storeSlice(this).endCell();
+      }
+      /**
+       *
+       * @returns
+       */
+      asBuilder() {
+        return (0, Builder_1.beginCell)().storeSlice(this);
+      }
+      /**
+       * Clone slice
+       * @returns cloned slice
+       */
+      clone(fromStart = false) {
+        if (fromStart) {
+          let reader = this._reader.clone();
+          reader.reset();
+          return new _Slice(reader, this._refs);
+        } else {
+          let res = new _Slice(this._reader, this._refs);
+          res._refsOffset = this._refsOffset;
+          return res;
+        }
+      }
+      /**
+       * Print slice as string by converting it to cell
+       * @returns string
+       */
+      toString() {
+        return this.asCell().toString();
+      }
+    };
+    exports2.Slice = Slice2;
+    _a = symbol_inspect_1.default;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/cell/exoticLibrary.js
+var require_exoticLibrary = __commonJS({
+  "node_modules/@ton/core/dist/boc/cell/exoticLibrary.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.exoticLibrary = void 0;
+    var BitReader_1 = require_BitReader();
+    function exoticLibrary(bits, refs) {
+      const reader = new BitReader_1.BitReader(bits);
+      const size = 8 + 256;
+      if (bits.length !== size) {
+        throw new Error(`Library cell must have exactly (8 + 256) bits, got "${bits.length}"`);
+      }
+      let type = reader.loadUint(8);
+      if (type !== 2) {
+        throw new Error(`Library cell must have type 2, got "${type}"`);
+      }
+      return {};
+    }
+    exports2.exoticLibrary = exoticLibrary;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/cell/exoticMerkleUpdate.js
+var require_exoticMerkleUpdate = __commonJS({
+  "node_modules/@ton/core/dist/boc/cell/exoticMerkleUpdate.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.exoticMerkleUpdate = void 0;
+    var BitReader_1 = require_BitReader();
+    function exoticMerkleUpdate2(bits, refs) {
+      const reader = new BitReader_1.BitReader(bits);
+      const size = 8 + 2 * (256 + 16);
+      if (bits.length !== size) {
+        throw new Error(`Merkle Update cell must have exactly (8 + (2 * (256 + 16))) bits, got "${bits.length}"`);
+      }
+      if (refs.length !== 2) {
+        throw new Error(`Merkle Update cell must have exactly 2 refs, got "${refs.length}"`);
+      }
+      let type = reader.loadUint(8);
+      if (type !== 4) {
+        throw new Error(`Merkle Update cell type must be exactly 4, got "${type}"`);
+      }
+      const proofHash1 = reader.loadBuffer(32);
+      const proofHash2 = reader.loadBuffer(32);
+      const proofDepth1 = reader.loadUint(16);
+      const proofDepth2 = reader.loadUint(16);
+      if (proofDepth1 !== refs[0].depth(0)) {
+        throw new Error(`Merkle Update cell ref depth must be exactly "${proofDepth1}", got "${refs[0].depth(0)}"`);
+      }
+      if (!proofHash1.equals(refs[0].hash(0))) {
+        throw new Error(`Merkle Update cell ref hash must be exactly "${proofHash1.toString("hex")}", got "${refs[0].hash(0).toString("hex")}"`);
+      }
+      if (proofDepth2 !== refs[1].depth(0)) {
+        throw new Error(`Merkle Update cell ref depth must be exactly "${proofDepth2}", got "${refs[1].depth(0)}"`);
+      }
+      if (!proofHash2.equals(refs[1].hash(0))) {
+        throw new Error(`Merkle Update cell ref hash must be exactly "${proofHash2.toString("hex")}", got "${refs[1].hash(0).toString("hex")}"`);
+      }
+      return {
+        proofDepth1,
+        proofDepth2,
+        proofHash1,
+        proofHash2
+      };
+    }
+    exports2.exoticMerkleUpdate = exoticMerkleUpdate2;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/cell/LevelMask.js
+var require_LevelMask = __commonJS({
+  "node_modules/@ton/core/dist/boc/cell/LevelMask.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.LevelMask = void 0;
+    var LevelMask = class _LevelMask {
+      constructor(mask = 0) {
+        this._mask = 0;
+        this._mask = mask;
+        this._hashIndex = countSetBits(this._mask);
+        this._hashCount = this._hashIndex + 1;
+      }
+      get value() {
+        return this._mask;
+      }
+      get level() {
+        return 32 - Math.clz32(this._mask);
+      }
+      get hashIndex() {
+        return this._hashIndex;
+      }
+      get hashCount() {
+        return this._hashCount;
+      }
+      apply(level) {
+        return new _LevelMask(this._mask & (1 << level) - 1);
+      }
+      isSignificant(level) {
+        let res = level === 0 || (this._mask >> level - 1) % 2 !== 0;
+        return res;
+      }
+    };
+    exports2.LevelMask = LevelMask;
+    function countSetBits(n) {
+      n = n - (n >> 1 & 1431655765);
+      n = (n & 858993459) + (n >> 2 & 858993459);
+      return (n + (n >> 4) & 252645135) * 16843009 >> 24;
+    }
+  }
+});
+
+// node_modules/@ton/core/dist/boc/cell/exoticPruned.js
+var require_exoticPruned = __commonJS({
+  "node_modules/@ton/core/dist/boc/cell/exoticPruned.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.exoticPruned = void 0;
+    var BitReader_1 = require_BitReader();
+    var LevelMask_1 = require_LevelMask();
+    function exoticPruned2(bits, refs) {
+      let reader = new BitReader_1.BitReader(bits);
+      let type = reader.loadUint(8);
+      if (type !== 1) {
+        throw new Error(`Pruned branch cell must have type 1, got "${type}"`);
+      }
+      if (refs.length !== 0) {
+        throw new Error(`Pruned Branch cell can't has refs, got "${refs.length}"`);
+      }
+      let mask;
+      if (bits.length === 280) {
+        mask = new LevelMask_1.LevelMask(1);
+      } else {
+        mask = new LevelMask_1.LevelMask(reader.loadUint(8));
+        if (mask.level < 1 || mask.level > 3) {
+          throw new Error(`Pruned Branch cell level must be >= 1 and <= 3, got "${mask.level}/${mask.value}"`);
+        }
+        const size = 8 + 8 + mask.apply(mask.level - 1).hashCount * (256 + 16);
+        if (bits.length !== size) {
+          throw new Error(`Pruned branch cell must have exactly ${size} bits, got "${bits.length}"`);
+        }
+      }
+      let pruned = [];
+      let hashes = [];
+      let depths = [];
+      for (let i = 0; i < mask.level; i++) {
+        hashes.push(reader.loadBuffer(32));
+      }
+      for (let i = 0; i < mask.level; i++) {
+        depths.push(reader.loadUint(16));
+      }
+      for (let i = 0; i < mask.level; i++) {
+        pruned.push({
+          depth: depths[i],
+          hash: hashes[i]
+        });
+      }
+      return {
+        mask: mask.value,
+        pruned
+      };
+    }
+    exports2.exoticPruned = exoticPruned2;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/cell/resolveExotic.js
+var require_resolveExotic = __commonJS({
+  "node_modules/@ton/core/dist/boc/cell/resolveExotic.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.resolveExotic = void 0;
+    var BitReader_1 = require_BitReader();
+    var CellType_1 = require_CellType();
+    var exoticLibrary_1 = require_exoticLibrary();
+    var exoticMerkleProof_1 = require_exoticMerkleProof();
+    var exoticMerkleUpdate_1 = require_exoticMerkleUpdate();
+    var exoticPruned_1 = require_exoticPruned();
+    var LevelMask_1 = require_LevelMask();
+    function resolvePruned(bits, refs) {
+      let pruned = (0, exoticPruned_1.exoticPruned)(bits, refs);
+      let depths = [];
+      let hashes = [];
+      let mask = new LevelMask_1.LevelMask(pruned.mask);
+      for (let i = 0; i < pruned.pruned.length; i++) {
+        depths.push(pruned.pruned[i].depth);
+        hashes.push(pruned.pruned[i].hash);
+      }
+      return {
+        type: CellType_1.CellType.PrunedBranch,
+        depths,
+        hashes,
+        mask
+      };
+    }
+    function resolveLibrary(bits, refs) {
+      let pruned = (0, exoticLibrary_1.exoticLibrary)(bits, refs);
+      let depths = [];
+      let hashes = [];
+      let mask = new LevelMask_1.LevelMask();
+      return {
+        type: CellType_1.CellType.Library,
+        depths,
+        hashes,
+        mask
+      };
+    }
+    function resolveMerkleProof(bits, refs) {
+      let merkleProof = (0, exoticMerkleProof_1.exoticMerkleProof)(bits, refs);
+      let depths = [];
+      let hashes = [];
+      let mask = new LevelMask_1.LevelMask(refs[0].level() >> 1);
+      return {
+        type: CellType_1.CellType.MerkleProof,
+        depths,
+        hashes,
+        mask
+      };
+    }
+    function resolveMerkleUpdate(bits, refs) {
+      let merkleUpdate = (0, exoticMerkleUpdate_1.exoticMerkleUpdate)(bits, refs);
+      let depths = [];
+      let hashes = [];
+      let mask = new LevelMask_1.LevelMask((refs[0].level() | refs[1].level()) >> 1);
+      return {
+        type: CellType_1.CellType.MerkleUpdate,
+        depths,
+        hashes,
+        mask
+      };
+    }
+    function resolveExotic(bits, refs) {
+      let reader = new BitReader_1.BitReader(bits);
+      let type = reader.preloadUint(8);
+      if (type === 1) {
+        return resolvePruned(bits, refs);
+      }
+      if (type === 2) {
+        return resolveLibrary(bits, refs);
+      }
+      if (type === 3) {
+        return resolveMerkleProof(bits, refs);
+      }
+      if (type === 4) {
+        return resolveMerkleUpdate(bits, refs);
+      }
+      throw Error("Invalid exotic cell type: " + type);
+    }
+    exports2.resolveExotic = resolveExotic;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/cell/descriptor.js
+var require_descriptor = __commonJS({
+  "node_modules/@ton/core/dist/boc/cell/descriptor.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.getRepr = exports2.getBitsDescriptor = exports2.getRefsDescriptor = void 0;
+    var CellType_1 = require_CellType();
+    var paddedBits_1 = require_paddedBits();
+    function getRefsDescriptor(refs, levelMask, type) {
+      return refs.length + (type !== CellType_1.CellType.Ordinary ? 1 : 0) * 8 + levelMask * 32;
+    }
+    exports2.getRefsDescriptor = getRefsDescriptor;
+    function getBitsDescriptor(bits) {
+      let len = bits.length;
+      return Math.ceil(len / 8) + Math.floor(len / 8);
+    }
+    exports2.getBitsDescriptor = getBitsDescriptor;
+    function getRepr(originalBits, bits, refs, level, levelMask, type) {
+      const bitsLen = Math.ceil(bits.length / 8);
+      const repr = Buffer.alloc(2 + bitsLen + (2 + 32) * refs.length);
+      let reprCursor = 0;
+      repr[reprCursor++] = getRefsDescriptor(refs, levelMask, type);
+      repr[reprCursor++] = getBitsDescriptor(originalBits);
+      (0, paddedBits_1.bitsToPaddedBuffer)(bits).copy(repr, reprCursor);
+      reprCursor += bitsLen;
+      for (const c of refs) {
+        let childDepth;
+        if (type == CellType_1.CellType.MerkleProof || type == CellType_1.CellType.MerkleUpdate) {
+          childDepth = c.depth(level + 1);
+        } else {
+          childDepth = c.depth(level);
+        }
+        repr[reprCursor++] = Math.floor(childDepth / 256);
+        repr[reprCursor++] = childDepth % 256;
+      }
+      for (const c of refs) {
+        let childHash;
+        if (type == CellType_1.CellType.MerkleProof || type == CellType_1.CellType.MerkleUpdate) {
+          childHash = c.hash(level + 1);
+        } else {
+          childHash = c.hash(level);
+        }
+        childHash.copy(repr, reprCursor);
+        reprCursor += 32;
+      }
+      return repr;
+    }
+    exports2.getRepr = getRepr;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/cell/wonderCalculator.js
+var require_wonderCalculator = __commonJS({
+  "node_modules/@ton/core/dist/boc/cell/wonderCalculator.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.wonderCalculator = void 0;
+    var BitString_1 = require_BitString();
+    var CellType_1 = require_CellType();
+    var LevelMask_1 = require_LevelMask();
+    var exoticPruned_1 = require_exoticPruned();
+    var exoticMerkleProof_1 = require_exoticMerkleProof();
+    var descriptor_1 = require_descriptor();
+    var crypto_1 = require("@scom/ton-crypto");
+    var exoticMerkleUpdate_1 = require_exoticMerkleUpdate();
+    var exoticLibrary_1 = require_exoticLibrary();
+    function wonderCalculator(type, bits, refs) {
+      let levelMask;
+      let pruned = null;
+      if (type === CellType_1.CellType.Ordinary) {
+        let mask = 0;
+        for (let r of refs) {
+          mask = mask | r.mask.value;
+        }
+        levelMask = new LevelMask_1.LevelMask(mask);
+      } else if (type === CellType_1.CellType.PrunedBranch) {
+        pruned = (0, exoticPruned_1.exoticPruned)(bits, refs);
+        levelMask = new LevelMask_1.LevelMask(pruned.mask);
+      } else if (type === CellType_1.CellType.MerkleProof) {
+        let loaded = (0, exoticMerkleProof_1.exoticMerkleProof)(bits, refs);
+        levelMask = new LevelMask_1.LevelMask(refs[0].mask.value >> 1);
+      } else if (type === CellType_1.CellType.MerkleUpdate) {
+        let loaded = (0, exoticMerkleUpdate_1.exoticMerkleUpdate)(bits, refs);
+        levelMask = new LevelMask_1.LevelMask((refs[0].mask.value | refs[1].mask.value) >> 1);
+      } else if (type === CellType_1.CellType.Library) {
+        let loaded = (0, exoticLibrary_1.exoticLibrary)(bits, refs);
+        levelMask = new LevelMask_1.LevelMask();
+      } else {
+        throw new Error("Unsupported exotic type");
+      }
+      let depths = [];
+      let hashes = [];
+      let hashCount = type === CellType_1.CellType.PrunedBranch ? 1 : levelMask.hashCount;
+      let totalHashCount = levelMask.hashCount;
+      let hashIOffset = totalHashCount - hashCount;
+      for (let levelI = 0, hashI = 0; levelI <= levelMask.level; levelI++) {
+        if (!levelMask.isSignificant(levelI)) {
+          continue;
+        }
+        if (hashI < hashIOffset) {
+          hashI++;
+          continue;
+        }
+        let currentBits;
+        if (hashI === hashIOffset) {
+          if (!(levelI === 0 || type === CellType_1.CellType.PrunedBranch)) {
+            throw Error("Invalid");
+          }
+          currentBits = bits;
+        } else {
+          if (!(levelI !== 0 && type !== CellType_1.CellType.PrunedBranch)) {
+            throw Error("Invalid: " + levelI + ", " + type);
+          }
+          currentBits = new BitString_1.BitString(hashes[hashI - hashIOffset - 1], 0, 256);
+        }
+        let currentDepth = 0;
+        for (let c of refs) {
+          let childDepth;
+          if (type == CellType_1.CellType.MerkleProof || type == CellType_1.CellType.MerkleUpdate) {
+            childDepth = c.depth(levelI + 1);
+          } else {
+            childDepth = c.depth(levelI);
+          }
+          currentDepth = Math.max(currentDepth, childDepth);
+        }
+        if (refs.length > 0) {
+          currentDepth++;
+        }
+        let repr = (0, descriptor_1.getRepr)(bits, currentBits, refs, levelI, levelMask.apply(levelI).value, type);
+        let hash = (0, crypto_1.sha256_sync)(repr);
+        let destI = hashI - hashIOffset;
+        depths[destI] = currentDepth;
+        hashes[destI] = hash;
+        hashI++;
+      }
+      let resolvedHashes = [];
+      let resolvedDepths = [];
+      if (pruned) {
+        for (let i = 0; i < 4; i++) {
+          const { hashIndex } = levelMask.apply(i);
+          const { hashIndex: thisHashIndex } = levelMask;
+          if (hashIndex !== thisHashIndex) {
+            resolvedHashes.push(pruned.pruned[hashIndex].hash);
+            resolvedDepths.push(pruned.pruned[hashIndex].depth);
+          } else {
+            resolvedHashes.push(hashes[0]);
+            resolvedDepths.push(depths[0]);
+          }
+        }
+      } else {
+        for (let i = 0; i < 4; i++) {
+          resolvedHashes.push(hashes[levelMask.apply(i).hashIndex]);
+          resolvedDepths.push(depths[levelMask.apply(i).hashIndex]);
+        }
+      }
+      return {
+        mask: levelMask,
+        hashes: resolvedHashes,
+        depths: resolvedDepths
+      };
+    }
+    exports2.wonderCalculator = wonderCalculator;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/cell/utils/topologicalSort.js
+var require_topologicalSort = __commonJS({
+  "node_modules/@ton/core/dist/boc/cell/utils/topologicalSort.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.topologicalSort = void 0;
+    function topologicalSort(src) {
+      let pending = [src];
+      let allCells = /* @__PURE__ */ new Map();
+      let notPermCells = /* @__PURE__ */ new Set();
+      let sorted = [];
+      while (pending.length > 0) {
+        const cells = [...pending];
+        pending = [];
+        for (let cell of cells) {
+          const hash = cell.hash().toString("hex");
+          if (allCells.has(hash)) {
+            continue;
+          }
+          notPermCells.add(hash);
+          allCells.set(hash, { cell, refs: cell.refs.map((v) => v.hash().toString("hex")) });
+          for (let r of cell.refs) {
+            pending.push(r);
+          }
+        }
+      }
+      let tempMark = /* @__PURE__ */ new Set();
+      function visit(hash) {
+        if (!notPermCells.has(hash)) {
+          return;
+        }
+        if (tempMark.has(hash)) {
+          throw Error("Not a DAG");
+        }
+        tempMark.add(hash);
+        let refs = allCells.get(hash).refs;
+        for (let ci = refs.length - 1; ci >= 0; ci--) {
+          visit(refs[ci]);
+        }
+        sorted.push(hash);
+        tempMark.delete(hash);
+        notPermCells.delete(hash);
+      }
+      while (notPermCells.size > 0) {
+        const id = Array.from(notPermCells)[0];
+        visit(id);
+      }
+      let indexes = /* @__PURE__ */ new Map();
+      for (let i = 0; i < sorted.length; i++) {
+        indexes.set(sorted[sorted.length - i - 1], i);
+      }
+      let result = [];
+      for (let i = sorted.length - 1; i >= 0; i--) {
+        let ent = sorted[i];
+        const rrr = allCells.get(ent);
+        result.push({ cell: rrr.cell, refs: rrr.refs.map((v) => indexes.get(v)) });
+      }
+      return result;
+    }
+    exports2.topologicalSort = topologicalSort;
+  }
+});
+
+// node_modules/@ton/core/dist/utils/bitsForNumber.js
+var require_bitsForNumber = __commonJS({
+  "node_modules/@ton/core/dist/utils/bitsForNumber.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.bitsForNumber = void 0;
+    function bitsForNumber(src, mode) {
+      let v = BigInt(src);
+      if (mode === "int") {
+        if (v === 0n || v === -1n) {
+          return 1;
+        }
+        let v2 = v > 0 ? v : -v;
+        return v2.toString(2).length + 1;
+      } else if (mode === "uint") {
+        if (v < 0) {
+          throw Error(`value is negative. Got ${src}`);
+        }
+        return v.toString(2).length;
+      } else {
+        throw Error(`invalid mode. Got ${mode}`);
+      }
+    }
+    exports2.bitsForNumber = bitsForNumber;
+  }
+});
+
+// node_modules/@ton/core/dist/utils/crc32c.js
+var require_crc32c = __commonJS({
+  "node_modules/@ton/core/dist/utils/crc32c.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.crc32c = void 0;
+    var POLY = 2197175160;
+    function crc32c2(source) {
+      let crc = 0 ^ 4294967295;
+      for (let n = 0; n < source.length; n++) {
+        crc ^= source[n];
+        crc = crc & 1 ? crc >>> 1 ^ POLY : crc >>> 1;
+        crc = crc & 1 ? crc >>> 1 ^ POLY : crc >>> 1;
+        crc = crc & 1 ? crc >>> 1 ^ POLY : crc >>> 1;
+        crc = crc & 1 ? crc >>> 1 ^ POLY : crc >>> 1;
+        crc = crc & 1 ? crc >>> 1 ^ POLY : crc >>> 1;
+        crc = crc & 1 ? crc >>> 1 ^ POLY : crc >>> 1;
+        crc = crc & 1 ? crc >>> 1 ^ POLY : crc >>> 1;
+        crc = crc & 1 ? crc >>> 1 ^ POLY : crc >>> 1;
+      }
+      crc = crc ^ 4294967295;
+      let res = Buffer.alloc(4);
+      res.writeInt32LE(crc);
+      return res;
+    }
+    exports2.crc32c = crc32c2;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/cell/serialization.js
+var require_serialization = __commonJS({
+  "node_modules/@ton/core/dist/boc/cell/serialization.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.serializeBoc = exports2.deserializeBoc = exports2.parseBoc = void 0;
+    var BitReader_1 = require_BitReader();
+    var BitString_1 = require_BitString();
+    var Cell_1 = require_Cell();
+    var topologicalSort_1 = require_topologicalSort();
+    var bitsForNumber_1 = require_bitsForNumber();
+    var BitBuilder_1 = require_BitBuilder();
+    var descriptor_1 = require_descriptor();
+    var paddedBits_1 = require_paddedBits();
+    var crc32c_1 = require_crc32c();
+    function getHashesCount(levelMask) {
+      return getHashesCountFromMask(levelMask & 7);
+    }
+    function getHashesCountFromMask(mask) {
+      let n = 0;
+      for (let i = 0; i < 3; i++) {
+        n += mask & 1;
+        mask = mask >> 1;
+      }
+      return n + 1;
+    }
+    function readCell(reader, sizeBytes) {
+      const d1 = reader.loadUint(8);
+      const refsCount = d1 % 8;
+      const exotic = !!(d1 & 8);
+      const d2 = reader.loadUint(8);
+      const dataBytesize = Math.ceil(d2 / 2);
+      const paddingAdded = !!(d2 % 2);
+      const levelMask = d1 >> 5;
+      const hasHashes = (d1 & 16) != 0;
+      const hash_bytes = 32;
+      const hashesSize = hasHashes ? getHashesCount(levelMask) * hash_bytes : 0;
+      const depthSize = hasHashes ? getHashesCount(levelMask) * 2 : 0;
+      reader.skip(hashesSize * 8);
+      reader.skip(depthSize * 8);
+      let bits = BitString_1.BitString.EMPTY;
+      if (dataBytesize > 0) {
+        if (paddingAdded) {
+          bits = reader.loadPaddedBits(dataBytesize * 8);
+        } else {
+          bits = reader.loadBits(dataBytesize * 8);
+        }
+      }
+      let refs = [];
+      for (let i = 0; i < refsCount; i++) {
+        refs.push(reader.loadUint(sizeBytes * 8));
+      }
+      return {
+        bits,
+        refs,
+        exotic
+      };
+    }
+    function calcCellSize(cell, sizeBytes) {
+      return 2 + Math.ceil(cell.bits.length / 8) + cell.refs.length * sizeBytes;
+    }
+    function parseBoc(src) {
+      let reader = new BitReader_1.BitReader(new BitString_1.BitString(src, 0, src.length * 8));
+      let magic = reader.loadUint(32);
+      if (magic === 1761568243) {
+        let size = reader.loadUint(8);
+        let offBytes = reader.loadUint(8);
+        let cells = reader.loadUint(size * 8);
+        let roots = reader.loadUint(size * 8);
+        let absent = reader.loadUint(size * 8);
+        let totalCellSize = reader.loadUint(offBytes * 8);
+        let index = reader.loadBuffer(cells * offBytes);
+        let cellData = reader.loadBuffer(totalCellSize);
+        return {
+          size,
+          offBytes,
+          cells,
+          roots,
+          absent,
+          totalCellSize,
+          index,
+          cellData,
+          root: [0]
+        };
+      } else if (magic === 2898503464) {
+        let size = reader.loadUint(8);
+        let offBytes = reader.loadUint(8);
+        let cells = reader.loadUint(size * 8);
+        let roots = reader.loadUint(size * 8);
+        let absent = reader.loadUint(size * 8);
+        let totalCellSize = reader.loadUint(offBytes * 8);
+        let index = reader.loadBuffer(cells * offBytes);
+        let cellData = reader.loadBuffer(totalCellSize);
+        let crc32 = reader.loadBuffer(4);
+        if (!(0, crc32c_1.crc32c)(src.subarray(0, src.length - 4)).equals(crc32)) {
+          throw Error("Invalid CRC32C");
+        }
+        return {
+          size,
+          offBytes,
+          cells,
+          roots,
+          absent,
+          totalCellSize,
+          index,
+          cellData,
+          root: [0]
+        };
+      } else if (magic === 3052313714) {
+        let hasIdx = reader.loadUint(1);
+        let hasCrc32c = reader.loadUint(1);
+        let hasCacheBits = reader.loadUint(1);
+        let flags = reader.loadUint(2);
+        let size = reader.loadUint(3);
+        let offBytes = reader.loadUint(8);
+        let cells = reader.loadUint(size * 8);
+        let roots = reader.loadUint(size * 8);
+        let absent = reader.loadUint(size * 8);
+        let totalCellSize = reader.loadUint(offBytes * 8);
+        let root = [];
+        for (let i = 0; i < roots; i++) {
+          root.push(reader.loadUint(size * 8));
+        }
+        let index = null;
+        if (hasIdx) {
+          index = reader.loadBuffer(cells * offBytes);
+        }
+        let cellData = reader.loadBuffer(totalCellSize);
+        if (hasCrc32c) {
+          let crc32 = reader.loadBuffer(4);
+          if (!(0, crc32c_1.crc32c)(src.subarray(0, src.length - 4)).equals(crc32)) {
+            throw Error("Invalid CRC32C");
+          }
+        }
+        return {
+          size,
+          offBytes,
+          cells,
+          roots,
+          absent,
+          totalCellSize,
+          index,
+          cellData,
+          root
+        };
+      } else {
+        throw Error("Invalid magic");
+      }
+    }
+    exports2.parseBoc = parseBoc;
+    function deserializeBoc(src) {
+      let boc = parseBoc(src);
+      let reader = new BitReader_1.BitReader(new BitString_1.BitString(boc.cellData, 0, boc.cellData.length * 8));
+      let cells = [];
+      for (let i = 0; i < boc.cells; i++) {
+        let cll = readCell(reader, boc.size);
+        cells.push({ ...cll, result: null });
+      }
+      for (let i = cells.length - 1; i >= 0; i--) {
+        if (cells[i].result) {
+          throw Error("Impossible");
+        }
+        let refs = [];
+        for (let r of cells[i].refs) {
+          if (!cells[r].result) {
+            throw Error("Invalid BOC file");
+          }
+          refs.push(cells[r].result);
+        }
+        cells[i].result = new Cell_1.Cell({ bits: cells[i].bits, refs, exotic: cells[i].exotic });
+      }
+      let roots = [];
+      for (let i = 0; i < boc.root.length; i++) {
+        roots.push(cells[boc.root[i]].result);
+      }
+      return roots;
+    }
+    exports2.deserializeBoc = deserializeBoc;
+    function writeCellToBuilder(cell, refs, sizeBytes, to) {
+      let d1 = (0, descriptor_1.getRefsDescriptor)(cell.refs, cell.mask.value, cell.type);
+      let d2 = (0, descriptor_1.getBitsDescriptor)(cell.bits);
+      to.writeUint(d1, 8);
+      to.writeUint(d2, 8);
+      to.writeBuffer((0, paddedBits_1.bitsToPaddedBuffer)(cell.bits));
+      for (let r of refs) {
+        to.writeUint(r, sizeBytes * 8);
+      }
+    }
+    function serializeBoc(root, opts) {
+      let allCells = (0, topologicalSort_1.topologicalSort)(root);
+      let cellsNum = allCells.length;
+      let has_idx = opts.idx;
+      let has_crc32c = opts.crc32;
+      let has_cache_bits = false;
+      let flags = 0;
+      let sizeBytes = Math.max(Math.ceil((0, bitsForNumber_1.bitsForNumber)(cellsNum, "uint") / 8), 1);
+      let totalCellSize = 0;
+      let index = [];
+      for (let c of allCells) {
+        let sz = calcCellSize(c.cell, sizeBytes);
+        totalCellSize += sz;
+        index.push(totalCellSize);
+      }
+      let offsetBytes = Math.max(Math.ceil((0, bitsForNumber_1.bitsForNumber)(totalCellSize, "uint") / 8), 1);
+      let totalSize = (4 + // magic
+      1 + // flags and s_bytes
+      1 + // offset_bytes
+      3 * sizeBytes + // cells_num, roots, complete
+      offsetBytes + // full_size
+      1 * sizeBytes + // root_idx
+      (has_idx ? cellsNum * offsetBytes : 0) + totalCellSize + (has_crc32c ? 4 : 0)) * 8;
+      let builder = new BitBuilder_1.BitBuilder(totalSize);
+      builder.writeUint(3052313714, 32);
+      builder.writeBit(has_idx);
+      builder.writeBit(has_crc32c);
+      builder.writeBit(has_cache_bits);
+      builder.writeUint(flags, 2);
+      builder.writeUint(sizeBytes, 3);
+      builder.writeUint(offsetBytes, 8);
+      builder.writeUint(cellsNum, sizeBytes * 8);
+      builder.writeUint(1, sizeBytes * 8);
+      builder.writeUint(0, sizeBytes * 8);
+      builder.writeUint(totalCellSize, offsetBytes * 8);
+      builder.writeUint(0, sizeBytes * 8);
+      if (has_idx) {
+        for (let i = 0; i < cellsNum; i++) {
+          builder.writeUint(index[i], offsetBytes * 8);
+        }
+      }
+      for (let i = 0; i < cellsNum; i++) {
+        writeCellToBuilder(allCells[i].cell, allCells[i].refs, sizeBytes, builder);
+      }
+      if (has_crc32c) {
+        let crc32 = (0, crc32c_1.crc32c)(builder.buffer());
+        builder.writeBuffer(crc32);
+      }
+      let res = builder.buffer();
+      if (res.length !== totalSize / 8) {
+        throw Error("Internal error");
+      }
+      return res;
+    }
+    exports2.serializeBoc = serializeBoc;
+  }
+});
+
+// node_modules/@ton/core/dist/boc/Cell.js
+var require_Cell = __commonJS({
+  "node_modules/@ton/core/dist/boc/Cell.js"(exports2) {
+    "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    var _a;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.Cell = void 0;
+    var symbol_inspect_1 = __importDefault(require_symbol());
+    var BitString_1 = require_BitString();
+    var CellType_1 = require_CellType();
+    var Slice_1 = require_Slice();
+    var resolveExotic_1 = require_resolveExotic();
+    var wonderCalculator_1 = require_wonderCalculator();
+    var serialization_1 = require_serialization();
+    var BitReader_1 = require_BitReader();
+    var Builder_1 = require_Builder();
+    var Cell2 = class _Cell {
+      /**
+       * Deserialize cells from BOC
+       * @param src source buffer
+       * @returns array of cells
+       */
+      static fromBoc(src) {
+        return (0, serialization_1.deserializeBoc)(src);
+      }
+      /**
+       * Helper function that deserializes a single cell from BOC in base64
+       * @param src source string
+       */
+      static fromBase64(src) {
+        let parsed = _Cell.fromBoc(Buffer.from(src, "base64"));
+        if (parsed.length !== 1) {
+          throw new Error("Deserialized more than one cell");
+        }
+        return parsed[0];
+      }
+      /**
+       * Helper function that deserializes a single cell from BOC in hex
+       * @param src source string
+       */
+      static fromHex(src) {
+        let parsed = _Cell.fromBoc(Buffer.from(src, "hex"));
+        if (parsed.length !== 1) {
+          throw new Error("Deserialized more than one cell");
+        }
+        return parsed[0];
+      }
+      constructor(opts) {
+        this._hashes = [];
+        this._depths = [];
+        this.beginParse = (allowExotic = false) => {
+          if (this.isExotic && !allowExotic) {
+            throw new Error("Exotic cells cannot be parsed");
+          }
+          return new Slice_1.Slice(new BitReader_1.BitReader(this.bits), this.refs);
+        };
+        this.hash = (level = 3) => {
+          return this._hashes[Math.min(this._hashes.length - 1, level)];
+        };
+        this.depth = (level = 3) => {
+          return this._depths[Math.min(this._depths.length - 1, level)];
+        };
+        this.level = () => {
+          return this.mask.level;
+        };
+        this.equals = (other) => {
+          return this.hash().equals(other.hash());
+        };
+        this[_a] = () => this.toString();
+        let bits = BitString_1.BitString.EMPTY;
+        if (opts && opts.bits) {
+          bits = opts.bits;
+        }
+        let refs = [];
+        if (opts && opts.refs) {
+          refs = [...opts.refs];
+        }
+        let hashes;
+        let depths;
+        let mask;
+        let type = CellType_1.CellType.Ordinary;
+        if (opts && opts.exotic) {
+          let resolved = (0, resolveExotic_1.resolveExotic)(bits, refs);
+          let wonders = (0, wonderCalculator_1.wonderCalculator)(resolved.type, bits, refs);
+          mask = wonders.mask;
+          depths = wonders.depths;
+          hashes = wonders.hashes;
+          type = resolved.type;
+        } else {
+          if (refs.length > 4) {
+            throw new Error("Invalid number of references");
+          }
+          if (bits.length > 1023) {
+            throw new Error(`Bits overflow: ${bits.length} > 1023`);
+          }
+          let wonders = (0, wonderCalculator_1.wonderCalculator)(CellType_1.CellType.Ordinary, bits, refs);
+          mask = wonders.mask;
+          depths = wonders.depths;
+          hashes = wonders.hashes;
+          type = CellType_1.CellType.Ordinary;
+        }
+        this.type = type;
+        this.bits = bits;
+        this.refs = refs;
+        this.mask = mask;
+        this._depths = depths;
+        this._hashes = hashes;
+        Object.freeze(this);
+        Object.freeze(this.refs);
+        Object.freeze(this.bits);
+        Object.freeze(this.mask);
+        Object.freeze(this._depths);
+        Object.freeze(this._hashes);
+      }
+      /**
+       * Check if cell is exotic
+       */
+      get isExotic() {
+        return this.type !== CellType_1.CellType.Ordinary;
+      }
+      /**
+       * Serializes cell to BOC
+       * @param opts options
+       */
+      toBoc(opts) {
+        let idx = opts && opts.idx !== null && opts.idx !== void 0 ? opts.idx : false;
+        let crc32 = opts && opts.crc32 !== null && opts.crc32 !== void 0 ? opts.crc32 : true;
+        return (0, serialization_1.serializeBoc)(this, { idx, crc32 });
+      }
+      /**
+       * Format cell to string
+       * @param indent indentation
+       * @returns string representation
+       */
+      toString(indent) {
+        let id = indent || "";
+        let t = "x";
+        if (this.isExotic) {
+          if (this.type === CellType_1.CellType.MerkleProof) {
+            t = "p";
+          } else if (this.type === CellType_1.CellType.MerkleUpdate) {
+            t = "u";
+          } else if (this.type === CellType_1.CellType.PrunedBranch) {
+            t = "p";
+          }
+        }
+        let s = id + (this.isExotic ? t : "x") + "{" + this.bits.toString() + "}";
+        for (let k in this.refs) {
+          const i = this.refs[k];
+          s += "\n" + i.toString(id + " ");
+        }
+        return s;
+      }
+      /**
+       * Covnert cell to slice
+       * @returns slice
+       */
+      asSlice() {
+        return this.beginParse();
+      }
+      /**
+       * Convert cell to a builder that has this cell stored
+       * @returns builder
+       */
+      asBuilder() {
+        return (0, Builder_1.beginCell)().storeSlice(this.asSlice());
+      }
+    };
+    exports2.Cell = Cell2;
+    _a = symbol_inspect_1.default;
+    Cell2.EMPTY = new Cell2();
+  }
+});
+
+// node_modules/@ton/core/dist/boc/Builder.js
+var require_Builder = __commonJS({
+  "node_modules/@ton/core/dist/boc/Builder.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.Builder = exports2.beginCell = void 0;
+    var BitBuilder_1 = require_BitBuilder();
+    var Cell_1 = require_Cell();
+    var strings_1 = require_strings();
+    function beginCell2() {
+      return new Builder2();
+    }
+    exports2.beginCell = beginCell2;
+    var Builder2 = class _Builder {
+      constructor() {
+        this._bits = new BitBuilder_1.BitBuilder();
+        this._refs = [];
+      }
+      /**
+       * Bits written so far
+       */
+      get bits() {
+        return this._bits.length;
+      }
+      /**
+       * References written so far
+       */
+      get refs() {
+        return this._refs.length;
+      }
+      /**
+       * Available bits
+       */
+      get availableBits() {
+        return 1023 - this.bits;
+      }
+      /**
+       * Available references
+       */
+      get availableRefs() {
+        return 4 - this.refs;
+      }
+      /**
+       * Write a single bit
+       * @param value bit to write, true or positive number for 1, false or zero or negative for 0
+       * @returns this builder
+       */
+      storeBit(value) {
+        this._bits.writeBit(value);
+        return this;
+      }
+      /**
+       * Write bits from BitString
+       * @param src source bits
+       * @returns this builder
+       */
+      storeBits(src) {
+        this._bits.writeBits(src);
+        return this;
+      }
+      /**
+       * Store Buffer
+       * @param src source buffer
+       * @param bytes optional number of bytes to write
+       * @returns this builder
+       */
+      storeBuffer(src, bytes) {
+        if (bytes !== void 0 && bytes !== null) {
+          if (src.length !== bytes) {
+            throw Error(`Buffer length ${src.length} is not equal to ${bytes}`);
+          }
+        }
+        this._bits.writeBuffer(src);
+        return this;
+      }
+      /**
+       * Store Maybe Buffer
+       * @param src source buffer or null
+       * @param bytes optional number of bytes to write
+       * @returns this builder
+       */
+      storeMaybeBuffer(src, bytes) {
+        if (src !== null) {
+          this.storeBit(1);
+          this.storeBuffer(src, bytes);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store uint value
+       * @param value value as bigint or number
+       * @param bits number of bits to write
+       * @returns this builder
+       */
+      storeUint(value, bits) {
+        this._bits.writeUint(value, bits);
+        return this;
+      }
+      /**
+       * Store maybe uint value
+       * @param value value as bigint or number, null or undefined
+       * @param bits number of bits to write
+       * @returns this builder
+       */
+      storeMaybeUint(value, bits) {
+        if (value !== null && value !== void 0) {
+          this.storeBit(1);
+          this.storeUint(value, bits);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store int value
+       * @param value value as bigint or number
+       * @param bits number of bits to write
+       * @returns this builder
+       */
+      storeInt(value, bits) {
+        this._bits.writeInt(value, bits);
+        return this;
+      }
+      /**
+       * Store maybe int value
+       * @param value value as bigint or number, null or undefined
+       * @param bits number of bits to write
+       * @returns this builder
+       */
+      storeMaybeInt(value, bits) {
+        if (value !== null && value !== void 0) {
+          this.storeBit(1);
+          this.storeInt(value, bits);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store varuint value
+       * @param value value as bigint or number
+       * @param bits number of bits to write to header
+       * @returns this builder
+       */
+      storeVarUint(value, bits) {
+        this._bits.writeVarUint(value, bits);
+        return this;
+      }
+      /**
+       * Store maybe varuint value
+       * @param value value as bigint or number, null or undefined
+       * @param bits number of bits to write to header
+       * @returns this builder
+       */
+      storeMaybeVarUint(value, bits) {
+        if (value !== null && value !== void 0) {
+          this.storeBit(1);
+          this.storeVarUint(value, bits);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store varint value
+       * @param value value as bigint or number
+       * @param bits number of bits to write to header
+       * @returns this builder
+       */
+      storeVarInt(value, bits) {
+        this._bits.writeVarInt(value, bits);
+        return this;
+      }
+      /**
+       * Store maybe varint value
+       * @param value value as bigint or number, null or undefined
+       * @param bits number of bits to write to header
+       * @returns this builder
+       */
+      storeMaybeVarInt(value, bits) {
+        if (value !== null && value !== void 0) {
+          this.storeBit(1);
+          this.storeVarInt(value, bits);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store coins value
+       * @param amount amount of coins
+       * @returns this builder
+       */
+      storeCoins(amount) {
+        this._bits.writeCoins(amount);
+        return this;
+      }
+      /**
+       * Store maybe coins value
+       * @param amount amount of coins, null or undefined
+       * @returns this builder
+       */
+      storeMaybeCoins(amount) {
+        if (amount !== null && amount !== void 0) {
+          this.storeBit(1);
+          this.storeCoins(amount);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store address
+       * @param addres address to store
+       * @returns this builder
+       */
+      storeAddress(address2) {
+        this._bits.writeAddress(address2);
+        return this;
+      }
+      /**
+       * Store reference
+       * @param cell cell or builder to store
+       * @returns this builder
+       */
+      storeRef(cell) {
+        if (this._refs.length >= 4) {
+          throw new Error("Too many references");
+        }
+        if (cell instanceof Cell_1.Cell) {
+          this._refs.push(cell);
+        } else if (cell instanceof _Builder) {
+          this._refs.push(cell.endCell());
+        } else {
+          throw new Error("Invalid argument");
+        }
+        return this;
+      }
+      /**
+       * Store reference if not null
+       * @param cell cell or builder to store
+       * @returns this builder
+       */
+      storeMaybeRef(cell) {
+        if (cell) {
+          this.storeBit(1);
+          this.storeRef(cell);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store slice it in this builder
+       * @param src source slice
+       */
+      storeSlice(src) {
+        let c = src.clone();
+        if (c.remainingBits > 0) {
+          this.storeBits(c.loadBits(c.remainingBits));
+        }
+        while (c.remainingRefs > 0) {
+          this.storeRef(c.loadRef());
+        }
+        return this;
+      }
+      /**
+       * Store slice in this builder if not null
+       * @param src source slice
+       */
+      storeMaybeSlice(src) {
+        if (src) {
+          this.storeBit(1);
+          this.storeSlice(src);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store builder
+       * @param src builder to store
+       * @returns this builder
+       */
+      storeBuilder(src) {
+        return this.storeSlice(src.endCell().beginParse());
+      }
+      /**
+       * Store builder if not null
+       * @param src builder to store
+       * @returns this builder
+       */
+      storeMaybeBuilder(src) {
+        if (src) {
+          this.storeBit(1);
+          this.storeBuilder(src);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store writer or builder
+       * @param writer writer or builder to store
+       * @returns this builder
+       */
+      storeWritable(writer) {
+        if (typeof writer === "object") {
+          writer.writeTo(this);
+        } else {
+          writer(this);
+        }
+        return this;
+      }
+      /**
+       * Store writer or builder if not null
+       * @param writer writer or builder to store
+       * @returns this builder
+       */
+      storeMaybeWritable(writer) {
+        if (writer) {
+          this.storeBit(1);
+          this.storeWritable(writer);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store object in this builder
+       * @param writer Writable or writer functuin
+       */
+      store(writer) {
+        this.storeWritable(writer);
+        return this;
+      }
+      /**
+       * Store string tail
+       * @param src source string
+       * @returns this builder
+       */
+      storeStringTail(src) {
+        (0, strings_1.writeString)(src, this);
+        return this;
+      }
+      /**
+       * Store string tail
+       * @param src source string
+       * @returns this builder
+       */
+      storeMaybeStringTail(src) {
+        if (src !== null && src !== void 0) {
+          this.storeBit(1);
+          (0, strings_1.writeString)(src, this);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store string tail in ref
+       * @param src source string
+       * @returns this builder
+       */
+      storeStringRefTail(src) {
+        this.storeRef(beginCell2().storeStringTail(src));
+        return this;
+      }
+      /**
+       * Store maybe string tail in ref
+       * @param src source string
+       * @returns this builder
+       */
+      storeMaybeStringRefTail(src) {
+        if (src !== null && src !== void 0) {
+          this.storeBit(1);
+          this.storeStringRefTail(src);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store dictionary in this builder
+       * @param dict dictionary to store
+       * @returns this builder
+       */
+      storeDict(dict, key, value) {
+        if (dict) {
+          dict.store(this, key, value);
+        } else {
+          this.storeBit(0);
+        }
+        return this;
+      }
+      /**
+       * Store dictionary in this builder directly
+       * @param dict dictionary to store
+       * @returns this builder
+       */
+      storeDictDirect(dict, key, value) {
+        dict.storeDirect(this, key, value);
+        return this;
+      }
+      /**
+       * Complete cell
+       * @param opts options
+       * @returns cell
+       */
+      endCell(opts) {
+        return new Cell_1.Cell({
+          bits: this._bits.build(),
+          refs: this._refs,
+          exotic: opts?.exotic
+        });
+      }
+      /**
+       * Convert to cell
+       * @returns cell
+       */
+      asCell() {
+        return this.endCell();
+      }
+      /**
+       * Convert to slice
+       * @returns slice
+       */
+      asSlice() {
+        return this.endCell().beginParse();
+      }
+    };
+    exports2.Builder = Builder2;
+  }
+});
+
+// node_modules/@ton/core/dist/types/SimpleLibrary.js
+var require_SimpleLibrary = __commonJS({
+  "node_modules/@ton/core/dist/types/SimpleLibrary.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.SimpleLibraryValue = exports2.storeSimpleLibrary = exports2.loadSimpleLibrary = void 0;
+    function loadSimpleLibrary(slice) {
+      return {
+        public: slice.loadBit(),
+        root: slice.loadRef()
+      };
+    }
+    exports2.loadSimpleLibrary = loadSimpleLibrary;
+    function storeSimpleLibrary(src) {
+      return (builder) => {
+        builder.storeBit(src.public);
+        builder.storeRef(src.root);
+      };
+    }
+    exports2.storeSimpleLibrary = storeSimpleLibrary;
+    exports2.SimpleLibraryValue = {
+      serialize(src, builder) {
+        storeSimpleLibrary(src)(builder);
+      },
+      parse(src) {
+        return loadSimpleLibrary(src);
+      }
+    };
+  }
+});
+
+// node_modules/@ton/core/dist/types/TickTock.js
+var require_TickTock = __commonJS({
+  "node_modules/@ton/core/dist/types/TickTock.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeTickTock = exports2.loadTickTock = void 0;
+    function loadTickTock(slice) {
+      return {
+        tick: slice.loadBit(),
+        tock: slice.loadBit()
+      };
+    }
+    exports2.loadTickTock = loadTickTock;
+    function storeTickTock(src) {
+      return (builder) => {
+        builder.storeBit(src.tick);
+        builder.storeBit(src.tock);
+      };
+    }
+    exports2.storeTickTock = storeTickTock;
+  }
+});
+
+// node_modules/@ton/core/dist/types/StateInit.js
+var require_StateInit = __commonJS({
+  "node_modules/@ton/core/dist/types/StateInit.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeStateInit = exports2.loadStateInit = void 0;
+    var Dictionary_1 = require_Dictionary();
+    var SimpleLibrary_1 = require_SimpleLibrary();
+    var TickTock_1 = require_TickTock();
+    function loadStateInit(slice) {
+      let splitDepth;
+      if (slice.loadBit()) {
+        splitDepth = slice.loadUint(5);
+      }
+      let special;
+      if (slice.loadBit()) {
+        special = (0, TickTock_1.loadTickTock)(slice);
+      }
+      let code = slice.loadMaybeRef();
+      let data = slice.loadMaybeRef();
+      let libraries = slice.loadDict(Dictionary_1.Dictionary.Keys.BigUint(256), SimpleLibrary_1.SimpleLibraryValue);
+      if (libraries.size === 0) {
+        libraries = void 0;
+      }
+      return {
+        splitDepth,
+        special,
+        code,
+        data,
+        libraries
+      };
+    }
+    exports2.loadStateInit = loadStateInit;
+    function storeStateInit(src) {
+      return (builder) => {
+        if (src.splitDepth !== null && src.splitDepth !== void 0) {
+          builder.storeBit(true);
+          builder.storeUint(src.splitDepth, 5);
+        } else {
+          builder.storeBit(false);
+        }
+        if (src.special !== null && src.special !== void 0) {
+          builder.storeBit(true);
+          builder.store((0, TickTock_1.storeTickTock)(src.special));
+        } else {
+          builder.storeBit(false);
+        }
+        builder.storeMaybeRef(src.code);
+        builder.storeMaybeRef(src.data);
+        builder.storeDict(src.libraries);
+      };
+    }
+    exports2.storeStateInit = storeStateInit;
+  }
+});
+
+// node_modules/@ton/core/dist/address/contractAddress.js
+var require_contractAddress = __commonJS({
+  "node_modules/@ton/core/dist/address/contractAddress.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.contractAddress = void 0;
+    var Builder_1 = require_Builder();
+    var StateInit_1 = require_StateInit();
+    var Address_1 = require_Address();
+    function contractAddress2(workchain, init) {
+      let hash = (0, Builder_1.beginCell)().store((0, StateInit_1.storeStateInit)(init)).endCell().hash();
+      return new Address_1.Address(workchain, hash);
+    }
+    exports2.contractAddress = contractAddress2;
+  }
+});
+
+// node_modules/@ton/core/dist/tuple/tuple.js
+var require_tuple = __commonJS({
+  "node_modules/@ton/core/dist/tuple/tuple.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.parseTuple = exports2.serializeTuple = void 0;
+    var Builder_1 = require_Builder();
+    var INT64_MIN = BigInt("-9223372036854775808");
+    var INT64_MAX = BigInt("9223372036854775807");
+    function serializeTupleItem(src, builder) {
+      if (src.type === "null") {
+        builder.storeUint(0, 8);
+      } else if (src.type === "int") {
+        if (src.value <= INT64_MAX && src.value >= INT64_MIN) {
+          builder.storeUint(1, 8);
+          builder.storeInt(src.value, 64);
+        } else {
+          builder.storeUint(256, 15);
+          builder.storeInt(src.value, 257);
+        }
+      } else if (src.type === "nan") {
+        builder.storeInt(767, 16);
+      } else if (src.type === "cell") {
+        builder.storeUint(3, 8);
+        builder.storeRef(src.cell);
+      } else if (src.type === "slice") {
+        builder.storeUint(4, 8);
+        builder.storeUint(0, 10);
+        builder.storeUint(src.cell.bits.length, 10);
+        builder.storeUint(0, 3);
+        builder.storeUint(src.cell.refs.length, 3);
+        builder.storeRef(src.cell);
+      } else if (src.type === "builder") {
+        builder.storeUint(5, 8);
+        builder.storeRef(src.cell);
+      } else if (src.type === "tuple") {
+        let head = null;
+        let tail = null;
+        for (let i = 0; i < src.items.length; i++) {
+          let s = head;
+          head = tail;
+          tail = s;
+          if (i > 1) {
+            head = (0, Builder_1.beginCell)().storeRef(tail).storeRef(head).endCell();
+          }
+          let bc = (0, Builder_1.beginCell)();
+          serializeTupleItem(src.items[i], bc);
+          tail = bc.endCell();
+        }
+        builder.storeUint(7, 8);
+        builder.storeUint(src.items.length, 16);
+        if (head) {
+          builder.storeRef(head);
+        }
+        if (tail) {
+          builder.storeRef(tail);
+        }
+      } else {
+        throw Error("Invalid value");
+      }
+    }
+    function parseStackItem(cs) {
+      let kind = cs.loadUint(8);
+      if (kind === 0) {
+        return { type: "null" };
+      } else if (kind === 1) {
+        return { type: "int", value: cs.loadIntBig(64) };
+      } else if (kind === 2) {
+        if (cs.loadUint(7) === 0) {
+          return { type: "int", value: cs.loadIntBig(257) };
+        } else {
+          cs.loadBit();
+          return { type: "nan" };
+        }
+      } else if (kind === 3) {
+        return { type: "cell", cell: cs.loadRef() };
+      } else if (kind === 4) {
+        let startBits = cs.loadUint(10);
+        let endBits = cs.loadUint(10);
+        let startRefs = cs.loadUint(3);
+        let endRefs = cs.loadUint(3);
+        let rs = cs.loadRef().beginParse();
+        rs.skip(startBits);
+        let dt = rs.loadBits(endBits - startBits);
+        let builder = (0, Builder_1.beginCell)().storeBits(dt);
+        if (startRefs < endRefs) {
+          for (let i = 0; i < startRefs; i++) {
+            rs.loadRef();
+          }
+          for (let i = 0; i < endRefs - startRefs; i++) {
+            builder.storeRef(rs.loadRef());
+          }
+        }
+        return { type: "slice", cell: builder.endCell() };
+      } else if (kind === 5) {
+        return { type: "builder", cell: cs.loadRef() };
+      } else if (kind === 7) {
+        let length = cs.loadUint(16);
+        let items = [];
+        if (length > 1) {
+          let head = cs.loadRef().beginParse();
+          let tail = cs.loadRef().beginParse();
+          items.unshift(parseStackItem(tail));
+          for (let i = 0; i < length - 2; i++) {
+            let ohead = head;
+            head = ohead.loadRef().beginParse();
+            tail = ohead.loadRef().beginParse();
+            items.unshift(parseStackItem(tail));
+          }
+          items.unshift(parseStackItem(head));
+        } else if (length === 1) {
+          items.push(parseStackItem(cs.loadRef().beginParse()));
+        }
+        return { type: "tuple", items };
+      } else {
+        throw Error("Unsupported stack item");
+      }
+    }
+    function serializeTupleTail(src, builder) {
+      if (src.length > 0) {
+        let tail = (0, Builder_1.beginCell)();
+        serializeTupleTail(src.slice(0, src.length - 1), tail);
+        builder.storeRef(tail.endCell());
+        serializeTupleItem(src[src.length - 1], builder);
+      }
+    }
+    function serializeTuple2(src) {
+      let builder = (0, Builder_1.beginCell)();
+      builder.storeUint(src.length, 24);
+      let r = [...src];
+      serializeTupleTail(r, builder);
+      return builder.endCell();
+    }
+    exports2.serializeTuple = serializeTuple2;
+    function parseTuple2(src) {
+      let res = [];
+      let cs = src.beginParse();
+      let size = cs.loadUint(24);
+      for (let i = 0; i < size; i++) {
+        let next = cs.loadRef();
+        res.unshift(parseStackItem(cs));
+        cs = next.beginParse();
+      }
+      return res;
+    }
+    exports2.parseTuple = parseTuple2;
+  }
+});
+
+// node_modules/@ton/core/dist/tuple/reader.js
+var require_reader = __commonJS({
+  "node_modules/@ton/core/dist/tuple/reader.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.TupleReader = void 0;
+    var TupleReader2 = class _TupleReader {
+      constructor(items) {
+        this.items = [...items];
+      }
+      get remaining() {
+        return this.items.length;
+      }
+      peek() {
+        if (this.items.length === 0) {
+          throw Error("EOF");
+        }
+        return this.items[0];
+      }
+      pop() {
+        if (this.items.length === 0) {
+          throw Error("EOF");
+        }
+        let res = this.items[0];
+        this.items.splice(0, 1);
+        return res;
+      }
+      skip(num = 1) {
+        for (let i = 0; i < num; i++) {
+          this.pop();
+        }
+        return this;
+      }
+      readBigNumber() {
+        let popped = this.pop();
+        if (popped.type !== "int") {
+          throw Error("Not a number");
+        }
+        return popped.value;
+      }
+      readBigNumberOpt() {
+        let popped = this.pop();
+        if (popped.type === "null") {
+          return null;
+        }
+        if (popped.type !== "int") {
+          throw Error("Not a number");
+        }
+        return popped.value;
+      }
+      readNumber() {
+        return Number(this.readBigNumber());
+      }
+      readNumberOpt() {
+        let r = this.readBigNumberOpt();
+        if (r !== null) {
+          return Number(r);
+        } else {
+          return null;
+        }
+      }
+      readBoolean() {
+        let res = this.readNumber();
+        return res === 0 ? false : true;
+      }
+      readBooleanOpt() {
+        let res = this.readNumberOpt();
+        if (res !== null) {
+          return res === 0 ? false : true;
+        } else {
+          return null;
+        }
+      }
+      readAddress() {
+        let r = this.readCell().beginParse().loadAddress();
+        if (r !== null) {
+          return r;
+        } else {
+          throw Error("Not an address");
+        }
+      }
+      readAddressOpt() {
+        let r = this.readCellOpt();
+        if (r !== null) {
+          return r.beginParse().loadMaybeAddress();
+        } else {
+          return null;
+        }
+      }
+      readCell() {
+        let popped = this.pop();
+        if (popped.type !== "cell" && popped.type !== "slice" && popped.type !== "builder") {
+          throw Error("Not a cell: " + popped.type);
+        }
+        return popped.cell;
+      }
+      readCellOpt() {
+        let popped = this.pop();
+        if (popped.type === "null") {
+          return null;
+        }
+        if (popped.type !== "cell" && popped.type !== "slice" && popped.type !== "builder") {
+          throw Error("Not a cell");
+        }
+        return popped.cell;
+      }
+      readTuple() {
+        let popped = this.pop();
+        if (popped.type !== "tuple") {
+          throw Error("Not a tuple");
+        }
+        return new _TupleReader(popped.items);
+      }
+      readTupleOpt() {
+        let popped = this.pop();
+        if (popped.type === "null") {
+          return null;
+        }
+        if (popped.type !== "tuple") {
+          throw Error("Not a tuple");
+        }
+        return new _TupleReader(popped.items);
+      }
+      static readLispList(reader) {
+        const result = [];
+        let tail = reader;
+        while (tail !== null) {
+          var head = tail.pop();
+          if (tail.items.length === 0 || tail.items[0].type !== "tuple" && tail.items[0].type !== "null") {
+            throw Error("Lisp list consists only from (any, tuple) elements and ends with null");
+          }
+          tail = tail.readTupleOpt();
+          result.push(head);
+        }
+        return result;
+      }
+      readLispListDirect() {
+        if (this.items.length === 1 && this.items[0].type === "null") {
+          return [];
+        }
+        return _TupleReader.readLispList(this);
+      }
+      readLispList() {
+        return _TupleReader.readLispList(this.readTupleOpt());
+      }
+      readBuffer() {
+        let s = this.readCell().beginParse();
+        if (s.remainingRefs !== 0) {
+          throw Error("Not a buffer");
+        }
+        if (s.remainingBits % 8 !== 0) {
+          throw Error("Not a buffer");
+        }
+        return s.loadBuffer(s.remainingBits / 8);
+      }
+      readBufferOpt() {
+        let r = this.readCellOpt();
+        if (r !== null) {
+          let s = r.beginParse();
+          if (s.remainingRefs !== 0 || s.remainingBits % 8 !== 0) {
+            throw Error("Not a buffer");
+          }
+          return s.loadBuffer(s.remainingBits / 8);
+        } else {
+          return null;
+        }
+      }
+      readString() {
+        let s = this.readCell().beginParse();
+        return s.loadStringTail();
+      }
+      readStringOpt() {
+        let r = this.readCellOpt();
+        if (r !== null) {
+          let s = r.beginParse();
+          return s.loadStringTail();
+        } else {
+          return null;
+        }
+      }
+    };
+    exports2.TupleReader = TupleReader2;
+  }
+});
+
+// node_modules/@ton/core/dist/tuple/builder.js
+var require_builder = __commonJS({
+  "node_modules/@ton/core/dist/tuple/builder.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.TupleBuilder = void 0;
+    var Builder_1 = require_Builder();
+    var Cell_1 = require_Cell();
+    var Slice_1 = require_Slice();
+    var TupleBuilder2 = class {
+      constructor() {
+        this._tuple = [];
+      }
+      writeNumber(v) {
+        if (v === null || v === void 0) {
+          this._tuple.push({ type: "null" });
+        } else {
+          this._tuple.push({ type: "int", value: BigInt(v) });
+        }
+      }
+      writeBoolean(v) {
+        if (v === null || v === void 0) {
+          this._tuple.push({ type: "null" });
+        } else {
+          this._tuple.push({ type: "int", value: v ? -1n : 0n });
+        }
+      }
+      writeBuffer(v) {
+        if (v === null || v === void 0) {
+          this._tuple.push({ type: "null" });
+        } else {
+          this._tuple.push({ type: "slice", cell: (0, Builder_1.beginCell)().storeBuffer(v).endCell() });
+        }
+      }
+      writeString(v) {
+        if (v === null || v === void 0) {
+          this._tuple.push({ type: "null" });
+        } else {
+          this._tuple.push({ type: "slice", cell: (0, Builder_1.beginCell)().storeStringTail(v).endCell() });
+        }
+      }
+      writeCell(v) {
+        if (v === null || v === void 0) {
+          this._tuple.push({ type: "null" });
+        } else {
+          if (v instanceof Cell_1.Cell) {
+            this._tuple.push({ type: "cell", cell: v });
+          } else if (v instanceof Slice_1.Slice) {
+            this._tuple.push({ type: "cell", cell: v.asCell() });
+          }
+        }
+      }
+      writeSlice(v) {
+        if (v === null || v === void 0) {
+          this._tuple.push({ type: "null" });
+        } else {
+          if (v instanceof Cell_1.Cell) {
+            this._tuple.push({ type: "slice", cell: v });
+          } else if (v instanceof Slice_1.Slice) {
+            this._tuple.push({ type: "slice", cell: v.asCell() });
+          }
+        }
+      }
+      writeBuilder(v) {
+        if (v === null || v === void 0) {
+          this._tuple.push({ type: "null" });
+        } else {
+          if (v instanceof Cell_1.Cell) {
+            this._tuple.push({ type: "builder", cell: v });
+          } else if (v instanceof Slice_1.Slice) {
+            this._tuple.push({ type: "builder", cell: v.asCell() });
+          }
+        }
+      }
+      writeTuple(v) {
+        if (v === null || v === void 0) {
+          this._tuple.push({ type: "null" });
+        } else {
+          this._tuple.push({ type: "tuple", items: v });
+        }
+      }
+      writeAddress(v) {
+        if (v === null || v === void 0) {
+          this._tuple.push({ type: "null" });
+        } else {
+          this._tuple.push({ type: "slice", cell: (0, Builder_1.beginCell)().storeAddress(v).endCell() });
+        }
+      }
+      build() {
+        return [...this._tuple];
+      }
+    };
+    exports2.TupleBuilder = TupleBuilder2;
+  }
+});
+
+// node_modules/@ton/core/dist/utils/convert.js
+var require_convert = __commonJS({
+  "node_modules/@ton/core/dist/utils/convert.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.fromNano = exports2.toNano = void 0;
+    function toNano2(src) {
+      if (typeof src === "bigint") {
+        return src * 1000000000n;
+      } else {
+        if (typeof src === "number") {
+          if (!Number.isFinite(src)) {
+            throw Error("Invalid number");
+          }
+          if (Math.log10(src) <= 6) {
+            src = src.toLocaleString("en", { minimumFractionDigits: 9, useGrouping: false });
+          } else if (src - Math.trunc(src) === 0) {
+            src = src.toLocaleString("en", { maximumFractionDigits: 0, useGrouping: false });
+          } else {
+            throw Error("Not enough precision for a number value. Use string value instead");
+          }
+        }
+        let neg = false;
+        while (src.startsWith("-")) {
+          neg = !neg;
+          src = src.slice(1);
+        }
+        if (src === ".") {
+          throw Error("Invalid number");
+        }
+        let parts = src.split(".");
+        if (parts.length > 2) {
+          throw Error("Invalid number");
+        }
+        let whole = parts[0];
+        let frac = parts[1];
+        if (!whole) {
+          whole = "0";
+        }
+        if (!frac) {
+          frac = "0";
+        }
+        if (frac.length > 9) {
+          throw Error("Invalid number");
+        }
+        while (frac.length < 9) {
+          frac += "0";
+        }
+        let r = BigInt(whole) * 1000000000n + BigInt(frac);
+        if (neg) {
+          r = -r;
+        }
+        return r;
+      }
+    }
+    exports2.toNano = toNano2;
+    function fromNano2(src) {
+      let v = BigInt(src);
+      let neg = false;
+      if (v < 0) {
+        neg = true;
+        v = -v;
+      }
+      let frac = v % 1000000000n;
+      let facStr = frac.toString();
+      while (facStr.length < 9) {
+        facStr = "0" + facStr;
+      }
+      facStr = facStr.match(/^([0-9]*[1-9]|0)(0*)/)[1];
+      let whole = v / 1000000000n;
+      let wholeStr = whole.toString();
+      let value = `${wholeStr}${facStr === "0" ? "" : `.${facStr}`}`;
+      if (neg) {
+        value = "-" + value;
+      }
+      return value;
+    }
+    exports2.fromNano = fromNano2;
+  }
+});
+
+// node_modules/@ton/core/dist/types/ExtraCurrency.js
+var require_ExtraCurrency = __commonJS({
+  "node_modules/@ton/core/dist/types/ExtraCurrency.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.packExtraCurrencyCell = exports2.packExtraCurrencyDict = exports2.storeExtraCurrency = exports2.loadMaybeExtraCurrency = exports2.loadExtraCurrency = void 0;
+    var Builder_1 = require_Builder();
+    var Dictionary_1 = require_Dictionary();
+    function loadExtraCurrency(data) {
+      let ecDict = data instanceof Dictionary_1.Dictionary ? data : Dictionary_1.Dictionary.loadDirect(Dictionary_1.Dictionary.Keys.Uint(32), Dictionary_1.Dictionary.Values.BigVarUint(5), data);
+      let ecMap = {};
+      for (let [k, v] of ecDict) {
+        ecMap[k] = v;
+      }
+      return ecMap;
+    }
+    exports2.loadExtraCurrency = loadExtraCurrency;
+    function loadMaybeExtraCurrency(data) {
+      const ecData = data.loadMaybeRef();
+      return ecData === null ? ecData : loadExtraCurrency(ecData);
+    }
+    exports2.loadMaybeExtraCurrency = loadMaybeExtraCurrency;
+    function storeExtraCurrency(extracurrency) {
+      return (builder) => {
+        builder.storeDict(packExtraCurrencyDict(extracurrency));
+      };
+    }
+    exports2.storeExtraCurrency = storeExtraCurrency;
+    function packExtraCurrencyDict(extracurrency) {
+      const resEc = Dictionary_1.Dictionary.empty(Dictionary_1.Dictionary.Keys.Uint(32), Dictionary_1.Dictionary.Values.BigVarUint(5));
+      Object.entries(extracurrency).map(([k, v]) => resEc.set(Number(k), v));
+      return resEc;
+    }
+    exports2.packExtraCurrencyDict = packExtraCurrencyDict;
+    function packExtraCurrencyCell(extracurrency) {
+      return (0, Builder_1.beginCell)().storeDictDirect(packExtraCurrencyDict(extracurrency)).endCell();
+    }
+    exports2.packExtraCurrencyCell = packExtraCurrencyCell;
+  }
+});
+
+// node_modules/@ton/core/dist/types/_helpers.js
+var require_helpers = __commonJS({
+  "node_modules/@ton/core/dist/types/_helpers.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.comment = exports2.external = exports2.internal = void 0;
+    var Address_1 = require_Address();
+    var Cell_1 = require_Cell();
+    var Builder_1 = require_Builder();
+    var convert_1 = require_convert();
+    var ExtraCurrency_1 = require_ExtraCurrency();
+    function internal2(src) {
+      let bounce = true;
+      if (src.bounce !== null && src.bounce !== void 0) {
+        bounce = src.bounce;
+      }
+      let to;
+      if (typeof src.to === "string") {
+        to = Address_1.Address.parse(src.to);
+      } else if (Address_1.Address.isAddress(src.to)) {
+        to = src.to;
+      } else {
+        throw new Error(`Invalid address ${src.to}`);
+      }
+      let value;
+      if (typeof src.value === "string") {
+        value = (0, convert_1.toNano)(src.value);
+      } else {
+        value = src.value;
+      }
+      let other;
+      if (src.extracurrency) {
+        other = (0, ExtraCurrency_1.packExtraCurrencyDict)(src.extracurrency);
+      }
+      let body = Cell_1.Cell.EMPTY;
+      if (typeof src.body === "string") {
+        body = (0, Builder_1.beginCell)().storeUint(0, 32).storeStringTail(src.body).endCell();
+      } else if (src.body) {
+        body = src.body;
+      }
+      return {
+        info: {
+          type: "internal",
+          dest: to,
+          value: { coins: value, other },
+          bounce,
+          ihrDisabled: true,
+          bounced: false,
+          ihrFee: 0n,
+          forwardFee: 0n,
+          createdAt: 0,
+          createdLt: 0n
+        },
+        init: src.init ?? void 0,
+        body
+      };
+    }
+    exports2.internal = internal2;
+    function external(src) {
+      let to;
+      if (typeof src.to === "string") {
+        to = Address_1.Address.parse(src.to);
+      } else if (Address_1.Address.isAddress(src.to)) {
+        to = src.to;
+      } else {
+        throw new Error(`Invalid address ${src.to}`);
+      }
+      return {
+        info: {
+          type: "external-in",
+          dest: to,
+          importFee: 0n
+        },
+        init: src.init ?? void 0,
+        body: src.body || Cell_1.Cell.EMPTY
+      };
+    }
+    exports2.external = external;
+    function comment(src) {
+      return (0, Builder_1.beginCell)().storeUint(0, 32).storeStringTail(src).endCell();
+    }
+    exports2.comment = comment;
+  }
+});
+
+// node_modules/@ton/core/dist/types/AccountState.js
+var require_AccountState = __commonJS({
+  "node_modules/@ton/core/dist/types/AccountState.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeAccountState = exports2.loadAccountState = void 0;
+    var StateInit_1 = require_StateInit();
+    function loadAccountState(cs) {
+      if (cs.loadBit()) {
+        return { type: "active", state: (0, StateInit_1.loadStateInit)(cs) };
+      } else if (cs.loadBit()) {
+        return { type: "frozen", stateHash: cs.loadUintBig(256) };
+      } else {
+        return { type: "uninit" };
+      }
+    }
+    exports2.loadAccountState = loadAccountState;
+    function storeAccountState(src) {
+      return (builder) => {
+        if (src.type === "active") {
+          builder.storeBit(true);
+          builder.store((0, StateInit_1.storeStateInit)(src.state));
+        } else if (src.type === "frozen") {
+          builder.storeBit(false);
+          builder.storeBit(true);
+          builder.storeUint(src.stateHash, 256);
+        } else if (src.type === "uninit") {
+          builder.storeBit(false);
+          builder.storeBit(false);
+        }
+      };
+    }
+    exports2.storeAccountState = storeAccountState;
+  }
+});
+
+// node_modules/@ton/core/dist/types/CurrencyCollection.js
+var require_CurrencyCollection = __commonJS({
+  "node_modules/@ton/core/dist/types/CurrencyCollection.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeCurrencyCollection = exports2.loadCurrencyCollection = void 0;
+    var Dictionary_1 = require_Dictionary();
+    function loadCurrencyCollection(slice) {
+      const coins = slice.loadCoins();
+      const other = slice.loadDict(Dictionary_1.Dictionary.Keys.Uint(32), Dictionary_1.Dictionary.Values.BigVarUint(
+        5
+        /* log2(32) */
+      ));
+      if (other.size === 0) {
+        return { coins };
+      } else {
+        return { other, coins };
+      }
+    }
+    exports2.loadCurrencyCollection = loadCurrencyCollection;
+    function storeCurrencyCollection(collection) {
+      return (builder) => {
+        builder.storeCoins(collection.coins);
+        if (collection.other) {
+          builder.storeDict(collection.other);
+        } else {
+          builder.storeBit(0);
+        }
+      };
+    }
+    exports2.storeCurrencyCollection = storeCurrencyCollection;
+  }
+});
+
+// node_modules/@ton/core/dist/types/AccountStorage.js
+var require_AccountStorage = __commonJS({
+  "node_modules/@ton/core/dist/types/AccountStorage.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeAccountStorage = exports2.loadAccountStorage = void 0;
+    var AccountState_1 = require_AccountState();
+    var CurrencyCollection_1 = require_CurrencyCollection();
+    function loadAccountStorage(slice) {
+      return {
+        lastTransLt: slice.loadUintBig(64),
+        balance: (0, CurrencyCollection_1.loadCurrencyCollection)(slice),
+        state: (0, AccountState_1.loadAccountState)(slice)
+      };
+    }
+    exports2.loadAccountStorage = loadAccountStorage;
+    function storeAccountStorage(src) {
+      return (builder) => {
+        builder.storeUint(src.lastTransLt, 64);
+        builder.store((0, CurrencyCollection_1.storeCurrencyCollection)(src.balance));
+        builder.store((0, AccountState_1.storeAccountState)(src.state));
+      };
+    }
+    exports2.storeAccountStorage = storeAccountStorage;
+  }
+});
+
+// node_modules/@ton/core/dist/types/StorageUsed.js
+var require_StorageUsed = __commonJS({
+  "node_modules/@ton/core/dist/types/StorageUsed.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeStorageUsed = exports2.loadStorageUsed = void 0;
+    function loadStorageUsed(cs) {
+      return {
+        cells: cs.loadVarUintBig(3),
+        bits: cs.loadVarUintBig(3),
+        publicCells: cs.loadVarUintBig(3)
+      };
+    }
+    exports2.loadStorageUsed = loadStorageUsed;
+    function storeStorageUsed(src) {
+      return (builder) => {
+        builder.storeVarUint(src.cells, 3);
+        builder.storeVarUint(src.bits, 3);
+        builder.storeVarUint(src.publicCells, 3);
+      };
+    }
+    exports2.storeStorageUsed = storeStorageUsed;
+  }
+});
+
+// node_modules/@ton/core/dist/types/StorageInto.js
+var require_StorageInto = __commonJS({
+  "node_modules/@ton/core/dist/types/StorageInto.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeStorageInfo = exports2.loadStorageInfo = void 0;
+    var StorageUsed_1 = require_StorageUsed();
+    function loadStorageInfo(slice) {
+      return {
+        used: (0, StorageUsed_1.loadStorageUsed)(slice),
+        lastPaid: slice.loadUint(32),
+        duePayment: slice.loadMaybeCoins()
+      };
+    }
+    exports2.loadStorageInfo = loadStorageInfo;
+    function storeStorageInfo(src) {
+      return (builder) => {
+        builder.store((0, StorageUsed_1.storeStorageUsed)(src.used));
+        builder.storeUint(src.lastPaid, 32);
+        builder.storeMaybeCoins(src.duePayment);
+      };
+    }
+    exports2.storeStorageInfo = storeStorageInfo;
+  }
+});
+
+// node_modules/@ton/core/dist/types/Account.js
+var require_Account = __commonJS({
+  "node_modules/@ton/core/dist/types/Account.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeAccount = exports2.loadAccount = void 0;
+    var AccountStorage_1 = require_AccountStorage();
+    var StorageInto_1 = require_StorageInto();
+    function loadAccount(slice) {
+      return {
+        addr: slice.loadAddress(),
+        storageStats: (0, StorageInto_1.loadStorageInfo)(slice),
+        storage: (0, AccountStorage_1.loadAccountStorage)(slice)
+      };
+    }
+    exports2.loadAccount = loadAccount;
+    function storeAccount(src) {
+      return (builder) => {
+        builder.storeAddress(src.addr);
+        builder.store((0, StorageInto_1.storeStorageInfo)(src.storageStats));
+        builder.store((0, AccountStorage_1.storeAccountStorage)(src.storage));
+      };
+    }
+    exports2.storeAccount = storeAccount;
+  }
+});
+
+// node_modules/@ton/core/dist/types/AccountStatus.js
+var require_AccountStatus = __commonJS({
+  "node_modules/@ton/core/dist/types/AccountStatus.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeAccountStatus = exports2.loadAccountStatus = void 0;
+    function loadAccountStatus(slice) {
+      const status = slice.loadUint(2);
+      if (status === 0) {
+        return "uninitialized";
+      }
+      if (status === 1) {
+        return "frozen";
+      }
+      if (status === 2) {
+        return "active";
+      }
+      if (status === 3) {
+        return "non-existing";
+      }
+      throw Error("Invalid data");
+    }
+    exports2.loadAccountStatus = loadAccountStatus;
+    function storeAccountStatus(src) {
+      return (builder) => {
+        if (src === "uninitialized") {
+          builder.storeUint(0, 2);
+        } else if (src === "frozen") {
+          builder.storeUint(1, 2);
+        } else if (src === "active") {
+          builder.storeUint(2, 2);
+        } else if (src === "non-existing") {
+          builder.storeUint(3, 2);
+        } else {
+          throw Error("Invalid data");
+        }
+        return builder;
+      };
+    }
+    exports2.storeAccountStatus = storeAccountStatus;
+  }
+});
+
+// node_modules/@ton/core/dist/types/AccountStatusChange.js
+var require_AccountStatusChange = __commonJS({
+  "node_modules/@ton/core/dist/types/AccountStatusChange.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeAccountStatusChange = exports2.loadAccountStatusChange = void 0;
+    function loadAccountStatusChange(slice) {
+      if (!slice.loadBit()) {
+        return "unchanged";
+      }
+      if (slice.loadBit()) {
+        return "deleted";
+      } else {
+        return "frozen";
+      }
+    }
+    exports2.loadAccountStatusChange = loadAccountStatusChange;
+    function storeAccountStatusChange(src) {
+      return (builder) => {
+        if (src == "unchanged") {
+          builder.storeBit(0);
+        } else if (src === "frozen") {
+          builder.storeBit(1);
+          builder.storeBit(0);
+        } else if (src === "deleted") {
+          builder.storeBit(1);
+          builder.storeBit(1);
+        } else {
+          throw Error("Invalid account status change");
+        }
+      };
+    }
+    exports2.storeAccountStatusChange = storeAccountStatusChange;
+  }
+});
+
+// node_modules/@ton/core/dist/types/CommonMessageInfoRelaxed.js
+var require_CommonMessageInfoRelaxed = __commonJS({
+  "node_modules/@ton/core/dist/types/CommonMessageInfoRelaxed.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeCommonMessageInfoRelaxed = exports2.loadCommonMessageInfoRelaxed = void 0;
+    var CurrencyCollection_1 = require_CurrencyCollection();
+    function loadCommonMessageInfoRelaxed(slice) {
+      if (!slice.loadBit()) {
+        const ihrDisabled = slice.loadBit();
+        const bounce = slice.loadBit();
+        const bounced = slice.loadBit();
+        const src2 = slice.loadMaybeAddress();
+        const dest2 = slice.loadAddress();
+        const value = (0, CurrencyCollection_1.loadCurrencyCollection)(slice);
+        const ihrFee = slice.loadCoins();
+        const forwardFee = slice.loadCoins();
+        const createdLt2 = slice.loadUintBig(64);
+        const createdAt2 = slice.loadUint(32);
+        return {
+          type: "internal",
+          ihrDisabled,
+          bounce,
+          bounced,
+          src: src2,
+          dest: dest2,
+          value,
+          ihrFee,
+          forwardFee,
+          createdLt: createdLt2,
+          createdAt: createdAt2
+        };
+      }
+      if (!slice.loadBit()) {
+        throw Error("External In message is not possible for CommonMessageInfoRelaxed");
+      }
+      const src = slice.loadMaybeAddress();
+      const dest = slice.loadMaybeExternalAddress();
+      const createdLt = slice.loadUintBig(64);
+      const createdAt = slice.loadUint(32);
+      return {
+        type: "external-out",
+        src,
+        dest,
+        createdLt,
+        createdAt
+      };
+    }
+    exports2.loadCommonMessageInfoRelaxed = loadCommonMessageInfoRelaxed;
+    function storeCommonMessageInfoRelaxed(source) {
+      return (builder) => {
+        if (source.type === "internal") {
+          builder.storeBit(0);
+          builder.storeBit(source.ihrDisabled);
+          builder.storeBit(source.bounce);
+          builder.storeBit(source.bounced);
+          builder.storeAddress(source.src);
+          builder.storeAddress(source.dest);
+          builder.store((0, CurrencyCollection_1.storeCurrencyCollection)(source.value));
+          builder.storeCoins(source.ihrFee);
+          builder.storeCoins(source.forwardFee);
+          builder.storeUint(source.createdLt, 64);
+          builder.storeUint(source.createdAt, 32);
+        } else if (source.type === "external-out") {
+          builder.storeBit(1);
+          builder.storeBit(1);
+          builder.storeAddress(source.src);
+          builder.storeAddress(source.dest);
+          builder.storeUint(source.createdLt, 64);
+          builder.storeUint(source.createdAt, 32);
+        } else {
+          throw new Error("Unknown CommonMessageInfo type");
+        }
+      };
+    }
+    exports2.storeCommonMessageInfoRelaxed = storeCommonMessageInfoRelaxed;
+  }
+});
+
+// node_modules/@ton/core/dist/types/MessageRelaxed.js
+var require_MessageRelaxed = __commonJS({
+  "node_modules/@ton/core/dist/types/MessageRelaxed.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeMessageRelaxed = exports2.loadMessageRelaxed = void 0;
+    var Builder_1 = require_Builder();
+    var CommonMessageInfoRelaxed_1 = require_CommonMessageInfoRelaxed();
+    var StateInit_1 = require_StateInit();
+    function loadMessageRelaxed(slice) {
+      const info = (0, CommonMessageInfoRelaxed_1.loadCommonMessageInfoRelaxed)(slice);
+      let init = null;
+      if (slice.loadBit()) {
+        if (!slice.loadBit()) {
+          init = (0, StateInit_1.loadStateInit)(slice);
+        } else {
+          init = (0, StateInit_1.loadStateInit)(slice.loadRef().beginParse());
+        }
+      }
+      const body = slice.loadBit() ? slice.loadRef() : slice.asCell();
+      return {
+        info,
+        init,
+        body
+      };
+    }
+    exports2.loadMessageRelaxed = loadMessageRelaxed;
+    function storeMessageRelaxed2(message, opts) {
+      return (builder) => {
+        builder.store((0, CommonMessageInfoRelaxed_1.storeCommonMessageInfoRelaxed)(message.info));
+        if (message.init) {
+          builder.storeBit(true);
+          let initCell = (0, Builder_1.beginCell)().store((0, StateInit_1.storeStateInit)(message.init));
+          let needRef2 = false;
+          if (opts && opts.forceRef) {
+            needRef2 = true;
+          } else {
+            if (builder.availableBits - 2 >= initCell.bits) {
+              needRef2 = false;
+            } else {
+              needRef2 = true;
+            }
+          }
+          if (needRef2) {
+            builder.storeBit(true);
+            builder.storeRef(initCell);
+          } else {
+            builder.storeBit(false);
+            builder.storeBuilder(initCell);
+          }
+        } else {
+          builder.storeBit(false);
+        }
+        let needRef = false;
+        if (opts && opts.forceRef) {
+          needRef = true;
+        } else {
+          if (builder.availableBits - 1 >= message.body.bits.length && builder.refs + message.body.refs.length <= 4 && !message.body.isExotic) {
+            needRef = false;
+          } else {
+            needRef = true;
+          }
+        }
+        if (needRef) {
+          builder.storeBit(true);
+          builder.storeRef(message.body);
+        } else {
+          builder.storeBit(false);
+          builder.storeBuilder(message.body.asBuilder());
+        }
+      };
+    }
+    exports2.storeMessageRelaxed = storeMessageRelaxed2;
+  }
+});
+
+// node_modules/@ton/core/dist/types/LibRef.js
+var require_LibRef = __commonJS({
+  "node_modules/@ton/core/dist/types/LibRef.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeLibRef = exports2.loadLibRef = void 0;
+    function loadLibRef(slice) {
+      const type = slice.loadUint(1);
+      if (type === 0) {
+        return {
+          type: "hash",
+          libHash: slice.loadBuffer(32)
+        };
+      } else {
+        return {
+          type: "ref",
+          library: slice.loadRef()
+        };
+      }
+    }
+    exports2.loadLibRef = loadLibRef;
+    function storeLibRef(src) {
+      return (builder) => {
+        if (src.type === "hash") {
+          builder.storeUint(0, 1);
+          builder.storeBuffer(src.libHash);
+        } else {
+          builder.storeUint(1, 1);
+          builder.storeRef(src.library);
+        }
+      };
+    }
+    exports2.storeLibRef = storeLibRef;
+  }
+});
+
+// node_modules/@ton/core/dist/types/OutList.js
+var require_OutList = __commonJS({
+  "node_modules/@ton/core/dist/types/OutList.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.loadOutList = exports2.storeOutList = exports2.loadOutAction = exports2.storeOutAction = void 0;
+    var MessageRelaxed_1 = require_MessageRelaxed();
+    var Builder_1 = require_Builder();
+    var CurrencyCollection_1 = require_CurrencyCollection();
+    var LibRef_1 = require_LibRef();
+    function storeOutAction(action) {
+      switch (action.type) {
+        case "sendMsg":
+          return storeOutActionSendMsg(action);
+        case "setCode":
+          return storeOutActionSetCode(action);
+        case "reserve":
+          return storeOutActionReserve(action);
+        case "changeLibrary":
+          return storeOutActionChangeLibrary(action);
+        default:
+          throw new Error(`Unknown action type ${action.type}`);
+      }
+    }
+    exports2.storeOutAction = storeOutAction;
+    var outActionSendMsgTag = 247711853;
+    function storeOutActionSendMsg(action) {
+      return (builder) => {
+        builder.storeUint(outActionSendMsgTag, 32).storeUint(action.mode, 8).storeRef((0, Builder_1.beginCell)().store((0, MessageRelaxed_1.storeMessageRelaxed)(action.outMsg)).endCell());
+      };
+    }
+    var outActionSetCodeTag = 2907562126;
+    function storeOutActionSetCode(action) {
+      return (builder) => {
+        builder.storeUint(outActionSetCodeTag, 32).storeRef(action.newCode);
+      };
+    }
+    var outActionReserveTag = 921090057;
+    function storeOutActionReserve(action) {
+      return (builder) => {
+        builder.storeUint(outActionReserveTag, 32).storeUint(action.mode, 8).store((0, CurrencyCollection_1.storeCurrencyCollection)(action.currency));
+      };
+    }
+    var outActionChangeLibraryTag = 653925844;
+    function storeOutActionChangeLibrary(action) {
+      return (builder) => {
+        builder.storeUint(outActionChangeLibraryTag, 32).storeUint(action.mode, 7).store((0, LibRef_1.storeLibRef)(action.libRef));
+      };
+    }
+    function loadOutAction(slice) {
+      const tag = slice.loadUint(32);
+      if (tag === outActionSendMsgTag) {
+        const mode = slice.loadUint(8);
+        const outMsg = (0, MessageRelaxed_1.loadMessageRelaxed)(slice.loadRef().beginParse());
+        return {
+          type: "sendMsg",
+          mode,
+          outMsg
+        };
+      }
+      if (tag === outActionSetCodeTag) {
+        const newCode = slice.loadRef();
+        return {
+          type: "setCode",
+          newCode
+        };
+      }
+      if (tag === outActionReserveTag) {
+        const mode = slice.loadUint(8);
+        const currency = (0, CurrencyCollection_1.loadCurrencyCollection)(slice);
+        return {
+          type: "reserve",
+          mode,
+          currency
+        };
+      }
+      if (tag === outActionChangeLibraryTag) {
+        const mode = slice.loadUint(7);
+        const libRef = (0, LibRef_1.loadLibRef)(slice);
+        return {
+          type: "changeLibrary",
+          mode,
+          libRef
+        };
+      }
+      throw new Error(`Unknown out action tag 0x${tag.toString(16)}`);
+    }
+    exports2.loadOutAction = loadOutAction;
+    function storeOutList(actions) {
+      const cell = actions.reduce((cell2, action) => (0, Builder_1.beginCell)().storeRef(cell2).store(storeOutAction(action)).endCell(), (0, Builder_1.beginCell)().endCell());
+      return (builder) => {
+        builder.storeSlice(cell.beginParse());
+      };
+    }
+    exports2.storeOutList = storeOutList;
+    function loadOutList(slice) {
+      const actions = [];
+      while (slice.remainingRefs) {
+        const nextCell = slice.loadRef();
+        actions.push(loadOutAction(slice));
+        slice = nextCell.beginParse();
+      }
+      return actions.reverse();
+    }
+    exports2.loadOutList = loadOutList;
+  }
+});
+
+// node_modules/@ton/core/dist/types/CommonMessageInfo.js
+var require_CommonMessageInfo = __commonJS({
+  "node_modules/@ton/core/dist/types/CommonMessageInfo.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeCommonMessageInfo = exports2.loadCommonMessageInfo = void 0;
+    var CurrencyCollection_1 = require_CurrencyCollection();
+    function loadCommonMessageInfo(slice) {
+      if (!slice.loadBit()) {
+        const ihrDisabled = slice.loadBit();
+        const bounce = slice.loadBit();
+        const bounced = slice.loadBit();
+        const src2 = slice.loadAddress();
+        const dest2 = slice.loadAddress();
+        const value = (0, CurrencyCollection_1.loadCurrencyCollection)(slice);
+        const ihrFee = slice.loadCoins();
+        const forwardFee = slice.loadCoins();
+        const createdLt2 = slice.loadUintBig(64);
+        const createdAt2 = slice.loadUint(32);
+        return {
+          type: "internal",
+          ihrDisabled,
+          bounce,
+          bounced,
+          src: src2,
+          dest: dest2,
+          value,
+          ihrFee,
+          forwardFee,
+          createdLt: createdLt2,
+          createdAt: createdAt2
+        };
+      }
+      if (!slice.loadBit()) {
+        const src2 = slice.loadMaybeExternalAddress();
+        const dest2 = slice.loadAddress();
+        const importFee = slice.loadCoins();
+        return {
+          type: "external-in",
+          src: src2,
+          dest: dest2,
+          importFee
+        };
+      }
+      const src = slice.loadAddress();
+      const dest = slice.loadMaybeExternalAddress();
+      const createdLt = slice.loadUintBig(64);
+      const createdAt = slice.loadUint(32);
+      return {
+        type: "external-out",
+        src,
+        dest,
+        createdLt,
+        createdAt
+      };
+    }
+    exports2.loadCommonMessageInfo = loadCommonMessageInfo;
+    function storeCommonMessageInfo(source) {
+      return (builder) => {
+        if (source.type === "internal") {
+          builder.storeBit(0);
+          builder.storeBit(source.ihrDisabled);
+          builder.storeBit(source.bounce);
+          builder.storeBit(source.bounced);
+          builder.storeAddress(source.src);
+          builder.storeAddress(source.dest);
+          builder.store((0, CurrencyCollection_1.storeCurrencyCollection)(source.value));
+          builder.storeCoins(source.ihrFee);
+          builder.storeCoins(source.forwardFee);
+          builder.storeUint(source.createdLt, 64);
+          builder.storeUint(source.createdAt, 32);
+        } else if (source.type === "external-in") {
+          builder.storeBit(1);
+          builder.storeBit(0);
+          builder.storeAddress(source.src);
+          builder.storeAddress(source.dest);
+          builder.storeCoins(source.importFee);
+        } else if (source.type === "external-out") {
+          builder.storeBit(1);
+          builder.storeBit(1);
+          builder.storeAddress(source.src);
+          builder.storeAddress(source.dest);
+          builder.storeUint(source.createdLt, 64);
+          builder.storeUint(source.createdAt, 32);
+        } else {
+          throw new Error("Unknown CommonMessageInfo type");
+        }
+      };
+    }
+    exports2.storeCommonMessageInfo = storeCommonMessageInfo;
+  }
+});
+
+// node_modules/@ton/core/dist/types/ComputeSkipReason.js
+var require_ComputeSkipReason = __commonJS({
+  "node_modules/@ton/core/dist/types/ComputeSkipReason.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeComputeSkipReason = exports2.loadComputeSkipReason = void 0;
+    function loadComputeSkipReason(slice) {
+      let reason = slice.loadUint(2);
+      if (reason === 0) {
+        return "no-state";
+      } else if (reason === 1) {
+        return "bad-state";
+      } else if (reason === 2) {
+        return "no-gas";
+      }
+      throw new Error(`Unknown ComputeSkipReason: ${reason}`);
+    }
+    exports2.loadComputeSkipReason = loadComputeSkipReason;
+    function storeComputeSkipReason(src) {
+      return (builder) => {
+        if (src === "no-state") {
+          builder.storeUint(0, 2);
+        } else if (src === "bad-state") {
+          builder.storeUint(1, 2);
+        } else if (src === "no-gas") {
+          builder.storeUint(2, 2);
+        } else {
+          throw new Error(`Unknown ComputeSkipReason: ${src}`);
+        }
+      };
+    }
+    exports2.storeComputeSkipReason = storeComputeSkipReason;
+  }
+});
+
+// node_modules/@ton/core/dist/types/DepthBalanceInfo.js
+var require_DepthBalanceInfo = __commonJS({
+  "node_modules/@ton/core/dist/types/DepthBalanceInfo.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeDepthBalanceInfo = exports2.loadDepthBalanceInfo = void 0;
+    var CurrencyCollection_1 = require_CurrencyCollection();
+    function loadDepthBalanceInfo(slice) {
+      let splitDepth = slice.loadUint(5);
+      return {
+        splitDepth,
+        balance: (0, CurrencyCollection_1.loadCurrencyCollection)(slice)
+      };
+    }
+    exports2.loadDepthBalanceInfo = loadDepthBalanceInfo;
+    function storeDepthBalanceInfo(src) {
+      return (builder) => {
+        builder.storeUint(src.splitDepth, 5);
+        builder.store((0, CurrencyCollection_1.storeCurrencyCollection)(src.balance));
+      };
+    }
+    exports2.storeDepthBalanceInfo = storeDepthBalanceInfo;
+  }
+});
+
+// node_modules/@ton/core/dist/types/HashUpdate.js
+var require_HashUpdate = __commonJS({
+  "node_modules/@ton/core/dist/types/HashUpdate.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeHashUpdate = exports2.loadHashUpdate = void 0;
+    function loadHashUpdate(slice) {
+      if (slice.loadUint(8) !== 114) {
+        throw Error("Invalid data");
+      }
+      const oldHash = slice.loadBuffer(32);
+      const newHash = slice.loadBuffer(32);
+      return { oldHash, newHash };
+    }
+    exports2.loadHashUpdate = loadHashUpdate;
+    function storeHashUpdate(src) {
+      return (builder) => {
+        builder.storeUint(114, 8);
+        builder.storeBuffer(src.oldHash);
+        builder.storeBuffer(src.newHash);
+      };
+    }
+    exports2.storeHashUpdate = storeHashUpdate;
+  }
+});
+
+// node_modules/@ton/core/dist/types/MasterchainStateExtra.js
+var require_MasterchainStateExtra = __commonJS({
+  "node_modules/@ton/core/dist/types/MasterchainStateExtra.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.loadMasterchainStateExtra = void 0;
+    var Dictionary_1 = require_Dictionary();
+    var CurrencyCollection_1 = require_CurrencyCollection();
+    function loadMasterchainStateExtra(cs) {
+      if (cs.loadUint(16) !== 52262) {
+        throw Error("Invalid data");
+      }
+      if (cs.loadBit()) {
+        cs.loadRef();
+      }
+      let configAddress = cs.loadUintBig(256);
+      let config = Dictionary_1.Dictionary.load(Dictionary_1.Dictionary.Keys.Int(32), Dictionary_1.Dictionary.Values.Cell(), cs);
+      const globalBalance = (0, CurrencyCollection_1.loadCurrencyCollection)(cs);
+      return {
+        config,
+        configAddress,
+        globalBalance
+      };
+    }
+    exports2.loadMasterchainStateExtra = loadMasterchainStateExtra;
+  }
+});
+
+// node_modules/@ton/core/dist/types/Message.js
+var require_Message = __commonJS({
+  "node_modules/@ton/core/dist/types/Message.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.MessageValue = exports2.storeMessage = exports2.loadMessage = void 0;
+    var Builder_1 = require_Builder();
+    var CommonMessageInfo_1 = require_CommonMessageInfo();
+    var StateInit_1 = require_StateInit();
+    function loadMessage(slice) {
+      const info = (0, CommonMessageInfo_1.loadCommonMessageInfo)(slice);
+      let init = null;
+      if (slice.loadBit()) {
+        if (!slice.loadBit()) {
+          init = (0, StateInit_1.loadStateInit)(slice);
+        } else {
+          init = (0, StateInit_1.loadStateInit)(slice.loadRef().beginParse());
+        }
+      }
+      const body = slice.loadBit() ? slice.loadRef() : slice.asCell();
+      return {
+        info,
+        init,
+        body
+      };
+    }
+    exports2.loadMessage = loadMessage;
+    function storeMessage(message, opts) {
+      return (builder) => {
+        builder.store((0, CommonMessageInfo_1.storeCommonMessageInfo)(message.info));
+        if (message.init) {
+          builder.storeBit(true);
+          let initCell = (0, Builder_1.beginCell)().store((0, StateInit_1.storeStateInit)(message.init));
+          let needRef2 = false;
+          if (opts && opts.forceRef) {
+            needRef2 = true;
+          } else {
+            needRef2 = builder.availableBits - 2 < initCell.bits + message.body.bits.length;
+          }
+          if (needRef2) {
+            builder.storeBit(true);
+            builder.storeRef(initCell);
+          } else {
+            builder.storeBit(false);
+            builder.storeBuilder(initCell);
+          }
+        } else {
+          builder.storeBit(false);
+        }
+        let needRef = false;
+        if (opts && opts.forceRef) {
+          needRef = true;
+        } else {
+          needRef = builder.availableBits - 1 < message.body.bits.length || builder.refs + message.body.refs.length > 4;
+        }
+        if (needRef) {
+          builder.storeBit(true);
+          builder.storeRef(message.body);
+        } else {
+          builder.storeBit(false);
+          builder.storeBuilder(message.body.asBuilder());
+        }
+      };
+    }
+    exports2.storeMessage = storeMessage;
+    exports2.MessageValue = {
+      serialize(src, builder) {
+        builder.storeRef((0, Builder_1.beginCell)().store(storeMessage(src)));
+      },
+      parse(slice) {
+        return loadMessage(slice.loadRef().beginParse());
+      }
+    };
+  }
+});
+
+// node_modules/@ton/core/dist/types/SendMode.js
+var require_SendMode = __commonJS({
+  "node_modules/@ton/core/dist/types/SendMode.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.SendMode = void 0;
+    var SendMode2;
+    (function(SendMode3) {
+      SendMode3[SendMode3["CARRY_ALL_REMAINING_BALANCE"] = 128] = "CARRY_ALL_REMAINING_BALANCE";
+      SendMode3[SendMode3["CARRY_ALL_REMAINING_INCOMING_VALUE"] = 64] = "CARRY_ALL_REMAINING_INCOMING_VALUE";
+      SendMode3[SendMode3["DESTROY_ACCOUNT_IF_ZERO"] = 32] = "DESTROY_ACCOUNT_IF_ZERO";
+      SendMode3[SendMode3["PAY_GAS_SEPARATELY"] = 1] = "PAY_GAS_SEPARATELY";
+      SendMode3[SendMode3["IGNORE_ERRORS"] = 2] = "IGNORE_ERRORS";
+      SendMode3[SendMode3["NONE"] = 0] = "NONE";
+    })(SendMode2 || (exports2.SendMode = SendMode2 = {}));
+  }
+});
+
+// node_modules/@ton/core/dist/types/ReserveMode.js
+var require_ReserveMode = __commonJS({
+  "node_modules/@ton/core/dist/types/ReserveMode.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.ReserveMode = void 0;
+    var ReserveMode;
+    (function(ReserveMode2) {
+      ReserveMode2[ReserveMode2["THIS_AMOUNT"] = 0] = "THIS_AMOUNT";
+      ReserveMode2[ReserveMode2["LEAVE_THIS_AMOUNT"] = 1] = "LEAVE_THIS_AMOUNT";
+      ReserveMode2[ReserveMode2["AT_MOST_THIS_AMOUNT"] = 2] = "AT_MOST_THIS_AMOUNT";
+      ReserveMode2[ReserveMode2["LEAVE_MAX_THIS_AMOUNT"] = 3] = "LEAVE_MAX_THIS_AMOUNT";
+      ReserveMode2[ReserveMode2["BEFORE_BALANCE_PLUS_THIS_AMOUNT"] = 4] = "BEFORE_BALANCE_PLUS_THIS_AMOUNT";
+      ReserveMode2[ReserveMode2["LEAVE_BBALANCE_PLUS_THIS_AMOUNT"] = 5] = "LEAVE_BBALANCE_PLUS_THIS_AMOUNT";
+      ReserveMode2[ReserveMode2["BEFORE_BALANCE_MINUS_THIS_AMOUNT"] = 12] = "BEFORE_BALANCE_MINUS_THIS_AMOUNT";
+      ReserveMode2[ReserveMode2["LEAVE_BEFORE_BALANCE_MINUS_THIS_AMOUNT"] = 13] = "LEAVE_BEFORE_BALANCE_MINUS_THIS_AMOUNT";
+    })(ReserveMode || (exports2.ReserveMode = ReserveMode = {}));
+  }
+});
+
+// node_modules/@ton/core/dist/types/ShardAccount.js
+var require_ShardAccount = __commonJS({
+  "node_modules/@ton/core/dist/types/ShardAccount.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeShardAccount = exports2.loadShardAccount = void 0;
+    var Builder_1 = require_Builder();
+    var Account_1 = require_Account();
+    function loadShardAccount(slice) {
+      let accountRef = slice.loadRef();
+      let account = void 0;
+      if (!accountRef.isExotic) {
+        let accountSlice = accountRef.beginParse();
+        if (accountSlice.loadBit()) {
+          account = (0, Account_1.loadAccount)(accountSlice);
+        }
+      }
+      return {
+        account,
+        lastTransactionHash: slice.loadUintBig(256),
+        lastTransactionLt: slice.loadUintBig(64)
+      };
+    }
+    exports2.loadShardAccount = loadShardAccount;
+    function storeShardAccount(src) {
+      return (builder) => {
+        if (src.account) {
+          builder.storeRef((0, Builder_1.beginCell)().storeBit(true).store((0, Account_1.storeAccount)(src.account)));
+        } else {
+          builder.storeRef((0, Builder_1.beginCell)().storeBit(false));
+        }
+        builder.storeUint(src.lastTransactionHash, 256);
+        builder.storeUint(src.lastTransactionLt, 64);
+      };
+    }
+    exports2.storeShardAccount = storeShardAccount;
+  }
+});
+
+// node_modules/@ton/core/dist/types/ShardAccounts.js
+var require_ShardAccounts = __commonJS({
+  "node_modules/@ton/core/dist/types/ShardAccounts.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeShardAccounts = exports2.loadShardAccounts = exports2.ShardAccountRefValue = void 0;
+    var Dictionary_1 = require_Dictionary();
+    var DepthBalanceInfo_1 = require_DepthBalanceInfo();
+    var ShardAccount_1 = require_ShardAccount();
+    exports2.ShardAccountRefValue = {
+      parse: (cs) => {
+        let depthBalanceInfo = (0, DepthBalanceInfo_1.loadDepthBalanceInfo)(cs);
+        let shardAccount = (0, ShardAccount_1.loadShardAccount)(cs);
+        return {
+          depthBalanceInfo,
+          shardAccount
+        };
+      },
+      serialize(src, builder) {
+        builder.store((0, DepthBalanceInfo_1.storeDepthBalanceInfo)(src.depthBalanceInfo));
+        builder.store((0, ShardAccount_1.storeShardAccount)(src.shardAccount));
+      }
+    };
+    function loadShardAccounts(cs) {
+      return Dictionary_1.Dictionary.load(Dictionary_1.Dictionary.Keys.BigUint(256), exports2.ShardAccountRefValue, cs);
+    }
+    exports2.loadShardAccounts = loadShardAccounts;
+    function storeShardAccounts(src) {
+      return (Builder2) => {
+        Builder2.storeDict(src);
+      };
+    }
+    exports2.storeShardAccounts = storeShardAccounts;
+  }
+});
+
+// node_modules/@ton/core/dist/types/ShardIdent.js
+var require_ShardIdent = __commonJS({
+  "node_modules/@ton/core/dist/types/ShardIdent.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeShardIdent = exports2.loadShardIdent = void 0;
+    function loadShardIdent(slice) {
+      if (slice.loadUint(2) !== 0) {
+        throw Error("Invalid data");
+      }
+      return {
+        shardPrefixBits: slice.loadUint(6),
+        workchainId: slice.loadInt(32),
+        shardPrefix: slice.loadUintBig(64)
+      };
+    }
+    exports2.loadShardIdent = loadShardIdent;
+    function storeShardIdent(src) {
+      return (builder) => {
+        builder.storeUint(0, 2);
+        builder.storeUint(src.shardPrefixBits, 6);
+        builder.storeInt(src.workchainId, 32);
+        builder.storeUint(src.shardPrefix, 64);
+      };
+    }
+    exports2.storeShardIdent = storeShardIdent;
+  }
+});
+
+// node_modules/@ton/core/dist/types/ShardStateUnsplit.js
+var require_ShardStateUnsplit = __commonJS({
+  "node_modules/@ton/core/dist/types/ShardStateUnsplit.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.loadShardStateUnsplit = void 0;
+    var MasterchainStateExtra_1 = require_MasterchainStateExtra();
+    var ShardAccounts_1 = require_ShardAccounts();
+    var ShardIdent_1 = require_ShardIdent();
+    function loadShardStateUnsplit(cs) {
+      if (cs.loadUint(32) !== 2418257890) {
+        throw Error("Invalid data");
+      }
+      let globalId = cs.loadInt(32);
+      let shardId = (0, ShardIdent_1.loadShardIdent)(cs);
+      let seqno = cs.loadUint(32);
+      let vertSeqNo = cs.loadUint(32);
+      let genUtime = cs.loadUint(32);
+      let genLt = cs.loadUintBig(64);
+      let minRefMcSeqno = cs.loadUint(32);
+      cs.loadRef();
+      let beforeSplit = cs.loadBit();
+      let shardAccountsRef = cs.loadRef();
+      let accounts = void 0;
+      if (!shardAccountsRef.isExotic) {
+        accounts = (0, ShardAccounts_1.loadShardAccounts)(shardAccountsRef.beginParse());
+      }
+      cs.loadRef();
+      let mcStateExtra = cs.loadBit();
+      let extras = null;
+      if (mcStateExtra) {
+        let cell = cs.loadRef();
+        if (!cell.isExotic) {
+          extras = (0, MasterchainStateExtra_1.loadMasterchainStateExtra)(cell.beginParse());
+        }
+      }
+      ;
+      return {
+        globalId,
+        shardId,
+        seqno,
+        vertSeqNo,
+        genUtime,
+        genLt,
+        minRefMcSeqno,
+        beforeSplit,
+        accounts,
+        extras
+      };
+    }
+    exports2.loadShardStateUnsplit = loadShardStateUnsplit;
+  }
+});
+
+// node_modules/@ton/core/dist/types/SplitMergeInfo.js
+var require_SplitMergeInfo = __commonJS({
+  "node_modules/@ton/core/dist/types/SplitMergeInfo.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeSplitMergeInfo = exports2.loadSplitMergeInfo = void 0;
+    function loadSplitMergeInfo(slice) {
+      let currentShardPrefixLength = slice.loadUint(6);
+      let accountSplitDepth = slice.loadUint(6);
+      let thisAddress = slice.loadUintBig(256);
+      let siblingAddress = slice.loadUintBig(256);
+      return {
+        currentShardPrefixLength,
+        accountSplitDepth,
+        thisAddress,
+        siblingAddress
+      };
+    }
+    exports2.loadSplitMergeInfo = loadSplitMergeInfo;
+    function storeSplitMergeInfo(src) {
+      return (builder) => {
+        builder.storeUint(src.currentShardPrefixLength, 6);
+        builder.storeUint(src.accountSplitDepth, 6);
+        builder.storeUint(src.thisAddress, 256);
+        builder.storeUint(src.siblingAddress, 256);
+      };
+    }
+    exports2.storeSplitMergeInfo = storeSplitMergeInfo;
+  }
+});
+
+// node_modules/@ton/core/dist/types/StorageUsedShort.js
+var require_StorageUsedShort = __commonJS({
+  "node_modules/@ton/core/dist/types/StorageUsedShort.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeStorageUsedShort = exports2.loadStorageUsedShort = void 0;
+    function loadStorageUsedShort(slice) {
+      let cells = slice.loadVarUintBig(3);
+      let bits = slice.loadVarUintBig(3);
+      return {
+        cells,
+        bits
+      };
+    }
+    exports2.loadStorageUsedShort = loadStorageUsedShort;
+    function storeStorageUsedShort(src) {
+      return (builder) => {
+        builder.storeVarUint(src.cells, 3);
+        builder.storeVarUint(src.bits, 3);
+      };
+    }
+    exports2.storeStorageUsedShort = storeStorageUsedShort;
+  }
+});
+
+// node_modules/@ton/core/dist/types/TransactionActionPhase.js
+var require_TransactionActionPhase = __commonJS({
+  "node_modules/@ton/core/dist/types/TransactionActionPhase.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeTransactionActionPhase = exports2.loadTransactionActionPhase = void 0;
+    var AccountStatusChange_1 = require_AccountStatusChange();
+    var StorageUsedShort_1 = require_StorageUsedShort();
+    function loadTransactionActionPhase(slice) {
+      let success = slice.loadBit();
+      let valid = slice.loadBit();
+      let noFunds = slice.loadBit();
+      let statusChange = (0, AccountStatusChange_1.loadAccountStatusChange)(slice);
+      let totalFwdFees = slice.loadBit() ? slice.loadCoins() : void 0;
+      let totalActionFees = slice.loadBit() ? slice.loadCoins() : void 0;
+      let resultCode = slice.loadInt(32);
+      let resultArg = slice.loadBit() ? slice.loadInt(32) : void 0;
+      let totalActions = slice.loadUint(16);
+      let specActions = slice.loadUint(16);
+      let skippedActions = slice.loadUint(16);
+      let messagesCreated = slice.loadUint(16);
+      let actionListHash = slice.loadUintBig(256);
+      let totalMessageSize = (0, StorageUsedShort_1.loadStorageUsedShort)(slice);
+      return {
+        success,
+        valid,
+        noFunds,
+        statusChange,
+        totalFwdFees,
+        totalActionFees,
+        resultCode,
+        resultArg,
+        totalActions,
+        specActions,
+        skippedActions,
+        messagesCreated,
+        actionListHash,
+        totalMessageSize
+      };
+    }
+    exports2.loadTransactionActionPhase = loadTransactionActionPhase;
+    function storeTransactionActionPhase(src) {
+      return (builder) => {
+        builder.storeBit(src.success);
+        builder.storeBit(src.valid);
+        builder.storeBit(src.noFunds);
+        builder.store((0, AccountStatusChange_1.storeAccountStatusChange)(src.statusChange));
+        builder.storeMaybeCoins(src.totalFwdFees);
+        builder.storeMaybeCoins(src.totalActionFees);
+        builder.storeInt(src.resultCode, 32);
+        builder.storeMaybeInt(src.resultArg, 32);
+        builder.storeUint(src.totalActions, 16);
+        builder.storeUint(src.specActions, 16);
+        builder.storeUint(src.skippedActions, 16);
+        builder.storeUint(src.messagesCreated, 16);
+        builder.storeUint(src.actionListHash, 256);
+        builder.store((0, StorageUsedShort_1.storeStorageUsedShort)(src.totalMessageSize));
+      };
+    }
+    exports2.storeTransactionActionPhase = storeTransactionActionPhase;
+  }
+});
+
+// node_modules/@ton/core/dist/types/TransactionBouncePhase.js
+var require_TransactionBouncePhase = __commonJS({
+  "node_modules/@ton/core/dist/types/TransactionBouncePhase.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeTransactionBouncePhase = exports2.loadTransactionBouncePhase = void 0;
+    var StorageUsedShort_1 = require_StorageUsedShort();
+    function loadTransactionBouncePhase(slice) {
+      if (slice.loadBit()) {
+        let messageSize = (0, StorageUsedShort_1.loadStorageUsedShort)(slice);
+        let messageFees = slice.loadCoins();
+        let forwardFees = slice.loadCoins();
+        return {
+          type: "ok",
+          messageSize,
+          messageFees,
+          forwardFees
+        };
+      }
+      if (slice.loadBit()) {
+        let messageSize = (0, StorageUsedShort_1.loadStorageUsedShort)(slice);
+        let requiredForwardFees = slice.loadCoins();
+        return {
+          type: "no-funds",
+          messageSize,
+          requiredForwardFees
+        };
+      }
+      return {
+        type: "negative-funds"
+      };
+    }
+    exports2.loadTransactionBouncePhase = loadTransactionBouncePhase;
+    function storeTransactionBouncePhase(src) {
+      return (builder) => {
+        if (src.type === "ok") {
+          builder.storeBit(true);
+          builder.store((0, StorageUsedShort_1.storeStorageUsedShort)(src.messageSize));
+          builder.storeCoins(src.messageFees);
+          builder.storeCoins(src.forwardFees);
+        } else if (src.type === "negative-funds") {
+          builder.storeBit(false);
+          builder.storeBit(false);
+        } else if (src.type === "no-funds") {
+          builder.storeBit(false);
+          builder.storeBit(true);
+          builder.store((0, StorageUsedShort_1.storeStorageUsedShort)(src.messageSize));
+          builder.storeCoins(src.requiredForwardFees);
+        } else {
+          throw new Error("Invalid TransactionBouncePhase type");
+        }
+      };
+    }
+    exports2.storeTransactionBouncePhase = storeTransactionBouncePhase;
+  }
+});
+
+// node_modules/@ton/core/dist/types/TransactionComputePhase.js
+var require_TransactionComputePhase = __commonJS({
+  "node_modules/@ton/core/dist/types/TransactionComputePhase.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeTransactionComputePhase = exports2.loadTransactionComputePhase = void 0;
+    var Builder_1 = require_Builder();
+    var ComputeSkipReason_1 = require_ComputeSkipReason();
+    function loadTransactionComputePhase(slice) {
+      if (!slice.loadBit()) {
+        let reason = (0, ComputeSkipReason_1.loadComputeSkipReason)(slice);
+        return {
+          type: "skipped",
+          reason
+        };
+      }
+      let success = slice.loadBit();
+      let messageStateUsed = slice.loadBit();
+      let accountActivated = slice.loadBit();
+      let gasFees = slice.loadCoins();
+      const vmState = slice.loadRef().beginParse();
+      let gasUsed = vmState.loadVarUintBig(3);
+      let gasLimit = vmState.loadVarUintBig(3);
+      let gasCredit = vmState.loadBit() ? vmState.loadVarUintBig(2) : void 0;
+      let mode = vmState.loadUint(8);
+      let exitCode = vmState.loadInt(32);
+      let exitArg = vmState.loadBit() ? vmState.loadInt(32) : void 0;
+      let vmSteps = vmState.loadUint(32);
+      let vmInitStateHash = vmState.loadUintBig(256);
+      let vmFinalStateHash = vmState.loadUintBig(256);
+      return {
+        type: "vm",
+        success,
+        messageStateUsed,
+        accountActivated,
+        gasFees,
+        gasUsed,
+        gasLimit,
+        gasCredit,
+        mode,
+        exitCode,
+        exitArg,
+        vmSteps,
+        vmInitStateHash,
+        vmFinalStateHash
+      };
+    }
+    exports2.loadTransactionComputePhase = loadTransactionComputePhase;
+    function storeTransactionComputePhase(src) {
+      return (builder) => {
+        if (src.type === "skipped") {
+          builder.storeBit(0);
+          builder.store((0, ComputeSkipReason_1.storeComputeSkipReason)(src.reason));
+          return;
+        }
+        builder.storeBit(1);
+        builder.storeBit(src.success);
+        builder.storeBit(src.messageStateUsed);
+        builder.storeBit(src.accountActivated);
+        builder.storeCoins(src.gasFees);
+        builder.storeRef((0, Builder_1.beginCell)().storeVarUint(src.gasUsed, 3).storeVarUint(src.gasLimit, 3).store((b) => src.gasCredit !== void 0 && src.gasCredit !== null ? b.storeBit(1).storeVarUint(src.gasCredit, 2) : b.storeBit(0)).storeUint(src.mode, 8).storeInt(src.exitCode, 32).store((b) => src.exitArg !== void 0 && src.exitArg !== null ? b.storeBit(1).storeInt(src.exitArg, 32) : b.storeBit(0)).storeUint(src.vmSteps, 32).storeUint(src.vmInitStateHash, 256).storeUint(src.vmFinalStateHash, 256).endCell());
+      };
+    }
+    exports2.storeTransactionComputePhase = storeTransactionComputePhase;
+  }
+});
+
+// node_modules/@ton/core/dist/types/TransactionCreditPhase.js
+var require_TransactionCreditPhase = __commonJS({
+  "node_modules/@ton/core/dist/types/TransactionCreditPhase.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeTransactionCreditPhase = exports2.loadTransactionCreditPhase = void 0;
+    var CurrencyCollection_1 = require_CurrencyCollection();
+    function loadTransactionCreditPhase(slice) {
+      const dueFeesColelcted = slice.loadBit() ? slice.loadCoins() : void 0;
+      const credit = (0, CurrencyCollection_1.loadCurrencyCollection)(slice);
+      return {
+        dueFeesColelcted,
+        credit
+      };
+    }
+    exports2.loadTransactionCreditPhase = loadTransactionCreditPhase;
+    function storeTransactionCreditPhase(src) {
+      return (builder) => {
+        if (src.dueFeesColelcted === null || src.dueFeesColelcted === void 0) {
+          builder.storeBit(false);
+        } else {
+          builder.storeBit(true);
+          builder.storeCoins(src.dueFeesColelcted);
+        }
+        builder.store((0, CurrencyCollection_1.storeCurrencyCollection)(src.credit));
+      };
+    }
+    exports2.storeTransactionCreditPhase = storeTransactionCreditPhase;
+  }
+});
+
+// node_modules/@ton/core/dist/types/TransactionStoragePhase.js
+var require_TransactionStoragePhase = __commonJS({
+  "node_modules/@ton/core/dist/types/TransactionStoragePhase.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeTransactionsStoragePhase = exports2.loadTransactionStoragePhase = void 0;
+    var AccountStatusChange_1 = require_AccountStatusChange();
+    function loadTransactionStoragePhase(slice) {
+      const storageFeesCollected = slice.loadCoins();
+      let storageFeesDue = void 0;
+      if (slice.loadBit()) {
+        storageFeesDue = slice.loadCoins();
+      }
+      const statusChange = (0, AccountStatusChange_1.loadAccountStatusChange)(slice);
+      return {
+        storageFeesCollected,
+        storageFeesDue,
+        statusChange
+      };
+    }
+    exports2.loadTransactionStoragePhase = loadTransactionStoragePhase;
+    function storeTransactionsStoragePhase(src) {
+      return (builder) => {
+        builder.storeCoins(src.storageFeesCollected);
+        if (src.storageFeesDue === null || src.storageFeesDue === void 0) {
+          builder.storeBit(false);
+        } else {
+          builder.storeBit(true);
+          builder.storeCoins(src.storageFeesDue);
+        }
+        builder.store((0, AccountStatusChange_1.storeAccountStatusChange)(src.statusChange));
+      };
+    }
+    exports2.storeTransactionsStoragePhase = storeTransactionsStoragePhase;
+  }
+});
+
+// node_modules/@ton/core/dist/types/TransactionDescription.js
+var require_TransactionDescription = __commonJS({
+  "node_modules/@ton/core/dist/types/TransactionDescription.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeTransactionDescription = exports2.loadTransactionDescription = void 0;
+    var Builder_1 = require_Builder();
+    var SplitMergeInfo_1 = require_SplitMergeInfo();
+    var Transaction_1 = require_Transaction();
+    var TransactionActionPhase_1 = require_TransactionActionPhase();
+    var TransactionBouncePhase_1 = require_TransactionBouncePhase();
+    var TransactionComputePhase_1 = require_TransactionComputePhase();
+    var TransactionCreditPhase_1 = require_TransactionCreditPhase();
+    var TransactionStoragePhase_1 = require_TransactionStoragePhase();
+    function loadTransactionDescription(slice) {
+      let type = slice.loadUint(4);
+      if (type === 0) {
+        const creditFirst = slice.loadBit();
+        let storagePhase = void 0;
+        if (slice.loadBit()) {
+          storagePhase = (0, TransactionStoragePhase_1.loadTransactionStoragePhase)(slice);
+        }
+        let creditPhase = void 0;
+        if (slice.loadBit()) {
+          creditPhase = (0, TransactionCreditPhase_1.loadTransactionCreditPhase)(slice);
+        }
+        let computePhase = (0, TransactionComputePhase_1.loadTransactionComputePhase)(slice);
+        let actionPhase = void 0;
+        if (slice.loadBit()) {
+          actionPhase = (0, TransactionActionPhase_1.loadTransactionActionPhase)(slice.loadRef().beginParse());
+        }
+        let aborted = slice.loadBit();
+        let bouncePhase = void 0;
+        if (slice.loadBit()) {
+          bouncePhase = (0, TransactionBouncePhase_1.loadTransactionBouncePhase)(slice);
+        }
+        const destroyed = slice.loadBit();
+        return {
+          type: "generic",
+          creditFirst,
+          storagePhase,
+          creditPhase,
+          computePhase,
+          actionPhase,
+          bouncePhase,
+          aborted,
+          destroyed
+        };
+      }
+      if (type === 1) {
+        return {
+          type: "storage",
+          storagePhase: (0, TransactionStoragePhase_1.loadTransactionStoragePhase)(slice)
+        };
+      }
+      if (type === 2 || type === 3) {
+        const isTock = type === 3;
+        let storagePhase = (0, TransactionStoragePhase_1.loadTransactionStoragePhase)(slice);
+        let computePhase = (0, TransactionComputePhase_1.loadTransactionComputePhase)(slice);
+        let actionPhase = void 0;
+        if (slice.loadBit()) {
+          actionPhase = (0, TransactionActionPhase_1.loadTransactionActionPhase)(slice.loadRef().beginParse());
+        }
+        const aborted = slice.loadBit();
+        const destroyed = slice.loadBit();
+        return {
+          type: "tick-tock",
+          isTock,
+          storagePhase,
+          computePhase,
+          actionPhase,
+          aborted,
+          destroyed
+        };
+      }
+      if (type === 4) {
+        let splitInfo = (0, SplitMergeInfo_1.loadSplitMergeInfo)(slice);
+        let storagePhase = void 0;
+        if (slice.loadBit()) {
+          storagePhase = (0, TransactionStoragePhase_1.loadTransactionStoragePhase)(slice);
+        }
+        let computePhase = (0, TransactionComputePhase_1.loadTransactionComputePhase)(slice);
+        let actionPhase = void 0;
+        if (slice.loadBit()) {
+          actionPhase = (0, TransactionActionPhase_1.loadTransactionActionPhase)(slice.loadRef().beginParse());
+        }
+        const aborted = slice.loadBit();
+        const destroyed = slice.loadBit();
+        return {
+          type: "split-prepare",
+          splitInfo,
+          storagePhase,
+          computePhase,
+          actionPhase,
+          aborted,
+          destroyed
+        };
+      }
+      if (type === 5) {
+        let splitInfo = (0, SplitMergeInfo_1.loadSplitMergeInfo)(slice);
+        let prepareTransaction = (0, Transaction_1.loadTransaction)(slice.loadRef().beginParse());
+        const installed = slice.loadBit();
+        return {
+          type: "split-install",
+          splitInfo,
+          prepareTransaction,
+          installed
+        };
+      }
+      throw Error(`Unsupported transaction description type ${type}`);
+    }
+    exports2.loadTransactionDescription = loadTransactionDescription;
+    function storeTransactionDescription(src) {
+      return (builder) => {
+        if (src.type === "generic") {
+          builder.storeUint(0, 4);
+          builder.storeBit(src.creditFirst);
+          if (src.storagePhase) {
+            builder.storeBit(true);
+            builder.store((0, TransactionStoragePhase_1.storeTransactionsStoragePhase)(src.storagePhase));
+          } else {
+            builder.storeBit(false);
+          }
+          if (src.creditPhase) {
+            builder.storeBit(true);
+            builder.store((0, TransactionCreditPhase_1.storeTransactionCreditPhase)(src.creditPhase));
+          } else {
+            builder.storeBit(false);
+          }
+          builder.store((0, TransactionComputePhase_1.storeTransactionComputePhase)(src.computePhase));
+          if (src.actionPhase) {
+            builder.storeBit(true);
+            builder.storeRef((0, Builder_1.beginCell)().store((0, TransactionActionPhase_1.storeTransactionActionPhase)(src.actionPhase)));
+          } else {
+            builder.storeBit(false);
+          }
+          builder.storeBit(src.aborted);
+          if (src.bouncePhase) {
+            builder.storeBit(true);
+            builder.store((0, TransactionBouncePhase_1.storeTransactionBouncePhase)(src.bouncePhase));
+          } else {
+            builder.storeBit(false);
+          }
+          builder.storeBit(src.destroyed);
+        } else if (src.type === "storage") {
+          builder.storeUint(1, 4);
+          builder.store((0, TransactionStoragePhase_1.storeTransactionsStoragePhase)(src.storagePhase));
+        } else if (src.type === "tick-tock") {
+          builder.storeUint(src.isTock ? 3 : 2, 4);
+          builder.store((0, TransactionStoragePhase_1.storeTransactionsStoragePhase)(src.storagePhase));
+          builder.store((0, TransactionComputePhase_1.storeTransactionComputePhase)(src.computePhase));
+          if (src.actionPhase) {
+            builder.storeBit(true);
+            builder.storeRef((0, Builder_1.beginCell)().store((0, TransactionActionPhase_1.storeTransactionActionPhase)(src.actionPhase)));
+          } else {
+            builder.storeBit(false);
+          }
+          builder.storeBit(src.aborted);
+          builder.storeBit(src.destroyed);
+        } else if (src.type === "split-prepare") {
+          builder.storeUint(4, 4);
+          builder.store((0, SplitMergeInfo_1.storeSplitMergeInfo)(src.splitInfo));
+          if (src.storagePhase) {
+            builder.storeBit(true);
+            builder.store((0, TransactionStoragePhase_1.storeTransactionsStoragePhase)(src.storagePhase));
+          } else {
+            builder.storeBit(false);
+          }
+          builder.store((0, TransactionComputePhase_1.storeTransactionComputePhase)(src.computePhase));
+          if (src.actionPhase) {
+            builder.storeBit(true);
+            builder.store((0, TransactionActionPhase_1.storeTransactionActionPhase)(src.actionPhase));
+          } else {
+            builder.storeBit(false);
+          }
+          builder.storeBit(src.aborted);
+          builder.storeBit(src.destroyed);
+        } else if (src.type === "split-install") {
+          builder.storeUint(5, 4);
+          builder.store((0, SplitMergeInfo_1.storeSplitMergeInfo)(src.splitInfo));
+          builder.storeRef((0, Builder_1.beginCell)().store((0, Transaction_1.storeTransaction)(src.prepareTransaction)));
+          builder.storeBit(src.installed);
+        } else {
+          throw Error(`Unsupported transaction description type ${src.type}`);
+        }
+      };
+    }
+    exports2.storeTransactionDescription = storeTransactionDescription;
+  }
+});
+
+// node_modules/@ton/core/dist/types/Transaction.js
+var require_Transaction = __commonJS({
+  "node_modules/@ton/core/dist/types/Transaction.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.storeTransaction = exports2.loadTransaction = void 0;
+    var Builder_1 = require_Builder();
+    var Dictionary_1 = require_Dictionary();
+    var AccountStatus_1 = require_AccountStatus();
+    var CurrencyCollection_1 = require_CurrencyCollection();
+    var HashUpdate_1 = require_HashUpdate();
+    var Message_1 = require_Message();
+    var TransactionDescription_1 = require_TransactionDescription();
+    function loadTransaction(slice) {
+      let raw = slice.asCell();
+      if (slice.loadUint(4) !== 7) {
+        throw Error("Invalid data");
+      }
+      let address2 = slice.loadUintBig(256);
+      let lt = slice.loadUintBig(64);
+      let prevTransactionHash = slice.loadUintBig(256);
+      let prevTransactionLt = slice.loadUintBig(64);
+      let now = slice.loadUint(32);
+      let outMessagesCount = slice.loadUint(15);
+      let oldStatus = (0, AccountStatus_1.loadAccountStatus)(slice);
+      let endStatus = (0, AccountStatus_1.loadAccountStatus)(slice);
+      let msgRef = slice.loadRef();
+      let msgSlice = msgRef.beginParse();
+      let inMessage = msgSlice.loadBit() ? (0, Message_1.loadMessage)(msgSlice.loadRef().beginParse()) : void 0;
+      let outMessages = msgSlice.loadDict(Dictionary_1.Dictionary.Keys.Uint(15), Message_1.MessageValue);
+      msgSlice.endParse();
+      let totalFees = (0, CurrencyCollection_1.loadCurrencyCollection)(slice);
+      let stateUpdate = (0, HashUpdate_1.loadHashUpdate)(slice.loadRef().beginParse());
+      let description = (0, TransactionDescription_1.loadTransactionDescription)(slice.loadRef().beginParse());
+      return {
+        address: address2,
+        lt,
+        prevTransactionHash,
+        prevTransactionLt,
+        now,
+        outMessagesCount,
+        oldStatus,
+        endStatus,
+        inMessage,
+        outMessages,
+        totalFees,
+        stateUpdate,
+        description,
+        raw,
+        hash: () => raw.hash()
+      };
+    }
+    exports2.loadTransaction = loadTransaction;
+    function storeTransaction(src) {
+      return (builder) => {
+        builder.storeUint(7, 4);
+        builder.storeUint(src.address, 256);
+        builder.storeUint(src.lt, 64);
+        builder.storeUint(src.prevTransactionHash, 256);
+        builder.storeUint(src.prevTransactionLt, 64);
+        builder.storeUint(src.now, 32);
+        builder.storeUint(src.outMessagesCount, 15);
+        builder.store((0, AccountStatus_1.storeAccountStatus)(src.oldStatus));
+        builder.store((0, AccountStatus_1.storeAccountStatus)(src.endStatus));
+        let msgBuilder = (0, Builder_1.beginCell)();
+        if (src.inMessage) {
+          msgBuilder.storeBit(true);
+          msgBuilder.storeRef((0, Builder_1.beginCell)().store((0, Message_1.storeMessage)(src.inMessage)));
+        } else {
+          msgBuilder.storeBit(false);
+        }
+        msgBuilder.storeDict(src.outMessages);
+        builder.storeRef(msgBuilder);
+        builder.store((0, CurrencyCollection_1.storeCurrencyCollection)(src.totalFees));
+        builder.storeRef((0, Builder_1.beginCell)().store((0, HashUpdate_1.storeHashUpdate)(src.stateUpdate)));
+        builder.storeRef((0, Builder_1.beginCell)().store((0, TransactionDescription_1.storeTransactionDescription)(src.description)));
+      };
+    }
+    exports2.storeTransaction = storeTransaction;
+  }
+});
+
+// node_modules/@ton/core/dist/types/_export.js
+var require_export = __commonJS({
+  "node_modules/@ton/core/dist/types/_export.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.loadSimpleLibrary = exports2.loadShardStateUnsplit = exports2.storeShardIdent = exports2.loadShardIdent = exports2.storeShardAccounts = exports2.loadShardAccounts = exports2.ShardAccountRefValue = exports2.storeShardAccount = exports2.loadShardAccount = exports2.ReserveMode = exports2.SendMode = exports2.storeMessageRelaxed = exports2.loadMessageRelaxed = exports2.storeMessage = exports2.loadMessage = exports2.loadMasterchainStateExtra = exports2.storeHashUpdate = exports2.loadHashUpdate = exports2.storeExtraCurrency = exports2.loadMaybeExtraCurrency = exports2.loadExtraCurrency = exports2.packExtraCurrencyDict = exports2.packExtraCurrencyCell = exports2.storeDepthBalanceInfo = exports2.loadDepthBalanceInfo = exports2.storeCurrencyCollection = exports2.loadCurrencyCollection = exports2.storeComputeSkipReason = exports2.loadComputeSkipReason = exports2.storeCommonMessageInfoRelaxed = exports2.loadCommonMessageInfoRelaxed = exports2.storeCommonMessageInfo = exports2.loadCommonMessageInfo = exports2.storeOutList = exports2.loadOutList = exports2.storeOutAction = exports2.loadOutAction = exports2.storeAccountStorage = exports2.loadAccountStorage = exports2.storeAccountStatusChange = exports2.loadAccountStatusChange = exports2.storeAccountStatus = exports2.loadAccountStatus = exports2.storeAccountState = exports2.loadAccountState = exports2.storeAccount = exports2.loadAccount = exports2.comment = exports2.external = exports2.internal = void 0;
+    exports2.storeTransactionsStoragePhase = exports2.loadTransactionStoragePhase = exports2.storeTransactionDescription = exports2.loadTransactionDescription = exports2.storeTransactionCreditPhase = exports2.loadTransactionCreditPhase = exports2.storeTransactionComputePhase = exports2.loadTransactionComputePhase = exports2.storeTransactionBouncePhase = exports2.loadTransactionBouncePhase = exports2.storeTransactionActionPhase = exports2.loadTransactionActionPhase = exports2.storeTransaction = exports2.loadTransaction = exports2.storeTickTock = exports2.loadTickTock = exports2.storeStorageUsedShort = exports2.loadStorageUsedShort = exports2.storeStorageUsed = exports2.loadStorageUsed = exports2.storeStorageInfo = exports2.loadStorageInfo = exports2.storeStateInit = exports2.loadStateInit = exports2.storeSplitMergeInfo = exports2.loadSplitMergeInfo = exports2.storeLibRef = exports2.loadLibRef = exports2.storeSimpleLibrary = void 0;
+    var _helpers_1 = require_helpers();
+    Object.defineProperty(exports2, "internal", { enumerable: true, get: function() {
+      return _helpers_1.internal;
+    } });
+    Object.defineProperty(exports2, "external", { enumerable: true, get: function() {
+      return _helpers_1.external;
+    } });
+    Object.defineProperty(exports2, "comment", { enumerable: true, get: function() {
+      return _helpers_1.comment;
+    } });
+    var Account_1 = require_Account();
+    Object.defineProperty(exports2, "loadAccount", { enumerable: true, get: function() {
+      return Account_1.loadAccount;
+    } });
+    Object.defineProperty(exports2, "storeAccount", { enumerable: true, get: function() {
+      return Account_1.storeAccount;
+    } });
+    var AccountState_1 = require_AccountState();
+    Object.defineProperty(exports2, "loadAccountState", { enumerable: true, get: function() {
+      return AccountState_1.loadAccountState;
+    } });
+    Object.defineProperty(exports2, "storeAccountState", { enumerable: true, get: function() {
+      return AccountState_1.storeAccountState;
+    } });
+    var AccountStatus_1 = require_AccountStatus();
+    Object.defineProperty(exports2, "loadAccountStatus", { enumerable: true, get: function() {
+      return AccountStatus_1.loadAccountStatus;
+    } });
+    Object.defineProperty(exports2, "storeAccountStatus", { enumerable: true, get: function() {
+      return AccountStatus_1.storeAccountStatus;
+    } });
+    var AccountStatusChange_1 = require_AccountStatusChange();
+    Object.defineProperty(exports2, "loadAccountStatusChange", { enumerable: true, get: function() {
+      return AccountStatusChange_1.loadAccountStatusChange;
+    } });
+    Object.defineProperty(exports2, "storeAccountStatusChange", { enumerable: true, get: function() {
+      return AccountStatusChange_1.storeAccountStatusChange;
+    } });
+    var AccountStorage_1 = require_AccountStorage();
+    Object.defineProperty(exports2, "loadAccountStorage", { enumerable: true, get: function() {
+      return AccountStorage_1.loadAccountStorage;
+    } });
+    Object.defineProperty(exports2, "storeAccountStorage", { enumerable: true, get: function() {
+      return AccountStorage_1.storeAccountStorage;
+    } });
+    var OutList_1 = require_OutList();
+    Object.defineProperty(exports2, "loadOutAction", { enumerable: true, get: function() {
+      return OutList_1.loadOutAction;
+    } });
+    Object.defineProperty(exports2, "storeOutAction", { enumerable: true, get: function() {
+      return OutList_1.storeOutAction;
+    } });
+    Object.defineProperty(exports2, "loadOutList", { enumerable: true, get: function() {
+      return OutList_1.loadOutList;
+    } });
+    Object.defineProperty(exports2, "storeOutList", { enumerable: true, get: function() {
+      return OutList_1.storeOutList;
+    } });
+    var CommonMessageInfo_1 = require_CommonMessageInfo();
+    Object.defineProperty(exports2, "loadCommonMessageInfo", { enumerable: true, get: function() {
+      return CommonMessageInfo_1.loadCommonMessageInfo;
+    } });
+    Object.defineProperty(exports2, "storeCommonMessageInfo", { enumerable: true, get: function() {
+      return CommonMessageInfo_1.storeCommonMessageInfo;
+    } });
+    var CommonMessageInfoRelaxed_1 = require_CommonMessageInfoRelaxed();
+    Object.defineProperty(exports2, "loadCommonMessageInfoRelaxed", { enumerable: true, get: function() {
+      return CommonMessageInfoRelaxed_1.loadCommonMessageInfoRelaxed;
+    } });
+    Object.defineProperty(exports2, "storeCommonMessageInfoRelaxed", { enumerable: true, get: function() {
+      return CommonMessageInfoRelaxed_1.storeCommonMessageInfoRelaxed;
+    } });
+    var ComputeSkipReason_1 = require_ComputeSkipReason();
+    Object.defineProperty(exports2, "loadComputeSkipReason", { enumerable: true, get: function() {
+      return ComputeSkipReason_1.loadComputeSkipReason;
+    } });
+    Object.defineProperty(exports2, "storeComputeSkipReason", { enumerable: true, get: function() {
+      return ComputeSkipReason_1.storeComputeSkipReason;
+    } });
+    var CurrencyCollection_1 = require_CurrencyCollection();
+    Object.defineProperty(exports2, "loadCurrencyCollection", { enumerable: true, get: function() {
+      return CurrencyCollection_1.loadCurrencyCollection;
+    } });
+    Object.defineProperty(exports2, "storeCurrencyCollection", { enumerable: true, get: function() {
+      return CurrencyCollection_1.storeCurrencyCollection;
+    } });
+    var DepthBalanceInfo_1 = require_DepthBalanceInfo();
+    Object.defineProperty(exports2, "loadDepthBalanceInfo", { enumerable: true, get: function() {
+      return DepthBalanceInfo_1.loadDepthBalanceInfo;
+    } });
+    Object.defineProperty(exports2, "storeDepthBalanceInfo", { enumerable: true, get: function() {
+      return DepthBalanceInfo_1.storeDepthBalanceInfo;
+    } });
+    var ExtraCurrency_1 = require_ExtraCurrency();
+    Object.defineProperty(exports2, "packExtraCurrencyCell", { enumerable: true, get: function() {
+      return ExtraCurrency_1.packExtraCurrencyCell;
+    } });
+    Object.defineProperty(exports2, "packExtraCurrencyDict", { enumerable: true, get: function() {
+      return ExtraCurrency_1.packExtraCurrencyDict;
+    } });
+    Object.defineProperty(exports2, "loadExtraCurrency", { enumerable: true, get: function() {
+      return ExtraCurrency_1.loadExtraCurrency;
+    } });
+    Object.defineProperty(exports2, "loadMaybeExtraCurrency", { enumerable: true, get: function() {
+      return ExtraCurrency_1.loadMaybeExtraCurrency;
+    } });
+    Object.defineProperty(exports2, "storeExtraCurrency", { enumerable: true, get: function() {
+      return ExtraCurrency_1.storeExtraCurrency;
+    } });
+    var HashUpdate_1 = require_HashUpdate();
+    Object.defineProperty(exports2, "loadHashUpdate", { enumerable: true, get: function() {
+      return HashUpdate_1.loadHashUpdate;
+    } });
+    Object.defineProperty(exports2, "storeHashUpdate", { enumerable: true, get: function() {
+      return HashUpdate_1.storeHashUpdate;
+    } });
+    var MasterchainStateExtra_1 = require_MasterchainStateExtra();
+    Object.defineProperty(exports2, "loadMasterchainStateExtra", { enumerable: true, get: function() {
+      return MasterchainStateExtra_1.loadMasterchainStateExtra;
+    } });
+    var Message_1 = require_Message();
+    Object.defineProperty(exports2, "loadMessage", { enumerable: true, get: function() {
+      return Message_1.loadMessage;
+    } });
+    Object.defineProperty(exports2, "storeMessage", { enumerable: true, get: function() {
+      return Message_1.storeMessage;
+    } });
+    var MessageRelaxed_1 = require_MessageRelaxed();
+    Object.defineProperty(exports2, "loadMessageRelaxed", { enumerable: true, get: function() {
+      return MessageRelaxed_1.loadMessageRelaxed;
+    } });
+    Object.defineProperty(exports2, "storeMessageRelaxed", { enumerable: true, get: function() {
+      return MessageRelaxed_1.storeMessageRelaxed;
+    } });
+    var SendMode_1 = require_SendMode();
+    Object.defineProperty(exports2, "SendMode", { enumerable: true, get: function() {
+      return SendMode_1.SendMode;
+    } });
+    var ReserveMode_1 = require_ReserveMode();
+    Object.defineProperty(exports2, "ReserveMode", { enumerable: true, get: function() {
+      return ReserveMode_1.ReserveMode;
+    } });
+    var ShardAccount_1 = require_ShardAccount();
+    Object.defineProperty(exports2, "loadShardAccount", { enumerable: true, get: function() {
+      return ShardAccount_1.loadShardAccount;
+    } });
+    Object.defineProperty(exports2, "storeShardAccount", { enumerable: true, get: function() {
+      return ShardAccount_1.storeShardAccount;
+    } });
+    var ShardAccounts_1 = require_ShardAccounts();
+    Object.defineProperty(exports2, "ShardAccountRefValue", { enumerable: true, get: function() {
+      return ShardAccounts_1.ShardAccountRefValue;
+    } });
+    Object.defineProperty(exports2, "loadShardAccounts", { enumerable: true, get: function() {
+      return ShardAccounts_1.loadShardAccounts;
+    } });
+    Object.defineProperty(exports2, "storeShardAccounts", { enumerable: true, get: function() {
+      return ShardAccounts_1.storeShardAccounts;
+    } });
+    var ShardIdent_1 = require_ShardIdent();
+    Object.defineProperty(exports2, "loadShardIdent", { enumerable: true, get: function() {
+      return ShardIdent_1.loadShardIdent;
+    } });
+    Object.defineProperty(exports2, "storeShardIdent", { enumerable: true, get: function() {
+      return ShardIdent_1.storeShardIdent;
+    } });
+    var ShardStateUnsplit_1 = require_ShardStateUnsplit();
+    Object.defineProperty(exports2, "loadShardStateUnsplit", { enumerable: true, get: function() {
+      return ShardStateUnsplit_1.loadShardStateUnsplit;
+    } });
+    var SimpleLibrary_1 = require_SimpleLibrary();
+    Object.defineProperty(exports2, "loadSimpleLibrary", { enumerable: true, get: function() {
+      return SimpleLibrary_1.loadSimpleLibrary;
+    } });
+    Object.defineProperty(exports2, "storeSimpleLibrary", { enumerable: true, get: function() {
+      return SimpleLibrary_1.storeSimpleLibrary;
+    } });
+    var LibRef_1 = require_LibRef();
+    Object.defineProperty(exports2, "loadLibRef", { enumerable: true, get: function() {
+      return LibRef_1.loadLibRef;
+    } });
+    Object.defineProperty(exports2, "storeLibRef", { enumerable: true, get: function() {
+      return LibRef_1.storeLibRef;
+    } });
+    var SplitMergeInfo_1 = require_SplitMergeInfo();
+    Object.defineProperty(exports2, "loadSplitMergeInfo", { enumerable: true, get: function() {
+      return SplitMergeInfo_1.loadSplitMergeInfo;
+    } });
+    Object.defineProperty(exports2, "storeSplitMergeInfo", { enumerable: true, get: function() {
+      return SplitMergeInfo_1.storeSplitMergeInfo;
+    } });
+    var StateInit_1 = require_StateInit();
+    Object.defineProperty(exports2, "loadStateInit", { enumerable: true, get: function() {
+      return StateInit_1.loadStateInit;
+    } });
+    Object.defineProperty(exports2, "storeStateInit", { enumerable: true, get: function() {
+      return StateInit_1.storeStateInit;
+    } });
+    var StorageInto_1 = require_StorageInto();
+    Object.defineProperty(exports2, "loadStorageInfo", { enumerable: true, get: function() {
+      return StorageInto_1.loadStorageInfo;
+    } });
+    Object.defineProperty(exports2, "storeStorageInfo", { enumerable: true, get: function() {
+      return StorageInto_1.storeStorageInfo;
+    } });
+    var StorageUsed_1 = require_StorageUsed();
+    Object.defineProperty(exports2, "loadStorageUsed", { enumerable: true, get: function() {
+      return StorageUsed_1.loadStorageUsed;
+    } });
+    Object.defineProperty(exports2, "storeStorageUsed", { enumerable: true, get: function() {
+      return StorageUsed_1.storeStorageUsed;
+    } });
+    var StorageUsedShort_1 = require_StorageUsedShort();
+    Object.defineProperty(exports2, "loadStorageUsedShort", { enumerable: true, get: function() {
+      return StorageUsedShort_1.loadStorageUsedShort;
+    } });
+    Object.defineProperty(exports2, "storeStorageUsedShort", { enumerable: true, get: function() {
+      return StorageUsedShort_1.storeStorageUsedShort;
+    } });
+    var TickTock_1 = require_TickTock();
+    Object.defineProperty(exports2, "loadTickTock", { enumerable: true, get: function() {
+      return TickTock_1.loadTickTock;
+    } });
+    Object.defineProperty(exports2, "storeTickTock", { enumerable: true, get: function() {
+      return TickTock_1.storeTickTock;
+    } });
+    var Transaction_1 = require_Transaction();
+    Object.defineProperty(exports2, "loadTransaction", { enumerable: true, get: function() {
+      return Transaction_1.loadTransaction;
+    } });
+    Object.defineProperty(exports2, "storeTransaction", { enumerable: true, get: function() {
+      return Transaction_1.storeTransaction;
+    } });
+    var TransactionActionPhase_1 = require_TransactionActionPhase();
+    Object.defineProperty(exports2, "loadTransactionActionPhase", { enumerable: true, get: function() {
+      return TransactionActionPhase_1.loadTransactionActionPhase;
+    } });
+    Object.defineProperty(exports2, "storeTransactionActionPhase", { enumerable: true, get: function() {
+      return TransactionActionPhase_1.storeTransactionActionPhase;
+    } });
+    var TransactionBouncePhase_1 = require_TransactionBouncePhase();
+    Object.defineProperty(exports2, "loadTransactionBouncePhase", { enumerable: true, get: function() {
+      return TransactionBouncePhase_1.loadTransactionBouncePhase;
+    } });
+    Object.defineProperty(exports2, "storeTransactionBouncePhase", { enumerable: true, get: function() {
+      return TransactionBouncePhase_1.storeTransactionBouncePhase;
+    } });
+    var TransactionComputePhase_1 = require_TransactionComputePhase();
+    Object.defineProperty(exports2, "loadTransactionComputePhase", { enumerable: true, get: function() {
+      return TransactionComputePhase_1.loadTransactionComputePhase;
+    } });
+    Object.defineProperty(exports2, "storeTransactionComputePhase", { enumerable: true, get: function() {
+      return TransactionComputePhase_1.storeTransactionComputePhase;
+    } });
+    var TransactionCreditPhase_1 = require_TransactionCreditPhase();
+    Object.defineProperty(exports2, "loadTransactionCreditPhase", { enumerable: true, get: function() {
+      return TransactionCreditPhase_1.loadTransactionCreditPhase;
+    } });
+    Object.defineProperty(exports2, "storeTransactionCreditPhase", { enumerable: true, get: function() {
+      return TransactionCreditPhase_1.storeTransactionCreditPhase;
+    } });
+    var TransactionDescription_1 = require_TransactionDescription();
+    Object.defineProperty(exports2, "loadTransactionDescription", { enumerable: true, get: function() {
+      return TransactionDescription_1.loadTransactionDescription;
+    } });
+    Object.defineProperty(exports2, "storeTransactionDescription", { enumerable: true, get: function() {
+      return TransactionDescription_1.storeTransactionDescription;
+    } });
+    var TransactionStoragePhase_1 = require_TransactionStoragePhase();
+    Object.defineProperty(exports2, "loadTransactionStoragePhase", { enumerable: true, get: function() {
+      return TransactionStoragePhase_1.loadTransactionStoragePhase;
+    } });
+    Object.defineProperty(exports2, "storeTransactionsStoragePhase", { enumerable: true, get: function() {
+      return TransactionStoragePhase_1.storeTransactionsStoragePhase;
+    } });
+  }
+});
+
+// node_modules/@ton/core/dist/contract/openContract.js
+var require_openContract = __commonJS({
+  "node_modules/@ton/core/dist/contract/openContract.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.openContract = void 0;
+    var Address_1 = require_Address();
+    var Cell_1 = require_Cell();
+    function openContract2(src, factory) {
+      let address2;
+      let init = null;
+      if (!Address_1.Address.isAddress(src.address)) {
+        throw Error("Invalid address");
+      }
+      address2 = src.address;
+      if (src.init) {
+        if (!(src.init.code instanceof Cell_1.Cell)) {
+          throw Error("Invalid init.code");
+        }
+        if (!(src.init.data instanceof Cell_1.Cell)) {
+          throw Error("Invalid init.data");
+        }
+        init = src.init;
+      }
+      let executor = factory({ address: address2, init });
+      return new Proxy(src, {
+        get(target, prop) {
+          const value = target[prop];
+          if (typeof prop === "string" && (prop.startsWith("get") || prop.startsWith("send") || prop.startsWith("is"))) {
+            if (typeof value === "function") {
+              return (...args) => value.apply(target, [executor, ...args]);
+            }
+          }
+          return value;
+        }
+      });
+    }
+    exports2.openContract = openContract2;
+  }
+});
+
+// node_modules/@ton/core/dist/contract/ComputeError.js
+var require_ComputeError = __commonJS({
+  "node_modules/@ton/core/dist/contract/ComputeError.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.ComputeError = void 0;
+    var ComputeError2 = class _ComputeError extends Error {
+      constructor(message, exitCode, opts) {
+        super(message);
+        this.exitCode = exitCode;
+        this.debugLogs = opts && opts.debugLogs ? opts.debugLogs : null;
+        this.logs = opts && opts.logs ? opts.logs : null;
+        Object.setPrototypeOf(this, _ComputeError.prototype);
+      }
+    };
+    exports2.ComputeError = ComputeError2;
+  }
+});
+
+// node_modules/@ton/core/dist/utils/getMethodId.js
+var require_getMethodId = __commonJS({
+  "node_modules/@ton/core/dist/utils/getMethodId.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.getMethodId = void 0;
+    var TABLE = new Int16Array([
+      0,
+      4129,
+      8258,
+      12387,
+      16516,
+      20645,
+      24774,
+      28903,
+      33032,
+      37161,
+      41290,
+      45419,
+      49548,
+      53677,
+      57806,
+      61935,
+      4657,
+      528,
+      12915,
+      8786,
+      21173,
+      17044,
+      29431,
+      25302,
+      37689,
+      33560,
+      45947,
+      41818,
+      54205,
+      50076,
+      62463,
+      58334,
+      9314,
+      13379,
+      1056,
+      5121,
+      25830,
+      29895,
+      17572,
+      21637,
+      42346,
+      46411,
+      34088,
+      38153,
+      58862,
+      62927,
+      50604,
+      54669,
+      13907,
+      9842,
+      5649,
+      1584,
+      30423,
+      26358,
+      22165,
+      18100,
+      46939,
+      42874,
+      38681,
+      34616,
+      63455,
+      59390,
+      55197,
+      51132,
+      18628,
+      22757,
+      26758,
+      30887,
+      2112,
+      6241,
+      10242,
+      14371,
+      51660,
+      55789,
+      59790,
+      63919,
+      35144,
+      39273,
+      43274,
+      47403,
+      23285,
+      19156,
+      31415,
+      27286,
+      6769,
+      2640,
+      14899,
+      10770,
+      56317,
+      52188,
+      64447,
+      60318,
+      39801,
+      35672,
+      47931,
+      43802,
+      27814,
+      31879,
+      19684,
+      23749,
+      11298,
+      15363,
+      3168,
+      7233,
+      60846,
+      64911,
+      52716,
+      56781,
+      44330,
+      48395,
+      36200,
+      40265,
+      32407,
+      28342,
+      24277,
+      20212,
+      15891,
+      11826,
+      7761,
+      3696,
+      65439,
+      61374,
+      57309,
+      53244,
+      48923,
+      44858,
+      40793,
+      36728,
+      37256,
+      33193,
+      45514,
+      41451,
+      53516,
+      49453,
+      61774,
+      57711,
+      4224,
+      161,
+      12482,
+      8419,
+      20484,
+      16421,
+      28742,
+      24679,
+      33721,
+      37784,
+      41979,
+      46042,
+      49981,
+      54044,
+      58239,
+      62302,
+      689,
+      4752,
+      8947,
+      13010,
+      16949,
+      21012,
+      25207,
+      29270,
+      46570,
+      42443,
+      38312,
+      34185,
+      62830,
+      58703,
+      54572,
+      50445,
+      13538,
+      9411,
+      5280,
+      1153,
+      29798,
+      25671,
+      21540,
+      17413,
+      42971,
+      47098,
+      34713,
+      38840,
+      59231,
+      63358,
+      50973,
+      55100,
+      9939,
+      14066,
+      1681,
+      5808,
+      26199,
+      30326,
+      17941,
+      22068,
+      55628,
+      51565,
+      63758,
+      59695,
+      39368,
+      35305,
+      47498,
+      43435,
+      22596,
+      18533,
+      30726,
+      26663,
+      6336,
+      2273,
+      14466,
+      10403,
+      52093,
+      56156,
+      60223,
+      64286,
+      35833,
+      39896,
+      43963,
+      48026,
+      19061,
+      23124,
+      27191,
+      31254,
+      2801,
+      6864,
+      10931,
+      14994,
+      64814,
+      60687,
+      56684,
+      52557,
+      48554,
+      44427,
+      40424,
+      36297,
+      31782,
+      27655,
+      23652,
+      19525,
+      15522,
+      11395,
+      7392,
+      3265,
+      61215,
+      65342,
+      53085,
+      57212,
+      44955,
+      49082,
+      36825,
+      40952,
+      28183,
+      32310,
+      20053,
+      24180,
+      11923,
+      16050,
+      3793,
+      7920
+    ]);
+    function crc162(data) {
+      if (!(data instanceof Buffer)) {
+        data = Buffer.from(data);
+      }
+      let crc = 0;
+      for (let index = 0; index < data.length; index++) {
+        const byte = data[index];
+        crc = (TABLE[(crc >> 8 ^ byte) & 255] ^ crc << 8) & 65535;
+      }
+      return crc;
+    }
+    function getMethodId2(name) {
+      return crc162(name) & 65535 | 65536;
+    }
+    exports2.getMethodId = getMethodId2;
+  }
+});
+
+// node_modules/@ton/core/dist/crypto/safeSign.js
+var require_safeSign = __commonJS({
+  "node_modules/@ton/core/dist/crypto/safeSign.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.safeSignVerify = exports2.safeSign = void 0;
+    var crypto_1 = require("@scom/ton-crypto");
+    var MIN_SEED_LENGTH = 8;
+    var MAX_SEED_LENGTH = 64;
+    function createSafeSignHash(cell, seed) {
+      let seedData = Buffer.from(seed);
+      if (seedData.length > MAX_SEED_LENGTH) {
+        throw Error("Seed can	 be longer than 64 bytes");
+      }
+      if (seedData.length < MIN_SEED_LENGTH) {
+        throw Error("Seed must be at least 8 bytes");
+      }
+      return (0, crypto_1.sha256_sync)(Buffer.concat([Buffer.from([255, 255]), seedData, cell.hash()]));
+    }
+    function safeSign2(cell, secretKey, seed = "ton-safe-sign-magic") {
+      return (0, crypto_1.sign)(createSafeSignHash(cell, seed), secretKey);
+    }
+    exports2.safeSign = safeSign2;
+    function safeSignVerify2(cell, signature, publicKey, seed = "ton-safe-sign-magic") {
+      return (0, crypto_1.signVerify)(createSafeSignHash(cell, seed), signature, publicKey);
+    }
+    exports2.safeSignVerify = safeSignVerify2;
+  }
+});
+
+// node_modules/@ton/core/dist/index.js
+var require_dist = __commonJS({
+  "node_modules/@ton/core/dist/index.js"(exports2) {
+    "use strict";
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
+      o[k2] = m[k];
+    });
+    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
+      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.safeSignVerify = exports2.safeSign = exports2.getMethodId = exports2.base32Encode = exports2.base32Decode = exports2.crc32c = exports2.crc16 = exports2.fromNano = exports2.toNano = exports2.ComputeError = exports2.openContract = exports2.TupleBuilder = exports2.TupleReader = exports2.serializeTuple = exports2.parseTuple = exports2.generateMerkleUpdate = exports2.generateMerkleProofDirect = exports2.generateMerkleProof = exports2.exoticPruned = exports2.exoticMerkleUpdate = exports2.convertToMerkleProof = exports2.exoticMerkleProof = exports2.Dictionary = exports2.Cell = exports2.CellType = exports2.Slice = exports2.beginCell = exports2.Builder = exports2.BitBuilder = exports2.BitReader = exports2.BitString = exports2.contractAddress = exports2.ADNLAddress = exports2.ExternalAddress = exports2.address = exports2.Address = void 0;
+    var Address_1 = require_Address();
+    Object.defineProperty(exports2, "Address", { enumerable: true, get: function() {
+      return Address_1.Address;
+    } });
+    Object.defineProperty(exports2, "address", { enumerable: true, get: function() {
+      return Address_1.address;
+    } });
+    var ExternalAddress_1 = require_ExternalAddress();
+    Object.defineProperty(exports2, "ExternalAddress", { enumerable: true, get: function() {
+      return ExternalAddress_1.ExternalAddress;
+    } });
+    var ADNLAddress_1 = require_ADNLAddress();
+    Object.defineProperty(exports2, "ADNLAddress", { enumerable: true, get: function() {
+      return ADNLAddress_1.ADNLAddress;
+    } });
+    var contractAddress_1 = require_contractAddress();
+    Object.defineProperty(exports2, "contractAddress", { enumerable: true, get: function() {
+      return contractAddress_1.contractAddress;
+    } });
+    var BitString_1 = require_BitString();
+    Object.defineProperty(exports2, "BitString", { enumerable: true, get: function() {
+      return BitString_1.BitString;
+    } });
+    var BitReader_1 = require_BitReader();
+    Object.defineProperty(exports2, "BitReader", { enumerable: true, get: function() {
+      return BitReader_1.BitReader;
+    } });
+    var BitBuilder_1 = require_BitBuilder();
+    Object.defineProperty(exports2, "BitBuilder", { enumerable: true, get: function() {
+      return BitBuilder_1.BitBuilder;
+    } });
+    var Builder_1 = require_Builder();
+    Object.defineProperty(exports2, "Builder", { enumerable: true, get: function() {
+      return Builder_1.Builder;
+    } });
+    Object.defineProperty(exports2, "beginCell", { enumerable: true, get: function() {
+      return Builder_1.beginCell;
+    } });
+    var Slice_1 = require_Slice();
+    Object.defineProperty(exports2, "Slice", { enumerable: true, get: function() {
+      return Slice_1.Slice;
+    } });
+    var CellType_1 = require_CellType();
+    Object.defineProperty(exports2, "CellType", { enumerable: true, get: function() {
+      return CellType_1.CellType;
+    } });
+    var Cell_1 = require_Cell();
+    Object.defineProperty(exports2, "Cell", { enumerable: true, get: function() {
+      return Cell_1.Cell;
+    } });
+    var Dictionary_1 = require_Dictionary();
+    Object.defineProperty(exports2, "Dictionary", { enumerable: true, get: function() {
+      return Dictionary_1.Dictionary;
+    } });
+    var exoticMerkleProof_1 = require_exoticMerkleProof();
+    Object.defineProperty(exports2, "exoticMerkleProof", { enumerable: true, get: function() {
+      return exoticMerkleProof_1.exoticMerkleProof;
+    } });
+    Object.defineProperty(exports2, "convertToMerkleProof", { enumerable: true, get: function() {
+      return exoticMerkleProof_1.convertToMerkleProof;
+    } });
+    var exoticMerkleUpdate_1 = require_exoticMerkleUpdate();
+    Object.defineProperty(exports2, "exoticMerkleUpdate", { enumerable: true, get: function() {
+      return exoticMerkleUpdate_1.exoticMerkleUpdate;
+    } });
+    var exoticPruned_1 = require_exoticPruned();
+    Object.defineProperty(exports2, "exoticPruned", { enumerable: true, get: function() {
+      return exoticPruned_1.exoticPruned;
+    } });
+    var generateMerkleProof_1 = require_generateMerkleProof();
+    Object.defineProperty(exports2, "generateMerkleProof", { enumerable: true, get: function() {
+      return generateMerkleProof_1.generateMerkleProof;
+    } });
+    Object.defineProperty(exports2, "generateMerkleProofDirect", { enumerable: true, get: function() {
+      return generateMerkleProof_1.generateMerkleProofDirect;
+    } });
+    var generateMerkleUpdate_1 = require_generateMerkleUpdate();
+    Object.defineProperty(exports2, "generateMerkleUpdate", { enumerable: true, get: function() {
+      return generateMerkleUpdate_1.generateMerkleUpdate;
+    } });
+    var tuple_1 = require_tuple();
+    Object.defineProperty(exports2, "parseTuple", { enumerable: true, get: function() {
+      return tuple_1.parseTuple;
+    } });
+    Object.defineProperty(exports2, "serializeTuple", { enumerable: true, get: function() {
+      return tuple_1.serializeTuple;
+    } });
+    var reader_1 = require_reader();
+    Object.defineProperty(exports2, "TupleReader", { enumerable: true, get: function() {
+      return reader_1.TupleReader;
+    } });
+    var builder_1 = require_builder();
+    Object.defineProperty(exports2, "TupleBuilder", { enumerable: true, get: function() {
+      return builder_1.TupleBuilder;
+    } });
+    __exportStar(require_export(), exports2);
+    var openContract_1 = require_openContract();
+    Object.defineProperty(exports2, "openContract", { enumerable: true, get: function() {
+      return openContract_1.openContract;
+    } });
+    var ComputeError_1 = require_ComputeError();
+    Object.defineProperty(exports2, "ComputeError", { enumerable: true, get: function() {
+      return ComputeError_1.ComputeError;
+    } });
+    var convert_1 = require_convert();
+    Object.defineProperty(exports2, "toNano", { enumerable: true, get: function() {
+      return convert_1.toNano;
+    } });
+    Object.defineProperty(exports2, "fromNano", { enumerable: true, get: function() {
+      return convert_1.fromNano;
+    } });
+    var crc16_1 = require_crc16();
+    Object.defineProperty(exports2, "crc16", { enumerable: true, get: function() {
+      return crc16_1.crc16;
+    } });
+    var crc32c_1 = require_crc32c();
+    Object.defineProperty(exports2, "crc32c", { enumerable: true, get: function() {
+      return crc32c_1.crc32c;
+    } });
+    var base32_1 = require_base32();
+    Object.defineProperty(exports2, "base32Decode", { enumerable: true, get: function() {
+      return base32_1.base32Decode;
+    } });
+    Object.defineProperty(exports2, "base32Encode", { enumerable: true, get: function() {
+      return base32_1.base32Encode;
+    } });
+    var getMethodId_1 = require_getMethodId();
+    Object.defineProperty(exports2, "getMethodId", { enumerable: true, get: function() {
+      return getMethodId_1.getMethodId;
+    } });
+    var safeSign_1 = require_safeSign();
+    Object.defineProperty(exports2, "safeSign", { enumerable: true, get: function() {
+      return safeSign_1.safeSign;
+    } });
+    Object.defineProperty(exports2, "safeSignVerify", { enumerable: true, get: function() {
+      return safeSign_1.safeSignVerify;
+    } });
+  }
+});
+
+// src/index.ts
+var import_core = __toESM(require_dist());
+var import_core2 = __toESM(require_dist());
+var import_core3 = __toESM(require_dist());
+var import_core4 = __toESM(require_dist());
+var import_core5 = __toESM(require_dist());
+var import_core6 = __toESM(require_dist());
+var import_core7 = __toESM(require_dist());
+var import_core8 = __toESM(require_dist());
+var import_core9 = __toESM(require_dist());
+var import_core10 = __toESM(require_dist());
+var import_core11 = __toESM(require_dist());
+var import_core12 = __toESM(require_dist());
+var import_core13 = __toESM(require_dist());
+var import_core14 = __toESM(require_dist());
+var import_core15 = __toESM(require_dist());
+var import_core16 = __toESM(require_dist());
+var import_core17 = __toESM(require_dist());
+var import_core18 = __toESM(require_dist());
+var import_core19 = __toESM(require_dist());
+var import_core20 = __toESM(require_dist());
+var import_core21 = __toESM(require_dist());
+var import_core22 = __toESM(require_dist());
+var import_core23 = __toESM(require_dist());
+var import_core24 = __toESM(require_dist());
+var import_core25 = __toESM(require_dist());
+var import_core26 = __toESM(require_dist());
+var import_core27 = __toESM(require_dist());
+var import_core28 = __toESM(require_dist());
+var import_core29 = __toESM(require_dist());
+exports.Address = import_core.Address;
+exports.address = import_core.address;
+exports.ExternalAddress = import_core2.ExternalAddress;
+exports.ADNLAddress = import_core3.ADNLAddress;
+exports.contractAddress = import_core4.contractAddress;
+exports.BitString = import_core5.BitString;
+exports.BitReader = import_core6.BitReader;
+exports.BitBuilder = import_core7.BitBuilder;
+exports.Builder = import_core8.Builder;
+exports.beginCell = import_core8.beginCell;
+exports.Slice = import_core9.Slice;
+exports.CellType = import_core10.CellType;
+exports.Cell = import_core11.Cell;
+exports.Dictionary = import_core12.Dictionary;
+exports.exoticMerkleProof = import_core13.exoticMerkleProof;
+exports.convertToMerkleProof = import_core13.convertToMerkleProof;
+exports.exoticMerkleUpdate = import_core14.exoticMerkleUpdate;
+exports.exoticPruned = import_core15.exoticPruned;
+exports.generateMerkleProof = import_core16.generateMerkleProof;
+exports.generateMerkleProofDirect = import_core16.generateMerkleProofDirect;
+exports.generateMerkleUpdate = import_core17.generateMerkleUpdate;
+exports.parseTuple = import_core18.parseTuple;
+exports.serializeTuple = import_core18.serializeTuple;
+exports.TupleReader = import_core19.TupleReader;
+exports.TupleBuilder = import_core20.TupleBuilder;
+exports.openContract = import_core21.openContract;
+exports.ComputeError = import_core22.ComputeError;
+exports.toNano = import_core23.toNano;
+exports.fromNano = import_core23.fromNano;
+exports.crc16 = import_core24.crc16;
+exports.crc32c = import_core25.crc32c;
+exports.base32Decode = import_core26.base32Decode;
+exports.base32Encode = import_core26.base32Encode;
+exports.getMethodId = import_core27.getMethodId;
+exports.safeSign = import_core28.safeSign;
+exports.safeSignVerify = import_core28.safeSignVerify;
+exports.internal = import_core29.internal;
+exports.SendMode = import_core29.SendMode;
+exports.storeMessageRelaxed = import_core29.storeMessageRelaxed;
+
 });

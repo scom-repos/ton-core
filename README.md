@@ -4,19 +4,11 @@ To get started with testing locally, follow these steps:
 #### 1: Install the required packages using the following command:
 
 ```sh
-docker-compose up install
+npm i
 ```
 
 #### 2: Build and bundle the library using the following command:
 
 ```sh
-docker-compose up build
+npm run build
 ```
-
-#### 3. Run a development server using the following command:
-
-```sh
-docker-compose up test
-```
-
-You can access the development server via http://127.0.0.1:8038/.
