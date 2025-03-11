@@ -1,7 +1,7 @@
 {
     "name": "@scom/ton-core",
     "version": "0.1.5",
-    "main": "dist/index.js",
+    "main": "lib/index.js",
     "types": "dist/index.d.ts",
     "plugin": "dist/index.js",
     "pluginTypes": "dist/index.d.ts",    
@@ -12,7 +12,7 @@
         "git:clone": "rm -rf ton-core && git clone https://github.com/ton-org/ton-core.git && cd ton-core && git checkout 4eaced536d0a89f9374d9772884c7b52bddb68ba",
         "build:init": "rm -rf ton-core && npm run git:clone && node scripts/beforeBuild.js",
         "bundle": "node esbuild.bundle && node scripts/afterBuild.js",
-        "build": "npm run build:init && rm -rf dist && tsc && npm run bundle && node scripts/scconfig.js"        
+        "build": "npm run build:init && rm -rf dist && rm -rf lib && mkdir lib && tsc && npm run bundle && node scripts/scconfig.js"        
     },
     "keywords": [],
     "dependencies": {
