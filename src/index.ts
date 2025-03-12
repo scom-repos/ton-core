@@ -47,6 +47,7 @@ import { safeSign, safeSignVerify } from '@ton/core';
 
 import { internal, SendMode, storeMessageRelaxed } from '@ton/core';
 import { paddedBufferToBits } from '@ton/core';
+import { loadShardAccount, loadTransaction, storeMessage, storeShardAccount } from '@ton/core';
 
 exports.Address = Address;
 exports.address = address;
@@ -89,3 +90,7 @@ exports.internal = internal;
 exports.SendMode = SendMode;
 exports.storeMessageRelaxed = storeMessageRelaxed;
 exports.paddedBufferToBits = paddedBufferToBits;
+exports.storeShardAccount = storeShardAccount;
+exports.storeMessage = storeMessage;
+exports.loadTransaction = loadTransaction;
+exports.loadShardAccount = loadShardAccount;
