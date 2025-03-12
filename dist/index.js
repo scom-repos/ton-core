@@ -5870,7 +5870,7 @@ var require_Message = __commonJS({
       };
     }
     exports2.loadMessage = loadMessage;
-    function storeMessage(message, opts) {
+    function storeMessage2(message, opts) {
       return (builder) => {
         builder.store((0, CommonMessageInfo_1.storeCommonMessageInfo)(message.info));
         if (message.init) {
@@ -5907,10 +5907,10 @@ var require_Message = __commonJS({
         }
       };
     }
-    exports2.storeMessage = storeMessage;
+    exports2.storeMessage = storeMessage2;
     exports2.MessageValue = {
       serialize(src, builder) {
-        builder.storeRef((0, Builder_1.beginCell)().store(storeMessage(src)));
+        builder.storeRef((0, Builder_1.beginCell)().store(storeMessage2(src)));
       },
       parse(slice) {
         return loadMessage(slice.loadRef().beginParse());
@@ -5965,7 +5965,7 @@ var require_ShardAccount = __commonJS({
     exports2.storeShardAccount = exports2.loadShardAccount = void 0;
     var Builder_1 = require_Builder();
     var Account_1 = require_Account();
-    function loadShardAccount(slice) {
+    function loadShardAccount2(slice) {
       let accountRef = slice.loadRef();
       let account = void 0;
       if (!accountRef.isExotic) {
@@ -5980,8 +5980,8 @@ var require_ShardAccount = __commonJS({
         lastTransactionLt: slice.loadUintBig(64)
       };
     }
-    exports2.loadShardAccount = loadShardAccount;
-    function storeShardAccount(src) {
+    exports2.loadShardAccount = loadShardAccount2;
+    function storeShardAccount2(src) {
       return (builder) => {
         if (src.account) {
           builder.storeRef((0, Builder_1.beginCell)().storeBit(true).store((0, Account_1.storeAccount)(src.account)));
@@ -5992,7 +5992,7 @@ var require_ShardAccount = __commonJS({
         builder.storeUint(src.lastTransactionLt, 64);
       };
     }
-    exports2.storeShardAccount = storeShardAccount;
+    exports2.storeShardAccount = storeShardAccount2;
   }
 });
 
@@ -6630,7 +6630,7 @@ var require_Transaction = __commonJS({
     var HashUpdate_1 = require_HashUpdate();
     var Message_1 = require_Message();
     var TransactionDescription_1 = require_TransactionDescription();
-    function loadTransaction(slice) {
+    function loadTransaction2(slice) {
       let raw = slice.asCell();
       if (slice.loadUint(4) !== 7) {
         throw Error("Invalid data");
@@ -6669,7 +6669,7 @@ var require_Transaction = __commonJS({
         hash: () => raw.hash()
       };
     }
-    exports2.loadTransaction = loadTransaction;
+    exports2.loadTransaction = loadTransaction2;
     function storeTransaction(src) {
       return (builder) => {
         builder.storeUint(7, 4);
@@ -7549,6 +7549,7 @@ var import_core27 = __toESM(require_dist());
 var import_core28 = __toESM(require_dist());
 var import_core29 = __toESM(require_dist());
 var import_core30 = __toESM(require_dist());
+var import_core31 = __toESM(require_dist());
 exports.Address = import_core.Address;
 exports.address = import_core.address;
 exports.ExternalAddress = import_core2.ExternalAddress;
@@ -7589,5 +7590,9 @@ exports.internal = import_core29.internal;
 exports.SendMode = import_core29.SendMode;
 exports.storeMessageRelaxed = import_core29.storeMessageRelaxed;
 exports.paddedBufferToBits = import_core30.paddedBufferToBits;
+exports.storeShardAccount = import_core31.storeShardAccount;
+exports.storeMessage = import_core31.storeMessage;
+exports.loadTransaction = import_core31.loadTransaction;
+exports.loadShardAccount = import_core31.loadShardAccount;
 
 });
