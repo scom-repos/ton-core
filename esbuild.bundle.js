@@ -29,7 +29,8 @@ async function build() {
 
   let content = await readFile('dist/index.js')
   content = content
-    .replace(/path_1\.default/g, "path_1");
+    .replace(/path_1\.default/g, "path_1")
+    .replace(/@ton\/crypto/g, '@scom/ton-crypto');
   Fs.writeFileSync('lib/index.js', content);
   
   content = `
